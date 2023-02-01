@@ -1,0 +1,35 @@
+USE BudgetDatabase;
+
+INSERT INTO user (user.Username, user.Email, user.UserPassword)
+VALUES ("OHTU2", "ohtu2@luukku.com", "ohtu2salasana");
+
+
+INSERT INTO category (category.CategoryName, category.UserID)
+VALUES ("Laskut", (SELECT user.UserID FROM user WHERE user.Username = 'OHTU2'));
+
+
+INSERT INTO budget (budget.Amount, budget.BudgetDate, budget.UserID)
+VALUES (1000, CURRENT_DATE(), (SELECT user.UserID FROM user WHERE user.Username = 'OHTU2'));
+
+
+INSERT INTO account (account.AccountName, account.AccountType, account.Balance, account.BalanceDate, account.UserID)
+VALUES ("Käyttötili", "Pankkitili", "500", CURRENT_DATE(), (SELECT user.UserID FROM user WHERE user.Username = 'OHTU2'));
+
+
+INSERT INTO subcategory (subcategory.SubCategoryName, subcategory.Balance, subcategory.UserID, subcategory.CategoryID, subcategory.BudgetID)
+VALUES ("Virkistys kulut", 500, (SELECT user.UserID FROM user WHERE user.Username = 'OHTU2'), 
+(SELECT category.CategoryID FROM category WHERE category.CategoryName = 'Laskut'),
+(SELECT budget.BudgetID FROM budget WHERE budget.UserID = (SELECT user.UserID FROM user WHERE user.Username = 'OHTU2')));
+
+
+INSERT INTO transaction (transaction.TransactionName, transaction.TransactionDate, transaction.TransactionRepeat, transaction.Recipient,
+transaction.Outflow, transaction.Memo, transaction.AccountID, transaction.SubCategoryID)
+VALUES ("Mökkireissu", '2023-05-05', "Monthly", "Kolin luxus Mökit", 700, "Porealtaassa on kiva löhötellä",
+(SELECT user.UserID FROM user WHERE user.Username = 'OHTU2'),
+(SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubCategoryName = 'Virkistys kulut'));
+
+INSERT INTO transaction (transaction.TransactionName, transaction.TransactionDate, transaction.TransactionRepeat, transaction.Recipient,
+transaction.Outflow, transaction.Memo, transaction.AccountID, transaction.SubCategoryID)
+VALUES ("Mökki herkut", '2023-05-05', "Monthly", "S-market", 200, "Nam",
+(SELECT user.UserID FROM user WHERE user.Username = 'OHTU2'),
+(SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubCategoryName = 'Virkistys kulut'));
