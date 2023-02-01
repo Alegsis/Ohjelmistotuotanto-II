@@ -17,6 +17,9 @@ app.use('/user', userRouter);
 const transactionRouter = require('./routes/transaction');
 app.use('/transaction', transactionRouter)
 
+const accountRouter = require('./routes/account');
+app.use('/account', accountRouter)
+
 
 //Start listening
 app.listen(PORT, () => {
