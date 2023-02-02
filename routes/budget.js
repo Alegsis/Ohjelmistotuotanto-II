@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../helpers/database');
 
 //Changes date format
-var moment = require('moment')
+const moment = require('moment');
 
 router.get('/', async (req,res) =>{
     try{
