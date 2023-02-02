@@ -4,6 +4,9 @@ const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+/**
+ * Router to check user data
+ */
 router.get('/:id', async (req,res) => {
     try{
         const sqlQuery = `SELECT UserID, Username, Email FROM user WHERE userID=?`;
@@ -14,6 +17,9 @@ router.get('/:id', async (req,res) => {
     }
 })
 
+/**
+ * Router to register new user
+ */
 router.post('/register', async (req, res) => {
     try{
         const {username, email, password} = req.body;
@@ -28,6 +34,10 @@ router.post('/register', async (req, res) => {
         res.status(400).send(error.message)
     }
 })
+
+/**
+ * Router to login in to your account
+ */
 router.post('/login', async (req,res) => {
     try {
         const {username, password} = req.body;
