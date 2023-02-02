@@ -20,6 +20,15 @@ app.use('/transaction', transactionRouter)
 const accountRouter = require('./routes/account');
 app.use('/account', accountRouter)
 
+const budgetRouter = require('./routes/budget');
+app.use('/budget', budgetRouter)
+
+const categoryRouter = require('./routes/category');
+app.use('/category', categoryRouter)
+
+const subcategoryRouter = require('./routes/subcategory');
+app.use('/subcategory', subcategoryRouter)
+
 
 //Start listening
 app.listen(PORT, () => {
