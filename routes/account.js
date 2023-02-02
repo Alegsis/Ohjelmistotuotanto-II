@@ -2,14 +2,29 @@ const express = require('express')
 const router = express.Router();
 const pool = require('../helpers/database');
 
+//Changes date format
+const moment = require('moment');
+
 /**
  * Returns the total sum of the accounts
  */
 router.get('/:id/sumBalance', async (req,res) =>{
     try{
-        const sqlQuery = `SELECT SUM(Balance) AS balance_summary FROM account WHERE userID=?`;
+        const sqlQuery = `SELECT SUM(Balance) AS balance_summary FROM account WHERE userID=? AND AccountType IN ('credit', 'loan')`;
+        const sqlQuery2 = `SELECT SUM(Balance) AS debt_summary FROM account WHERE userID=? AND AccountType IN ('cash', 'savings', 'checking')`;
         const rows = await pool.query(sqlQuery, req.params.id);
-        res.status(200).json(rows[0].balance_summary);
+        const rows2 = await pool.query(sqlQuery2, req.params.id);
+
+        const value1 = rows[0].balance_summary
+        const value2 = rows2[0].debt_summary
+        console.log(value1)
+        console.log(value2)
+        const output = {
+            balance_summary : value1,
+            debt_summary : value2
+        }
+        res.status(200).json(output);
+
 
     }catch (error){
         res.status(400).send(error.message)
@@ -23,8 +38,12 @@ router.get('/:id', async (req,res) =>{
     try{
         const sqlQuery = `SELECT AccountName, AccountType, Balance, BalanceDate FROM account WHERE userID=?`;
         const rows = await pool.query(sqlQuery, req.params.id);
-        res.status(200).json(rows);
 
+        //For changing date-format to YYYY-MM-DD
+        for (let i = 0; i < rows.length; i++) {
+            rows[i].BalanceDate = moment(rows[i].BalanceDate).format("YYYY-MM-DD");
+        }
+        res.status(200).json(rows);
     }catch (error){
         res.status(400).send(error.message)
     }
