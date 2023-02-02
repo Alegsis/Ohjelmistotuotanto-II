@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import {SidebarData} from "./SidebarData";
 // import * as IconsMaterial from '@mui/icons-material/'; // malli importata kaikki ikonit
 import Submenu from "./SubMenu";
+import Login from "./Login";
 
 const Navi = styled.div`
 background: #15171c;
@@ -52,6 +53,7 @@ const Sidebar = () => {
             <NaviIcon to='#'>
                 <MenuIcon onClick={showSidebar}/>
             </NaviIcon>
+            <Login></Login>
         </Navi>
         <SidebarNav sidebar ={sidebar}>
             <SidebarWrap>
