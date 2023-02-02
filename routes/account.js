@@ -8,7 +8,7 @@ const moment = require('moment');
 /**
  * Returns the total sum of the accounts
  */
-router.get('/:id/sumBalance', async (req,res) =>{
+router.get('/:id/sum-balance', async (req,res) =>{
     try{
         const sqlQuery = `SELECT SUM(Balance) AS balance_summary FROM account WHERE userID=? AND AccountType IN ('credit', 'loan')`;
         const sqlQuery2 = `SELECT SUM(Balance) AS debt_summary FROM account WHERE userID=? AND AccountType IN ('cash', 'savings', 'checking')`;
@@ -17,14 +17,12 @@ router.get('/:id/sumBalance', async (req,res) =>{
 
         const value1 = rows[0].balance_summary
         const value2 = rows2[0].debt_summary
-        console.log(value1)
-        console.log(value2)
+
         const output = {
             balance_summary : value1,
             debt_summary : value2
         }
         res.status(200).json(output);
-
 
     }catch (error){
         res.status(400).send(error.message)
@@ -58,7 +56,7 @@ router.post('/new-account', async (req, res) => {
         const sqlQuery = `INSERT INTO account (AccountName, AccountType, Balance, BalanceDate, UserID) VALUES (?, ?, ?, ?, ?)`;
 
         const rows = await pool.query(sqlQuery, [AccountName, AccountType, Balance, BalanceDate, UserID]);
-        res.status(200).json(rows.status);
+        res.status(200).json({AccountID: rows.insertId.toString()});
 
     }catch (error){
         res.status(400).send(error.message)
