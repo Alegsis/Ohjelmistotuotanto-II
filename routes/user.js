@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
         const sqlQuery = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
         const result = await pool.query(sqlQuery, [username, email, encryptedPassword]);
 
-        res.status(200).json({userID: result.insertId})
+        res.status(200).json({userID: result.insertId.toString()})
     } catch (error){
         res.status(400).send(error.message)
     }
