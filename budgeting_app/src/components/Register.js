@@ -6,15 +6,32 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import {useState} from "react";
+import sendData from "../axios/user";
 
 export default function Register() {
     const [open, setOpen] = React.useState(false);
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+
+
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleSignUp = () => {
+        const account = {
+            username : name,
+            password : password,
+            email : email
+        }
+        sendData(account);
         setOpen(false);
     };
 
@@ -37,6 +54,8 @@ export default function Register() {
                         label="Username"
                         fullWidth
                         variant="filled"
+                        value={name}
+                        onChange={(event) => {setName(event.target.value)}}
                     />
                     <TextField
                         required
@@ -57,6 +76,8 @@ export default function Register() {
                         type="password"
                         fullWidth
                         variant="filled"
+                        value={password}
+                        onChange={(event) => {setPassword(event.target.value)}}
                     />
                     <TextField
                         required
@@ -67,11 +88,13 @@ export default function Register() {
                         type="email"
                         fullWidth
                         variant="filled"
+                        value={email}
+                        onChange={(event) => {setEmail(event.target.value)}}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Sign up</Button>
+                    <Button onClick={handleSignUp}>Sign up</Button>
                 </DialogActions>
             </Dialog>
         </div>
