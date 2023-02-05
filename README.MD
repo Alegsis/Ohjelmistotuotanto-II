@@ -16,3 +16,10 @@ DB_PASSWORD=root
 DB_NAME=budgetdatabase
 
 3. ala devata
+
+4. Jos haluat yhdistää frontin ja pyörittää sitä backin päällä:
+    - mene budgeting_app -kansioon
+    - suorita npm run build
+    - kopioi build-kansio projektin pääkansioon
+    - modaa server.js siten, että siellä on kohta
+        app.use(express.static('build'))
