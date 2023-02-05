@@ -12,6 +12,10 @@ export default function Login() {
     const [userID, setUserID] = React.useState('');
     const [username, setUsername] = React.useState('');
 
+    // Käytetään vaihtamaan UserName login-buttonin tilalle.
+    const [show, setShow] = React.useState('Login');
+    const [loggedIn, setLogin] = React.useState(false);
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -21,17 +25,35 @@ export default function Login() {
         setOpen(false);
     };
 
+    /*
+    * Tallentaa cacheen Username, UserID ToDo Axios.
+    */
     const handleCloseAndLogin = () => {
         localStorage.setItem("UserID", userID);
         localStorage.setItem("Username", username);
         setOpen(false);
         console.log(localStorage.getItem("Username"));
+        setShow(username)
+        setLogin(true)
+    };
+
+    /*
+    Tervehdys
+     */
+    const handleClickLoggedIn = () => {
+        if (loggedIn) {
+            return (
+                'Hello! 'q
+            )
+        }
+
     };
 
     return (
         <div className='primary-button'>
+            <p> <b> {handleClickLoggedIn()} </b>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Login
+                {show}
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Login</DialogTitle>
@@ -68,6 +90,7 @@ export default function Login() {
                     <Button onClick={handleCloseAndLogin} className="login-button">Login</Button>
                 </DialogActions>
             </Dialog>
+            </p>
         </div>
     );
 }
