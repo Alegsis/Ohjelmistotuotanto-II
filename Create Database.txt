@@ -1,0 +1,76 @@
+DROP DATABASE if EXISTS BudgetDatabase; 
+CREATE DATABASE BudgetDatabase; 
+USE BudgetDatabase;
+
+CREATE TABLE User
+(
+  UserID INT NOT NULL AUTO_INCREMENT,
+  Username VARCHAR(20) NOT NULL,
+  Email VARCHAR(50) NOT NULL,
+  UserPassword VARCHAR(100) NOT NULL,
+  PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Category
+(
+  CategoryID INT NOT NULL AUTO_INCREMENT,
+  CategoryName VARCHAR(20) NOT NULL,
+  UserID INT NOT NULL,
+  PRIMARY KEY (CategoryID),
+  FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE Budget
+(
+  BudgetID INT NOT NULL AUTO_INCREMENT,
+  Amount INT NOT NULL,
+  BudgetDate DATE NOT NULL,
+  FromCategory VARCHAR(20),
+  ToCategory VARCHAR(20),
+  UserID INT NOT NULL,
+  PRIMARY KEY (BudgetID),
+  FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE Account
+(
+  AccountID INT NOT NULL AUTO_INCREMENT,
+  AccountName VARCHAR(20) NOT NULL,
+  AccountType VARCHAR(20) NOT NULL,
+  Balance INT NOT NULL,
+  BalanceDate DATE NOT NULL,
+  UserID INT NOT NULL,
+  PRIMARY KEY (AccountID),
+  FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE SubCategory
+(
+  SubCategoryID INT NOT NULL AUTO_INCREMENT,
+  SubCategoryName VARCHAR(20) NOT NULL,
+  Balance INT NOT NULL,
+  UserID INT NOT NULL,
+  CategoryID INT NOT NULL,
+  BudgetID INT,
+  PRIMARY KEY (SubCategoryID),
+  FOREIGN KEY (UserID) REFERENCES User(UserID),
+  FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
+  FOREIGN KEY (BudgetID) REFERENCES Budget(BudgetID)
+);
+
+CREATE TABLE Transaction
+(
+  TransactionID INT NOT NULL AUTO_INCREMENT,
+  TransactionName VARCHAR(20) NOT NULL,
+  TransactionDate DATE NOT NULL,
+  TransactionRepeat VARCHAR(20),
+  Recipient VARCHAR(20) NOT NULL,
+  Inflow INT,
+  Outflow INT,
+  Memo VARCHAR(200),
+  AccountID INT NOT NULL,
+  SubCategoryID INT NOT NULL,
+  PRIMARY KEY (TransactionID),
+  FOREIGN KEY (AccountID) REFERENCES Account(AccountID),
+  FOREIGN KEY (SubCategoryID) REFERENCES SubCategory(SubCategoryID)
+);
