@@ -9,6 +9,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Register from './Register';
 export default function Login() {
     const [open, setOpen] = React.useState(false);
+    const [userID, setUserID] = React.useState('');
+    const [username, setUsername] = React.useState('');
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -16,6 +19,13 @@ export default function Login() {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleCloseAndLogin = () => {
+        localStorage.setItem("UserID", userID);
+        localStorage.setItem("Username", username);
+        setOpen(false);
+        console.log(localStorage.getItem("Username"));
     };
 
     return (
@@ -37,6 +47,8 @@ export default function Login() {
                         label="Username"
                         fullWidth
                         variant="filled"
+                        onChange={(event) => {setUsername(event.target.value)}}
+
                     />
                     <TextField
                         required
@@ -47,12 +59,13 @@ export default function Login() {
                         type="password"
                         fullWidth
                         variant="filled"
+
                     />
                 </DialogContent>
                 <DialogActions>
                     <Register></Register>
                     <Button onClick={handleClose} className="cancel-button">Cancel</Button>
-                    <Button onClick={handleClose} className="login-button">Login</Button>
+                    <Button onClick={handleCloseAndLogin} className="login-button">Login</Button>
                 </DialogActions>
             </Dialog>
         </div>
