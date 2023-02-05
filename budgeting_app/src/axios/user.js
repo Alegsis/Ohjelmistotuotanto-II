@@ -1,23 +1,16 @@
-import axios from "axios";
+import Axios from "axios";
 
-const baseUrl = "https://localhost:3001/user/register";
+const baseUrl = "http://localhost:3001/user/register";
+/*
+*Aivan turha juttu toiminnan kannalta
+*/
 
-const sendData = async (req) => {
-    console.log(req)
-    const config = { 'content-type': 'application/json'}
-
-    await axios.post(baseUrl, req)
-
-        /*
-        .then(function (res) {
-            console.log(res)
-        })
-        .catch(function (res) {
-            console.log(res)
-        })
-
-         */
-}
-
+const sendData = (req) => {
+    Axios.post(baseUrl, {
+        req
+    }).then(() => {
+        alert("successful insert")
+    });
+};
 
 export default sendData;

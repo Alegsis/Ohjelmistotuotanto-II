@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import sendData from "../axios/user";
+import Axios from "axios";
 
 export default function Register() {
     const [open, setOpen] = React.useState(false);
@@ -24,14 +25,15 @@ export default function Register() {
     const handleClose = () => {
         setOpen(false);
     };
-
+    const baseUrl = "http://localhost:3001/user/register";
     const handleSignUp = () => {
-        const account = {
+        Axios.post(baseUrl, {
             username : name,
             password : password,
             email : email
-        }
-        sendData(account);
+        }).then(() => {
+            alert("successful insert")
+        });
         setOpen(false);
     };
 
