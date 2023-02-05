@@ -43,7 +43,7 @@ export default function Login() {
     const handleClickLoggedIn = () => {
         if (loggedIn) {
             return (
-                'Hello! 'q
+                'Hello! '
             )
         }
 
