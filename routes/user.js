@@ -42,15 +42,17 @@ router.post('/login', async (req,res) => {
     try {
         const {username, password} = req.body;
 
-        const sqlGetUser = 'SELECT UserPassword FROM user WHERE Username=?';
+        const sqlGetUser = 'SELECT userID, UserPassword FROM user WHERE Username=?';
         const rows = await pool.query(sqlGetUser, username);
 
         const isValid = await bcrypt.compare(password, rows[0].UserPassword)
 
         if(isValid){
-            res.status(200).json({valid_password: isValid});
+            const sqlGetUser = 'SELECT userID FROM user WHERE Username=?';
+            const userID = await pool.query(sqlGetUser, username);
+            res.status(200).json(userID[0].userID);
         } else if (!isValid){
-            res.status(200).send('Wrong password');
+            res.status(401).send('Wrong password');
         }
 
     } catch (error) {
