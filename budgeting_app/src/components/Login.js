@@ -13,20 +13,17 @@ export default function Login() {
     const [userID, setUserID] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    const [Greet, setGreet] = React.useState('');
     // Käytetään vaihtamaan UserName login-buttonin tilalle.
     const [show, setShow] = React.useState('Login');
-    const [loggedIn, setLogin] = React.useState(false);
-
+    const [loggedIn, setloggedIn] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     };
-
     /*
     * Tallentaa cacheen Username, UserID ToDo Axios.
     */
@@ -36,32 +33,23 @@ export default function Login() {
             username: username,
             password: password
         }).then((function (response){
-            console.log(response.data.toString())
+            localStorage.setItem("UserID", userID);
+            localStorage.setItem("Username", username);
             setUserID(response.data.toString());
-        }))
-        localStorage.setItem("UserID", userID);
-        localStorage.setItem("Username", username);
-        setOpen(false);
-        console.log(localStorage.getItem("Username"));
-        setShow(username)
-        setLogin(true)
+            setShow(username)
+            setGreet('Hello')
+            setloggedIn(true)
+            setOpen(false);
+        })).catch(() => {
+            alert("Username and password doens't match")
+        })
     };
-
     /*
     Tervehdys
      */
-    const handleClickLoggedIn = () => {
-        if (loggedIn) {
-            return (
-                'Hello! '
-            )
-        }
-
-    };
-
     return (
         <div className='primary-button'>
-            <p> <b> {handleClickLoggedIn()} </b>
+            <p> <b> {Greet} </b>
             <Button variant="outlined" onClick={handleClickOpen}>
                 {show}
             </Button>
