@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
+
 /**
  * Router to check user data
  */
@@ -18,6 +19,7 @@ router.get('/:id', async (req,res) => {
     }
 })
 
+
 /**
  * Router to register new user
  */
@@ -26,10 +28,17 @@ router.post('/register', async (req, res) => {
         const {username, email, password} = req.body;
         const encryptedPassword = await bcrypt.hash(password, saltRounds)
 
-        const sqlQuery = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
-        const result = await pool.query(sqlQuery, [username, email, encryptedPassword]);
+        const sqlQueryFind = `SELECT Username FROM user WHERE Username=?`;
+        const resultFind = await pool.query(sqlQueryFind, username);
 
-        res.status(200).json({userID: result.insertId.toString()})
+        if(resultFind.length === 0){
+            const sqlQueryInsert = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
+            const resultInsert = await pool.query(sqlQueryInsert, [username, email, encryptedPassword]);
+            res.status(200).json({userID: resultInsert.insertId.toString()})
+        } else {
+            res.status(409).send("Username is taken")
+        }
+
     } catch (error){
         res.status(400).send(error.message)
     }
