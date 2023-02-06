@@ -7,10 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Register from './Register';
+import Axios from "axios";
 export default function Login() {
     const [open, setOpen] = React.useState(false);
     const [userID, setUserID] = React.useState('');
     const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
 
     // Käytetään vaihtamaan UserName login-buttonin tilalle.
     const [show, setShow] = React.useState('Login');
@@ -29,6 +31,14 @@ export default function Login() {
     * Tallentaa cacheen Username, UserID ToDo Axios.
     */
     const handleCloseAndLogin = () => {
+        const baseUrl = "http://localhost:3001/user/login"
+        Axios.post(baseUrl, {
+            username: username,
+            password: password
+        }).then((function (response){
+            console.log(response.data.toString())
+            setUserID(response.data.toString());
+        }))
         localStorage.setItem("UserID", userID);
         localStorage.setItem("Username", username);
         setOpen(false);
@@ -81,7 +91,7 @@ export default function Login() {
                         type="password"
                         fullWidth
                         variant="filled"
-
+                        onChange={(event) => {setPassword(event.target.value)}}
                     />
                 </DialogContent>
                 <DialogActions>
