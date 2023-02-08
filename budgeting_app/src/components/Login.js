@@ -10,7 +10,6 @@ import Register from './Register';
 import Axios from "axios";
 export default function Login() {
     const [open, setOpen] = React.useState(false);
-    const [userID, setUserID] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [Greet, setGreet] = React.useState('');
@@ -33,13 +32,12 @@ export default function Login() {
             username: username,
             password: password
         }).then((function (response){
-            localStorage.setItem("UserID", userID);
-            localStorage.setItem("Username", username);
-            setUserID(response.data.toString());
             setShow(username)
             setGreet('Hello')
             setloggedIn(true)
             setOpen(false);
+            localStorage.setItem("UserID", response.data.toString());
+            localStorage.setItem("Username", username);
         })).catch(() => {
             alert("Username and password doens't match")
         })
