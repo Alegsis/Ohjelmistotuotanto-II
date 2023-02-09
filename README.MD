@@ -1,11 +1,15 @@
 ASENNUS:
 
-Esivaatimus:
+ESIVALMISTELUT:
+
 -MariaDB 10.11 asennettuna koneelle
+-SQL-hallintaohjelma (esim. HeidiSQL) asennettuna koneelle
+-Node.js asennettuna koneelle
+-NPM toimii
 
-Vaiheet:
+VAIHEET:
 
-1. Kloonaa koneelle, tee npm install sekä budgeting appissa että root folderissa.
+1. Kloonaa tämä repositio koneelle, tee npm install sekä budgeting appissa että root folderissa.
 
 2. Luo .env -tiedosto näillä tiedoilla (esimerkki):
 
