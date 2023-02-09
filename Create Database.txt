@@ -5,16 +5,18 @@ USE BudgetDatabase;
 CREATE TABLE User
 (
   UserID INT NOT NULL AUTO_INCREMENT,
-  Username VARCHAR(20) NOT NULL,
-  Email VARCHAR(50) NOT NULL,
+  Username VARCHAR(30) NOT NULL,
   UserPassword VARCHAR(100) NOT NULL,
+  Email VARCHAR(60) NOT NULL,
+  IsActive INT NOT NULL DEFAULT 1,
   PRIMARY KEY (UserID)
 );
 
 CREATE TABLE Category
 (
   CategoryID INT NOT NULL AUTO_INCREMENT,
-  CategoryName VARCHAR(20) NOT NULL,
+  CategoryName VARCHAR(30) NOT NULL,
+  IsActive INT NOT NULL DEFAULT 1,
   UserID INT NOT NULL,
   PRIMARY KEY (CategoryID),
   FOREIGN KEY (UserID) REFERENCES User(UserID)
@@ -22,23 +24,22 @@ CREATE TABLE Category
 
 CREATE TABLE Budget
 (
-  BudgetID INT NOT NULL AUTO_INCREMENT,
+  BudgetID INT AUTO_INCREMENT,
   Amount INT NOT NULL,
+  FromCategory VARCHAR(30) NOT NULL,
+  ToCategory VARCHAR(30) NOT NULL,
   BudgetDate DATE NOT NULL,
-  FromCategory VARCHAR(20),
-  ToCategory VARCHAR(20),
-  UserID INT NOT NULL,
-  PRIMARY KEY (BudgetID),
-  FOREIGN KEY (UserID) REFERENCES User(UserID)
+  PRIMARY KEY (BudgetID)
 );
 
 CREATE TABLE Account
 (
   AccountID INT NOT NULL AUTO_INCREMENT,
-  AccountName VARCHAR(20) NOT NULL,
-  AccountType VARCHAR(20) NOT NULL,
+  AccountName VARCHAR(30) NOT NULL,
   Balance INT NOT NULL,
+  AccountType VARCHAR(30) NOT NULL,
   BalanceDate DATE NOT NULL,
+  IsActive INT NOT NULL DEFAULT 1,
   UserID INT NOT NULL,
   PRIMARY KEY (AccountID),
   FOREIGN KEY (UserID) REFERENCES User(UserID)
@@ -47,27 +48,35 @@ CREATE TABLE Account
 CREATE TABLE SubCategory
 (
   SubCategoryID INT NOT NULL AUTO_INCREMENT,
-  SubCategoryName VARCHAR(20) NOT NULL,
+  SubCategoryName VARCHAR(30) NOT NULL,
   Balance INT NOT NULL,
+  IsActive INT NOT NULL DEFAULT 1,
   UserID INT NOT NULL,
   CategoryID INT NOT NULL,
-  BudgetID INT,
   PRIMARY KEY (SubCategoryID),
   FOREIGN KEY (UserID) REFERENCES User(UserID),
-  FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
+  FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+);
+
+CREATE TABLE mergebsc
+(
+  BudgetID INT NOT NULL,
+  FromSubCategoryID INT NOT NULL,
+  ToSubCategoryID INT NOT NULL,
+  PRIMARY KEY (BudgetID),
   FOREIGN KEY (BudgetID) REFERENCES Budget(BudgetID)
 );
 
 CREATE TABLE Transaction
 (
   TransactionID INT NOT NULL AUTO_INCREMENT,
-  TransactionName VARCHAR(20) NOT NULL,
-  TransactionDate DATE NOT NULL,
-  TransactionRepeat VARCHAR(20),
-  Recipient VARCHAR(20) NOT NULL,
+  Recipient VARCHAR(30) NOT NULL,
+  TransactionName VARCHAR(30) NOT NULL,
   Inflow INT,
   Outflow INT,
-  Memo VARCHAR(200),
+  TransactionDate DATE NOT NULL,
+  TransactionRepeat VARCHAR(30),
+  Memo VARCHAR(300),
   AccountID INT NOT NULL,
   SubCategoryID INT NOT NULL,
   PRIMARY KEY (TransactionID),
