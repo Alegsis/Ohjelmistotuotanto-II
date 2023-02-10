@@ -37,10 +37,6 @@ export default function CreateBankAcc() {
     setOpen(false);
   };
 
-  const handleAccountTypeChange = (event) => {
-    setaccountType(event.target.value);
-  };
-
   const baseUrl = "http://localhost:3001/account/new-account";
   const handleCreateAcc = () => {
     Axios.post(baseUrl, {
@@ -95,13 +91,17 @@ export default function CreateBankAcc() {
           <FormControl required margin="dense">
             <InputLabel id="account-type-label">Account Type</InputLabel>
             <Select
+              style={{ height: "50px", width: "200px" }}
               labelId="account-type-label"
               id="account-type"
               fullWidth
               value={accountType}
-              onChange={handleAccountTypeChange}
+              onChange={(event) => {
+                setaccountType(event.target.value);
+              }}
+              defaultValue="none"
             >
-              <MenuItem value="None">
+              <MenuItem value="none">
                 <em>None</em>
               </MenuItem>
               <MenuItem value="cash">Cash</MenuItem>
