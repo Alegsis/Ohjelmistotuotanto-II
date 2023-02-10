@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import Axios from "axios";
+import ValidateEmail from "../utils/email";
 
 export default function Register() {
     const [open, setOpen] = React.useState(false);
@@ -26,22 +27,24 @@ export default function Register() {
     };
     const baseUrl = "http://localhost:3001/user/register";
     const handleSignUp = () => {
-        if (password === repassword && 8 <= password.length && 3 <= username.length <= 20) {
-            Axios.post(baseUrl, {
-                username: username,
-                password: password,
-                email: email
-            }).then(() => {
-                alert("successful insert")
-                setOpen(false);
-            }).catch(response => {
-                if(response.response.status === 409){
-                    alert('Username ' + username + ' is taken')
-                }
-            })
-        }else{
-            alert("Input of data doesn't meet requirements")
+
+        if(ValidateEmail(email)){
+            if (password === repassword && 8 <= password.length && 3 <= username.length <= 20) {
+                Axios.post(baseUrl, {
+                    username: username,
+                    password: password,
+                    email: email
+                }).then(() => {
+                    alert("successful insert")
+                    setOpen(false);
+                })
+            }else{
+                alert("väärät tiedot")
+            }
+        } else {
+            alert('Email-osoite ei kelpaa.')
         }
+
     };
 
     return (
