@@ -7,6 +7,7 @@ import { SidebarData } from "./SidebarData";
 // import * as IconsMaterial from '@mui/icons-material/'; // malli importata kaikki ikonit
 import Submenu from "./SubMenu";
 import Login from "./Login";
+import CreateBankAcc from "./CreateBankAcc";
 
 const Navi = styled.div`
   background: #15171c;
@@ -54,6 +55,7 @@ const Sidebar = () => {
           <MenuIcon onClick={showSidebar} />
         </NaviIcon>
         <Login></Login>
+        <CreateBankAcc></CreateBankAcc>
       </Navi>
       <SidebarNav sidebar={sidebar}>
         <SidebarWrap>

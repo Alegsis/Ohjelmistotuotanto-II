@@ -42,7 +42,7 @@ export default function CreateBankAcc() {
     setaccountType(event.target.value);
   };
 
-  const baseUrl = "http://localhost:3001/user/createBankAcc";
+  const baseUrl = "http://localhost:3001/account/new-account";
   const handleCreateAcc = () => {
     Axios.post(baseUrl, {
       accountName: accountName,
