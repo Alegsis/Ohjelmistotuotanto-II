@@ -8,6 +8,7 @@ import { SidebarData } from "./SidebarData";
 import Submenu from "./SubMenu";
 import Login from "./Login";
 import CreateBankAcc from "./CreateBankAcc";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 const Navi = styled.div`
   background: #15171c;
@@ -55,7 +56,6 @@ const Sidebar = () => {
           <MenuIcon onClick={showSidebar} />
         </NaviIcon>
         <Login></Login>
-        <CreateBankAcc></CreateBankAcc>
       </Navi>
       <SidebarNav sidebar={sidebar}>
         <SidebarWrap>

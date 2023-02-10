@@ -12,22 +12,14 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Axios from "axios";
 import { Select } from "@mui/material";
-// const useStyles = makeStyles((theme) => ({
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120,
-//   },
-//   selectEmpty: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import { Box } from "@mui/material";
 
 export default function CreateBankAcc() {
-  // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [accountType, setaccountType] = React.useState("");
   const [accountName, setaccountName] = React.useState("");
-  const [accountbalance, setaccountBalance] = React.useState("");
+  const [accountBalance, setaccountBalance] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,8 +33,8 @@ export default function CreateBankAcc() {
   const handleCreateAcc = () => {
     Axios.post(baseUrl, {
       accountName: accountName,
-      accountType: setaccountType,
-      accountbalance: accountbalance,
+      accountType: accountType,
+      accountBalance: accountBalance,
     }).then(() => {
       alert("successful insert");
     });
@@ -51,8 +43,12 @@ export default function CreateBankAcc() {
 
   return (
     <div className="bank-button">
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Create Bank Account
+      <Button id="bank-button-1" onClick={handleClickOpen}>
+        <Box mr={1}>
+          <AddCircleOutline />
+        </Box>
+        <Box mr={2}></Box>
+        Add Account
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create Bank Account</DialogTitle>
@@ -82,7 +78,7 @@ export default function CreateBankAcc() {
             id="account-balance"
             label="Account Balance"
             fullWidth
-            value={accountbalance}
+            value={accountBalance}
             variant="filled"
             onChange={(event) => {
               setaccountBalance(event.target.value);
@@ -99,7 +95,6 @@ export default function CreateBankAcc() {
               onChange={(event) => {
                 setaccountType(event.target.value);
               }}
-              defaultValue="none"
             >
               <MenuItem value="none">
                 <em>None</em>

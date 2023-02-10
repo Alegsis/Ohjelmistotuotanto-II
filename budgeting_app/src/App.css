@@ -39,6 +39,17 @@
     display: block;
 } */
 
+#bank-button-1 {
+    text-transform: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: -10px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+
 .login-button {
     /* margin-left: auto !important;*/
     margin-right: 0px !important;

@@ -5,6 +5,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import Button from "@mui/material/Button";
+import CreateBankAcc from "./CreateBankAcc";
 
 export const SidebarData = [
   {
@@ -30,5 +33,10 @@ export const SidebarData = [
     title: "Accounts",
     path: "/accounts",
     icon: <AccountBalanceIcon />,
+  },
+  {
+    title: "",
+    icon: <CreateBankAcc />,
+    path: "/",
   },
 ];
