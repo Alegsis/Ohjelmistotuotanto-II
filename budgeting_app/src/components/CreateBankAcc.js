@@ -10,7 +10,6 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-import Register from "./Register";
 import Axios from "axios";
 import { Select } from "@mui/material";
 // const useStyles = makeStyles((theme) => ({
@@ -114,7 +113,6 @@ export default function CreateBankAcc() {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Register></Register>
           <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
