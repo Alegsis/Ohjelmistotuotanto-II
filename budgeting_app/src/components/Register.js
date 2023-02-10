@@ -7,15 +7,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
-import sendData from "../axios/user";
 import Axios from "axios";
+import ValidateEmail from "../utils/email";
 
 export default function Register() {
     const [open, setOpen] = React.useState(false);
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [repassword, setrePassword] = useState('');
     const [email, setEmail] = useState('');
-
 
 
     const handleClickOpen = () => {
@@ -27,14 +27,28 @@ export default function Register() {
     };
     const baseUrl = "http://localhost:3001/user/register";
     const handleSignUp = () => {
-        Axios.post(baseUrl, {
-            username : name,
-            password : password,
-            email : email
-        }).then(() => {
-            alert("successful insert")
-        });
-        setOpen(false);
+
+        if(ValidateEmail(email)){
+            if (password === repassword && 8 <= password.length && 3 <= username.length <= 20) {
+                Axios.post(baseUrl, {
+                    username: username,
+                    password: password,
+                    email: email
+                }).then(() => {
+                    alert("successful insert")
+                    setOpen(false);
+                }).catch(response => {
+                    if (response.response.status === 409) {
+                        alert('Username ' + username + ' is taken')
+                    }
+                })
+            }else{
+                alert("Input of data doesn't meet requirements.")
+            }
+        } else {
+            alert('Email-address does not meet requirements.')
+        }
+
     };
 
     return (
@@ -56,8 +70,10 @@ export default function Register() {
                         label="Username"
                         fullWidth
                         variant="filled"
-                        value={name}
-                        onChange={(event) => {setName(event.target.value)}}
+                        value={username}
+                        onChange={(event) => {
+                            setUsername(event.target.value)
+                        }}
                     />
                     <TextField
                         required
@@ -68,6 +84,9 @@ export default function Register() {
                         type="password"
                         fullWidth
                         variant="filled"
+                        onChange={(event) => {
+                            setPassword(event.target.value)
+                        }}
                     />
                     <TextField
                         required
@@ -78,8 +97,9 @@ export default function Register() {
                         type="password"
                         fullWidth
                         variant="filled"
-                        value={password}
-                        onChange={(event) => {setPassword(event.target.value)}}
+                        onChange={(event) => {
+                            setrePassword(event.target.value)
+                        }}
                     />
                     <TextField
                         required
@@ -91,7 +111,9 @@ export default function Register() {
                         fullWidth
                         variant="filled"
                         value={email}
-                        onChange={(event) => {setEmail(event.target.value)}}
+                        onChange={(event) => {
+                            setEmail(event.target.value)
+                        }}
                     />
                 </DialogContent>
                 <DialogActions>
