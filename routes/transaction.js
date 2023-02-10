@@ -53,6 +53,11 @@ WHERE account.AccountID = ${req.body.AccountID};`;
 
             //Updates balance on account (INFLOW)
             else {
+                const updateSubCategoryBalance = `UPDATE subcategory 
+SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${req.body.SubCategoryID}) + ${req.body.Outflow} 
+WHERE subcategory.SubCategoryID = ${req.body.SubCategoryID};`;
+                await pool.query(updateSubCategoryBalance);
+
                 const updateAccountBalance = `UPDATE account 
 SET account.Balance = (SELECT account.Balance FROM account WHERE account.AccountID = ${req.body.AccountID}) + ${req.body.Inflow} 
 WHERE account.AccountID = ${req.body.AccountID};`;
