@@ -37,12 +37,16 @@ export default function Register() {
                 }).then(() => {
                     alert("successful insert")
                     setOpen(false);
+                }).catch(response => {
+                    if (response.response.status === 409) {
+                        alert('Username ' + username + ' is taken')
+                    }
                 })
             }else{
-                alert("väärät tiedot")
+                alert("Input of data doesn't meet requirements.")
             }
         } else {
-            alert('Email-osoite ei kelpaa.')
+            alert('Email-address does not meet requirements.')
         }
 
     };
