@@ -12,19 +12,19 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Register from "./Register";
 import Axios from "axios";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import { Select } from "@mui/material";
+// const useStyles = makeStyles((theme) => ({
+//   formControl: {
+//     margin: theme.spacing(1),
+//     minWidth: 120,
+//   },
+//   selectEmpty: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
 export default function CreateBankAcc() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [accountType, setaccountType] = React.useState("");
   const [accountName, setaccountName] = React.useState("");
@@ -37,13 +37,13 @@ export default function CreateBankAcc() {
   const handleClose = () => {
     setOpen(false);
   };
-  /*
+
   const handleAccountTypeChange = (event) => {
     setaccountType(event.target.value);
   };
-*/
-  const baseUrl = "http://localhost:3001/user/register";
-  const handleSignUp = () => {
+
+  const baseUrl = "http://localhost:3001/user/createBankAcc";
+  const handleCreateAcc = () => {
     Axios.post(baseUrl, {
       accountName: accountName,
       accountType: setaccountType,
@@ -60,7 +60,7 @@ export default function CreateBankAcc() {
         Create Bank Account
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Save</DialogTitle>
+        <DialogTitle>Create Bank Account</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To create a bank account you must add your account name, select the
@@ -80,33 +80,6 @@ export default function CreateBankAcc() {
               setaccountName(event.target.value);
             }}
           />
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <TextField
-              id="select-account-type"
-              select
-              label="Account Type"
-              value={accountType}
-              onChange={(event) => {
-                setaccountType(event.target.value);
-              }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              SelectProps={{
-                displayEmpty: true,
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="cash">Cash</MenuItem>
-              <MenuItem value="checking">Checking</MenuItem>
-              <MenuItem value="savings">Savings Account</MenuItem>
-              <MenuItem value="credit">Credit Card</MenuItem>
-              <MenuItem value="loan">Loan</MenuItem>
-            </TextField>
-          </FormControl>
           <TextField
             required
             autoFocus
@@ -120,13 +93,32 @@ export default function CreateBankAcc() {
               setaccountBalance(event.target.value);
             }}
           />
+          <FormControl required margin="dense">
+            <InputLabel id="account-type-label">Account Type</InputLabel>
+            <Select
+              labelId="account-type-label"
+              id="account-type"
+              fullWidth
+              value={accountType}
+              onChange={handleAccountTypeChange}
+            >
+              <MenuItem value="None">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="cash">Cash</MenuItem>
+              <MenuItem value="checking">Checking</MenuItem>
+              <MenuItem value="creditcard">Credit Card</MenuItem>
+              <MenuItem value="savings">Savings</MenuItem>
+              <MenuItem value="loan">Loan</MenuItem>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Register></Register>
           <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
-          <Button onClick={handleClose} className="Save-button">
+          <Button onClick={handleCreateAcc} className="Save-button">
             Save
           </Button>
         </DialogActions>

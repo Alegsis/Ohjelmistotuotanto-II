@@ -15,7 +15,6 @@ function App() {
         <Route path="/dashboard/categories" element={<Category />} />
         <Route path="/dashboard/transaction" element={<Transaction />} />
         <Route path="/accounts" element={<Accounts />} />
-        {/* <Route path="/Accounts2" element={<Accounts2 />} /> */}
       </Routes>
     </Router>
   );

@@ -56,21 +56,7 @@ const DropdownLink = styled(Link)`
 
 const Submenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [openCreate, setOpenCreate] = useState(false);
-  const [title, setTitle] = useState("");
-  const [path, setPath] = useState("");
-  const [icon, setIcon] = useState(null);
-
   const showSubnav = () => setSubnav(!subnav);
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const handleCreate = () => {
-    setOpenCreate(!openCreate);
-  };
-
   return (
     <>
       <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
@@ -99,51 +85,4 @@ const Submenu = ({ item }) => {
   );
 };
 
-/*
-  return (
-    <>
-      <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
-        <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
-        </div>
-        <div>{item.subNavi && subnav ? item.iconOpen : item.subNavi}</div>
-        <div>{item.subNavi && subnav ? item.iconClosed : null}</div>
-      </SidebarLink>
-      {subnav &&
-        item.subNavi.map((item, index) => {
-          return (
-            <DropdownLink to={item.path} key={index}>
-              {item.icon}
-              <SidebarLabel>{item.title}</SidebarLabel>
-            </DropdownLink>
-          );
-        })}
-      <li className="sidebar-item">
-        <div className="sidebar-link" onClick={handleClick}>
-          <item.icon />
-          <p>{item.title}</p>
-          {item.subNavi && open ? item.iconOpen : item.iconClosed}
-        </div>
-        <StyledAddCircleOutlineIcon onClick={handleCreate} />
-        <CreateBankAcc open={openCreate} onClose={handleCreate} />
-        {item.subNavi && (
-          <ul className={open ? "open" : "closed"}>
-            {item.subNavi.map((sub, index) => {
-              return (
-                <li className="sidebar-item" key={index}>
-                  <div className="sidebar-link">
-                    <sub.icon />
-                    <p>{sub.title}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </li>
-    </>
-  );
-};
-*/
 export default Submenu;
