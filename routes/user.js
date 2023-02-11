@@ -29,10 +29,19 @@ router.post('/register', async (req, res) => {
     const resultFind = await pool.query(sqlQueryFind, username);
 
     if (resultFind.length === 0) {
-      const sqlQueryInsert = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
-      const resultInsert = await pool.query(sqlQueryInsert,
-          [username, email, encryptedPassword]);
-      res.status(200).json({userID: resultInsert.insertId.toString()});
+      const insertUser = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
+      const resultInsertUser = await pool.query(insertUser, [username, email, encryptedPassword]);
+      const insertedUserID = resultInsertUser.insertId;
+
+      const insertCategory = `INSERT INTO category (CategoryName, UserID) VALUES ("Available", ${insertedUserID})`;
+      const resultInsertCategory = await pool.query(insertCategory);
+      const insertedCategoryID = resultInsertCategory.insertId.toString();
+
+      const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, ${insertedUserID}, ${insertedCategoryID})`;
+      await pool.query(insertSubCategory);
+
+
+      res.status(200).json({userID: insertedUserID.toString()});
     } else {
       res.status(409).send('Username is taken');
     }
@@ -55,7 +64,7 @@ router.post('/login', async (req, res) => {
     const isValid = await bcrypt.compare(password, rows[0].UserPassword);
 
     if (isValid) {
-      const sqlGetUser = 'SELECT userID FROM user WHERE Username=?';
+      const sqlGetUser = `SELECT userID FROM user WHERE Username=?`;
       const userID = await pool.query(sqlGetUser, username);
       res.status(200).json(userID[0].userID);
     } else if (!isValid) {
