@@ -30,11 +30,21 @@ export default function CreateBankAcc() {
   };
 
   const baseUrl = "http://localhost:3001/account/new-account";
+
+
   const handleCreateAcc = () => {
+    //Pitää tarkastaa aikavyöhyke oikein
+    const today = new Date().toISOString().slice(0, 10)
+    const userID = localStorage.getItem("UserID");
+    console.log(today);
+    console.log(userID);
+
     Axios.post(baseUrl, {
-      accountName: accountName,
-      accountType: accountType,
-      accountBalance: accountBalance,
+      AccountName: accountName,
+      AccountType: accountType,
+      Balance: accountBalance,
+      BalanceDate: today,
+      UserID: userID
     }).then(() => {
       alert("successful insert");
     });
