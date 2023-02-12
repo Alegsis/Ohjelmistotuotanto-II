@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -8,7 +8,7 @@
 .home,
 .category,
 .transaction,
-.account{
+.account {
     display: flex;
     height: 80vh;
     justify-content: center;
@@ -17,14 +17,14 @@
 
 }
 
-.secondary-button{
+.secondary-button {
     margin-left: 0px !important;
     margin-right: auto !important;
     /* padding-left: 1.5rem; */
     display: block;
 }
 
-.primary-button{
+.primary-button {
     margin-left: auto !important;
     margin-right: 0px !important;
     padding-right: 1.5rem;
@@ -32,12 +32,32 @@
     color: #f3f3f3 !important;
 }
 
-.login-button{
+/* .bank-button {
+    margin-left: auto !important;
+    margin-right: 0px !important;
+    padding-left: 1.5rem;
+    display: block;
+} */
+
+#bank-button-1 {
+    text-transform: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: -10px;
+    margin-top: 2rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+
+.login-button {
     /* margin-left: auto !important;*/
     margin-right: 0px !important;
     display: block;
 }
-.cancel-button{
+
+.cancel-button {
     /* margin-left: auto !important;*/
     margin-right: 0px !important;
     display: block;
