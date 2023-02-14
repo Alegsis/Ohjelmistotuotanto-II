@@ -47,5 +47,5 @@ export default function TransactionGrid() {
   }, [])
 
 
-  return <DataGrid columns={columns} rows={rows}/>;
+  return <DataGrid columns={columns} rows={rows} className= "TransactionGrid"/>;
 }
