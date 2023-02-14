@@ -12,7 +12,9 @@ function App() {
   return (
     <Router>
         <Sidebar/>
-        <Header/>
+        <div className="header">
+            <Header/>
+        </div>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/categories" element={<Category />} />

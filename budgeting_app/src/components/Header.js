@@ -13,17 +13,14 @@ import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 
 const TopbarNav = styled.div`
-  background: #15171c;
-  height: 80px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 `;
 
-const HamburgerIcon = styled(Link)`
+const NaviIcon = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
-  height: 80px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -40,9 +37,9 @@ const showSidebar = () =>  {
 const Header = () => {
     return (
     <TopbarNav>
-        <HamburgerIcon to="#">
+        <NaviIcon to="#">
             <MenuIcon/>
-        </HamburgerIcon>
+        </NaviIcon>
         <Login></Login>
     </TopbarNav>
     )
