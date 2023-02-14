@@ -10,13 +10,13 @@ export default function TransactionGrid() {
   const [rows, setRows] = React.useState([]);
 
   const columns = [
-      { key: 'TransactionDate', name: 'Date' },
-    { key: 'TransactionName', name: 'TransactionName' },
-    { key: 'Outflow', name: 'Outflow' },
-    { key: 'Inflow', name: 'Inflow' },
-    { key: 'Recipient', name: 'Recipient' },
-    { key: 'TransactionRepeat', name: 'Repeat' },
-    { key: 'Memo', name: 'Memo' },
+      { key: 'TransactionDate', name: 'Date', flex: 1 },
+    { key: 'TransactionName', name: 'TransactionName', flex: 1 },
+    { key: 'Outflow', name: 'Outflow', flex: 1 },
+    { key: 'Inflow', name: 'Inflow', flex: 1, sortable: true},
+    { key: 'Recipient', name: 'Recipient', flex: 1 },
+    { key: 'TransactionRepeat', name: 'Repeat', flex: 1},
+    { key: 'Memo', name: 'Memo', minWidth: 150},
   ];
   const getUserTransactions = (userID) => {
     const baseUrl = `http://localhost:3001/transaction/${userID}`
@@ -47,5 +47,5 @@ export default function TransactionGrid() {
   }, [])
 
 
-  return <DataGrid columns={columns} rows={rows} />;
+  return <DataGrid columns={columns} rows={rows}/>;
 }
