@@ -1,16 +1,18 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
-import Topbar from "./components/Topbar";
+import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Category from "./pages/Categories";
 import Transaction from "./pages/Transaction";
 import Accounts from "./pages/Account";
 
+
 function App() {
   return (
     <Router>
-        <Topbar/>
+        <Sidebar/>
+        <Header/>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/categories" element={<Category />} />

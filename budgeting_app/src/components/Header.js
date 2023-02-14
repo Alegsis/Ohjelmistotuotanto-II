@@ -9,7 +9,7 @@ import Submenu from "./SubMenu";
 import Login from "./Login";
 import CreateBankAcc from "./CreateBankAcc";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
-import Sidebar from "./Sidebar";
+
 
 
 const TopbarNav = styled.div`
@@ -20,7 +20,7 @@ const TopbarNav = styled.div`
   align-items: center;
 `;
 
-const NaviIcon = styled(Link)`
+const HamburgerIcon = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
   height: 80px;
@@ -29,6 +29,7 @@ const NaviIcon = styled(Link)`
   align-items: center;
   color: #ffffff;
 `;
+
 /*
 const [sidebar, setSidebar] = React.useState(false);
 const showSidebar = () =>  {
@@ -36,15 +37,14 @@ const showSidebar = () =>  {
 }
 */
 
-const TopBar = () => {
+const Header = () => {
     return (
     <TopbarNav>
-        <Sidebar></Sidebar>
-        <NaviIcon to="#">
+        <HamburgerIcon to="#">
             <MenuIcon/>
-        </NaviIcon>
+        </HamburgerIcon>
         <Login></Login>
     </TopbarNav>
     )
 }
-export default TopBar;
+export default Header;
