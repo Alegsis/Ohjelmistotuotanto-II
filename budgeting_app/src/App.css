@@ -39,6 +39,7 @@ body {
     flex-basis combined. The second and third parameters
     (flex-shrink and flex-basis) are optional. The default is 0 1 auto */
     background-color: #15171c;
+    padding: 10px 10px 10px 0 !important;
     width: 250px;
     height: 100vh;
     display: flex;
