@@ -1,5 +1,6 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
+import Topbar from "./components/Topbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Category from "./pages/Categories";
@@ -9,7 +10,7 @@ import Accounts from "./pages/Account";
 function App() {
   return (
     <Router>
-      <Sidebar />
+        <Topbar/>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/categories" element={<Category />} />
