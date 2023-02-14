@@ -10,13 +10,13 @@ export default function TransactionGrid() {
   const [rows, setRows] = React.useState([]);
 
   const columns = [
-      { key: 'TransactionDate', name: 'Date', flex: 1 },
-    { key: 'TransactionName', name: 'TransactionName', flex: 1 },
-    { key: 'Outflow', name: 'Outflow', flex: 1 },
-    { key: 'Inflow', name: 'Inflow', flex: 1, sortable: true},
-    { key: 'Recipient', name: 'Recipient', flex: 1 },
-    { key: 'TransactionRepeat', name: 'Repeat', flex: 1},
-    { key: 'Memo', name: 'Memo', minWidth: 150},
+      { key: 'TransactionDate', name: 'DATE'},
+    { key: 'TransactionName', name: 'Transaction Name'},
+    { key: 'Outflow', name: 'Outflow'},
+    { key: 'Inflow', name: 'Inflow'},
+    { key: 'Recipient', name: 'Payee'},
+    { key: 'TransactionRepeat', name: 'Repeat'},
+    { key: 'Memo', name: 'Memo'},
   ];
   const getUserTransactions = (userID) => {
     const baseUrl = `http://localhost:3001/transaction/${userID}`

@@ -1,5 +1,8 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
 }
 
 body {
@@ -24,22 +27,41 @@ body {
 /* Create three unequal columns that sits next to each other */
 .column {
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+    height: 100vh;
 }
 
-/* Left and right column */
-.column.side {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
+/* Left  */
+.column.left {
+    -webkit-flex: 0 1;
+    -ms-flex: 0 1;
+    flex: 0 1 auto;
+    /* This is the shorthand for flex-grow, flex-shrink and
+    flex-basis combined. The second and third parameters
+    (flex-shrink and flex-basis) are optional. The default is 0 1 auto */
+    background-color: #15171c;
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 /* Middle column */
 .column.middle {
-    -webkit-flex: 2;
-    -ms-flex: 2;
-    flex: 2;
+    -webkit-flex: 1 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    padding: 0;
+
 }
+
+/* To be done...
+.column.right {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+*/
+
 
 /* Style the footer */
 .footer {
@@ -60,12 +82,6 @@ body {
 
 
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial;
-}
 
 .home,
 .category,
@@ -124,11 +140,15 @@ body {
 }
 
 .TransactionGrid {
-    min-height: 200rem;
-    width: 600rem;
+    flex: 1 1 auto;
+    height: 100vh;
 }
 
 .transaction {
+    padding: 0;
     display: flex;
-    margin-left: 15.6rem;
+}
+
+.rdg-header-row {
+    text-align: center;
 }

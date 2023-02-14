@@ -11,16 +11,26 @@ import Accounts from "./pages/Account";
 function App() {
   return (
     <Router>
-        <Sidebar/>
         <div className="header">
             <Header/>
         </div>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/categories" element={<Category />} />
-        <Route path="/dashboard/transaction" element={<Transaction />} />
-        <Route path="/accounts" element={<Accounts />} />
-      </Routes>
+
+        <div className="row">
+        <div className="column left">
+            <Sidebar/>
+        </div>
+            <div className="column middle">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard/categories" element={<Category />} />
+                <Route path="/dashboard/transaction" element={<Transaction />} />
+                <Route path="/accounts" element={<Accounts />} />
+              </Routes>
+            </div>
+            <div className="column right">
+            <p> Oikea sarake</p>
+            </div>
+        </div>
     </Router>
   );
 }

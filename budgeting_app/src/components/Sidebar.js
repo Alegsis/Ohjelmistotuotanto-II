@@ -12,18 +12,7 @@ import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 
 
-const SidebarNav = styled.nav`
-  margin-top: 80px;
-  background: #15171c;
-  width: 250px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  transition: 350ms;
-  z-index: 10;
-`;
+
 
 const SidebarWrap = styled.nav`
   width: 100%;
@@ -31,13 +20,13 @@ const SidebarWrap = styled.nav`
 
 const Sidebar = () => {
   return (
-      <SidebarNav>
+
         <SidebarWrap>
           {SidebarData.map((item, index) => {
             return <Submenu item={item} key={index} />;
           })}
         </SidebarWrap>
-      </SidebarNav>
+
   );
 };
 
