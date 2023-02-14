@@ -1,9 +1,10 @@
 import React from 'react'
+import TransactionGrid from '../components/TransactionGrid';
 
 const Transaction = () => {
     return (
         <div className ='transaction'>
-            <h1>Transaction</h1>
+          <TransactionGrid/>
         </div>
     );
 };
