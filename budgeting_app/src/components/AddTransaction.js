@@ -11,9 +11,11 @@ import {Select} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Axios from 'axios';
 import InputLabel from '@mui/material/InputLabel';
+import DatePicker from 'react-date-picker';
 
 export default function AddTransaction(){
   const [open, setOpen] = React.useState(false);
+  const [date, setDate] = useState(new Date());
   const [transactionName, setTransactionName] = React.useState('');
   const [recipient, setRecipient] = useState('');
   const [inflow, setInflow] = useState(0);
@@ -76,9 +78,7 @@ export default function AddTransaction(){
   };
 
   const addTransaction = () => {
-    const userID = localStorage.getItem("UserID");
-    //TODO tarkista aikavyöhyke
-    const today = new Date().toISOString().slice(0, 10)
+    const userID = parseInt(localStorage.getItem("UserID"));
     const baseUrl = `http://localhost:3001/transaction/new-transaction`
     Axios.post(baseUrl,
         {
@@ -88,7 +88,7 @@ export default function AddTransaction(){
           Recipient : recipient,
           TransactionRepeat : transactionRepeat,
           Memo : memo,
-          TransactionDate : today,
+          TransactionDate : date,
           AccountName : account,
           SubCategoryName : subCategory,
           UserID : userID
@@ -107,7 +107,7 @@ export default function AddTransaction(){
             Recipient : recipient,
             TransactionRepeat : transactionRepeat,
             Memo : memo,
-            TransactionDate : today,
+            TransactionDate : date,
             AccountName : account,
             SubCategoryName : subCategory,
             UserID : userID
@@ -126,6 +126,10 @@ export default function AddTransaction(){
           <DialogContentText>
             Fill all fields
           </DialogContentText>
+          <DatePicker
+              value={date}
+              onChange={date => setDate(date)}
+          />
           <TextField
               required
               autoFocus
@@ -144,7 +148,7 @@ export default function AddTransaction(){
               label="Outflow"
               fullWidth
               variant="filled"
-              onChange={(event) => {setOutflow(event.target.value)}}
+              onChange={(event) => {setOutflow(parseInt(event.target.value))}}
           />
           <TextField
               type = "number"
@@ -154,7 +158,7 @@ export default function AddTransaction(){
               label="Inflow"
               fullWidth
               variant="filled"
-              onChange={(event) => {setInflow(event.target.value)}}
+              onChange={(event) => {setInflow(parseInt(event.target.value))}}
           />
           <TextField
               required
