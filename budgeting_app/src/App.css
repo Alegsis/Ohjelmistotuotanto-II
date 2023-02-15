@@ -147,7 +147,18 @@ body {
 
 .transaction {
     padding: 0;
+    display: grid;
+}
+.transaction-selects{
     display: flex;
+    flex: 1;
+}
+.transaction-account{
+    flex: 1;
+}
+.transaction-category{
+    flex: 0;
+
 }
 
 .rdg-header-row {
