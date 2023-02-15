@@ -11,11 +11,14 @@ import {Select} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Axios from 'axios';
 import InputLabel from '@mui/material/InputLabel';
-import DatePicker from 'react-date-picker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function AddTransaction(){
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = React.useState(dayjs(Date.now()));
   const [transactionName, setTransactionName] = React.useState('');
   const [recipient, setRecipient] = useState('');
   const [inflow, setInflow] = useState(0);
@@ -27,6 +30,9 @@ export default function AddTransaction(){
   const [subCategory, setSubCategory] = useState('')
   const [subCategoryList, setSubCategoryList] = useState([]);
 
+  const handleChange = (newValue) => {
+    setDate(newValue);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -93,7 +99,7 @@ export default function AddTransaction(){
           SubCategoryName : subCategory,
           UserID : userID
 
-    }).then(() => {
+        }).then(() => {
       alert("successful insert")
       setOpen(false);
       setAccount('');
@@ -102,133 +108,139 @@ export default function AddTransaction(){
       setOutflow(0);
 
     }).catch(response => {
-        alert(response)
-      })
+      alert(response)
+    })
   }
 
   return (
-      <div>
-      <Button onClick={handleClickOpen}> Add transaction </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Transaction</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Fill all fields
-          </DialogContentText>
-          <DatePicker
-              value={date}
-              onChange={date => setDate(date)}
-          />
-          <TextField
-              required
-              autoFocus
-              margin="dense"
-              id="transactionName"
-              label="Transaction Name"
-              fullWidth
-              variant="filled"
-              onChange={(event) => {setTransactionName(event.target.value)}}
-          />
-          <TextField
-              type = "number"
-              autoFocus
-              margin="dense"
-              id="outflow"
-              label="Outflow"
-              fullWidth
-              variant="filled"
-              onChange={(event) => {setOutflow(parseInt(event.target.value))}}
-          />
-          <TextField
-              type = "number"
-              autoFocus
-              margin="dense"
-              id="inflow"
-              label="Inflow"
-              fullWidth
-              variant="filled"
-              onChange={(event) => {setInflow(parseInt(event.target.value))}}
-          />
-          <TextField
-              required
-              autoFocus
-              margin="dense"
-              id="payee"
-              label="Payee"
-              fullWidth
-              variant="filled"
-              onChange={(event) => {setRecipient(event.target.value)}}
-          />
-          <TextField
-              required
-              autoFocus
-              margin="dense"
-              id="transactionRepeat"
-              label="Transaction Repeat"
-              fullWidth
-              variant="filled"
-              onChange={(event) => {setTransactionRepeat(event.target.value)}}
-          />
-          <TextField
-              required
-              autoFocus
-              margin="dense"
-              id="memo"
-              label="Memo"
-              fullWidth
-              variant="filled"
-              onChange={(event) => {setMemo(event.target.value)}}
-          />
-          <div className="transaction-selects">
-            <div className="transaction-account">
-          <InputLabel id="account">Account *</InputLabel>
-            <Select
-              style={{ height: "50px", width: "200px" }}
-              id="account-name"
-              labelId="account"
-              fullWidth
-              onOpen={getUserAccounts}
-              value={account}
-              onChange={(event) => {
-                setAccount(event.target.value);
-              }}
-          >
-              {accountsList.map((account) => (
-                  <MenuItem key={account.value} value={account.value}>
-                    {account.value}
-                  </MenuItem>
-              ))}
 
-            </Select>
+      <div>
+        <Button onClick={handleClickOpen}> Add transaction </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Add Transaction</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Fill all fields
+            </DialogContentText>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                  label="Date desktop"
+                  inputFormat="YYYY-MM-DD"
+                  value={date}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <TextField
+                required
+                autoFocus
+                margin="dense"
+                id="transactionName"
+                label="Transaction Name"
+                fullWidth
+                variant="filled"
+                onChange={(event) => {setTransactionName(event.target.value)}}
+            />
+            <TextField
+                type = "number"
+                autoFocus
+                margin="dense"
+                id="outflow"
+                label="Outflow"
+                fullWidth
+                variant="filled"
+                onChange={(event) => {setOutflow(parseInt(event.target.value))}}
+            />
+            <TextField
+                type = "number"
+                autoFocus
+                margin="dense"
+                id="inflow"
+                label="Inflow"
+                fullWidth
+                variant="filled"
+                onChange={(event) => {setInflow(parseInt(event.target.value))}}
+            />
+            <TextField
+                required
+                autoFocus
+                margin="dense"
+                id="payee"
+                label="Payee"
+                fullWidth
+                variant="filled"
+                onChange={(event) => {setRecipient(event.target.value)}}
+            />
+            <TextField
+                required
+                autoFocus
+                margin="dense"
+                id="transactionRepeat"
+                label="Transaction Repeat"
+                fullWidth
+                variant="filled"
+                onChange={(event) => {setTransactionRepeat(event.target.value)}}
+            />
+            <TextField
+                required
+                autoFocus
+                margin="dense"
+                id="memo"
+                label="Memo"
+                fullWidth
+                variant="filled"
+                onChange={(event) => {setMemo(event.target.value)}}
+            />
+            <div className="transaction-selects">
+              <div className="transaction-account">
+                <InputLabel id="account">Account *</InputLabel>
+                <Select
+                    style={{ height: "50px", width: "200px" }}
+                    id="account-name"
+                    labelId="account"
+                    fullWidth
+                    onOpen={getUserAccounts}
+                    value={account}
+                    onChange={(event) => {
+                      setAccount(event.target.value);
+                    }}
+                >
+                  {accountsList.map((account) => (
+                      <MenuItem key={account.value} value={account.value}>
+                        {account.value}
+                      </MenuItem>
+                  ))}
+
+                </Select>
+              </div>
+              <div className="transaction-category">
+                <InputLabel id="category">SubCategory *</InputLabel>
+                <Select
+                    style={{ height: "50px", width: "200px"}}
+                    id="subcategory-name"
+                    labelId="category"
+                    fullWidth
+                    onOpen={getUserSubcategories}
+                    value={subCategory}
+                    onChange={(event) => {
+                      setSubCategory(event.target.value);
+                    }}
+                >
+                  {subCategoryList.map((subcategory) => (
+                      <MenuItem key={subcategory.value} value={subcategory.value}>
+                        {subcategory.value}
+                      </MenuItem>
+                  ))}
+                  >
+                </Select>
+              </div>
             </div>
-            <div className="transaction-category">
-            <InputLabel id="category">SubCategory *</InputLabel>
-            <Select
-              style={{ height: "50px", width: "200px"}}
-              id="subcategory-name"
-              labelId="category"
-              fullWidth
-              onOpen={getUserSubcategories}
-              value={subCategory}
-              onChange={(event) => {
-                setSubCategory(event.target.value);
-              }}
-            >
-              {subCategoryList.map((subcategory) => (
-                  <MenuItem key={subcategory.value} value={subcategory.value}>
-                    {subcategory.value}
-                  </MenuItem>
-              ))}
-              >
-          </Select>
-            </div>
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} className="cancel-button">Cancel</Button>
-          <Button  className="add-transaction" onClick={addTransaction}>Add Transaction</Button>
-        </DialogActions>
-      </Dialog>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} className="cancel-button">Cancel</Button>
+            <Button  className="add-transaction" onClick={addTransaction}>Add Transaction</Button>
+          </DialogActions>
+        </Dialog>
       </div>
   )
 }
