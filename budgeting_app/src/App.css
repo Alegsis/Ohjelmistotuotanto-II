@@ -5,16 +5,93 @@
     font-family: Arial;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+.header {
+    height: 80px;
+    background-color: #15171c;
+    padding: 1rem;
+    text-align: center;
+    font-size: 35px;
+}
+
+/* Container for flexboxes */
+.row {
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* Create three unequal columns that sits next to each other */
+.column {
+    padding: 10px;
+    height: 100vh;
+}
+
+/* Left  */
+.column.left {
+    -webkit-flex: 0 1;
+    -ms-flex: 0 1;
+    flex: 0 1 auto;
+    /* This is the shorthand for flex-grow, flex-shrink and
+    flex-basis combined. The second and third parameters
+    (flex-shrink and flex-basis) are optional. The default is 0 1 auto */
+    background-color: #15171c;
+    padding: 10px 10px 10px 0 !important;
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+/* Middle column */
+.column.middle {
+    -webkit-flex: 1 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    padding: 0;
+
+}
+
+/* To be done...
+.column.right {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+*/
+
+
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other
+@media (max-width: 600px) {
+  .row {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}*/
+
+
+
+
+
+
 .home,
 .category,
-.transaction,
 .account {
     display: flex;
     height: 80vh;
     justify-content: center;
     font-size: 2rem;
     align-items: center;
-
 }
 
 .secondary-button {
@@ -61,4 +138,29 @@
     /* margin-left: auto !important;*/
     margin-right: 0px !important;
     display: block;
+}
+
+.TransactionGrid {
+    flex: 1 1 auto;
+    height: 100vh;
+}
+
+.transaction {
+    padding: 0;
+    display: grid;
+}
+.transaction-selects{
+    display: flex;
+    flex: 1;
+}
+.transaction-account{
+    flex: 1;
+}
+.transaction-category{
+    flex: 0;
+
+}
+
+.rdg-header-row {
+    text-align: center;
 }

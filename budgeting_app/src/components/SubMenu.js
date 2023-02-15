@@ -17,7 +17,7 @@ const StyledAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
 const SidebarLink = styled(Link)`
   display: flex;
   color: #e1e9fc;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 15px;
   height: 60px;
