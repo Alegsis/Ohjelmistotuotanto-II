@@ -22,6 +22,9 @@ export default function Login() {
     };
     const handleClose = () => {
         setOpen(false);
+        setUsername('');
+        setPassword('');
+
     };
     /*
     * Tallentaa cacheen Username, UserID ToDo Axios.
@@ -33,6 +36,8 @@ export default function Login() {
             password: password
         }).then((function (response){
             setShow(username)
+            setUsername('');
+            setPassword('');
             setGreet('Hello')
             setloggedIn(true)
             setOpen(false);

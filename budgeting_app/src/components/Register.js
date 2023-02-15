@@ -24,6 +24,10 @@ export default function Register() {
 
     const handleClose = () => {
         setOpen(false);
+        setUsername('');
+        setPassword('');
+        setrePassword('');
+        setEmail('');
     };
     const baseUrl = "http://localhost:3001/user/register";
     const handleSignUp = () => {
@@ -37,6 +41,10 @@ export default function Register() {
                 }).then(() => {
                     alert("successful insert")
                     setOpen(false);
+                    setUsername('');
+                    setPassword('');
+                    setrePassword('');
+                    setEmail('');
                 }).catch(response => {
                     if (response.response.status === 409) {
                         alert('Username ' + username + ' is taken')

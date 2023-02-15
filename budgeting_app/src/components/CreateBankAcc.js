@@ -27,6 +27,9 @@ export default function CreateBankAcc() {
 
   const handleClose = () => {
     setOpen(false);
+    setaccountType('');
+    setaccountName('');
+    setaccountBalance('');
   };
 
   const baseUrl = "http://localhost:3001/account/new-account";
@@ -106,14 +109,11 @@ export default function CreateBankAcc() {
                 setaccountType(event.target.value);
               }}
             >
-              <MenuItem value="none">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="cash">Cash</MenuItem>
-              <MenuItem value="checking">Checking</MenuItem>
-              <MenuItem value="creditcard">Credit Card</MenuItem>
-              <MenuItem value="savings">Savings</MenuItem>
-              <MenuItem value="loan">Loan</MenuItem>
+              <MenuItem value="Cash">Cash</MenuItem>
+              <MenuItem value="Checking">Checking</MenuItem>
+              <MenuItem value="Credit Card">Credit Card</MenuItem>
+              <MenuItem value="Savings">Savings</MenuItem>
+              <MenuItem value="Loan">Loan</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>
