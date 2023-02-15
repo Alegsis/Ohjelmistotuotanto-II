@@ -92,27 +92,16 @@ export default function AddTransaction(){
           AccountName : account,
           SubCategoryName : subCategory,
           UserID : userID
+
     }).then(() => {
       alert("successful insert")
       setOpen(false);
       setAccount('');
       setSubCategory('');
+      setInflow(0);
+      setOutflow(0);
 
     }).catch(response => {
-      console.log(
-          {
-            TransactionName : transactionName,
-            Outflow : outflow,
-            Inflow : inflow,
-            Recipient : recipient,
-            TransactionRepeat : transactionRepeat,
-            Memo : memo,
-            TransactionDate : date,
-            AccountName : account,
-            SubCategoryName : subCategory,
-            UserID : userID
-          }
-      )
         alert(response)
       })
   }
