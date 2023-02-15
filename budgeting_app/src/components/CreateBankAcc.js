@@ -50,8 +50,11 @@ export default function CreateBankAcc() {
       UserID: userID
     }).then(() => {
       alert("successful insert");
+      setOpen(false);
+      setaccountType('');
+      setaccountName('');
+      setaccountBalance('');
     });
-    setOpen(false);
   };
 
   return (
