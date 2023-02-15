@@ -26,6 +26,7 @@ WHERE user.UserID=?`;
  */
 router.post('/new-transaction', async (req, res) => {
   try {
+
     const {
       TransactionName,
       Outflow,
@@ -34,45 +35,56 @@ router.post('/new-transaction', async (req, res) => {
       TransactionRepeat,
       Memo,
       TransactionDate,
-      AccountID,
-      SubCategoryID,
+      AccountName,
+      SubCategoryName,
+        UserID
     } = req.body;
+
+    const getAccountID = `SELECT account.AccountID FROM account WHERE account.AccountName = '${AccountName}' AND account.UserID = ${UserID}`
+    const getSubCategoryID = `SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubCategoryName = '${SubCategoryName}' AND subcategory.UserID = ${UserID}`
+    const accountIDQuery = await pool.query(getAccountID)
+    const subCategoryIDQuery = await pool.query(getSubCategoryID)
+    const accountID = accountIDQuery[0].AccountID;
+    const subCategoryID = subCategoryIDQuery[0].SubCategoryID;
+
+    console.log(accountID)
+    console.log(subCategoryID)
+
     const sqlQuery = `INSERT INTO transaction 
-(transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
-transaction.TransactionRepeat, transaction.Memo, transaction.TransactionDate, 
-transaction.AccountID, transaction.SubCategoryID ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+(transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
+transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) VALUES (?, ?, ?, ?, ?, ?, ?, ${accountID}, ${subCategoryID})`;
 
     const rows = await pool.query(sqlQuery,
         [
           TransactionName, Outflow, Inflow, Recipient,
-          TransactionRepeat, Memo, TransactionDate, AccountID, SubCategoryID]);
+          TransactionRepeat, Memo, TransactionDate]);
 
     if (res.status(200)) {
 
       //Updates Balances on subcategory and account (OUTFLOW)
-      if (req.body.Outflow !== null) {
+      if (Outflow !== null) {
         const updateSubCategoryBalance = `UPDATE subcategory 
-SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${req.body.SubCategoryID}) - ${req.body.Outflow} 
-WHERE subcategory.SubCategoryID = ${req.body.SubCategoryID};`;
+SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${subCategoryID}) - ${Outflow} 
+WHERE subcategory.SubCategoryID = ${subCategoryID};`;
         await pool.query(updateSubCategoryBalance);
 
         const updateAccountBalance = `UPDATE account 
-SET account.Balance = (SELECT account.Balance FROM account WHERE account.AccountID = ${req.body.AccountID}) - ${req.body.Outflow} 
-WHERE account.AccountID = ${req.body.AccountID};`;
+SET account.Balance = (SELECT account.Balance FROM account WHERE account.AccountID = ${accountID}) - ${Outflow} 
+WHERE account.AccountID = ${accountID};`;
         await pool.query(updateAccountBalance);
       }
 
       //Updates balance on account (INFLOW)
       else {
-        const updateSubCategoryBalance = `UPDATE subcategory 
-SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${req.body.SubCategoryID}) + ${req.body.Outflow} 
-WHERE subcategory.SubCategoryID = ${req.body.SubCategoryID};`;
-        await pool.query(updateSubCategoryBalance);
+        const updateSubCategoryBalance2 = `UPDATE subcategory 
+SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${subCategoryID}) + ${Inflow} 
+WHERE subcategory.SubCategoryID = ${subCategoryID};`;
+        await pool.query(updateSubCategoryBalance2);
 
-        const updateAccountBalance = `UPDATE account 
-SET account.Balance = (SELECT account.Balance FROM account WHERE account.AccountID = ${req.body.AccountID}) + ${req.body.Inflow} 
-WHERE account.AccountID = ${req.body.AccountID};`;
-        await pool.query(updateAccountBalance);
+        const updateAccountBalance2 = `UPDATE account 
+SET account.Balance = (SELECT account.Balance FROM account WHERE account.AccountID = ${accountID}) + ${Inflow} 
+WHERE account.AccountID = ${accountID};`;
+        await pool.query(updateAccountBalance2);
       }
 
       res.status(200).json({TransactionID: rows.insertId.toString()});

@@ -6,23 +6,24 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
-import Register from './Register';
 import Button from '@mui/material/Button';
 import {Select} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Axios from 'axios';
-import moment from 'moment';
-import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
 export default function AddTransaction(){
   const [open, setOpen] = React.useState(false);
   const [transactionName, setTransactionName] = React.useState('');
   const [recipient, setRecipient] = useState('');
-  const [inflow, setInflow] = useState('');
-  const [outflow, setOutflow] = useState('');
+  const [inflow, setInflow] = useState(0);
+  const [outflow, setOutflow] = useState(0);
   const [transactionRepeat, setTransactionRepeat] = useState('');
-  const [accounts, setAccounts] = useState([]);
+  const [memo, setMemo] = useState('');
+  const [account, setAccount] = useState('')
+  const [accountsList, setAccountsList] = useState([]);
+  const [subCategory, setSubCategory] = useState('')
+  const [subCategoryList, setSubCategoryList] = useState([]);
 
 
   const handleClickOpen = () => {
@@ -30,28 +31,91 @@ export default function AddTransaction(){
   };
   const handleClose = () => {
     setOpen(false);
+    setAccount('');
+    setSubCategory('');
   };
 
   const getUserAccounts = () => {
     const userID = localStorage.getItem("UserID");
-    const baseUrl = `http://localhost:3001/transaction/${userID}`
+    const baseUrl = `http://localhost:3001/account/${userID}/account-name`
     const updatedArray = [];
     Axios.get(baseUrl
     ).then((function (response){
       for(let x = 0; x<response.data.length; x++){
-        console.log(response)
-        //updatedArray.push(response[x].AccountName)
-        setAccounts([])
-        setAccounts(updatedArray)
+        const account = response.data[x].AccountName
+        updatedArray.push(
+            { value : account }
+        )
       }
+      setAccountsList([])
+      setAccountsList(updatedArray)
+
     })).catch((response) => {
       alert(response);
     })
-
-    return(
-        <MenuItem value="creditcard">Credit Card</MenuItem>
-    )
   };
+
+  const getUserSubcategories = () => {
+    const userID = localStorage.getItem("UserID");
+    const baseUrl = `http://localhost:3001/subcategory/${userID}/subcategory-name`
+    const updatedArray2 = [];
+    Axios.get(baseUrl
+    ).then((function (response){
+      for(let x = 0; x<response.data.length; x++){
+        const subCategoryName = response.data[x].SubCategoryName
+        updatedArray2.push(
+            { value : subCategoryName }
+        )
+      }
+      setSubCategoryList([])
+      setSubCategoryList(updatedArray2)
+
+    })).catch((response) => {
+      alert(response);
+    })
+  };
+
+  const addTransaction = () => {
+    const userID = localStorage.getItem("UserID");
+    //TODO tarkista aikavyöhyke
+    const today = new Date().toISOString().slice(0, 10)
+    const baseUrl = `http://localhost:3001/transaction/new-transaction`
+    Axios.post(baseUrl,
+        {
+          TransactionName : transactionName,
+          Outflow : outflow,
+          Inflow : inflow,
+          Recipient : recipient,
+          TransactionRepeat : transactionRepeat,
+          Memo : memo,
+          TransactionDate : today,
+          AccountName : account,
+          SubCategoryName : subCategory,
+          UserID : userID
+    }).then(() => {
+      alert("successful insert")
+      setOpen(false);
+      setAccount('');
+      setSubCategory('');
+
+    }).catch(response => {
+      console.log(
+          {
+            TransactionName : transactionName,
+            Outflow : outflow,
+            Inflow : inflow,
+            Recipient : recipient,
+            TransactionRepeat : transactionRepeat,
+            Memo : memo,
+            TransactionDate : today,
+            AccountName : account,
+            SubCategoryName : subCategory,
+            UserID : userID
+          }
+      )
+        alert(response)
+      })
+  }
 
   return (
       <div>
@@ -73,24 +137,24 @@ export default function AddTransaction(){
               onChange={(event) => {setTransactionName(event.target.value)}}
           />
           <TextField
-              required
+              type = "number"
               autoFocus
               margin="dense"
               id="outflow"
               label="Outflow"
               fullWidth
               variant="filled"
-              onChange={(event) => {setRecipient(event.target.value)}}
+              onChange={(event) => {setOutflow(event.target.value)}}
           />
           <TextField
-              required
+              type = "number"
               autoFocus
               margin="dense"
               id="inflow"
               label="Inflow"
               fullWidth
               variant="filled"
-              onChange={(event) => {setTransactionName(event.target.value)}}
+              onChange={(event) => {setInflow(event.target.value)}}
           />
           <TextField
               required
@@ -100,7 +164,7 @@ export default function AddTransaction(){
               label="Payee"
               fullWidth
               variant="filled"
-              onChange={(event) => {setTransactionName(event.target.value)}}
+              onChange={(event) => {setRecipient(event.target.value)}}
           />
           <TextField
               required
@@ -110,7 +174,17 @@ export default function AddTransaction(){
               label="Transaction Repeat"
               fullWidth
               variant="filled"
-              onChange={(event) => {setTransactionName(event.target.value)}}
+              onChange={(event) => {setTransactionRepeat(event.target.value)}}
+          />
+          <TextField
+              required
+              autoFocus
+              margin="dense"
+              id="memo"
+              label="Memo"
+              fullWidth
+              variant="filled"
+              onChange={(event) => {setMemo(event.target.value)}}
           />
           <div className="transaction-selects">
             <div className="transaction-account">
@@ -120,23 +194,46 @@ export default function AddTransaction(){
               id="account-name"
               labelId="account"
               fullWidth
+              onOpen={getUserAccounts}
+              value={account}
+              onChange={(event) => {
+                setAccount(event.target.value);
+              }}
           >
-          </Select>
+              {accountsList.map((account) => (
+                  <MenuItem key={account.value} value={account.value}>
+                    {account.value}
+                  </MenuItem>
+              ))}
+
+            </Select>
             </div>
             <div className="transaction-category">
-            <InputLabel id="category">Category *</InputLabel>
+            <InputLabel id="category">SubCategory *</InputLabel>
             <Select
               style={{ height: "50px", width: "200px"}}
               id="subcategory-name"
               labelId="category"
-              fullWidth>
+              fullWidth
+              onOpen={getUserSubcategories}
+              value={subCategory}
+              onChange={(event) => {
+                setSubCategory(event.target.value);
+              }}
+            >
+              {subCategoryList.map((subcategory) => (
+                  <MenuItem key={subcategory.value} value={subcategory.value}>
+                    {subcategory.value}
+                  </MenuItem>
+              ))}
+              >
           </Select>
             </div>
           </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} className="cancel-button">Cancel</Button>
-          <Button  className="add-transaction">Add Transaction</Button>
+          <Button  className="add-transaction" onClick={addTransaction}>Add Transaction</Button>
         </DialogActions>
       </Dialog>
       </div>
