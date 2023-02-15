@@ -13,8 +13,8 @@ export default function Total() {
 
   const fetchTotalAmount = () => {
 
-    const test = parseInt(localStorage.getItem('UserID'));
-    setId(test);
+    const storedId = parseInt(localStorage.getItem('UserID'));
+    setId(storedId);
 
     const baseurl = `http://localhost:3001/account/${id}/sum-balance`;
 
