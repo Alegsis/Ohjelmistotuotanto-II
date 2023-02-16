@@ -9,7 +9,6 @@ const HeaderNavi = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: white;
 `;
 
 const NaviIcon = styled(Link)`
@@ -19,6 +18,13 @@ const NaviIcon = styled(Link)`
   justify-content: flex-start;
   align-items: center;
   color: #ffffff;
+`;
+
+const TotalWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  color: white;
+  padding-left: 4.5em;
 `;
 
 /*
@@ -34,7 +40,9 @@ const Header = () => {
         <NaviIcon to="#">
           <MenuIcon/>
         </NaviIcon>
-        <Total></Total>
+        <TotalWrapper>
+          <Total></Total>
+        </TotalWrapper>
         <Login></Login>
       </HeaderNavi>
   );
