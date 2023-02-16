@@ -23,8 +23,8 @@ const NaviIcon = styled(Link)`
 const TotalWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   color: white;
+  padding-left: 4.5em;
 `;
 
 /*
