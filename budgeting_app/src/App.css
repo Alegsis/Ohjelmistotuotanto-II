@@ -142,7 +142,8 @@ body {
 
 .TransactionGrid {
     flex: 1 1 auto;
-    height: 100vh;
+    height: auto;
+    max-height: 100vh;
 }
 
 .transaction {
