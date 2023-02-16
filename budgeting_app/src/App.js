@@ -7,7 +7,6 @@ import Category from "./pages/Categories";
 import Transaction from "./pages/Transaction";
 import Accounts from "./pages/Account";
 
-
 function App() {
   return (
     <Router>

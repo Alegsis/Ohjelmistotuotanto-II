@@ -1,11 +1,9 @@
 import * as React from 'react';
-import styled from "@emotion/styled";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
-import Login from "./Login";
-
-
-
+import styled from '@emotion/styled';
+import MenuIcon from '@mui/icons-material/Menu';
+import {Link} from 'react-router-dom';
+import Login from './Login';
+import Total from './Total';
 
 const HeaderNavi = styled.div`
   display: flex;
@@ -22,6 +20,13 @@ const NaviIcon = styled(Link)`
   color: #ffffff;
 `;
 
+const TotalWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  color: white;
+  padding-left: 4.5em;
+`;
+
 /*
 const [sidebar, setSidebar] = React.useState(false);
 const showSidebar = () =>  {
@@ -30,13 +35,16 @@ const showSidebar = () =>  {
 */
 
 const Header = () => {
-    return (
-    <HeaderNavi>
+  return (
+      <HeaderNavi>
         <NaviIcon to="#">
-            <MenuIcon/>
+          <MenuIcon/>
         </NaviIcon>
+        <TotalWrapper>
+          <Total></Total>
+        </TotalWrapper>
         <Login></Login>
-    </HeaderNavi>
-    )
-}
+      </HeaderNavi>
+  );
+};
 export default Header;

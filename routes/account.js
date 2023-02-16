@@ -35,7 +35,7 @@ router.get('/:id/sum-balance', async (req, res) => {
  */
 router.get('/:id', async (req, res) => {
   try {
-    const sqlQuery = `SELECT AccountName, AccountType, Balance, BalanceDate FROM account WHERE userID=?`;
+    const sqlQuery = `SELECT AccountName, AccountType, Balance, BalanceDate, IsActive FROM account WHERE userID=?`;
     const rows = await pool.query(sqlQuery, req.params.id);
 
     //For changing date-format to YYYY-MM-DD

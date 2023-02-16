@@ -35,6 +35,6 @@ export const SidebarData = [
   {
     title: "",
     icon: <CreateBankAcc />,
-    path: "/",
+    path: "/accounts",
   },
 ];

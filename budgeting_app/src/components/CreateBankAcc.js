@@ -1,5 +1,4 @@
 import * as React from "react";
-import { makeStyles } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -33,7 +32,6 @@ export default function CreateBankAcc() {
   };
 
   const baseUrl = "http://localhost:3001/account/new-account";
-
 
   const handleCreateAcc = () => {
     //Pitää tarkastaa aikavyöhyke oikein
@@ -81,6 +79,7 @@ export default function CreateBankAcc() {
             id="account-name"
             label="Account Name"
             fullWidth
+            inputProps={{maxLength: 30}}
             value={accountName}
             variant="filled"
             onChange={(event) => {
@@ -94,6 +93,7 @@ export default function CreateBankAcc() {
             id="account-balance"
             label="Account Balance"
             fullWidth
+            inputProps={{maxLength: 11}}
             value={accountBalance}
             variant="filled"
             onChange={(event) => {

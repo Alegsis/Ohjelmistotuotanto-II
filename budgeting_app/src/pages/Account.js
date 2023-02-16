@@ -1,11 +1,12 @@
-import React from 'react'
+import AccountGrid from '../components/AccountGrid';
 
 const Accounts = () => {
-    return (
-        <div className ='account'>
-            <h1>Accounts</h1>
-        </div>
-    );
+
+  return (
+      <div className='account'>
+        <AccountGrid/>
+      </div>
+  );
 };
 
 export default Accounts;

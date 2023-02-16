@@ -80,13 +80,8 @@ body {
 }*/
 
 
-
-
-
-
 .home,
-.category,
-.account {
+.category {
     display: flex;
     height: 80vh;
     justify-content: center;
@@ -127,7 +122,6 @@ body {
 }
 
 
-
 .login-button {
     /* margin-left: auto !important;*/
     margin-right: 0px !important;
@@ -140,24 +134,28 @@ body {
     display: block;
 }
 
-.TransactionGrid {
+.TransactionGrid,
+.AccountGrid {
     flex: 1 1 auto;
     height: auto;
-    max-height: 100vh;
 }
 
-.transaction {
+.transaction,
+.account {
     padding: 0;
     display: grid;
 }
-.transaction-selects{
+
+.transaction-selects {
     display: flex;
     flex: 1;
 }
-.transaction-account{
+
+.transaction-account {
     flex: 1;
 }
-.transaction-category{
+
+.transaction-category {
     flex: 0;
 
 }
