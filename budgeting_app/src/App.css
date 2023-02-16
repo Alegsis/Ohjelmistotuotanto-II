@@ -81,8 +81,7 @@ body {
 
 
 .home,
-.category,
-.account {
+.category {
     display: flex;
     height: 80vh;
     justify-content: center;
@@ -136,13 +135,13 @@ body {
 }
 
 .TransactionGrid,
-.accountGrid {
+.AccountGrid {
     flex: 1 1 auto;
     height: auto;
 }
 
 .transaction,
-.accountGrid {
+.account {
     padding: 0;
     display: grid;
 }
