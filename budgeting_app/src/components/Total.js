@@ -1,10 +1,12 @@
 import Axios from 'axios';
 import {useEffect, useState} from 'react';
+import styled from '@emotion/styled';
 
 export default function Total() {
 
   const [totalAmount, setTotalAmount] = useState(0);
   const [id, setId] = useState(1);
+  const [style, setStyle] = useState('positive');
 
   useEffect(() => {
     fetchTotalAmount();
@@ -29,9 +31,26 @@ export default function Total() {
 
   };
 
+  const StyleSwitcher = styled.a`
+    &.positive {
+      color: darkseagreen;
+    }
+
+    &.negative {
+      color: indianred;
+    }
+
+    &.neutral {
+      color: ghostwhite;
+    }
+  `;
+
   return (
       <div className="totalOnAccounts">
-        Total available on accounts: {totalAmount}
+        Total available on accounts:
+        <StyleSwitcher className={style ? 'positive' : 'negative'}>
+          {totalAmount}
+        </StyleSwitcher>
       </div>
   );
 
