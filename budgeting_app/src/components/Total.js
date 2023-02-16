@@ -93,14 +93,14 @@ export default function Total() {
   return (
       <TotalsWrapper className="totals">
         <SegmentWrapper>
-          Total:
+          Total: &nbsp;
           <AccountStyleSwitcher
               className={accountStyle ? 'positive' : 'negative'}>
             {totalAmount}€
           </AccountStyleSwitcher>
         </SegmentWrapper>
         <SegmentWrapper>
-          Available to budget:
+          Available to budget: &nbsp;
           <DebtStyleSwitcher className={debtStyle ? 'positive' : 'negative'}>
             {debt}€
           </DebtStyleSwitcher>
