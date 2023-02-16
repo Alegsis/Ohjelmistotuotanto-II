@@ -80,10 +80,6 @@ body {
 }*/
 
 
-
-
-
-
 .home,
 .category,
 .account {
@@ -127,7 +123,6 @@ body {
 }
 
 
-
 .login-button {
     /* margin-left: auto !important;*/
     margin-right: 0px !important;
@@ -140,23 +135,28 @@ body {
     display: block;
 }
 
-.TransactionGrid {
+.TransactionGrid,
+.accountGrid {
     flex: 1 1 auto;
-    height: 100vh;
+    height: auto;
 }
 
-.transaction {
+.transaction,
+.accountGrid {
     padding: 0;
     display: grid;
 }
-.transaction-selects{
+
+.transaction-selects {
     display: flex;
     flex: 1;
 }
-.transaction-account{
+
+.transaction-account {
     flex: 1;
 }
-.transaction-category{
+
+.transaction-category {
     flex: 0;
 
 }
