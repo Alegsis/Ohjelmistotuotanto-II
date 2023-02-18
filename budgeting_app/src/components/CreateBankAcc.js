@@ -14,6 +14,7 @@ import Axios from "axios";
 import { Select } from "@mui/material";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Box } from "@mui/material";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 export default function CreateBankAcc() {
   const [open, setOpen] = React.useState(false);
@@ -27,17 +28,16 @@ export default function CreateBankAcc() {
 
   const handleClose = () => {
     setOpen(false);
-    setaccountType('');
-    setaccountName('');
-    setaccountBalance('');
+    setaccountType("");
+    setaccountName("");
+    setaccountBalance("");
   };
 
   const baseUrl = "http://localhost:3001/account/new-account";
 
-
   const handleCreateAcc = () => {
     //Pitää tarkastaa aikavyöhyke oikein
-    const today = new Date().toISOString().slice(0, 10)
+    const today = new Date().toISOString().slice(0, 10);
     const userID = localStorage.getItem("UserID");
     console.log(today);
     console.log(userID);
@@ -47,13 +47,31 @@ export default function CreateBankAcc() {
       AccountType: accountType,
       Balance: accountBalance,
       BalanceDate: today,
-      UserID: userID
-    }).then(() => {
+      UserID: userID,
+    }).then((response) => {
       alert("successful insert");
+
+      const newSubmenu = {
+        title: accountName,
+        path: "/accounts/" + response.data.id,
+        icon: <AccountBalanceIcon />,
+      };
+
+      const setSidebarData = undefined;
+
+      setSidebarData((prevState) => {
+        const newState = [...prevState];
+        const accounts = newState.find((item) => item.title === "Accounts");
+        if (accounts) {
+          accounts.subNavi.push(newSubmenu);
+        }
+        return newState;
+      });
+
       setOpen(false);
-      setaccountType('');
-      setaccountName('');
-      setaccountBalance('');
+      setaccountType("");
+      setaccountName("");
+      setaccountBalance("");
     });
   };
 
