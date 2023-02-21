@@ -15,12 +15,15 @@ import { Select } from "@mui/material";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Box } from "@mui/material";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { SidebarData } from "./SidebarData";
+import { useEffect, useState } from "react";
 
 export default function CreateBankAcc() {
   const [open, setOpen] = React.useState(false);
   const [accountType, setaccountType] = React.useState("");
   const [accountName, setaccountName] = React.useState("");
   const [accountBalance, setaccountBalance] = React.useState("");
+  const [sidebarData, setSidebarData] = useState(SidebarData);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,15 +60,10 @@ export default function CreateBankAcc() {
         icon: <AccountBalanceIcon />,
       };
 
-      const setSidebarData = undefined;
-
-      setSidebarData((prevState) => {
-        const newState = [...prevState];
-        const accounts = newState.find((item) => item.title === "Accounts");
-        if (accounts) {
-          accounts.subNavi.push(newSubmenu);
-        }
-        return newState;
+      setSidebarData((prevSidebarData) => {
+        const newSidebarData = [...prevSidebarData]; // make a copy of the previous state
+        newSidebarData[1].subNavi.push(newSubmenu); // update the subNavi array
+        return newSidebarData; // return the new state
       });
 
       setOpen(false);
@@ -73,6 +71,28 @@ export default function CreateBankAcc() {
       setaccountName("");
       setaccountBalance("");
     });
+  };
+
+  const getUserAccounts = () => {
+    const userID = localStorage.getItem("UserID");
+    const baseUrl = `http://localhost:3001/account/${userID}`;
+    const updatedArray = [];
+
+    Axios.get(baseUrl)
+      .then((res) => {
+        for (let x = 0; x < res.data.length; x++) {
+          updatedArray.push({
+            AccountName: res.data[x].AccountName,
+            Balance: res.data[x].Balance,
+            AccountType: res.data[x].AccountType,
+            BalanceDate: res.data[x].BalanceDate,
+            Active: res.data[x].IsActive ? "yes" : "no",
+          });
+        }
+      })
+      .catch((res) => {
+        alert(res);
+      });
   };
 
   return (
