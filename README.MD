@@ -13,7 +13,7 @@ VAIHEET:
 
 2. Luo .env -tiedosto näillä tiedoilla (esimerkki):
 
-PORT='3001'
+LOCALPORT='3001'
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=root
