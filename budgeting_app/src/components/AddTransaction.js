@@ -86,8 +86,6 @@ export default function AddTransaction(){
   const addTransaction = () => {
     const userID = parseInt(localStorage.getItem("UserID"));
     const baseUrl = `http://localhost:3001/transaction/new-transaction`
-
-    console.log(outflow)
     Axios.post(baseUrl,
         {
           TransactionName : transactionName,
