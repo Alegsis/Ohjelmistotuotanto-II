@@ -13,12 +13,16 @@ import Axios from "axios";
 import { Select } from "@mui/material";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Box } from "@mui/material";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { SidebarData } from "./SidebarData";
+import { useEffect, useState } from "react";
 
 export default function CreateBankAcc() {
   const [open, setOpen] = React.useState(false);
   const [accountType, setaccountType] = React.useState("");
   const [accountName, setaccountName] = React.useState("");
   const [accountBalance, setaccountBalance] = React.useState("");
+  const [sidebarData, setSidebarData] = useState(SidebarData);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,16 +30,16 @@ export default function CreateBankAcc() {
 
   const handleClose = () => {
     setOpen(false);
-    setaccountType('');
-    setaccountName('');
-    setaccountBalance('');
+    setaccountType("");
+    setaccountName("");
+    setaccountBalance("");
   };
 
   const baseUrl = "http://localhost:3001/account/new-account";
 
   const handleCreateAcc = () => {
     //Pitää tarkastaa aikavyöhyke oikein
-    const today = new Date().toISOString().slice(0, 10)
+    const today = new Date().toISOString().slice(0, 10);
     const userID = localStorage.getItem("UserID");
     console.log(today);
     console.log(userID);
@@ -45,13 +49,26 @@ export default function CreateBankAcc() {
       AccountType: accountType,
       Balance: accountBalance,
       BalanceDate: today,
-      UserID: userID
-    }).then(() => {
+      UserID: userID,
+    }).then((response) => {
       alert("successful insert");
+
+      const newSubmenu = {
+        title: accountName,
+        path: "/accounts/" + response.data.id,
+        icon: <AccountBalanceIcon />,
+      };
+
+      setSidebarData((prevSidebarData) => {
+        const newSidebarData = [...prevSidebarData]; // make a copy of the previous state
+        newSidebarData[1].subNavi.concat(newSubmenu); // update the subNavi array
+        return newSidebarData; // return the new state
+      });
+
       setOpen(false);
-      setaccountType('');
-      setaccountName('');
-      setaccountBalance('');
+      setaccountType("");
+      setaccountName("");
+      setaccountBalance("");
     });
   };
 

@@ -138,7 +138,6 @@ export default function AddTransaction(){
                 id="transactionName"
                 label="Transaction Name"
                 fullWidth
-                inputProps={{maxLength: 30 }}
                 variant="filled"
                 onChange={(event) => {setTransactionName(event.target.value)}}
             />
@@ -149,7 +148,6 @@ export default function AddTransaction(){
                 id="outflow"
                 label="Outflow"
                 fullWidth
-                inputProps={{maxLength: 11 }}
                 variant="filled"
                 onChange={(event) => {setOutflow(parseInt(event.target.value))}}
             />
@@ -160,7 +158,6 @@ export default function AddTransaction(){
                 id="inflow"
                 label="Inflow"
                 fullWidth
-                inputProps={{maxLength: 11 }}
                 variant="filled"
                 onChange={(event) => {setInflow(parseInt(event.target.value))}}
             />
@@ -171,7 +168,6 @@ export default function AddTransaction(){
                 id="payee"
                 label="Payee"
                 fullWidth
-                inputProps={{maxLength: 30 }}
                 variant="filled"
                 onChange={(event) => {setRecipient(event.target.value)}}
             />
@@ -182,7 +178,6 @@ export default function AddTransaction(){
                 id="transactionRepeat"
                 label="Transaction Repeat"
                 fullWidth
-                inputProps={{maxLength: 30 }}
                 variant="filled"
                 onChange={(event) => {setTransactionRepeat(event.target.value)}}
             />
@@ -193,7 +188,6 @@ export default function AddTransaction(){
                 id="memo"
                 label="Memo"
                 fullWidth
-                inputProps={{maxLength: 300 }}
                 variant="filled"
                 onChange={(event) => {setMemo(event.target.value)}}
             />

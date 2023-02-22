@@ -75,12 +75,11 @@ export default function TransactionGrid() {
         })
     };
 
-    useEffect(() => {
-        const userID = localStorage.getItem("UserID")
-        getUserTransactions(userID)
-    }, [])
-
-    return (
-        <DataGrid columns={columns} rows={rows} className="TransactionGrid" />
-    );
+  useEffect(() => {
+    const userID = localStorage.getItem('UserID');
+    getUserTransactions(userID);
+  });
+  return (
+      <DataGrid columns={columns} rows={rows} className="TransactionGrid"/>
+  );
 }
