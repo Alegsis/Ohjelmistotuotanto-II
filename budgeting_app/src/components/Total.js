@@ -12,7 +12,6 @@ export default function Total() {
 
   useEffect(() => {
     fetchTotalAmount();
-    setInterval(fetchTotalAmount, 15000);
   });
 
   const handleAccountChange = (props) => {
