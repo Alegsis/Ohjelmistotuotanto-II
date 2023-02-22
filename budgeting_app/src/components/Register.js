@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import Axios from "axios";
 import ValidateEmail from "../utils/email";
+import {IconButton, InputAdornment} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function Register() {
     const [open, setOpen] = React.useState(false);
@@ -16,6 +18,15 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [repassword, setrePassword] = useState('');
     const [email, setEmail] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClick = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+    };
 
 
     const handleClickOpen = () => {
@@ -33,7 +44,7 @@ export default function Register() {
     const handleSignUp = () => {
 
         if(ValidateEmail(email)){
-            if (password === repassword && 8 <= password.length && 3 <= username.length <= 20) {
+            if (password === repassword && 8 <= password.length && 3 <= username.length) {
                 Axios.post(baseUrl, {
                     username: username,
                     password: password,
@@ -77,6 +88,7 @@ export default function Register() {
                         id="name"
                         label="Username"
                         fullWidth
+                        inputProps={{maxLength: 30}}
                         variant="filled"
                         value={username}
                         onChange={(event) => {
@@ -89,9 +101,19 @@ export default function Register() {
                         margin="dense"
                         id="password-first"
                         label="Password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
+                        inputProps={{maxLength: 30}}
                         fullWidth
                         variant="filled"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         onChange={(event) => {
                             setPassword(event.target.value)
                         }}
@@ -102,9 +124,19 @@ export default function Register() {
                         margin="dense"
                         id="password-again"
                         label="Password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
+                        inputProps={{maxLength: 30 }}
                         fullWidth
                         variant="filled"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         onChange={(event) => {
                             setrePassword(event.target.value)
                         }}
@@ -117,6 +149,7 @@ export default function Register() {
                         label="Email Address"
                         type="email"
                         fullWidth
+                        inputProps={{maxLength: 60}}
                         variant="filled"
                         value={email}
                         onChange={(event) => {

@@ -8,6 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Register from './Register';
 import Axios from "axios";
+import {IconButton, InputAdornment} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+
 export default function Login() {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState('');
@@ -16,7 +19,15 @@ export default function Login() {
     // Käytetään vaihtamaan UserName login-buttonin tilalle.
     const [show, setShow] = React.useState('Login');
     const [loggedIn, setloggedIn] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
 
+    const handleClick = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -27,7 +38,7 @@ export default function Login() {
 
     };
     /*
-    * Tallentaa cacheen Username, UserID ToDo Axios.
+    * Tallentaa cacheen Username, UserID
     */
     const handleCloseAndLogin = () => {
         const baseUrl = "http://localhost:3001/user/login"
@@ -44,7 +55,7 @@ export default function Login() {
             localStorage.setItem("UserID", response.data.toString());
             localStorage.setItem("Username", username);
         })).catch(() => {
-            alert("Username and password doens't match")
+            alert('login failed')
         })
     };
     /*
@@ -68,6 +79,7 @@ export default function Login() {
                         margin="dense"
                         id="name"
                         label="Username"
+                        inputProps={{maxLength: 30}}
                         fullWidth
                         variant="filled"
                         onChange={(event) => {setUsername(event.target.value)}}
@@ -79,8 +91,18 @@ export default function Login() {
                         margin="dense"
                         id="password-first"
                         label="Password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         fullWidth
+                        inputProps={{maxLength: 30}}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         variant="filled"
                         onChange={(event) => {setPassword(event.target.value)}}
                     />
