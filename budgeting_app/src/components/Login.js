@@ -8,6 +8,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Register from './Register';
 import Axios from "axios";
+import {IconButton, InputAdornment} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function Login() {
     const [open, setOpen] = React.useState(false);
@@ -17,7 +19,15 @@ export default function Login() {
     // Käytetään vaihtamaan UserName login-buttonin tilalle.
     const [show, setShow] = React.useState('Login');
     const [loggedIn, setloggedIn] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
 
+    const handleClick = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -81,9 +91,18 @@ export default function Login() {
                         margin="dense"
                         id="password-first"
                         label="Password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         fullWidth
                         inputProps={{maxLength: 30}}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         variant="filled"
                         onChange={(event) => {setPassword(event.target.value)}}
                     />
