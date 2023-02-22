@@ -29,7 +29,7 @@ const getUserAccounts = () => {
           case "Checking":
             icon = <AccountBalanceIcon />;
             break;
-          case "Savings account":
+          case "Savings":
             icon = <SavingsIcon />;
             break;
           case "Credit Card":
