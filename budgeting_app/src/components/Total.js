@@ -99,11 +99,12 @@ export default function Total() {
           </AccountStyleSwitcher>
         </SegmentWrapper>
         <SegmentWrapper>
-          Available to budget: &nbsp;
+          Debts: &nbsp;
           <DebtStyleSwitcher className={debtStyle ? 'positive' : 'negative'}>
             {debt}€
           </DebtStyleSwitcher>
         </SegmentWrapper>
+        <SegmentWrapper>Available to budget: </SegmentWrapper>
       </TotalsWrapper>
   );
 
