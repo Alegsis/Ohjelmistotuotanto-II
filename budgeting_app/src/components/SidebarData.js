@@ -26,7 +26,7 @@ const getUserAccounts = () => {
           case "Cash":
             icon = <AttachMoneyIcon />;
             break;
-          case "Checking account":
+          case "Checking":
             icon = <AccountBalanceIcon />;
             break;
           case "Savings account":
