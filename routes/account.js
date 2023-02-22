@@ -10,7 +10,7 @@ const moment = require('moment');
  */
 router.get('/:id/sum-balance', async (req, res) => {
   try {
-    const sqlQuery = `SELECT SUM(Balance) AS debt_summary FROM account WHERE userID=? AND AccountType IN ('Credit', 'Loan')`;
+    const sqlQuery = `SELECT SUM(Balance) AS debt_summary FROM account WHERE userID=? AND AccountType IN ('Credit Card', 'Loan')`;
     const sqlQuery2 = `SELECT SUM(Balance) AS balance_summary FROM account WHERE userID=? AND AccountType IN ('Cash', 'Savings', 'Checking')`;
 
     const rows = await pool.query(sqlQuery2, req.params.id);
