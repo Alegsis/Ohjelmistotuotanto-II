@@ -62,7 +62,7 @@ export default function CreateBankAcc() {
 
       setSidebarData((prevSidebarData) => {
         const newSidebarData = [...prevSidebarData]; // make a copy of the previous state
-        newSidebarData[1].subNavi.push(newSubmenu); // update the subNavi array
+        newSidebarData[1].subNavi.concat(newSubmenu); // update the subNavi array
         return newSidebarData; // return the new state
       });
 
@@ -71,28 +71,6 @@ export default function CreateBankAcc() {
       setaccountName("");
       setaccountBalance("");
     });
-  };
-
-  const getUserAccounts = () => {
-    const userID = localStorage.getItem("UserID");
-    const baseUrl = `http://localhost:3001/account/${userID}`;
-    const updatedArray = [];
-
-    Axios.get(baseUrl)
-      .then((res) => {
-        for (let x = 0; x < res.data.length; x++) {
-          updatedArray.push({
-            AccountName: res.data[x].AccountName,
-            Balance: res.data[x].Balance,
-            AccountType: res.data[x].AccountType,
-            BalanceDate: res.data[x].BalanceDate,
-            Active: res.data[x].IsActive ? "yes" : "no",
-          });
-        }
-      })
-      .catch((res) => {
-        alert(res);
-      });
   };
 
   return (
