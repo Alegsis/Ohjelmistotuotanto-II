@@ -1,5 +1,5 @@
-DROP DATABASE if EXISTS BudgetDatabase; 
-CREATE DATABASE BudgetDatabase; 
+DROP DATABASE if EXISTS BudgetDatabase;
+CREATE DATABASE BudgetDatabase;
 USE BudgetDatabase;
 
 CREATE TABLE User
@@ -25,7 +25,7 @@ CREATE TABLE Category
 CREATE TABLE Budget
 (
   BudgetID INT AUTO_INCREMENT,
-  Amount INT NOT NULL,
+  Amount DECIMAL(11,2) NOT NULL,
   FromCategory VARCHAR(30) NOT NULL,
   ToCategory VARCHAR(30) NOT NULL,
   BudgetDate DATE NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE Account
 (
   AccountID INT NOT NULL AUTO_INCREMENT,
   AccountName VARCHAR(30) NOT NULL,
-  Balance INT NOT NULL,
+  Balance DECIMAL(11,2) NOT NULL,
   AccountType VARCHAR(30) NOT NULL,
   BalanceDate DATE NOT NULL,
   IsActive INT NOT NULL DEFAULT 1,
@@ -49,7 +49,7 @@ CREATE TABLE SubCategory
 (
   SubCategoryID INT NOT NULL AUTO_INCREMENT,
   SubCategoryName VARCHAR(30) NOT NULL,
-  Balance INT NOT NULL,
+  Balance DECIMAL(11,2) NOT NULL,
   IsActive INT NOT NULL DEFAULT 1,
   UserID INT NOT NULL,
   CategoryID INT NOT NULL,
@@ -72,8 +72,8 @@ CREATE TABLE Transaction
   TransactionID INT NOT NULL AUTO_INCREMENT,
   Recipient VARCHAR(30) NOT NULL,
   TransactionName VARCHAR(30) NOT NULL,
-  Inflow INT,
-  Outflow INT,
+  Inflow DECIMAL(11,2),
+  Outflow DECIMAL(11,2),
   TransactionDate DATE NOT NULL,
   TransactionRepeat VARCHAR(30),
   Memo VARCHAR(300),
