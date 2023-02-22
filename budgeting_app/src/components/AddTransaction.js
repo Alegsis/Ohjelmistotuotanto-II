@@ -21,8 +21,8 @@ export default function AddTransaction(){
   const [date, setDate] = React.useState(dayjs(Date.now()));
   const [transactionName, setTransactionName] = React.useState('');
   const [recipient, setRecipient] = useState('');
-  const [inflow, setInflow] = useState(0);
-  const [outflow, setOutflow] = useState(0);
+  const [inflow, setInflow] = useState(0.00);
+  const [outflow, setOutflow] = useState(0.00);
   const [transactionRepeat, setTransactionRepeat] = useState('');
   const [memo, setMemo] = useState('');
   const [account, setAccount] = useState('')
@@ -86,6 +86,8 @@ export default function AddTransaction(){
   const addTransaction = () => {
     const userID = parseInt(localStorage.getItem("UserID"));
     const baseUrl = `http://localhost:3001/transaction/new-transaction`
+
+    console.log(outflow)
     Axios.post(baseUrl,
         {
           TransactionName : transactionName,
@@ -104,8 +106,8 @@ export default function AddTransaction(){
       setOpen(false);
       setAccount('');
       setSubCategory('');
-      setInflow(0);
-      setOutflow(0);
+      setInflow(0.00);
+      setOutflow(0.00);
 
     }).catch(response => {
       alert(response)
@@ -142,24 +144,24 @@ export default function AddTransaction(){
                 onChange={(event) => {setTransactionName(event.target.value)}}
             />
             <TextField
-                type = "number"
+                type="number"
                 autoFocus
                 margin="dense"
                 id="outflow"
                 label="Outflow"
                 fullWidth
                 variant="filled"
-                onChange={(event) => {setOutflow(parseInt(event.target.value))}}
+                onChange={(event) => {setOutflow(parseFloat(event.target.value))}}
             />
             <TextField
-                type = "number"
+                type="number"
                 autoFocus
                 margin="dense"
                 id="inflow"
                 label="Inflow"
                 fullWidth
                 variant="filled"
-                onChange={(event) => {setInflow(parseInt(event.target.value))}}
+                onChange={(event) => {setInflow(parseFloat(event.target.value))}}
             />
             <TextField
                 required
