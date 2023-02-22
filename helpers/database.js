@@ -5,6 +5,13 @@ const pool = mariadb.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  PORT: process.env.AZUREPORT,
+  ssl: true,
+  dialectOptions: {
+    ssl: {
+      require: true,
+    },
+  },
 });
 
 //connect and check for errors
