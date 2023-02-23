@@ -4,6 +4,7 @@ const pool = require('../helpers/database');
 
 //Changes date format
 const moment = require('moment');
+const User = require('../budgeting_app/src/axios/user');
 
 /**
  * Returns the total sum of the accounts
@@ -68,7 +69,41 @@ router.post('/new-account', async (req, res) => {
 
     const rows = await pool.query(sqlQuery,
         [AccountName, AccountType, Balance, BalanceDate, UserID]);
-    res.status(200).json({AccountID: rows.insertId.toString()});
+
+    if (AccountType === 'Cash' || AccountType === 'Checking' || AccountType === 'Savings'){
+      const insertedAccountID = rows.insertId;
+      const transactionName = 'Available Funds Update'
+      const subcategoryName = 'AvailableFunds'
+
+      /*
+      const findSubcategoryID = `SELECT subcategory.SubCategoryID 
+FROM subcategory 
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = ${UserID}`;
+      console.log(findSubcategoryID)
+
+      const returnSubcategory = await pool.query(findSubcategoryID);
+
+       */
+
+
+      const insertTransaction = `INSERT INTO transaction 
+(transaction.TransactionName, transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
+transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) 
+VALUES ('${transactionName}', ${Balance}, ' ', 'Once', ' ', '${BalanceDate}', ${insertedAccountID}, (SELECT subcategory.SubCategoryID 
+FROM subcategory 
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = ${UserID}))`
+
+      await pool.query(insertTransaction)
+
+
+      const updateSubcategory = `UPDATE subcategory 
+SET subcategory.Balance = subcategory.Balance + ${Balance} 
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = ${UserID};`
+
+      await pool.query(updateSubcategory)
+
+      res.status(200).json({AccountID: rows.insertId.toString()});
+    }
 
   } catch (error) {
     res.status(400).send(error.message);
