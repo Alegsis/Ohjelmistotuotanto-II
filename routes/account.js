@@ -75,17 +75,6 @@ router.post('/new-account', async (req, res) => {
       const transactionName = 'Available Funds Update'
       const subcategoryName = 'AvailableFunds'
 
-      /*
-      const findSubcategoryID = `SELECT subcategory.SubCategoryID 
-FROM subcategory 
-WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = ${UserID}`;
-      console.log(findSubcategoryID)
-
-      const returnSubcategory = await pool.query(findSubcategoryID);
-
-       */
-
-
       const insertTransaction = `INSERT INTO transaction 
 (transaction.TransactionName, transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
 transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) 
