@@ -36,6 +36,10 @@ const SidebarLabel = styled.span`
   margin-left: 16px;
 `;
 
+const SidebarBalance = styled.p`
+  margin-left: 16px;
+`;
+
 const DropdownLink = styled(Link)`
   height: 60px;
   padding-left: 3rem;
@@ -73,11 +77,18 @@ const Submenu = ({ item }) => {
         </div>
       </SidebarLink>
       {subnav &&
-        item.subNavi.map((item, index) => {
+        item.subNavi.map((subitem, index) => {
           return (
-            <DropdownLink to={item.path} key={index}>
-              {item.icon}
-              <SidebarLabel>{item.title}</SidebarLabel>
+            <DropdownLink to={subitem.path} key={index}>
+              <div>
+                {subitem.icon}
+                <SidebarLabel>{subitem.title}</SidebarLabel>
+              </div>
+              <div>
+                {subitem.balance && (
+                  <SidebarBalance>{subitem.balance}</SidebarBalance>
+                )}
+              </div>
             </DropdownLink>
           );
         })}

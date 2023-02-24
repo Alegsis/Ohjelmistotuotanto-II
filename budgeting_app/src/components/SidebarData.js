@@ -45,6 +45,7 @@ const getUserAccounts = () => {
           title: res.data[x].AccountName,
           path: `/accounts/${res.data[x].AccountName}`,
           icon: icon,
+          balance: res.data[x].Balance, // new property to store balance
         });
       }
     })
