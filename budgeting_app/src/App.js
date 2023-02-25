@@ -1,3 +1,4 @@
+import * as React from 'react';
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -8,14 +9,18 @@ import Transaction from "./pages/Transaction";
 import Accounts from "./pages/Account";
 
 function App() {
-  return (
+    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+    return (
     <Router>
         <div className="header">
-            <Header/>
+            <Header toggleSidebar={toggleSidebar}/>
         </div>
-
         <div className="row">
-        <div className="column left">
+        <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
             <Sidebar/>
         </div>
             <div className="column middle">

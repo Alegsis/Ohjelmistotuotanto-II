@@ -26,24 +26,23 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 4.5em;
 `;
+const Header = ({toggleSidebar}) => {
 
-/*
-const [sidebar, setSidebar] = React.useState(false);
-const showSidebar = () =>  {
-    setSidebar(!sidebar);
-}
-*/
-
-const Header = () => {
-  return (
+    return (
       <HeaderNavi>
-        <NaviIcon to="#">
+        <NaviIcon to="#" onClick={() => {
+            if(localStorage.getItem('UserID') !== null){
+                toggleSidebar()
+            }
+        }}>
           <MenuIcon/>
         </NaviIcon>
+          {localStorage.getItem('UserID') !== null && (
         <TotalWrapper>
-          <Total></Total>
+          <Total />
         </TotalWrapper>
-        <Login></Login>
+          )}
+        <Login />
       </HeaderNavi>
   );
 };
