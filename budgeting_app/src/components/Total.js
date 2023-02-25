@@ -2,7 +2,7 @@ import Axios from 'axios';
 import {useEffect, useState} from 'react';
 import styled from '@emotion/styled';
 
-export default function Total() {
+const Total = () => {
 
   const [totalAmount, setTotalAmount] = useState(0);
   const [debt, setDebt] = useState(0);
@@ -11,7 +11,7 @@ export default function Total() {
   const [debtStyle, setDebtStyle] = useState(true);
 
   useEffect(() => {
-    fetchTotalAmount();
+    fetchTotalAmount()
   });
 
   const handleAccountChange = (props) => {
@@ -91,7 +91,7 @@ export default function Total() {
 
   return (
       <TotalsWrapper className="totals">
-        <SegmentWrapper>
+        <SegmentWrapper className="SegmentWrapper">
           Total: &nbsp;
           <AccountStyleSwitcher
               className={accountStyle ? 'positive' : 'negative'}>
@@ -109,3 +109,5 @@ export default function Total() {
   );
 
 }
+
+export default Total;

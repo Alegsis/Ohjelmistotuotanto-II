@@ -26,8 +26,8 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 4.5em;
 `;
-
 const Header = ({toggleSidebar}) => {
+
     return (
       <HeaderNavi>
         <NaviIcon to="#" onClick={() => {
@@ -37,10 +37,12 @@ const Header = ({toggleSidebar}) => {
         }}>
           <MenuIcon/>
         </NaviIcon>
+          {localStorage.getItem('UserID') !== null && (
         <TotalWrapper>
-          <Total></Total>
+          <Total />
         </TotalWrapper>
-        <Login></Login>
+          )}
+        <Login />
       </HeaderNavi>
   );
 };
