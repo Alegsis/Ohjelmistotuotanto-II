@@ -38,6 +38,9 @@ const SidebarLabel = styled.span`
 
 const SidebarBalance = styled.p`
   margin-left: 16px;
+  margin-top: 40px;
+  font-size: 16px;
+  color: ${({ balance }) => (balance < 0 ? "red" : "green")};
 `;
 
 const DropdownLink = styled(Link)`
@@ -86,7 +89,12 @@ const Submenu = ({ item }) => {
               </div>
               <div>
                 {subitem.balance && (
-                  <SidebarBalance>{subitem.balance}</SidebarBalance>
+                  <SidebarBalance>
+                    <div style={{ display: "flex" }}>
+                      {subitem.balance}
+                      <p style={{ marginLeft: "5px" }}>€</p>
+                    </div>
+                  </SidebarBalance>
                 )}
               </div>
             </DropdownLink>
