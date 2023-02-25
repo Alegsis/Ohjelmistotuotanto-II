@@ -28,10 +28,13 @@ const TotalWrapper = styled.div`
 `;
 
 const Header = ({toggleSidebar}) => {
-
     return (
       <HeaderNavi>
-        <NaviIcon to="#" onClick={toggleSidebar}>
+        <NaviIcon to="#" onClick={() => {
+            if(localStorage.getItem('UserID') !== null){
+                toggleSidebar()
+            }
+        }}>
           <MenuIcon/>
         </NaviIcon>
         <TotalWrapper>
