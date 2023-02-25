@@ -12,12 +12,11 @@ import {IconButton, InputAdornment, Select} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
 
-const Login = ({loggedIn, setLoggedIn}) => {
+const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [Greet, setGreet] = React.useState('');
-    // Käytetään vaihtamaan UserName login-buttonin tilalle.
     const [show, setShow] = React.useState('Login');
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -64,6 +63,7 @@ const Login = ({loggedIn, setLoggedIn}) => {
         localStorage.removeItem("Username");
         setShow('Login')
         setGreet('')
+        setIsSidebarOpen(false)
     };
     /*
     Tervehdys

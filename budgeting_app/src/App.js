@@ -18,7 +18,7 @@ function App() {
     return (
     <Router>
         <div className="header">
-            <Header toggleSidebar={toggleSidebar} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+            <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
         </div>
         <div className="row">
         <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>

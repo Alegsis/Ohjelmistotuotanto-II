@@ -50,7 +50,8 @@ const getUserAccounts = () => {
       }
     })
     .catch((res) => {
-      alert(res);
+      console.log(res)
+      alert('catch SidebarData');
     });
 
   return updatedArray;
