@@ -4,7 +4,6 @@ const pool = require('../helpers/database');
 
 //Changes date format
 const moment = require('moment');
-const User = require('../budgeting_app/src/axios/user');
 
 /**
  * Returns the total sum of the accounts
