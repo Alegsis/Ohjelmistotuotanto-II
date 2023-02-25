@@ -10,6 +10,7 @@ import Accounts from "./pages/Account";
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+    const [loggedIn, setLoggedIn] = React.useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -17,7 +18,7 @@ function App() {
     return (
     <Router>
         <div className="header">
-            <Header toggleSidebar={toggleSidebar}/>
+            <Header toggleSidebar={toggleSidebar} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
         </div>
         <div className="row">
         <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>

@@ -26,23 +26,23 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 4.5em;
 `;
-const Header = ({toggleSidebar}) => {
+const Header = ({toggleSidebar, loggedIn, setLoggedIn}) => {
 
     return (
       <HeaderNavi>
         <NaviIcon to="#" onClick={() => {
-            if(localStorage.getItem('UserID') !== null){
+            if(loggedIn){
                 toggleSidebar()
             }
         }}>
           <MenuIcon/>
         </NaviIcon>
-          {localStorage.getItem('UserID') !== null && (
+          {loggedIn && (
         <TotalWrapper>
-          <Total />
+          <Total> </Total>
         </TotalWrapper>
           )}
-        <Login />
+        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}></Login>
       </HeaderNavi>
   );
 };
