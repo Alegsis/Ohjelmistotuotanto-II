@@ -26,7 +26,7 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 4.5em;
 `;
-const Header = ({toggleSidebar, loggedIn, setLoggedIn}) => {
+const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen}) => {
 
     return (
       <HeaderNavi>
@@ -42,7 +42,7 @@ const Header = ({toggleSidebar, loggedIn, setLoggedIn}) => {
           <Total> </Total>
         </TotalWrapper>
           )}
-        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}></Login>
+        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen}></Login>
       </HeaderNavi>
   );
 };

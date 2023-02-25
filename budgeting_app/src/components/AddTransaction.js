@@ -59,7 +59,8 @@ export default function AddTransaction(){
       setAccountsList(updatedArray)
 
     })).catch((response) => {
-      alert(response);
+      console.log(response)
+      alert('catch addTransaction');
     })
   };
 
@@ -79,7 +80,8 @@ export default function AddTransaction(){
       setSubCategoryList(updatedArray2)
 
     })).catch((response) => {
-      alert(response);
+      console.log(response)
+      alert('catch AddTransaction2');
     })
   };
 
@@ -108,7 +110,8 @@ export default function AddTransaction(){
       setOutflow(0.00);
 
     }).catch(response => {
-      alert(response)
+      console.log(response)
+      alert('Add addTransaction3')
     })
   }
 

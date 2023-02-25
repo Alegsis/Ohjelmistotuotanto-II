@@ -73,7 +73,8 @@ export default function TransactionGrid() {
       }
       setRows(updatedArray);
     })).catch((response) => {
-      alert(response);
+        console.log(response)
+        alert('catch transactionGrid');
     });
   };
 
