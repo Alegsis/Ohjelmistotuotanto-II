@@ -46,10 +46,10 @@ const Login = ({loggedIn, setLoggedIn}) => {
             username: username,
             password: password
         }).then((function (response){
-            setShow(username)
+            setShow(username) //Muutetaan Login buttonin tieto käyttäjännimeksi
             setUsername('');
             setPassword('');
-            setGreet('Hello')
+            setGreet('Hello ')
             setLoggedIn(true)
             setOpen(false);
             localStorage.setItem("UserID", response.data.toString());
@@ -72,7 +72,8 @@ const Login = ({loggedIn, setLoggedIn}) => {
         <div className='primary-button'>
             <span> <b>{Greet}</b>
             {loggedIn ?
-                <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}>
+                <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}
+                        inputProps={{ IconComponent: () => null }} >
                     <MenuItem value={show}>{show}</MenuItem>
                     <MenuItem>Settings</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
