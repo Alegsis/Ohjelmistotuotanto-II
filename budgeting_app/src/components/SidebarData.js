@@ -63,18 +63,6 @@ export const SidebarData = [
     icon: <HomeIcon />,
     iconClosed: <ExpandMoreIcon />,
     iconOpen: <ExpandLessIcon />,
-    subNavi: [
-      {
-        title: "Categories",
-        path: "/dashboard/categories",
-        icon: <DriveFileMoveIcon />,
-      },
-      {
-        title: "Transactions",
-        path: "/dashboard/transaction",
-        icon: <ReceiptIcon />,
-      },
-    ],
   },
   {
     title: "Accounts",

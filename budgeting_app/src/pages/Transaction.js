@@ -7,14 +7,11 @@ const Transaction = () => {
   const openAddTransaction = () => {
     AddTransaction();
   }
-
     return (
         <div className ='transaction'>
-
           <div className="buttonWrapper">
             <AddTransaction/>
           </div>
-
           <TransactionGrid/>
         </div>
     );
