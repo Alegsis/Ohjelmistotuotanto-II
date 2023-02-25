@@ -27,17 +27,11 @@ const TotalWrapper = styled.div`
   padding-left: 4.5em;
 `;
 
-/*
-const [sidebar, setSidebar] = React.useState(false);
-const showSidebar = () =>  {
-    setSidebar(!sidebar);
-}
-*/
+const Header = ({toggleSidebar}) => {
 
-const Header = () => {
-  return (
+    return (
       <HeaderNavi>
-        <NaviIcon to="#">
+        <NaviIcon to="#" onClick={toggleSidebar}>
           <MenuIcon/>
         </NaviIcon>
         <TotalWrapper>
