@@ -2,10 +2,11 @@ import 'react-data-grid/lib/styles.css';
 import DataGrid from 'react-data-grid';
 import Axios from 'axios';
 import {useEffect, useState} from 'react';
+import * as React from 'react';
 import moment from 'moment/moment';
 
 export default function TransactionGrid() {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = React.useState([]);
 
   const columns = [
     {
