@@ -29,45 +29,47 @@ WHERE subcategory.UserID=?`;
 });
 
 /**
- * Add new budget
+ * Add new budget (transfer money from x-category to y-category)
  */
 router.post('/new-budget', async (req, res) => {
   try {
-
     const {
       Amount,
       BudgetDate,
-      FromCategory,
-      ToCategory,
-      FromSubCategoryID,
-      ToSubCategoryID,
+      FromSubCategory,
+      ToSubCategory,
+      UserID,
     } = req.body;
-    const sqlQuery = `INSERT INTO budget (Amount, BudgetDate, FromCategory, ToCategory) VALUES (?, ?, ?, ?)`;
 
-    const rows = await pool.query(sqlQuery,
-        [Amount, BudgetDate, FromCategory, ToCategory]);
+    const insertBudget = `INSERT INTO budget (Amount, BudgetDate, FromCategory, ToCategory) VALUES (?, ?, ?, ?)`;
+    const rows = await pool.query(insertBudget,
+        [Amount, BudgetDate, FromSubCategory, ToSubCategory]);
 
-    if (res.status(200)) {
-      const budgetID = rows.insertId.toString();
+    const budgetID = rows.insertId;
+    const fromSubCategoryIDQuery = `SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.SubCategoryName = '${FromSubCategory}' AND subcategory.UserID = ${UserID}`;
+    const toSubCategoryIDQuery = `SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.SubCategoryName = '${ToSubCategory}' AND subcategory.UserID = ${UserID}`;
+    const FromSubCategoryIDResult = await pool.query(fromSubCategoryIDQuery);
+    const ToSubCategoryIDResult = await pool.query(toSubCategoryIDQuery);
+    const FromSubCategoryID = FromSubCategoryIDResult[0].SubCategoryID;
+    const ToSubCategoryID = ToSubCategoryIDResult[0].SubCategoryID;
 
-      const sqlQuery2 = `INSERT INTO mergebsc(mergebsc.BudgetID, mergebsc.FromSubCategoryID, mergebsc.ToSubCategoryID) VALUES (${budgetID},?,?);`;
-      await pool.query(sqlQuery2, [FromSubCategoryID, ToSubCategoryID]);
+    const insertMergebsc = `INSERT INTO mergebsc(mergebsc.BudgetID, mergebsc.FromSubCategoryID, mergebsc.ToSubCategoryID) VALUES (${budgetID}, ?, ?);`;
+    await pool.query(insertMergebsc, [FromSubCategoryID, ToSubCategoryID]);
 
-      if (res.status(200)) {
 
-        const updateFromBalance = `UPDATE subcategory 
-SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${req.body.FromSubCategoryID}) - ${req.body.Amount} 
-WHERE subcategory.SubCategoryID = ${req.body.FromSubCategoryID};`;
-        await pool.query(updateFromBalance);
+    const updateFromBalance = `UPDATE subcategory 
+SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${FromSubCategoryID}) - ${Amount} 
+WHERE subcategory.SubCategoryID = ${FromSubCategoryID}`;
+    await pool.query(updateFromBalance);
 
-        const updateToBalance = `UPDATE subcategory 
-SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${req.body.ToSubCategoryID}) + ${req.body.Amount} 
-WHERE subcategory.SubCategoryID = ${req.body.ToSubCategoryID};`;
-        await pool.query(updateToBalance);
+    const updateToBalance = `UPDATE subcategory 
+SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${ToSubCategoryID}) + ${Amount} 
+WHERE subcategory.SubCategoryID = ${ToSubCategoryID}`;
+    await pool.query(updateToBalance);
 
-        res.status(200).send(200);
-      }
-    }
+    const budgetIDtoString = budgetID.toString();
+    res.status(200).json({budgetID: budgetIDtoString});
+
   } catch (error) {
     res.status(400).send(error.message);
   }

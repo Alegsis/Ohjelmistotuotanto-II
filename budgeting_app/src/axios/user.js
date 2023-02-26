@@ -6,11 +6,11 @@ const baseUrl = "http://localhost:3001/user/register";
 */
 
 const sendData = (req) => {
-    Axios.post(baseUrl, {
-        req
-    }).then(() => {
-        alert("successful insert")
-    });
+  Axios.post(baseUrl, {
+    req
+  }).then(() => {
+    alert("successful insert")
+  });
 };
 
 export default sendData;
