@@ -54,7 +54,9 @@ body {
     flex: 1 1;
     padding: 0;
 }
-
+.column.middle.hidden {
+    display: none;
+}
 /* To be done...
 .column.right {
     -webkit-flex: 1;
@@ -90,7 +92,7 @@ body {
 }
 
 .secondary-button {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
     margin-right: auto !important;
     /* padding-left: 1.5rem; */
     display: block;
@@ -99,7 +101,7 @@ body {
 .primary-button,
 .login-select{
     margin-left: auto !important;
-    margin-right: 0px !important;
+    margin-right: 0 !important;
     padding-right: 1.5rem;
     display: block;
     color: #f3f3f3;
@@ -131,13 +133,13 @@ body {
 
 .login-button {
     /* margin-left: auto !important;*/
-    margin-right: 0px !important;
+    margin-right: 0 !important;
     display: block;
 }
 
 .cancel-button {
     /* margin-left: auto !important;*/
-    margin-right: 0px !important;
+    margin-right: 0 !important;
     display: block;
 }
 
