@@ -1,17 +1,6 @@
-import React, { useState } from "react";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
-
-const StyledAddCircleOutlineIcon = styled(AddCircleOutlineIcon)`
-  margin-left: 10px;
-  font-size: 1.5rem;
-  color: #ffffff;
-  cursor: pointer;
-  &:hover {
-    color: #a7c0cd;
-  }
-`;
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import styled from '@emotion/styled';
 
 const SidebarLink = styled(Link)`
   display: flex;
@@ -39,7 +28,7 @@ const SidebarBalance = styled.p`
   margin-left: 16px;
   margin-top: 40px;
   font-size: 16px;
-  color: ${({ balance }) => (balance < 0 ? "red" : "green")};
+  color: ${({balance}) => (balance < 0 ? 'red' : 'green')};
 `;
 
 const DropdownLink = styled(Link)`
@@ -60,46 +49,46 @@ const DropdownLink = styled(Link)`
   }
 `;
 
-const Submenu = ({ item }) => {
+const Submenu = ({item}) => {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
   return (
-    <>
-      <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
-        <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
-        </div>
-        <div>
-          {item.subNavi && subnav
-            ? item.iconOpen
-            : item.subNavi
-            ? item.iconClosed
-            : null}
-        </div>
-      </SidebarLink>
-      {subnav &&
-        item.subNavi.map((subitem, index) => {
-          return (
-            <DropdownLink to={subitem.path} key={index}>
-              <div>
-                {subitem.icon}
-                <SidebarLabel>{subitem.title}</SidebarLabel>
-              </div>
-              <div>
-                {subitem.balance && (
-                  <SidebarBalance>
-                    <div style={{ display: "flex" }}>
-                      {subitem.balance}
-                      <span style={{ marginLeft: "5px" }}>€</span>
+      <>
+        <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
+          <div>
+            {item.icon}
+            <SidebarLabel>{item.title}</SidebarLabel>
+          </div>
+          <div>
+            {item.subNavi && subnav
+                ? item.iconOpen
+                : item.subNavi
+                    ? item.iconClosed
+                    : null}
+          </div>
+        </SidebarLink>
+        {subnav &&
+            item.subNavi.map((subitem, index) => {
+              return (
+                  <DropdownLink to={subitem.path} key={index}>
+                    <div>
+                      {subitem.icon}
+                      <SidebarLabel>{subitem.title}</SidebarLabel>
                     </div>
-                  </SidebarBalance>
-                )}
-              </div>
-            </DropdownLink>
-          );
-        })}
-    </>
+                    <div>
+                      {subitem.balance && (
+                          <SidebarBalance>
+                            <div style={{display: 'flex'}}>
+                              {subitem.balance}
+                              <span style={{marginLeft: '5px'}}>€</span>
+                            </div>
+                          </SidebarBalance>
+                      )}
+                    </div>
+                  </DropdownLink>
+              );
+            })}
+      </>
   );
 };
 
