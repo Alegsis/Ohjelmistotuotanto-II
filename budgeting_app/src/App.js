@@ -27,8 +27,6 @@ function App() {
             <div className="column middle">
               <Routes>
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/categories" element={<Category />} />
-                <Route path="/dashboard/transaction" element={<Transaction />} />
                 <Route path="/accounts" element={<Accounts />} />
               </Routes>
             </div>
