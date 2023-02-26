@@ -8,17 +8,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Register from './Register';
 import Axios from "axios";
-import {IconButton, InputAdornment} from "@mui/material";
+import {IconButton, InputAdornment, Select} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import MenuItem from "@mui/material/MenuItem";
 
-export default function Login() {
+const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [Greet, setGreet] = React.useState('');
-    // Käytetään vaihtamaan UserName login-buttonin tilalle.
     const [show, setShow] = React.useState('Login');
-    const [loggedIn, setloggedIn] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClick = () => {
@@ -46,11 +45,11 @@ export default function Login() {
             username: username,
             password: password
         }).then((function (response){
-            setShow(username)
+            setShow(username) //Muutetaan Login buttonin tieto käyttäjännimeksi
             setUsername('');
             setPassword('');
-            setGreet('Hello')
-            setloggedIn(true)
+            setGreet('Hello ')
+            setLoggedIn(true)
             setOpen(false);
             localStorage.setItem("UserID", response.data.toString());
             localStorage.setItem("Username", username);
@@ -58,15 +57,33 @@ export default function Login() {
             alert('login failed')
         })
     };
+    const handleLogout = () => {
+        setLoggedIn(false);
+        localStorage.removeItem("UserID");
+        localStorage.removeItem("Username");
+        setShow('Login')
+        setGreet('')
+        setIsSidebarOpen(false)
+    };
     /*
     Tervehdys
      */
     return (
         <div className='primary-button'>
-            <p> <b> {Greet} </b>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                {show}
-            </Button>
+            <span> <b>{Greet}</b>
+            {loggedIn ?
+                <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}
+                        inputProps={{ IconComponent: () => null }} >
+                    <MenuItem value={show}>{show}</MenuItem>
+                    <MenuItem>Settings</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Select>
+                :
+                <Button variant="outlined" onClick={handleClickOpen}>
+                    {show}
+                </Button>
+            }
+            </span>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Login</DialogTitle>
                 <DialogContent>
@@ -113,7 +130,8 @@ export default function Login() {
                     <Button onClick={handleCloseAndLogin} className="login-button">Login</Button>
                 </DialogActions>
             </Dialog>
-            </p>
         </div>
     );
 }
+
+export default Login;

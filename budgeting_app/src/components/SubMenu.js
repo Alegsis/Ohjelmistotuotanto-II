@@ -92,7 +92,7 @@ const Submenu = ({ item }) => {
                   <SidebarBalance>
                     <div style={{ display: "flex" }}>
                       {subitem.balance}
-                      <p style={{ marginLeft: "5px" }}>€</p>
+                      <span style={{ marginLeft: "5px" }}>€</span>
                     </div>
                   </SidebarBalance>
                 )}

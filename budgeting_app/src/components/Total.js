@@ -76,7 +76,7 @@ const Total = () => {
   `;
 
   const SegmentWrapper = styled.div`
-    padding: 0.5em;
+    padding-right: 0.5em;
   `;
 
   const DebtStyleSwitcher = styled.a`
