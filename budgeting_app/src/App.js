@@ -27,7 +27,7 @@ function App() {
           <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
             <Sidebar/>
           </div>
-          <div className="column middle">
+          <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
             <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
               <Route path="/accounts" element={<Accounts/>}/>
