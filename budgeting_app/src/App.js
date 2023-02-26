@@ -1,14 +1,17 @@
-import * as React from 'react';
 import './App.css';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Account';
+import {useState} from 'react';
+
+/*
+* Huom, jos haluat saada oikean sarakkeen näkymään, poista kommentit divistä*/
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -30,9 +33,9 @@ function App() {
               <Route path="/accounts" element={<Accounts/>}/>
             </Routes>
           </div>
-          <div className="column right">
-            <p> Oikea sarake</p>
-          </div>
+          {/*<div className="column right">*/}
+          {/*  <p> Oikea sarake</p>*/}
+          {/*</div>*/}
         </div>
       </Router>
   );
