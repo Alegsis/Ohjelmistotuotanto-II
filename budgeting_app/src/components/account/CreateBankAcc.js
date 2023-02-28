@@ -14,7 +14,7 @@ import { Select } from "@mui/material";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Box } from "@mui/material";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { SidebarData } from "./SidebarData";
+import { SidebarData } from "../application-interface/SidebarData";
 import { useEffect, useState } from "react";
 
 export default function CreateBankAcc() {
