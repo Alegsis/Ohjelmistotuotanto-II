@@ -1,6 +1,6 @@
 import React from 'react';
-import TransactionGrid from '../components/TransactionGrid';
-import AddTransaction from '../components/AddTransaction';
+import TransactionGrid from '../components/transaction/TransactionGrid';
+import AddTransaction from '../components/transaction/AddTransaction';
 
 const Accounts = () => {
 

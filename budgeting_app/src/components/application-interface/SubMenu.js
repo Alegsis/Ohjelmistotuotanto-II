@@ -24,7 +24,7 @@ const SidebarLabel = styled.span`
   margin-left: 7px;
 `;
 
-const SidebarBalance = styled.p`
+const SidebarBalance = styled.span`
   margin-left: 16px;
   margin-top: 40px;
   font-size: 16px;

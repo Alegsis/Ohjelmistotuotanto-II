@@ -3,7 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import CreateBankAcc from "./CreateBankAcc";
+import CreateBankAcc from "../account/CreateBankAcc";
 import Axios from "axios";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SavingsIcon from "@mui/icons-material/Savings";

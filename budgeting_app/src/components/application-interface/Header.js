@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Link} from 'react-router-dom';
-import Login from './Login';
+import Login from '../user/Login';
 import Total from './Total';
 
 const HeaderNavi = styled.div`

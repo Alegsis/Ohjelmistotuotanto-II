@@ -90,8 +90,9 @@ WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID 
 
       await pool.query(updateSubcategory)
 
-      res.status(200).json({AccountID: rows.insertId.toString()});
     }
+
+    res.status(200).json({AccountID: rows.insertId.toString()});
 
   } catch (error) {
     res.status(400).send(error.message);

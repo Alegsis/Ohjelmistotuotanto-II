@@ -1,6 +1,6 @@
 import './App.css';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
+import Sidebar from './components/application-interface/Sidebar';
+import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Account';
