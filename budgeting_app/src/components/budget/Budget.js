@@ -22,7 +22,7 @@ const Budget = () => {
             </TreeItem>
           </TreeItem>
         </TreeView>
-        <h1>Here goes cool budget</h1>
+
       </div>
   );
 };
