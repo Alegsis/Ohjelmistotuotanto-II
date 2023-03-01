@@ -4,7 +4,7 @@ import AccountTransactionGrid from "../components/account/AccountTransactionGrid
 const Account = () => {
 
     return (
-        <div className="accountTransaction">
+        <div className="transaction">
             <AccountTransactionGrid/>
         </div>
     );

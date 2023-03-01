@@ -13,13 +13,11 @@ import Account from "./pages/Account";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-
   const AccountName = localStorage.getItem('AccountName')
-  console.log(AccountName)
-
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+      setIsSidebarOpen(!isSidebarOpen)
+  }
+
   return (
       <Router>
         <div className="header">

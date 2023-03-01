@@ -52,6 +52,7 @@ const DropdownLink = styled(Link)`
 const Submenu = ({item}) => {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
+
   return (
       <>
         <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
@@ -70,7 +71,7 @@ const Submenu = ({item}) => {
         {subnav &&
             item.subNavi.map((subitem, index) => {
               return (
-                  <DropdownLink to={subitem.path} key={index}>
+                  <DropdownLink to={subitem.path} key={index} onClick={() => localStorage.setItem('AccountName', subitem.title)}>
                     <div>
                       {subitem.icon}
                       <SidebarLabel>{subitem.title}</SidebarLabel>

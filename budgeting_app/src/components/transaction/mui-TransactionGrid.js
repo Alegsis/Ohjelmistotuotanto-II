@@ -48,9 +48,10 @@ const MuiTransactionGrid = () => {
     }, []);
 
     return(
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ width: '100%' }}>
             <DataGrid
                 experimentalFeatures={{ columnGrouping: true }}
+                autoHeight {...columns}
                 columns={columns}
                 rows={rows}
                 checkboxSelection

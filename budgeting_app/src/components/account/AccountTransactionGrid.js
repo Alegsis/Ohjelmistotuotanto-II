@@ -17,8 +17,10 @@ const AccountTransactionGrid = () => {
         {field: 'Memo', headerName: 'Memo', width: 400}
     ];
     const getAccountTransactions = (userID, accountName) => {
-        const baseUrl = `http://localhost:3001/account/user-${userID}/account-id/account-${accountName}`;
+        const baseUrl = `http://localhost:3001/transaction/user-${userID}/accounts-transactions/account-${accountName}`;
+        console.log(baseUrl)
         const updatedArray = [];
+        console.log(accountName)
         Axios.get(baseUrl).then(((response) => {
             for (let x = 0; x < response.data.length; x++) {
                 updatedArray.push(
@@ -43,16 +45,15 @@ const AccountTransactionGrid = () => {
 
     useEffect(() => {
         const userID = localStorage.getItem('UserID')
-        const AccountName = window.location.href.split('/').pop()
-        localStorage.setItem("AccountName", AccountName)
-        console.log(AccountName)
-        getAccountTransactions(userID, AccountName)
+        const accountName = localStorage.getItem('AccountName')
+        getAccountTransactions(userID, accountName)
     }, []);
 
     return(
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ width: '100%' }}>
             <DataGrid
                 experimentalFeatures={{ columnGrouping: true }}
+                autoHeight {...columns}
                 columns={columns}
                 rows={rows}
                 checkboxSelection
