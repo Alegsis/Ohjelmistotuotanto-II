@@ -4,7 +4,7 @@ import {DataGrid} from '@mui/x-data-grid';
 import CustomToolbar from "../helpers/GridToolbar";
 import moment from "moment";
 
-const MuiTransactionGrid = () => {
+const AccountTransactionGrid = () => {
     const [rows, setRows] = useState([]);
 
     const columns = [
@@ -16,9 +16,8 @@ const MuiTransactionGrid = () => {
         {field: 'TransactionRepeat', headerName: 'Repeat', width: 150},
         {field: 'Memo', headerName: 'Memo', width: 400}
     ];
-
-    const getUserTransactions = (userID) => {
-        const baseUrl = `http://localhost:3001/transaction/${userID}`;
+    const getAccountTransactions = (userID, accountName) => {
+        const baseUrl = `http://localhost:3001/account/user-${userID}/account-id/account-${accountName}`;
         const updatedArray = [];
         Axios.get(baseUrl).then(((response) => {
             for (let x = 0; x < response.data.length; x++) {
@@ -38,13 +37,16 @@ const MuiTransactionGrid = () => {
             setRows(updatedArray);
         })).catch((response) => {
             console.log(response);
-            alert('catch transactionGrid');
+            alert('catch AccountTransactionGrid');
         });
     };
 
     useEffect(() => {
-        const userID = localStorage.getItem('UserID');
-        getUserTransactions(userID);
+        const userID = localStorage.getItem('UserID')
+        const AccountName = window.location.href.split('/').pop()
+        localStorage.setItem("AccountName", AccountName)
+        console.log(AccountName)
+        getAccountTransactions(userID, AccountName)
     }, []);
 
     return(
@@ -60,8 +62,8 @@ const MuiTransactionGrid = () => {
                 }}
                 className="TransactionGrid"
             />
-    </div>
+        </div>
     )
 }
 
-export default MuiTransactionGrid
+export default AccountTransactionGrid

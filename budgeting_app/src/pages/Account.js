@@ -1,13 +1,13 @@
 import React from 'react';
-import MuiTransactionGrid from "../components/transaction/mui-TransactionGrid";
+import AccountTransactionGrid from "../components/account/AccountTransactionGrid";
 
-const Accounts = () => {
+const Account = () => {
 
-  return (
-      <div className="transaction">
-        <MuiTransactionGrid/>
-      </div>
-  );
+    return (
+        <div className="accountTransaction">
+            <AccountTransactionGrid/>
+        </div>
+    );
 };
 
-export default Accounts;
+export default Account;

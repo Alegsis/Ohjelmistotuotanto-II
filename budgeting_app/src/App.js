@@ -3,8 +3,9 @@ import Sidebar from './components/application-interface/Sidebar';
 import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
-import Accounts from './pages/Account';
+import Accounts from './pages/Accounts';
 import {useState} from 'react';
+import Account from "./pages/Account";
 
 /*
 * Huom, jos haluat saada oikean sarakkeen näkymään, poista kommentit divistä*/
@@ -12,6 +13,9 @@ import {useState} from 'react';
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const AccountName = localStorage.getItem('AccountName')
+  console.log(AccountName)
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -31,6 +35,7 @@ function App() {
             <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
               <Route path="/accounts" element={<Accounts/>}/>
+              <Route path={`/accounts/${AccountName}`} element={<Account/>}/>
             </Routes>
           </div>
           {/*<div className="column right">*/}
