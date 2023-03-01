@@ -15,6 +15,29 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
+
+/**
+ * Find users all categories and them subcategories
+ */
+router.get('/:id', async (req, res) => {
+  try {
+
+
+    const sqlQuery = `SELECT CategoryName FROM category WHERE UserID=?`;
+    const rows = await pool.query(sqlQuery, req.params.id);
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+
+
+
+
+
+
 /**
  * Add new category
  */

@@ -14,6 +14,10 @@ router.get('/:id', async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+/**
+ * get specific subcategory name
+ */
 router.get('/:id/subcategory-name', async (req, res) => {
   try {
     const sqlQuery = `SELECT SubCategoryName FROM subcategory WHERE UserID=?`;

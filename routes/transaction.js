@@ -25,19 +25,19 @@ WHERE user.UserID=?`;
 /**
  * Get accounts transactions
  */
-router.get('/user-:userID/accounts-transactions/account-:accountID', async (req, res) => {
+router.get('/user-:userID/accounts-transactions/account-:accountName', async (req, res) => {
   try{
     const sqlQuery = `SELECT transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
 transaction.TransactionRepeat, transaction.Memo, transaction.TransactionDate 
 FROM transaction 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
 INNER JOIN user ON account.UserID = user.UserID 
-WHERE user.UserID=? AND account.AccountID=?`;
+WHERE user.UserID=? AND account.AccountName=?`;
 
     const userID = req.params.userID;
-    const accountID = req.params.accountID;
+    const accountName = req.params.accountName;
 
-    const rows = await pool.query(sqlQuery, [userID, accountID]);
+    const rows = await pool.query(sqlQuery, [userID, accountName]);
     res.status(200).json(rows);
 
   } catch (error) {
