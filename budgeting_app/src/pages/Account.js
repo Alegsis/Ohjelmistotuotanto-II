@@ -1,15 +1,11 @@
 import React from 'react';
-import TransactionGrid from '../components/transaction/TransactionGrid';
-import AddTransaction from '../components/transaction/AddTransaction';
+import MuiTransactionGrid from "../components/transaction/mui-TransactionGrid";
 
 const Accounts = () => {
 
   return (
       <div className="transaction">
-        <div className="buttonWrapper">
-          <AddTransaction/>
-        </div>
-        <TransactionGrid/>
+        <MuiTransactionGrid/>
       </div>
   );
 };
