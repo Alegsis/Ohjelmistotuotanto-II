@@ -48,11 +48,33 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+/**
+ * Get specific users accountNames
+ */
 router.get('/:id/account-name', async (req, res) => {
   try {
     const sqlQuery = `SELECT AccountName FROM account WHERE userID=?`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+/**
+ * Get specific accounts accountID
+ */
+router.get('/user-:userID/account-id/account-:accountName', async (req, res) => {
+  try{
+    const sqlQuery = `SELECT account.AccountID FROM account WHERE userID=? AND account.accountName=?`;
+    const userID = req.params.userID;
+    const accountName = req.params.accountName;
+
+    console.log(userID);
+    console.log(accountName);
+
+    const rows = await pool.query(sqlQuery, [userID, accountName]);
+    res.status(200).json(rows[0].AccountID);
   } catch (error) {
     res.status(400).send(error.message);
   }
