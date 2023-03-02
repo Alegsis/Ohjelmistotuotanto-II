@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/return-category-dictionary', async (req, res) => {
   try {
     const userID = req.params.id;
-    const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=?`;
+    const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=? AND category.CategoryName != 'Available' `;
     const categories = await pool.query(sqlQueryCategories, userID);
     let dictionary = [];
 
@@ -30,7 +30,8 @@ router.get('/:id/return-category-dictionary', async (req, res) => {
       let categoryName = categories[x].CategoryName
       let categoryBalance = 0;
 
-      const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = ${userID})`;
+      const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory
+WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = ${userID})`;
       const subCategories = await pool.query(sqlQuerySubCategories);
 
       for(let y = 0; y < subCategories.length; y++){
