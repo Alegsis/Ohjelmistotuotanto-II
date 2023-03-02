@@ -14,13 +14,13 @@ const Budget = () => {
 
   const StyledTreeItem = styled(TreeItem)(({theme}) => ({
     [`& .${treeItemClasses.label}`]: {
-      border: 'solid skyblue 1px',
-      minWidth: 300,
+      border: 'solid white 1px',
       minHeight: 25,
       borderRadius: theme.shape.borderRadius,
       marginTop: 8,
       marginBottom: 8,
       backgroundColor: 'white',
+      color: 'gainsboro',
     },
   }));
 
@@ -46,6 +46,10 @@ const Budget = () => {
     };
   });
 
+  const generateKey = (pre) => {
+    return `${pre}_${new Date().getTime()}`;
+  };
+
   const categoriesAndSubsList = (treeItems) => {
     return treeItems.map((treeItemData) => {
       let children;
@@ -56,30 +60,35 @@ const Budget = () => {
         return (
             <Link to {...treeItemData.route}>
               <StyledTreeItem
-                  key={treeItemData.category}
+                  key={generateKey(treeItemData.category)}
                   nodeId={treeItemData.category}
-                  label={'Category name: ' + treeItemData.category +
-                      'Balance: ' + treeItemData.balance}
                   children={children}
+                  label={treeItemData.category}
               />
             </Link>
         );
       }
+
       return (
-          <StyledTreeItem
-              key={treeItemData.category}
-              nodeId={treeItemData.category}
-              label={treeItemData.category + ', ' +
-                  'balance: ' + treeItemData.balance}
-              children={children}
-          />
+          <div className="categoryRow" key={generateKey('categoryRow')}>
+            <div className="categoryName" key={generateKey(
+                'categoryName')}> {treeItemData.category}</div>
+            <div className="categoryBalance" key={generateKey(
+                'categoryBalance')}>{treeItemData.balance}</div>
+            <StyledTreeItem
+                key={generateKey(treeItemData.category)}
+                nodeId={treeItemData.category}
+                children={children}
+                label={'expand'}
+            />
+          </div>
       );
     });
   };
 
   return (
       <div className="budgetGrid">
-        <a>Category/subcategory name and balance</a>
+        <h4>Category/subcategory name and balance</h4>
         <TreeView
             defaultCollapseIcon={<ExpandMoreIcon/>}
             defaultExpandIcon={<ChevronRight/>}

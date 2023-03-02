@@ -112,6 +112,23 @@ body {
     text-align: center;
 }
 
+.categoryRow {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.categoryBalance {
+    font-size: medium;
+    color: seagreen;
+}
+
+.categoryName {
+    font-size: medium;
+    color: #15171c;
+}
+
 .login-select {
     text-align-last: center;
     padding: 0 0 0 0;
