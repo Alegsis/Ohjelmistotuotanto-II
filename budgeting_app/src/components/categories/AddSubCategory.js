@@ -64,13 +64,9 @@ export default function AddSubCategory() {
           const category = response.data[x].CategoryName;
           updatedArray.push({ value: category });
         }
-        setCategoryList([]);
         setCategoryList(updatedArray);
-      
-        
       })
   
-
       .catch((response) => {
         console.log(response);
       });
@@ -96,28 +92,25 @@ export default function AddSubCategory() {
           </DialogContentText>
 
           <FormControl required margin="dense">
-            <InputLabel id="SubCategory-type-label">Sub Category</InputLabel>
+            <InputLabel id="Category-type-label">Category</InputLabel>
             <Select
               style={{ height: "50px", width: "200px" }}
-              labelId="SubCategory-type-label"
-              id="SubCategory"
+              labelId="Category-type-label"
+              id="Category"
               fullWidth
               value={selectedCategory}
               onChange={(event) => {
                 setSelectedCategory(event.target.value);
               }}
             >
-             
-             {categoryList.map((category) => {
-  console.log(category.value);
-  return (
-    <MenuItem key={category.value} value={category.value}>
-      {category.value}
-    </MenuItem>
-  );
-})}
+             {categoryList.map((category) => (
+                <MenuItem key={category.value} value={category.value}>
+                  {category.value}
+                </MenuItem>
+              ))}
             </Select>
-          </FormControl>
+          </FormControl> 
+
           
           <TextField
             required
