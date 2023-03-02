@@ -37,9 +37,10 @@ router.get('/:id/return-category-dictionary', async (req, res) => {
 
       for(let y = 0; y < subCategories.length; y++){
         let subcategoryBalance = Number(subCategories[y].Balance);
-        subCategoriesList.push([
-            subCategories[y].SubCategoryName, subcategoryBalance
-        ]);
+        subCategoriesList.push({
+              category: subCategories[y].SubCategoryName,
+              balance: subcategoryBalance
+        });
         categoryBalance+= subcategoryBalance;
       }
 
