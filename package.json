@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://OHTU223@dev.azure.com/OHTU223/R11/_git/R11"
   },
-  "author": "Sami Kukkonen",
+  "author": "OHTU2",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",

@@ -21,32 +21,33 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/return-category-dictionary', async (req, res) => {
   try {
     const userID = req.params.id;
-    const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=?`;
+    const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=? AND category.CategoryName != 'Available' `;
     const categories = await pool.query(sqlQueryCategories, userID);
     let dictionary = [];
 
-    for (let x = 0; x < categories.length; x++) {
+    for(let x = 0; x < categories.length; x++){
       let subCategoriesList = [];
-      let categoryName = categories[x].CategoryName;
+      let categoryName = categories[x].CategoryName
       let categoryBalance = 0;
 
-      const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = ${userID})`;
+      const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory
+WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = ${userID})`;
       const subCategories = await pool.query(sqlQuerySubCategories);
 
-      for (let y = 0; y < subCategories.length; y++) {
+      for(let y = 0; y < subCategories.length; y++){
         let subcategoryBalance = parseFloat(subCategories[y].Balance);
         subCategoriesList.push({
-          category: subCategories[y].SubCategoryName,
-          balance: parseFloat(subcategoryBalance.toFixed(2)),
+              category: subCategories[y].SubCategoryName,
+              balance: parseFloat(subcategoryBalance.toFixed(2))
         });
 
         categoryBalance += subcategoryBalance;
       }
 
       dictionary.push({
-        category: categoryName,
-        balance: parseFloat(categoryBalance.toFixed(2)),
-        subcategory: subCategoriesList,
+        category : categoryName,
+        balance : parseFloat(categoryBalance.toFixed(2)),
+        subcategory : subCategoriesList,
       });
     }
 
