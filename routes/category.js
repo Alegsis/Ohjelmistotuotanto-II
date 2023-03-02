@@ -15,8 +15,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
-
 /**
  * Find users all categories and them subcategories
  */
@@ -36,17 +34,18 @@ router.get('/:id/return-category-dictionary', async (req, res) => {
       const subCategories = await pool.query(sqlQuerySubCategories);
 
       for(let y = 0; y < subCategories.length; y++){
-        let subcategoryBalance = Number(subCategories[y].Balance);
+        let subcategoryBalance = parseFloat(subCategories[y].Balance);
         subCategoriesList.push({
               category: subCategories[y].SubCategoryName,
-              balance: subcategoryBalance
+              balance: parseFloat(subcategoryBalance.toFixed(2))
         });
-        categoryBalance+= subcategoryBalance;
+
+        categoryBalance += subcategoryBalance;
       }
 
       dictionary.push({
         category : categoryName,
-        balance : categoryBalance,
+        balance : parseFloat(categoryBalance.toFixed(2)),
         subcategory : subCategoriesList,
       });
     }
