@@ -48,6 +48,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+/**
+ * Get specific users accountNames
+ */
 router.get('/:id/account-name', async (req, res) => {
   try {
     const sqlQuery = `SELECT AccountName FROM account WHERE userID=?`;
