@@ -4,7 +4,7 @@ import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Account from "./pages/Account";
 
 /*
@@ -32,11 +32,13 @@ function App() {
             <Sidebar/>
           </div>
           <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
-            <Routes>
+              {loggedIn && (
+              <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
               <Route path="/accounts" element={<Accounts/>}/>
               <Route path={`/accounts/:AccountName`} element={<Account/>}/>
             </Routes>
+              )}
           </div>
           {/*<div className="column right">*/}
           {/*  <p> Oikea sarake</p>*/}
