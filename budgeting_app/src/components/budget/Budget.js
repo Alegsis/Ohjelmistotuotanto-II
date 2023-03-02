@@ -16,10 +16,11 @@ const Budget = () => {
     [`& .${treeItemClasses.label}`]: {
       border: 'solid skyblue 1px',
       minWidth: 300,
+      minHeight: 25,
       borderRadius: theme.shape.borderRadius,
       marginTop: 8,
       marginBottom: 8,
-      backgroundColor: 'powderblue',
+      backgroundColor: 'white',
     },
   }));
 
