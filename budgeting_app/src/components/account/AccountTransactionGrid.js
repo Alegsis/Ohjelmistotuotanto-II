@@ -14,13 +14,11 @@ const AccountTransactionGrid = ({AccountName}) => {
         {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 150},
         {field: 'Recipient', headerName: 'Payee', width: 150},
         {field: 'TransactionRepeat', headerName: 'Repeat', width: 150},
-        {field: 'Memo', headerName: 'Memo', width: 400}
+        {field: 'Memo', headerName: 'Memo', width: 300}
     ];
     const getAccountTransactions = (userID, accountName) => {
         const baseUrl = `http://localhost:3001/transaction/user-${userID}/accounts-transactions/account-${accountName}`;
-        console.log(baseUrl)
         const updatedArray = [];
-        console.log(accountName)
         Axios.get(baseUrl).then(((response) => {
             for (let x = 0; x < response.data.length; x++) {
                 updatedArray.push(
