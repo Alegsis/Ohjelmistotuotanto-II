@@ -4,7 +4,7 @@ import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Account from "./pages/Account";
 
 /*
@@ -13,16 +13,18 @@ import Account from "./pages/Account";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const AccountName = localStorage.getItem('AccountName')
-  const toggleSidebar = () => {
+
+    const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen)
-  }
+    }
+
 
   return (
       <Router>
         <div className="header">
           <Header setIsSidebarOpen={setIsSidebarOpen}
-                  toggleSidebar={toggleSidebar} loggedIn={loggedIn}
+                  toggleSidebar={toggleSidebar}
+                  loggedIn={loggedIn}
                   setLoggedIn={setLoggedIn}/>
         </div>
         <div className="row">
@@ -33,7 +35,7 @@ function App() {
             <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
               <Route path="/accounts" element={<Accounts/>}/>
-              <Route path={`/accounts/${AccountName}`} element={<Account/>}/>
+              <Route path={`/accounts/:AccountName`} element={<Account/>}/>
             </Routes>
           </div>
           {/*<div className="column right">*/}

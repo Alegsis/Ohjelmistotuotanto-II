@@ -4,7 +4,7 @@ import {DataGrid} from '@mui/x-data-grid';
 import CustomToolbar from "../helpers/GridToolbar";
 import moment from "moment";
 
-const AccountTransactionGrid = () => {
+const AccountTransactionGrid = ({AccountName}) => {
     const [rows, setRows] = useState([]);
 
     const columns = [
@@ -45,8 +45,7 @@ const AccountTransactionGrid = () => {
 
     useEffect(() => {
         const userID = localStorage.getItem('UserID')
-        const accountName = localStorage.getItem('AccountName')
-        getAccountTransactions(userID, accountName)
+        getAccountTransactions(userID, AccountName)
     }, []);
 
     return(

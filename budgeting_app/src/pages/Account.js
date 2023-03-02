@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AccountTransactionGrid from "../components/account/AccountTransactionGrid";
+import {useParams} from "react-router-dom";
+
 
 const Account = () => {
+    const { AccountName } = useParams();
 
     return (
         <div className="transaction">
-            <AccountTransactionGrid/>
+            <AccountTransactionGrid AccountName={AccountName}/>
         </div>
     );
 };
