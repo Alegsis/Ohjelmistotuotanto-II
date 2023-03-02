@@ -70,7 +70,8 @@ const Budget = () => {
       }
 
       return (
-          <div className="categoryRow" key={generateKey('categoryRow')}>
+          <div className="categoryRow"
+               key={generateKey('categoryRow' + treeItemData.category)}>
             <div className="categoryName" key={generateKey(
                 'categoryName')}> {treeItemData.category}</div>
             <div className="categoryBalance" key={generateKey(
