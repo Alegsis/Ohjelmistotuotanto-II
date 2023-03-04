@@ -44,7 +44,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
         Axios.post(baseUrl, {
             username: username,
             password: password
-        }).then((function (response){
+        }).then(((response) =>{
             setShow(username) //Muutetaan Login buttonin tieto käyttäjännimeksi
             setUsername('');
             setPassword('');

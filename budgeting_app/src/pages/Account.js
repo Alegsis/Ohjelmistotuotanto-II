@@ -1,13 +1,15 @@
 import React from 'react';
-import MuiTransactionGrid from "../components/transaction/mui-TransactionGrid";
+import AccountTransactionGrid from "../components/account/AccountTransactionGrid";
+import {useParams} from "react-router-dom";
 
-const Accounts = () => {
+const Account = () => {
+    const { AccountName } = useParams();
 
-  return (
-      <div className="transaction">
-        <MuiTransactionGrid/>
-      </div>
-  );
+    return (
+        <div className="transaction">
+            <AccountTransactionGrid key={AccountName} AccountName={AccountName}/>
+        </div>
+    );
 };
 
-export default Accounts;
+export default Account;

@@ -3,34 +3,32 @@ import Sidebar from './components/application-interface/Sidebar';
 import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
-import Accounts from './pages/Account';
+import Accounts from './pages/Accounts';
 import {useState} from 'react';
-
-/*
-* Huom, jos haluat saada oikean sarakkeen näkymään, poista kommentit divistä*/
+import Account from "./pages/Account";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+    const toggleSidebar = () => {
+      setIsSidebarOpen(!isSidebarOpen)
+    }
+
   return (
       <Router>
         <div className="header">
-          <Header setIsSidebarOpen={setIsSidebarOpen}
-                  toggleSidebar={toggleSidebar} loggedIn={loggedIn}
-                  setLoggedIn={setLoggedIn}/>
+          <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
         </div>
         <div className="row">
           <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
             <Sidebar/>
           </div>
           <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
-            <Routes>
+              <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
               <Route path="/accounts" element={<Accounts/>}/>
+              <Route path={`/accounts/:AccountName`} element={<Account/>}/>
             </Routes>
           </div>
           {/*<div className="column right">*/}
