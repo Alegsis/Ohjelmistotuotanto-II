@@ -1,4 +1,4 @@
-import React, { useState, Select } from 'react';
+import React, { useState } from 'react';
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -10,6 +10,7 @@ import Axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import {Select} from '@mui/material';
 
 export default function AddSubCategory() {
   const [open, setOpen] = React.useState(false);
@@ -17,8 +18,6 @@ export default function AddSubCategory() {
   const [balance, setBalance] = React.useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,27 +30,32 @@ export default function AddSubCategory() {
     setSelectedCategory("");
   };
 
-  const baseUrl = "http://localhost:3001/subcategory/new-subcategory";
-
   const handleAddSubCategory = () => {
-    //Pitää tarkastaa aikavyöhyke oikein
-    const today = new Date().toISOString().slice(0, 10);
     const userID = localStorage.getItem("UserID");
-    console.log(today);
-    console.log(userID);
 
-    Axios.post(baseUrl, {
-      SubCategoryName: subCategory,
-      Balance: balance,
-      UserID: userID,
-    }).then((response) => {
-      alert("successful insert");
+    const postUrl = "http://localhost:3001/subcategory/new-subcategory";
+    const getUrl = `http://localhost:3001/category/user-${userID}/find-categoryid/categoryname-${selectedCategory}`
 
+    Axios.get(getUrl)
+    .then((response) => {
+      const categoryID = response.data;
+
+      Axios.post(postUrl, {
+        SubCategoryName: subCategory,
+        Balance: balance,
+        UserID: userID,
+        CategoryID: categoryID
+      }).then((response) => {
+        alert("successful insert");
+    })
       setOpen(false);
       setsubCategory("");
       setBalance("");
       setSelectedCategory("");
-    });
+    }).catch((response) => {
+      alert("Something went wrong");
+      console.log(response);
+    })
   };
 
   const getUserCategories = () => {
@@ -61,8 +65,10 @@ export default function AddSubCategory() {
     Axios.get(baseUrl)
       .then(function (response) {
         for (let x = 0; x < response.data.length; x++) {
-          const category = response.data[x].CategoryName;
-          updatedArray.push({ value: category });
+          if(response.data[x].CategoryName.toString() !== 'Available'){
+            const category = response.data[x].CategoryName;
+            updatedArray.push({ value: category });
+          }
         }
         setCategoryList(updatedArray);
       })

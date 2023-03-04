@@ -16,6 +16,23 @@ router.get('/:id', async (req, res) => {
 });
 
 /**
+ * Find specific categoryID
+ */
+router.get('/user-:userID/find-categoryid/categoryname-:categoryName', async (req, res) => {
+  try {
+    const sqlQuery = `SELECT category.CategoryID FROM category WHERE category.UserID=? AND category.CategoryName=?`;
+
+    const userID = req.params.userID;
+    const categoryName = req.params.categoryName;
+
+    const rows = await pool.query(sqlQuery, [userID, categoryName]);
+    res.status(200).json(rows[0].CategoryID);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+/**
  * Find users all categories and them subcategories
  */
 router.get('/:id/return-category-dictionary', async (req, res) => {

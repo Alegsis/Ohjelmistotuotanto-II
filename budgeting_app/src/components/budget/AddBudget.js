@@ -79,13 +79,13 @@ export default function AddBudget() {
 
   return (
       <div>
-        <Button onClick={handleClickOpen}> Budget </Button>
+        <Button onClick={handleClickOpen}> (+) Budget </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Budget</DialogTitle>
           <DialogContent>
             <div className="budget-selects">
               <div className="subcategory-dropmenu">
-                <InputLabel id="account">From Category *</InputLabel>
+                <InputLabel id="account">From Sub Category *</InputLabel>
                 <Select
                     style={{height: '50px', width: '300px'}}
                     id="fromSubcategory"
@@ -107,7 +107,7 @@ export default function AddBudget() {
                 </Select>
               </div>
               <div className="subcategory-dropmenu">
-                <InputLabel id="category">To Category *</InputLabel>
+                <InputLabel id="category">To Sub Category *</InputLabel>
                 <Select
                     style={{height: '50px', width: '300px'}}
                     id="subcategory-name"
