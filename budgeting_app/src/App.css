@@ -177,7 +177,7 @@ body {
     display: grid;
 }
 
-.transaction-selects {
+.transaction-selects{
     display: flex;
     flex: 1;
 }
