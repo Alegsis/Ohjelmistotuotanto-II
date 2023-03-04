@@ -12,11 +12,11 @@ import ValidateEmail from "../../utils/email";
 import {IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
-export default function Register() {
+const Register = () => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [repassword, setrePassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
     const [email, setEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
@@ -28,7 +28,6 @@ export default function Register() {
         e.preventDefault();
     };
 
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -37,14 +36,14 @@ export default function Register() {
         setOpen(false);
         setUsername('');
         setPassword('');
-        setrePassword('');
+        setRePassword('');
         setEmail('');
     };
-    const baseUrl = "http://localhost:3001/user/register";
-    const handleSignUp = () => {
 
+    const handleSignUp = () => {
+        const baseUrl = "http://localhost:3001/user/register";
         if(ValidateEmail(email)){
-            if (password === repassword && 8 <= password.length && 3 <= username.length) {
+            if (password === rePassword && 8 <= password.length && 3 <= username.length) {
                 Axios.post(baseUrl, {
                     username: username,
                     password: password,
@@ -54,20 +53,19 @@ export default function Register() {
                     setOpen(false);
                     setUsername('');
                     setPassword('');
-                    setrePassword('');
+                    setRePassword('');
                     setEmail('');
                 }).catch(response => {
                     if (response.response.status === 409) {
                         alert('Username ' + username + ' is taken')
                     }
                 })
-            }else{
+            } else {
                 alert("Input of data doesn't meet requirements.")
             }
         } else {
             alert('Email-address does not meet requirements.')
         }
-
     };
 
     return (
@@ -138,7 +136,7 @@ export default function Register() {
                             ),
                         }}
                         onChange={(event) => {
-                            setrePassword(event.target.value)
+                            setRePassword(event.target.value)
                         }}
                     />
                     <TextField
@@ -165,3 +163,5 @@ export default function Register() {
         </div>
     );
 }
+
+export default Register

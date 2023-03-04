@@ -7,7 +7,7 @@ import Accounts from './pages/Accounts';
 import {useState} from 'react';
 import Account from "./pages/Account";
 
-function App() {
+const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
