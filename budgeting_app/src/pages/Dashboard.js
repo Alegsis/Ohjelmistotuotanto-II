@@ -1,9 +1,10 @@
 import React from 'react'
+import AddBudget from '../components/budget/AddBudget';
 
 const Dashboard = () => {
     return (
         <div className ='home'>
-            <h1>Dashboard</h1>
+          <AddBudget/>
         </div>
     );
 };
