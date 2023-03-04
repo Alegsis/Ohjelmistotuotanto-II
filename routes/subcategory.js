@@ -16,11 +16,24 @@ router.get('/:id', async (req, res) => {
 });
 
 /**
- * get specific subcategory name
+ * Get users subcategories
  */
 router.get('/:id/subcategory-name', async (req, res) => {
   try {
     const sqlQuery = `SELECT SubCategoryName FROM subcategory WHERE UserID=?`;
+    const rows = await pool.query(sqlQuery, req.params.id);
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+/**
+ * Get users subcategories
+ */
+router.get('/:id/subcategory-name-and-balance', async (req, res) => {
+  try {
+    const sqlQuery = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory WHERE UserID=?`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
