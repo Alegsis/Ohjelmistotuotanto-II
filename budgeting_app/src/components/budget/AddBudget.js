@@ -11,7 +11,7 @@ import {useState} from 'react';
 import Axios from 'axios';
 import moment from 'moment';
 
-export default function AddBudget() {
+const AddBudget = () => {
 
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(0.00);
@@ -34,7 +34,7 @@ export default function AddBudget() {
     const baseUrl = `http://localhost:3001/subcategory/${userID}/subcategory-name-and-balance`;
     const updatedArray = [];
     Axios.get(baseUrl,
-    ).then((function(response) {
+    ).then(((response) => {
       for (let x = 0; x < response.data.length; x++) {
         const subCategoryName = response.data[x].SubCategoryName;
         const subCategoryBalance = response.data[x].Balance;
@@ -155,3 +155,5 @@ export default function AddBudget() {
       </div>
   );
 }
+
+export default AddBudget

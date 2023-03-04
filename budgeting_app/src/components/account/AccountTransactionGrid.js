@@ -44,7 +44,7 @@ const AccountTransactionGrid = ({AccountName}) => {
     useEffect(() => {
         const userID = localStorage.getItem('UserID')
         getAccountTransactions(userID, AccountName)
-    }, []);
+    }, [AccountName]);
 
     return(
         <div style={{ width: '100%' }}>

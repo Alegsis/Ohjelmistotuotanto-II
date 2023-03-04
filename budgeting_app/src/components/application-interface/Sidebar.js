@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import {SidebarData} from './SidebarData';
 import Submenu from './SubMenu';
-// import * as IconsMaterial from '@mui/icons-material/'; // malli importata kaikki ikonit
 
 const SidebarWrap = styled.nav`
   width: 100%;

@@ -12,7 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import {Select} from '@mui/material';
 
-export default function AddSubCategory() {
+const AddSubCategory = () => {
   const [open, setOpen] = React.useState(false);
   const [subCategory, setsubCategory] = React.useState("");
   const [balance, setBalance] = React.useState("");
@@ -63,7 +63,7 @@ export default function AddSubCategory() {
     const baseUrl = `http://localhost:3001/category/${userID}`;
     const updatedArray = [];
     Axios.get(baseUrl)
-      .then(function (response) {
+      .then((response) => {
         for (let x = 0; x < response.data.length; x++) {
           if(response.data[x].CategoryName.toString() !== 'Available'){
             const category = response.data[x].CategoryName;
@@ -158,3 +158,5 @@ export default function AddSubCategory() {
     </div>
   );
 }
+
+export default AddSubCategory
