@@ -47,7 +47,7 @@ export default function AddTransaction() {
     const baseUrl = `http://localhost:3001/account/${userID}/account-name`;
     const updatedArray = [];
     Axios.get(baseUrl)
-      .then(function (response) {
+      .then( (response) => {
         for (let x = 0; x < response.data.length; x++) {
           const account = response.data[x].AccountName;
           updatedArray.push({ value: account });
