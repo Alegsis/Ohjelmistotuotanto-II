@@ -44,9 +44,11 @@ body {
     display: flex;
     justify-content: center;
 }
-.column.left.hidden{
+
+.column.left.hidden {
     display: none;
 }
+
 /* Middle column */
 .column.middle {
     -webkit-flex: 1 1;
@@ -54,9 +56,11 @@ body {
     flex: 1 1;
     padding: 0;
 }
+
 .column.middle.hidden {
     display: none;
 }
+
 /* To be done...
 .column.right {
     -webkit-flex: 1;
@@ -86,9 +90,9 @@ body {
 .category {
     display: flex;
     height: 80vh;
-    justify-content: center;
+    justify-content: flex-start;
     font-size: 2rem;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .secondary-button {
@@ -99,7 +103,7 @@ body {
 }
 
 .primary-button,
-.login-select{
+.login-select {
     margin-left: auto !important;
     margin-right: 0 !important;
     padding-right: 1.5rem;
@@ -108,8 +112,25 @@ body {
     text-align: center;
 }
 
-.login-select{
-    text-align-last:center;
+.categoryRow {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.categoryBalance {
+    font-size: medium;
+    color: seagreen;
+}
+
+.categoryName {
+    font-size: medium;
+    color: #15171c;
+}
+
+.login-select {
+    text-align-last: center;
     padding: 0 0 0 0;
 }
 
@@ -144,7 +165,8 @@ body {
 }
 
 .TransactionGrid,
-.AccountGrid {
+.AccountGrid,
+.Budget {
     flex: 1 1 auto;
     height: auto;
 }
@@ -174,8 +196,8 @@ body {
 }
 
 /*Mui buttoneitten tyylit*/
-.MuiButton-root{
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
+.MuiButton-root {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.75;
@@ -188,11 +210,11 @@ body {
 }
 
 /*Logged in user button style (tai mui select root*/
-.MuiSelect-select{
+.MuiSelect-select {
     justify-content: center;
     position: relative;
     box-sizing: border-box;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.75;
@@ -206,12 +228,12 @@ body {
     margin-bottom: 1rem;
 }
 
-.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
     max-width: 150px !important;
     height: 40px;
-    }
+}
 
-.MuiOutlinedInput-input  {
+.MuiOutlinedInput-input {
     color: #1976d2 !important;
     border: #ee0000 !important;
     border: 10px !important;
@@ -222,6 +244,7 @@ body {
     border-width: 1px !important;
     border-color: #1976d2 !important;
 }
+
 .Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: #1976d2 !important;
 }
