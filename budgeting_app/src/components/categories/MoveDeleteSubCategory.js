@@ -31,10 +31,6 @@ const MoveDeleteSubcategory = () => {
     };
     const handleDelete = () => {
 
-        //Tähän jonkinlainen axios-post
-        //kato alempaa esimerkkiä
-
-        //Lisää jonkinlainen alertti varmistamaan, ettei vahingossa lipsahda
 
     };
 
