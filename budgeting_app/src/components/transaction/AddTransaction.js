@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-export default function AddTransaction() {
+const AddTransaction = () => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(dayjs(Date.now()));
   const [transactionName, setTransactionName] = useState("");
@@ -46,16 +46,14 @@ export default function AddTransaction() {
     const userID = localStorage.getItem("UserID");
     const baseUrl = `http://localhost:3001/account/${userID}/account-name`;
     const updatedArray = [];
-    Axios.get(baseUrl)
-      .then( (response) => {
+    Axios.get(baseUrl).then((response) => {
         for (let x = 0; x < response.data.length; x++) {
           const account = response.data[x].AccountName;
           updatedArray.push({ value: account });
         }
         setAccountsList([]);
         setAccountsList(updatedArray);
-      })
-      .catch((response) => {
+      }).catch((response) => {
         console.log(response);
         alert("catch addTransaction");
       });
@@ -65,16 +63,14 @@ export default function AddTransaction() {
     const userID = localStorage.getItem("UserID");
     const baseUrl = `http://localhost:3001/subcategory/${userID}/subcategory-name`;
     const updatedArray2 = [];
-    Axios.get(baseUrl)
-      .then(function (response) {
+    Axios.get(baseUrl).then((response) => {
         for (let x = 0; x < response.data.length; x++) {
           const subCategoryName = response.data[x].SubCategoryName;
           updatedArray2.push({ value: subCategoryName });
         }
         setSubCategoryList([]);
         setSubCategoryList(updatedArray2);
-      })
-      .catch((response) => {
+      }).catch((response) => {
         console.log(response);
         alert("catch AddTransaction2");
       });
@@ -94,16 +90,14 @@ export default function AddTransaction() {
       AccountName: account,
       SubCategoryName: subCategory,
       UserID: userID,
-    })
-      .then(() => {
+    }).then(() => {
         alert("successful insert");
         setOpen(false);
         setAccount("");
         setSubCategory("");
         setInflow(0.0);
         setOutflow(0.0);
-      })
-      .catch((response) => {
+      }).catch((response) => {
         console.log(response);
         alert("Add addTransaction3");
       });
@@ -252,3 +246,5 @@ export default function AddTransaction() {
     </div>
   );
 }
+
+export default AddTransaction

@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Axios from "axios";
 
-export default function AddCategory() {
+const AddCategory = () => {
   const [open, setOpen] = React.useState(false);
   const [category, setCategory] = React.useState("");
 
@@ -21,9 +21,8 @@ export default function AddCategory() {
     setCategory("");
   };
 
-  const baseUrl = "http://localhost:3001/category/new-category";
-
   const handleAddCategory = () => {
+    const baseUrl = "http://localhost:3001/category/new-category";
     //Pitää tarkastaa aikavyöhyke oikein
     const today = new Date().toISOString().slice(0, 10);
     const userID = localStorage.getItem("UserID");
@@ -79,3 +78,5 @@ export default function AddCategory() {
     </div>
   );
 }
+
+export default AddCategory

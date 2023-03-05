@@ -10,19 +10,16 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Axios from "axios";
-import { Select } from "@mui/material";
+import {Select} from "@mui/material";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
-import { Box } from "@mui/material";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { SidebarData } from "../application-interface/SidebarData";
-import { useEffect, useState } from "react";
+import {Box} from "@mui/material";
+import {useState} from "react";
 
-export default function CreateBankAcc() {
-  const [open, setOpen] = React.useState(false);
-  const [accountType, setaccountType] = React.useState("");
-  const [accountName, setaccountName] = React.useState("");
-  const [accountBalance, setaccountBalance] = React.useState("");
-  const [sidebarData, setSidebarData] = useState(SidebarData);
+const CreateBankAcc = () => {
+  const [open, setOpen] = useState(false);
+  const [accountType, setAccountType] = useState("");
+  const [accountName, setAccountName] = useState("");
+  const [accountBalance, setAccountBalance] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,19 +27,16 @@ export default function CreateBankAcc() {
 
   const handleClose = () => {
     setOpen(false);
-    setaccountType("");
-    setaccountName("");
-    setaccountBalance("");
+    setAccountType("");
+    setAccountName("");
+    setAccountBalance("");
   };
 
-  const baseUrl = "http://localhost:3001/account/new-account";
-
   const handleCreateAcc = () => {
+    const baseUrl = "http://localhost:3001/account/new-account";
     //Pitää tarkastaa aikavyöhyke oikein
     const today = new Date().toISOString().slice(0, 10);
     const userID = localStorage.getItem("UserID");
-    console.log(today);
-    console.log(userID);
 
     Axios.post(baseUrl, {
       AccountName: accountName,
@@ -52,23 +46,10 @@ export default function CreateBankAcc() {
       UserID: userID,
     }).then((response) => {
       alert("successful insert");
-
-      const newSubmenu = {
-        title: accountName,
-        path: "/accounts/" + response.data.id,
-        icon: <AccountBalanceIcon />,
-      };
-
-      setSidebarData((prevSidebarData) => {
-        const newSidebarData = [...prevSidebarData]; // make a copy of the previous state
-        newSidebarData[1].subNavi.concat(newSubmenu); // update the subNavi array
-        return newSidebarData; // return the new state
-      });
-
       setOpen(false);
-      setaccountType("");
-      setaccountName("");
-      setaccountBalance("");
+      setAccountType("");
+      setAccountName("");
+      setAccountBalance("");
     });
   };
 
@@ -100,7 +81,7 @@ export default function CreateBankAcc() {
             value={accountName}
             variant="filled"
             onChange={(event) => {
-              setaccountName(event.target.value);
+              setAccountName(event.target.value);
             }}
           />
           <TextField
@@ -114,7 +95,7 @@ export default function CreateBankAcc() {
             value={accountBalance}
             variant="filled"
             onChange={(event) => {
-              setaccountBalance(event.target.value);
+              setAccountBalance(event.target.value);
             }}
           />
           <FormControl required margin="dense">
@@ -126,7 +107,7 @@ export default function CreateBankAcc() {
               fullWidth
               value={accountType}
               onChange={(event) => {
-                setaccountType(event.target.value);
+                setAccountType(event.target.value);
               }}
             >
               <MenuItem value="Cash">Cash</MenuItem>
@@ -149,3 +130,5 @@ export default function CreateBankAcc() {
     </div>
   );
 }
+
+export default CreateBankAcc
