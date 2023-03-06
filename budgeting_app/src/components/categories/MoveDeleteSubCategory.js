@@ -104,11 +104,11 @@ const MoveDeleteSubcategory = () => {
         const baseUrl = `http://localhost:3001/subcategory/${userID}`;
         const updatedArray = [];
         Axios.get(baseUrl).then((response) => {
-            console.log(response.data.length)
                 for (let x = 0; x < response.data.length; x++) {
-                    const subCategory = response.data[x].SubCategoryName;
-                    console.log(subCategory)
-                    updatedArray.push({value: subCategory});
+                    if(response.data[x].SubCategoryName.toString() !== 'AvailableFunds'){
+                        const subCategory = response.data[x].SubCategoryName;
+                        updatedArray.push({value: subCategory});
+                    }
                 }
                 setSubCategoryList(updatedArray);
             })
@@ -130,14 +130,16 @@ const MoveDeleteSubcategory = () => {
 
     useEffect(() => {
         getUserCategories();
-    }, []);
+    }, [open]);
 
     useEffect(() => {
         getUserSubCategories();
-    }, []);
+    }, [open]);
 
     useEffect(() => {
-        if(selectedSubCategory !== "") updateValues();
+        if(selectedSubCategory !== ""){
+            updateValues();
+        }
     }, [selectedSubCategory]);
 
     return (
@@ -209,6 +211,7 @@ const MoveDeleteSubcategory = () => {
                     />
                     <TextField
                         autoFocus
+                        disabled
                         margin="dense"
                         id="balance"
                         label="Balance"
