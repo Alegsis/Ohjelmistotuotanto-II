@@ -1,11 +1,9 @@
 import Axios from 'axios';
-import {useEffect, useState} from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import CustomToolbar from "../helpers/GridToolbar";
 import moment from "moment";
 
-const MuiTransactionGrid = () => {
-    const [rows, setRows] = useState([]);
+const MuiTransactionGrid = ({rows}) => {
 
     const columns = [
         {field: 'TransactionDate', headerName: 'DATE', width: 150},
@@ -16,36 +14,6 @@ const MuiTransactionGrid = () => {
         {field: 'TransactionRepeat', headerName: 'Repeat', width: 150},
         {field: 'Memo', headerName: 'Memo', width: 400}
     ];
-
-    const getUserTransactions = (userID) => {
-        const baseUrl = `http://localhost:3001/transaction/${userID}`;
-        const updatedArray = [];
-        Axios.get(baseUrl).then(((response) => {
-            for (let x = 0; x < response.data.length; x++) {
-                updatedArray.push(
-                    {
-                        id: x,
-                        TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
-                        TransactionName: response.data[x].TransactionName,
-                        Outflow: response.data[x].Outflow,
-                        Inflow: response.data[x].Inflow,
-                        Recipient: response.data[x].Recipient,
-                        TransactionRepeat: response.data[x].TransactionRepeat,
-                        Memo: response.data[x].Memo,
-                    },
-                );
-            }
-            setRows(updatedArray);
-        })).catch((response) => {
-            console.log(response);
-            alert('catch transactionGrid');
-        });
-    };
-
-    useEffect(() => {
-        const userID = localStorage.getItem('UserID');
-        getUserTransactions(userID);
-    }, []);
 
     return(
         <div style={{ width: '100%' }}>
@@ -64,5 +32,30 @@ const MuiTransactionGrid = () => {
     </div>
     )
 }
+
+export const getUserTransactions = (userID) => {
+    const baseUrl = `http://localhost:3001/transaction/${userID}`;
+    const updatedArray = [];
+    return Axios.get(baseUrl).then(((response) => {
+        for (let x = 0; x < response.data.length; x++) {
+            updatedArray.push(
+                {
+                    id: x,
+                    TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
+                    TransactionName: response.data[x].TransactionName,
+                    Outflow: response.data[x].Outflow,
+                    Inflow: response.data[x].Inflow,
+                    Recipient: response.data[x].Recipient,
+                    TransactionRepeat: response.data[x].TransactionRepeat,
+                    Memo: response.data[x].Memo,
+                },
+            );
+        }
+        return updatedArray;
+    })).catch((response) => {
+        console.log(response);
+        alert('catch transactionGrid');
+    });
+};
 
 export default MuiTransactionGrid

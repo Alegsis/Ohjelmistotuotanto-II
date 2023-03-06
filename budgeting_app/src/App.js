@@ -22,12 +22,12 @@ const App = () => {
         </div>
         <div className="row">
           <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-            <Sidebar/>
+            <Sidebar loggedIn={loggedIn}/>
           </div>
           <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
               <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
-              <Route path="/accounts" element={<Accounts/>}/>
+              <Route path="/accounts" element={<Accounts loggedIn={loggedIn}/>}/>
               <Route path={`/accounts/:AccountName`} element={<Account/>}/>
             </Routes>
           </div>
