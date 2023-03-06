@@ -17,7 +17,9 @@ const MoveDeleteSubcategory = () => {
     const [subCategory, setsubCategory] = React.useState("");
     const [balance, setBalance] = React.useState("");
     const [categoryList, setCategoryList] = useState([]);
+    const [SubCategoryList, setSubCategoryList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -28,27 +30,41 @@ const MoveDeleteSubcategory = () => {
         setsubCategory("");
         setBalance("");
         setSelectedCategory("");
+        setSelectedSubCategory("");
     };
     const handleDelete = () => {
-
-
+        const userID = localStorage.getItem("UserID");
+        const postUrl = "http://localhost:3001/subcategory/deactivate-subcategory";
+                Axios.post(postUrl, {
+                    SubCategoryName: selectedSubCategory,
+                    UserID: userID
+                }).then((response) => {
+                    alert("Delete was successful");
+                    setOpen(false);
+                    setsubCategory("");
+                    setBalance("");
+                    setSelectedCategory("");
+                    setSelectedSubCategory("");
+                }).catch((response) => {
+                    alert("Something went wrong");
+                    console.log(response);
+            })
     };
 
     const handleEditSubCategory = () => {
         const userID = localStorage.getItem("UserID");
 
-        const postUrl = "http://localhost:3001/subcategory/new-subcategory";
-        const getUrl = `http://localhost:3001/category/user-${userID}/find-categoryid/categoryname-${selectedCategory}`
+        const postUrl = "http://localhost:3001/subcategory/update-subcategory";
+        const getUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`
 
         Axios.get(getUrl)
             .then((response) => {
-                const categoryID = response.data;
-
+                setBalance(response.data[0].Balance)
                 Axios.post(postUrl, {
-                    SubCategoryName: subCategory,
-                    Balance: balance,
+                    NewSubCategoryName: subCategory,
+                    NewCategory: selectedCategory,
                     UserID: userID,
-                    CategoryID: categoryID
+                    SubCategoryName: selectedSubCategory
                 }).then((response) => {
                     alert("successful insert");
                 })
@@ -56,6 +72,7 @@ const MoveDeleteSubcategory = () => {
                 setsubCategory("");
                 setBalance("");
                 setSelectedCategory("");
+                setSelectedSubCategory("");
             }).catch((response) => {
             alert("Something went wrong");
             console.log(response);
@@ -82,8 +99,30 @@ const MoveDeleteSubcategory = () => {
             });
     };
 
+    const getUserSubCategories = () => {
+        const userID = localStorage.getItem("UserID");
+        const baseUrl = `http://localhost:3001/subcategory/${userID}`;
+        const updatedArray = [];
+        Axios.get(baseUrl).then((response) => {
+            console.log(response.data.length)
+                for (let x = 0; x < response.data.length; x++) {
+                    const subCategory = response.data[x].SubCategoryName;
+                    console.log(subCategory)
+                    updatedArray.push({value: subCategory});
+                }
+                setSubCategoryList(updatedArray);
+            })
+            .catch((response) => {
+                console.log(response);
+            });
+    };
+
     React.useEffect(() => {
         getUserCategories();
+    }, []);
+
+    React.useEffect(() => {
+        getUserSubCategories();
     }, []);
 
     return (
@@ -103,19 +142,24 @@ const MoveDeleteSubcategory = () => {
                         <InputLabel id="Category-type-label">SubCategory</InputLabel>
                         <Select
                             style={{ height: "50px", width: "200px" }}
-                            labelId="Category-type-label"
-                            id="Category"
+                            labelId="SubCategory-type-label"
+                            id="SubCategory"
                             fullWidth
-                            value={selectedCategory}
+                            value={selectedSubCategory}
                             onChange={(event) => {
-                                setSelectedCategory(event.target.value);
+                                setSelectedSubCategory(event.target.value);
                             }}
                         >
+                            {SubCategoryList.map((subCategory) => (
+                                <MenuItem key={subCategory.value} value={subCategory.value}>
+                                    {subCategory.value}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
                     <FormControl required margin="dense">
-                        <InputLabel id="Category-type-label">Category</InputLabel>
+                        <InputLabel id="SubCategory-type-label">Category</InputLabel>
                         <Select
                             style={{ height: "50px", width: "200px" }}
                             labelId="Category-type-label"
