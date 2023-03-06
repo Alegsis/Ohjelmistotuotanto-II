@@ -7,7 +7,7 @@ const pool = require('../helpers/database');
  */
 router.get('/:id', async (req, res) => {
   try {
-    const sqlQuery = `SELECT SubCategoryName, Balance FROM subcategory WHERE UserID=?`;
+    const sqlQuery = `SELECT SubCategoryName, Balance FROM subcategory WHERE UserID=? AND subcategory.IsActive = 1`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,9 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import {Select} from '@mui/material';
 
 const MoveDeleteSubcategory = () => {
-    const [open, setOpen] = React.useState(false);
-    const [subCategory, setsubCategory] = React.useState("");
-    const [balance, setBalance] = React.useState("");
+    const [open, setOpen] = useState(false);
+    const [subCategory, setsubCategory] = useState("");
+    const [balance, setBalance] = useState("");
     const [categoryList, setCategoryList] = useState([]);
     const [SubCategoryList, setSubCategoryList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -117,13 +117,28 @@ const MoveDeleteSubcategory = () => {
             });
     };
 
-    React.useEffect(() => {
+    const updateValues = () => {
+        const userID = localStorage.getItem("UserID");
+        const baseUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`;
+        Axios.get(baseUrl)
+        .then((response) => {
+            setSelectedCategory(response.data[0].CategoryName);
+            setBalance(response.data[0].Balance);
+            setsubCategory(selectedSubCategory);
+        });
+    }
+
+    useEffect(() => {
         getUserCategories();
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         getUserSubCategories();
     }, []);
+
+    useEffect(() => {
+        if(selectedSubCategory !== "") updateValues();
+    }, [selectedSubCategory]);
 
     return (
         <div className="subcategory-button">
