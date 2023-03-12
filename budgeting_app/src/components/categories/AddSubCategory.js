@@ -38,7 +38,6 @@ const AddSubCategory = () => {
       const postUrl = 'http://localhost:3001/subcategory/new-subcategory';
       const getUrl = `http://localhost:3001/category/user-${userID}/find-categoryid/categoryname-${selectedCategory}`;
 
-
       const getCategoryName = await Axios.get(checkCategoryName);
       for (let x = 0; x < getCategoryName.data.length; x++) {
         if (getCategoryName.data[x].CategoryName.toString() ===
@@ -62,10 +61,10 @@ const AddSubCategory = () => {
         setBalance('');
         setSelectedCategory('');
       } else {
-        alert('Category name and Sub Category name can not be the same')
+        alert('Category name and Sub Category name can not be the same');
       }
-    } catch (error){
-      alert(error)
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -93,15 +92,15 @@ const AddSubCategory = () => {
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" onClick={handleClickOpen}>
-          (+) Add sub category
+          (+) Add subcategory
         </Button>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Create sub category</DialogTitle>
+          <DialogTitle>Create subcategory</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To create a sub category, you need to select a category and input
+              To create a subcategory, you need to select a category and input
               a
-              sub category name. Optionally You can also add a balance for the
+              subcategory name. Optionally You can also add a balance for the
               subcategory.
             </DialogContentText>
 
