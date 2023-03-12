@@ -144,6 +144,7 @@ const AddSubCategory = () => {
                 margin="dense"
                 id="balance"
                 label="Balance"
+                type="number"
                 fullWidth
                 inputProps={{maxLength: 20}}
                 value={balance}

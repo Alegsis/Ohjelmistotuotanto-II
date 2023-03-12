@@ -138,6 +138,7 @@ const AddBudget = () => {
                 margin="dense"
                 id="amount"
                 label="Amount"
+                type="number"
                 fullWidth
                 variant="filled"
                 onChange={(event) => {

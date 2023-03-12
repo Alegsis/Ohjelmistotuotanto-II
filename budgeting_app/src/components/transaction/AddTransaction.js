@@ -14,6 +14,8 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import FormControl from "@mui/material/FormControl";
+import * as React from "react";
 
 const AddTransaction = () => {
   const [open, setOpen] = useState(false);
@@ -171,18 +173,6 @@ const AddTransaction = () => {
             required
             autoFocus
             margin="dense"
-            id="transactionRepeat"
-            label="Transaction Repeat"
-            fullWidth
-            variant="filled"
-            onChange={(event) => {
-              setTransactionRepeat(event.target.value);
-            }}
-          />
-          <TextField
-            required
-            autoFocus
-            margin="dense"
             id="memo"
             label="Memo"
             fullWidth
@@ -191,14 +181,31 @@ const AddTransaction = () => {
               setMemo(event.target.value);
             }}
           />
+            <InputLabel>Transaction Repeat *</InputLabel>
+            <Select
+                style={{ height: "50px", width: "250px" }}
+                fullWidth
+                required
+                value={transactionRepeat}
+                onChange={(event) => {
+                  setTransactionRepeat(event.target.value);
+                }}
+            >
+              <MenuItem value="Once">Once</MenuItem>
+              <MenuItem value="Daily">Daily</MenuItem>
+              <MenuItem value="Weekly">Weekly</MenuItem>
+              <MenuItem value="Monthly">Monthly</MenuItem>
+              <MenuItem value="Yearly">Yearly</MenuItem>
+            </Select>
           <div className="transaction-selects">
             <div className="transaction-account">
               <InputLabel id="account">Account *</InputLabel>
               <Select
-                style={{ height: "50px", width: "200px" }}
+                style={{ height: "50px", width: "250px" }}
                 id="account-name"
                 labelId="account"
                 fullWidth
+                required
                 onOpen={getUserAccounts}
                 value={account}
                 onChange={(event) => {
@@ -215,10 +222,11 @@ const AddTransaction = () => {
             <div className="transaction-category">
               <InputLabel id="category">SubCategory *</InputLabel>
               <Select
-                style={{ height: "50px", width: "200px" }}
+                style={{ height: "50px", width: "250px" }}
                 id="subcategory-name"
                 labelId="category"
                 fullWidth
+                required
                 onOpen={getUserSubcategories}
                 value={subCategory}
                 onChange={(event) => {
