@@ -4,7 +4,7 @@ import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Account from "./pages/Account";
 
 const App = () => {
@@ -14,6 +14,16 @@ const App = () => {
     const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen)
     }
+    useEffect(() => {
+        if (localStorage.getItem('UserID') !== null){
+            setLoggedIn(true)
+            setTimeout(() => {
+                localStorage.clear();
+                setLoggedIn(false)
+            }, 3600000); // 3600000 milliseconds = 60 minutes
+        }
+    }, [localStorage.getItem('UserID')])
+
 
   return (
       <Router>
