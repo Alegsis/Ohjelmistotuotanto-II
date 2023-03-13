@@ -59,7 +59,7 @@ const Total = () => {
     const baseurl = `http://localhost:3001/subcategory/${userID}/available-to-budget`;
     Axios.get(baseurl)
     .then((res) => {
-      setAvailableToBudget(res.data)
+      setAvailableToBudget(res.data[0].Balance)
     }).catch((err) => {
       console.log(err);
     });

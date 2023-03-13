@@ -48,7 +48,7 @@ router.get('/:id/available-to-budget', async (req, res) => {
   try {
     const sqlQuery = `SELECT subcategory.Balance FROM subcategory WHERE UserID=? AND subcategory.SubCategoryName = 'AvailableFunds'`;
     const rows = await pool.query(sqlQuery, req.params.id);
-    res.status(200).json(parseFloat(rows[0].Balance));
+    res.status(200).send(rows);
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -77,21 +77,6 @@ router.get('/user-:UserID/get-subcategory-details/subCategoryName-:SubCategoryNa
     res.status(400).send(error.message);
   }
 });
-
-/**
- * Get available to budget balance
- */
-
-router.get(':id/available-to-budget', async (req, res) => {
-  try {
-    const sqlQuery = `SELECT subcategory.Balance FROM subcategory WHERE UserID=? AND subcategory.IsActive = 1 AND subcategory.SubCategoryName = 'AvailableFunds'`;
-    const rows = await pool.query(sqlQuery, req.params.id);
-    res.status(200).json(rows[0].Balance);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
 
 /**
  * Add new subcategory

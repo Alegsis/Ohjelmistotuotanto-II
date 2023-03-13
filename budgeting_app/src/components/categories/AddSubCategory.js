@@ -53,7 +53,7 @@ const AddSubCategory = () => {
         const getCategoryID = await Axios.get(getUrl); //.data
         await Axios.post(postUrl, {
           SubCategoryName: subCategory,
-          Balance: balance,
+          Balance: 0,
           UserID: userID,
           CategoryID: getCategoryID.data,
         });
