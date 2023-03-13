@@ -8,14 +8,14 @@ import {useEffect, useState} from 'react';
 import Account from "./pages/Account";
 
 const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const toggleSidebar = () => {
-      setIsSidebarOpen(!isSidebarOpen)
+        setIsSidebarOpen(!isSidebarOpen)
     }
     useEffect(() => {
-        if (localStorage.getItem('UserID') !== null){
+        if (localStorage.getItem('UserID') !== null) {
             setLoggedIn(true)
             setTimeout(() => {
                 localStorage.clear();
@@ -24,29 +24,29 @@ const App = () => {
         }
     }, [localStorage.getItem('UserID')])
 
-
-  return (
-      <Router>
-        <div className="header">
-          <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-        </div>
-        <div className="row">
-          <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-            <Sidebar loggedIn={loggedIn}/>
-          </div>
-          <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
-              <Routes>
-              <Route path="/dashboard" element={<Dashboard/>}/>
-              <Route path="/accounts" element={<Accounts loggedIn={loggedIn}/>}/>
-              <Route path={`/accounts/:AccountName`} element={<Account/>}/>
-            </Routes>
-          </div>
-          {/*<div className="column right">*/}
-          {/*  <p> Oikea sarake</p>*/}
-          {/*</div>*/}
-        </div>
-      </Router>
-  );
+    return (
+        <Router>
+            <div className="header">
+                <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn}
+                        setLoggedIn={setLoggedIn}/>
+            </div>
+            <div className="row">
+                <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
+                    <Sidebar loggedIn={loggedIn}/>
+                </div>
+                <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
+                    <Routes>
+                        <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn}/>}/>
+                        <Route path={`/accounts/:AccountName`} element={<Account/>}/>
+                    </Routes>
+                </div>
+                {/*<div className="column right">*/}
+                {/*  <p> Oikea sarake</p>*/}
+                {/*</div>*/}
+            </div>
+        </Router>
+    );
 }
 
 export default App;
