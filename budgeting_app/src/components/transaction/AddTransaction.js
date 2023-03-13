@@ -14,7 +14,6 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import FormControl from "@mui/material/FormControl";
 import * as React from "react";
 
 const AddTransaction = () => {
@@ -79,7 +78,7 @@ const AddTransaction = () => {
   };
 
   const addTransaction = () => {
-    const userID = parseInt(localStorage.getItem("UserID"));
+    const userID = localStorage.getItem("UserID");
     const baseUrl = `http://localhost:3001/transaction/new-transaction`;
     Axios.post(baseUrl, {
       TransactionName: transactionName,
