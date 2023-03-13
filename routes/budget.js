@@ -46,8 +46,8 @@ router.post('/new-budget', async (req, res) => {
         [Amount, BudgetDate, FromSubCategory, ToSubCategory]);
 
     const budgetID = rows.insertId;
-    const fromSubCategoryIDQuery = `SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.SubCategoryName = '${FromSubCategory}' AND subcategory.UserID = ${UserID}`;
-    const toSubCategoryIDQuery = `SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.SubCategoryName = '${ToSubCategory}' AND subcategory.UserID = ${UserID}`;
+    const fromSubCategoryIDQuery = `SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.SubCategoryName = '${FromSubCategory}' AND subcategory.UserID = '${UserID}'`;
+    const toSubCategoryIDQuery = `SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.SubCategoryName = '${ToSubCategory}' AND subcategory.UserID = '${UserID}'`;
     const FromSubCategoryIDResult = await pool.query(fromSubCategoryIDQuery);
     const ToSubCategoryIDResult = await pool.query(toSubCategoryIDQuery);
     const FromSubCategoryID = FromSubCategoryIDResult[0].SubCategoryID;

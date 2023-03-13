@@ -30,14 +30,19 @@ router.post('/register', async (req, res) => {
 
     if (resultFind.length === 0) {
       const insertUser = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
-      const resultInsertUser = await pool.query(insertUser, [username, email, encryptedPassword]);
-      const insertedUserID = resultInsertUser.insertId;
+      await pool.query(insertUser, [username, email, encryptedPassword]);
 
-      const insertCategory = `INSERT INTO category (CategoryName, UserID) VALUES ("Available", ${insertedUserID})`;
+      const getInsertedUserID = `SELECT user.UserID from user WHERE user.UserName = '${username}'`
+      const insertedUserID = await pool.query(getInsertedUserID);
+      const userID = insertedUserID[0].UserID;
+      console.log(insertedUserID)
+      console.log(userID)
+
+      const insertCategory = `INSERT INTO category (CategoryName, UserID) VALUES ("Available", '${userID}')`;
       const resultInsertCategory = await pool.query(insertCategory);
       const insertedCategoryID = resultInsertCategory.insertId.toString();
 
-      const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, ${insertedUserID}, ${insertedCategoryID})`;
+      const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, '${userID}', ${insertedCategoryID})`;
       await pool.query(insertSubCategory);
 
 
