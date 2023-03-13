@@ -10,11 +10,6 @@ const Total = () => {
   const [accountStyle, setAccountStyle] = useState(true);
   const [debtStyle, setDebtStyle] = useState(true);
 
-  useEffect(() => {
-    fetchTotalAmount()
-    fetchBudget()
-  });
-
   const handleAccountChange = (props) => {
     setAccountStyle(props);
   };
@@ -22,6 +17,11 @@ const Total = () => {
   const handleDebtChange = (props) => {
     setDebtStyle(props);
   };
+
+  useEffect(() => {
+    fetchTotalAmount()
+    fetchBudget()
+  });
 
   const fetchTotalAmount = () => {
 
