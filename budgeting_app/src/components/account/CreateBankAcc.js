@@ -90,6 +90,7 @@ const CreateBankAcc = () => {
             margin="dense"
             id="account-balance"
             label="Account Balance"
+            type="number"
             fullWidth
             inputProps={{maxLength: 11}}
             value={accountBalance}
