@@ -6,12 +6,13 @@ const Total = () => {
 
   const [totalAmount, setTotalAmount] = useState(0);
   const [debt, setDebt] = useState(0);
-  const [id, setId] = useState(1);
+  const [availableToBudget, setAvailableToBudget] = useState(0);
   const [accountStyle, setAccountStyle] = useState(true);
   const [debtStyle, setDebtStyle] = useState(true);
 
   useEffect(() => {
     fetchTotalAmount()
+    fetchBudget()
   });
 
   const handleAccountChange = (props) => {
@@ -24,10 +25,8 @@ const Total = () => {
 
   const fetchTotalAmount = () => {
 
-    const storedId = parseInt(localStorage.getItem('UserID'));
-    setId(storedId);
-
-    const baseurl = `http://localhost:3001/account/${id}/sum-balance`;
+    const storedId = localStorage.getItem('UserID');
+    const baseurl = `http://localhost:3001/account/${storedId}/sum-balance`;
 
     Axios.get(baseurl).then((res) => {
       if (res.data.balance_summary !== null) {
@@ -40,7 +39,6 @@ const Total = () => {
       } else {
         setTotalAmount(0);
       }
-
       if (res.data.debt_summary !== null) {
         if (res.data.debt_summary >= 0) {
           handleDebtChange(true);
@@ -51,12 +49,21 @@ const Total = () => {
       } else {
         setDebt(0);
       }
-
     }).catch((err) => {
       console.log(err);
     });
-
   };
+
+  const fetchBudget = () => {
+    const userID = localStorage.getItem('UserID');
+    const baseurl = `http://localhost:3001/subcategory/${userID}/available-to-budget`;
+    Axios.get(baseurl)
+    .then((res) => {
+      setAvailableToBudget(res.data)
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 
   const TotalsWrapper = styled.div`
     display: flex;
@@ -98,16 +105,22 @@ const Total = () => {
             {totalAmount}€
           </AccountStyleSwitcher>
         </SegmentWrapper>
+
         <SegmentWrapper>
           Debts: &nbsp;
           <DebtStyleSwitcher className={debtStyle ? 'positive' : 'negative'}>
             {debt}€
           </DebtStyleSwitcher>
         </SegmentWrapper>
-        <SegmentWrapper>Available to budget: </SegmentWrapper>
+
+        <SegmentWrapper>
+          Available to budget: &nbsp;
+            <DebtStyleSwitcher className={accountStyle ? 'positive' : 'negative'}>
+              {availableToBudget}€
+            </DebtStyleSwitcher>
+        </SegmentWrapper>
       </TotalsWrapper>
   );
-
 }
 
 export default Total;
