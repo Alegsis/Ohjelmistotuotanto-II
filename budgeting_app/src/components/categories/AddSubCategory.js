@@ -87,7 +87,7 @@ const AddSubCategory = () => {
 
   React.useEffect(() => {
     getUserCategories();
-  }, []);
+  }, [open]);
 
   return (
       <div className="subcategory-button">
