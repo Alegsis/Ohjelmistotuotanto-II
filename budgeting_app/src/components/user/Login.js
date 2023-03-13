@@ -12,6 +12,7 @@ import {IconButton, InputAdornment, Select} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect} from "react";
+import UserSettings from "./UserSettings";
 
 const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
     const [open, setOpen] = React.useState(false);
@@ -77,16 +78,15 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
         setGreet('')
         setIsSidebarOpen(false)
     };
-    /*
-    Tervehdys
-     */
+
     return (
         <div className='primary-button'>
             <span> <b>{Greet}</b>
             {loggedIn ?
                 <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}
                         inputProps={{ IconComponent: () => null }} >
-                    <MenuItem value={show}>{show}</MenuItem>
+                    <MenuItem value={show} style={{display: 'none'}}>{show}</MenuItem>
+                    <UserSettings></UserSettings>
                     <MenuItem>Settings</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>
