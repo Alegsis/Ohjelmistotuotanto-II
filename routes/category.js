@@ -48,7 +48,7 @@ router.get('/:id/return-category-dictionary', async (req, res) => {
       let categoryBalance = 0;
 
       const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory
-WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = ${userID}) AND subcategory.IsActive = 1`;
+WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = '${userID}') AND subcategory.IsActive = 1`;
       const subCategories = await pool.query(sqlQuerySubCategories);
 
       for(let y = 0; y < subCategories.length; y++){

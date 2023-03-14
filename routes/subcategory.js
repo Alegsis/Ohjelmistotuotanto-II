@@ -48,7 +48,7 @@ router.get('/:id/available-to-budget', async (req, res) => {
   try {
     const sqlQuery = `SELECT subcategory.Balance FROM subcategory WHERE UserID=? AND subcategory.SubCategoryName = 'AvailableFunds'`;
     const rows = await pool.query(sqlQuery, req.params.id);
-    res.status(200).json(parseFloat(rows[0].Balance));
+    res.status(200).send(rows);
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -69,7 +69,7 @@ router.get('/user-:UserID/get-subcategory-details/subCategoryName-:SubCategoryNa
     const sqlQuery = `SELECT subcategory.Balance, category.CategoryName
  FROM subcategory
  INNER JOIN category ON subcategory.CategoryID = category.CategoryID
- WHERE subcategory.SubCategoryName = '${SubCategoryName}' AND subcategory.UserID = ${UserID}`;
+ WHERE subcategory.SubCategoryName = '${SubCategoryName}' AND subcategory.UserID = '${UserID}'`;
 
     const rows = await pool.query(sqlQuery);
     res.status(200).json(rows);
@@ -101,7 +101,7 @@ router.post('/new-subcategory', async (req, res) => {
 router.post('/deactivate-subcategory', async (req, res) => {
   try {
     const {UserID, SubCategoryName} = req.body;
-    const sqlQuery = `UPDATE subcategory SET subcategory.IsActive = 0 WHERE subcategory.UserID = ${UserID} AND subcategory.SubCategoryName = '${SubCategoryName}'`;
+    const sqlQuery = `UPDATE subcategory SET subcategory.IsActive = 0 WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
     await pool.query(sqlQuery);
 
     res.status(200).send(`Subcategory ${SubCategoryName} is deactivated`);
@@ -118,8 +118,8 @@ router.post('/update-subcategory', async (req, res) => {
   try {
     const {NewSubCategoryName, NewCategory, UserID, SubCategoryName} = req.body;
     const sqlQuery = `UPDATE subcategory SET subcategory.SubCategoryName = '${NewSubCategoryName}',
- subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${NewCategory}' AND category.userID = ${UserID})
- WHERE subcategory.UserID = ${UserID} AND subcategory.SubCategoryName = '${SubCategoryName}'`;
+ subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${NewCategory}' AND category.userID = '${UserID}')
+ WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
     await pool.query(sqlQuery);
 
     res.status(200).send(`Subcategory is now ${NewSubCategoryName} and it's category is ${NewCategory}`);

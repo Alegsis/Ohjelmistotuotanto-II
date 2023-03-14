@@ -82,14 +82,14 @@ router.post('/new-account', async (req, res) => {
 transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) 
 VALUES ('${transactionName}', ${Balance}, ' ', 'Once', ' ', '${BalanceDate}', ${insertedAccountID}, (SELECT subcategory.SubCategoryID 
 FROM subcategory 
-WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = ${UserID}))`
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}'))`
 
       await pool.query(insertTransaction)
 
 
       const updateSubcategory = `UPDATE subcategory 
 SET subcategory.Balance = subcategory.Balance + ${Balance} 
-WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = ${UserID};`
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}';`
 
       await pool.query(updateSubcategory)
 
