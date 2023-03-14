@@ -65,15 +65,12 @@ const AddBudget = () => {
           ToSubCategory: toSubCategory,
           UserID: userID,
         }).then(() => {
-      alert('Successful budgeting!');
-
       setOpen(false);
       setFromSubCategory('');
       setToSubCategory('');
       setAmount(0.00);
     }).catch(response => {
-      console.log(response);
-      alert('Something went wrong');
+      alert(response.response.data);
     });
   };
 

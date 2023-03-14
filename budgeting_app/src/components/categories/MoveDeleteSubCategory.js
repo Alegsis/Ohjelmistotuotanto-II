@@ -35,25 +35,23 @@ const MoveDeleteSubcategory = () => {
     const handleDelete = () => {
         const userID = localStorage.getItem("UserID");
         const postUrl = "http://localhost:3001/subcategory/deactivate-subcategory";
-                Axios.post(postUrl, {
-                    SubCategoryName: selectedSubCategory,
-                    UserID: userID
-                }).then((response) => {
-                    alert("Delete was successful");
-                    setOpen(false);
-                    setsubCategory("");
-                    setBalance("");
-                    setSelectedCategory("");
-                    setSelectedSubCategory("");
-                }).catch((response) => {
-                    alert("Something went wrong");
-                    console.log(response);
-            })
+        Axios.post(postUrl, {
+            SubCategoryName: selectedSubCategory,
+            UserID: userID
+        }).then(() => {
+            alert("Delete was successful");
+            setOpen(false);
+            setsubCategory("");
+            setBalance("");
+            setSelectedCategory("");
+            setSelectedSubCategory("");
+        }).catch((response) => {
+            alert(response.response.data);
+        })
     };
 
     const handleEditSubCategory = () => {
         const userID = localStorage.getItem("UserID");
-
         const postUrl = "http://localhost:3001/subcategory/update-subcategory";
         const getUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`
 
@@ -65,17 +63,16 @@ const MoveDeleteSubcategory = () => {
                     NewCategory: selectedCategory,
                     UserID: userID,
                     SubCategoryName: selectedSubCategory
-                }).then((response) => {
-                    alert("successful insert");
+                }).then(()=> {
+                    alert('Edit successful')
+                    setOpen(false);
+                    setsubCategory("");
+                    setBalance("");
+                    setSelectedCategory("");
+                    setSelectedSubCategory("");
                 })
-                setOpen(false);
-                setsubCategory("");
-                setBalance("");
-                setSelectedCategory("");
-                setSelectedSubCategory("");
             }).catch((response) => {
-            alert("Something went wrong");
-            console.log(response);
+            alert(response.response.data);
         })
     };
 
@@ -95,7 +92,7 @@ const MoveDeleteSubcategory = () => {
             })
 
             .catch((response) => {
-                console.log(response);
+                alert(response.response.data)
             });
     };
 
@@ -113,7 +110,7 @@ const MoveDeleteSubcategory = () => {
                 setSubCategoryList(updatedArray);
             })
             .catch((response) => {
-                console.log(response);
+                alert(response.response.data)
             });
     };
 
@@ -125,7 +122,9 @@ const MoveDeleteSubcategory = () => {
             setSelectedCategory(response.data[0].CategoryName);
             setBalance(response.data[0].Balance);
             setsubCategory(selectedSubCategory);
-        });
+        }).catch(response => {
+            alert(response.response.data)
+        })
     }
 
     useEffect(() => {

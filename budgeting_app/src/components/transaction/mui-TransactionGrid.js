@@ -6,13 +6,13 @@ import moment from "moment";
 const MuiTransactionGrid = ({rows}) => {
 
     const columns = [
-        {field: 'TransactionDate', headerName: 'DATE', width: 150},
-        {field: 'TransactionName', headerName: 'Transaction Name', width: 200},
-        {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 150},
-        {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 150},
-        {field: 'Recipient', headerName: 'Payee', width: 150},
-        {field: 'TransactionRepeat', headerName: 'Repeat', width: 150},
-        {field: 'Memo', headerName: 'Memo', width: 400}
+        {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},
+        {field: 'TransactionName', headerName: 'Transaction Name', width: 200, editable: true},
+        {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 150, editable: true},
+        {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 150, editable: true},
+        {field: 'Recipient', headerName: 'Payee', width: 150, editable: true},
+        {field: 'TransactionRepeat', headerName: 'Repeat', width: 150, editable: true},
+        {field: 'Memo', headerName: 'Memo', width: 400, editable: true}
     ];
 
     return(

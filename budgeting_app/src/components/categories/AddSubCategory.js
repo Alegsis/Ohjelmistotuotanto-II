@@ -68,8 +68,6 @@ const AddSubCategory = () => {
                 UserID: userID,
               });
         }
-
-        alert('Successful insert');
         setOpen(false);
         setSubCategory('');
         setBalance(0);

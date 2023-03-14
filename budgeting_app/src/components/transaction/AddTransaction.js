@@ -89,8 +89,7 @@ const AddTransaction = () => {
       AccountName: account,
       SubCategoryName: subCategory,
       UserID: userID,
-    }).then((response) => {
-        alert(response.data);
+    }).then(() => {
         setOpen(false);
         setAccount("");
         setSubCategory("");
