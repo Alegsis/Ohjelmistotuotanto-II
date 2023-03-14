@@ -54,7 +54,7 @@ const AddBudget = () => {
   };
 
   const addBudget = () => {
-    const userID = parseInt(localStorage.getItem('UserID'));
+    const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/budget/new-budget`;
     Axios.post(baseUrl,
         {
@@ -138,6 +138,7 @@ const AddBudget = () => {
                 margin="dense"
                 id="amount"
                 label="Amount"
+                type="number"
                 fullWidth
                 variant="filled"
                 onChange={(event) => {

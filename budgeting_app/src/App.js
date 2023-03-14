@@ -4,7 +4,7 @@ import Header from './components/application-interface/Header';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Account from "./pages/Account";
 
 const App = () => {
@@ -14,6 +14,16 @@ const App = () => {
     const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen)
     }
+    useEffect(() => {
+        if (localStorage.getItem('UserID') !== null){
+            setLoggedIn(true)
+            setTimeout(() => {
+                localStorage.clear();
+                setLoggedIn(false)
+            }, 3600000); // 3600000 milliseconds = 60 minutes
+        }
+    }, [localStorage.getItem('UserID')])
+
 
   return (
       <Router>
@@ -22,12 +32,12 @@ const App = () => {
         </div>
         <div className="row">
           <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-            <Sidebar/>
+            <Sidebar loggedIn={loggedIn}/>
           </div>
           <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
               <Routes>
               <Route path="/dashboard" element={<Dashboard/>}/>
-              <Route path="/accounts" element={<Accounts/>}/>
+              <Route path="/accounts" element={<Accounts loggedIn={loggedIn}/>}/>
               <Route path={`/accounts/:AccountName`} element={<Account/>}/>
             </Routes>
           </div>

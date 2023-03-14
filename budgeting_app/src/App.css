@@ -89,10 +89,11 @@ body {
 .home,
 .category {
     display: flex;
+    flex-direction: column;
     height: 80vh;
-    justify-content: flex-start;
+    justify-content: start;
     font-size: 2rem;
-    align-items: flex-start;
+    align-items: start;
 }
 
 .secondary-button {
@@ -100,6 +101,13 @@ body {
     margin-right: auto !important;
     /* padding-left: 1.5rem; */
     display: block;
+}
+
+.budgetingRow {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .primary-button,
@@ -164,6 +172,12 @@ body {
     display: block;
 }
 
+.delete-button {
+    /* margin-left: auto !important;*/
+    margin-right: 0 !important;
+    display: block;
+}
+
 .TransactionGrid,
 .AccountGrid,
 .Budget {
@@ -177,7 +191,7 @@ body {
     display: grid;
 }
 
-.transaction-selects{
+.transaction-selects {
     display: flex;
     flex: 1;
 }

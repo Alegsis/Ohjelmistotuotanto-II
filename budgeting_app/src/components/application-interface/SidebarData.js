@@ -10,7 +10,7 @@ import SavingsIcon from "@mui/icons-material/Savings";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 
-const getUserAccounts = () => {
+export const getUserAccounts = () => {
   const userID = localStorage.getItem("UserID");
   const baseUrl = `http://localhost:3001/account/${userID}`;
   const updatedArray = [];

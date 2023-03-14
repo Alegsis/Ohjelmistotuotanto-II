@@ -11,6 +11,7 @@ import Axios from "axios";
 import {IconButton, InputAdornment, Select} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
+import {useEffect} from "react";
 
 const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
     const [open, setOpen] = React.useState(false);
@@ -36,6 +37,17 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
         setPassword('');
 
     };
+
+    useEffect(() => {
+        if (loggedIn){
+            setGreet('Hello')
+            setShow(localStorage.getItem('Username'))
+        }else{
+            setShow('Login')
+            setGreet('')
+        }
+    }, [loggedIn])
+
     /*
     * Tallentaa cacheen Username, UserID
     */

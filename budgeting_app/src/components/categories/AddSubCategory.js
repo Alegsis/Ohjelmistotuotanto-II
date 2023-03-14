@@ -11,11 +11,12 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import {Select} from '@mui/material';
+import moment from 'moment/moment';
 
 const AddSubCategory = () => {
   const [open, setOpen] = React.useState(false);
-  const [subCategory, setsubCategory] = React.useState('');
-  const [balance, setBalance] = React.useState('');
+  const [subCategory, setSubCategory] = React.useState('');
+  const [balance, setBalance] = React.useState(0);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -25,8 +26,8 @@ const AddSubCategory = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setsubCategory('');
-    setBalance('');
+    setSubCategory('');
+    setBalance(0);
     setSelectedCategory('');
   };
 
@@ -34,12 +35,12 @@ const AddSubCategory = () => {
     try {
       const userID = localStorage.getItem('UserID');
       let isFound = false;
-      const checkCategoryName = `http://localhost:3001/category/${userID}`;
+      const checkCategoryNameUrl = `http://localhost:3001/category/${userID}`;
       const postUrl = 'http://localhost:3001/subcategory/new-subcategory';
       const getUrl = `http://localhost:3001/category/user-${userID}/find-categoryid/categoryname-${selectedCategory}`;
+      const budgetUrl = `http://localhost:3001/budget/new-budget`;
 
-
-      const getCategoryName = await Axios.get(checkCategoryName);
+      const getCategoryName = await Axios.get(checkCategoryNameUrl);
       for (let x = 0; x < getCategoryName.data.length; x++) {
         if (getCategoryName.data[x].CategoryName.toString() ===
             subCategory.toString()) {
@@ -52,20 +53,32 @@ const AddSubCategory = () => {
         const getCategoryID = await Axios.get(getUrl); //.data
         await Axios.post(postUrl, {
           SubCategoryName: subCategory,
-          Balance: balance,
+          Balance: 0,
           UserID: userID,
           CategoryID: getCategoryID.data,
         });
+
+        if(balance > 0){
+          await Axios.post(budgetUrl,
+              {
+                Amount: balance,
+                BudgetDate: moment().format('YYYY-MM-DD'),
+                FromSubCategory: 'AvailableFunds',
+                ToSubCategory: subCategory,
+                UserID: userID,
+              });
+        }
+
         alert('Successful insert');
         setOpen(false);
-        setsubCategory('');
-        setBalance('');
+        setSubCategory('');
+        setBalance(0);
         setSelectedCategory('');
       } else {
-        alert('Category name and Sub Category name can not be the same')
+        alert('Category name and Sub Category name can not be the same');
       }
-    } catch (error){
-      alert(error)
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -88,20 +101,20 @@ const AddSubCategory = () => {
 
   React.useEffect(() => {
     getUserCategories();
-  }, []);
+  }, [open]);
 
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" onClick={handleClickOpen}>
-          (+) Add sub category
+          (+) Add subcategory
         </Button>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Create sub category</DialogTitle>
+          <DialogTitle>Create subcategory</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To create a sub category, you need to select a category and input
+              To create a subcategory, you need to select a category and input
               a
-              sub category name. Optionally You can also add a balance for the
+              subcategory name. Optionally You can also add a balance for the
               subcategory.
             </DialogContentText>
 
@@ -137,7 +150,7 @@ const AddSubCategory = () => {
                 value={subCategory}
                 variant="filled"
                 onChange={(event) => {
-                  setsubCategory(event.target.value);
+                  setSubCategory(event.target.value);
                 }}
             />
             <TextField
@@ -145,6 +158,7 @@ const AddSubCategory = () => {
                 margin="dense"
                 id="balance"
                 label="Balance"
+                type="number"
                 fullWidth
                 inputProps={{maxLength: 20}}
                 value={balance}

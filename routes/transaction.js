@@ -68,8 +68,8 @@ router.post('/new-transaction', async (req, res) => {
     const TransactionDateFormatted = moment(TransactionDate).format('YYYY-MM-DD');
 
 
-    const getAccountID = `SELECT account.AccountID FROM account WHERE account.AccountName = '${AccountName}' AND account.UserID = ${UserID}`
-    const getSubCategoryID = `SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubCategoryName = '${SubCategoryName}' AND subcategory.UserID = ${UserID}`
+    const getAccountID = `SELECT account.AccountID FROM account WHERE account.AccountName = '${AccountName}' AND account.UserID = '${UserID}'`
+    const getSubCategoryID = `SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubCategoryName = '${SubCategoryName}' AND subcategory.UserID = '${UserID}'`
     const accountIDQuery = await pool.query(getAccountID)
     const subCategoryIDQuery = await pool.query(getSubCategoryID)
     const accountID = accountIDQuery[0].AccountID;
