@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import {Select} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const MoveDeleteSubcategory = () => {
     const [open, setOpen] = useState(false);
@@ -145,7 +146,7 @@ const MoveDeleteSubcategory = () => {
     return (
         <div className="subcategory-button">
             <Button id="subcategory-button-1" onClick={handleClickOpen}>
-                (+) edit subcategory
+                <EditIcon/> edit subcategory
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit subcategory</DialogTitle>

@@ -7,6 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Axios from "axios";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 const AddCategory = () => {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +40,7 @@ const AddCategory = () => {
   return (
     <div className="category-button">
       <Button id="category-button-1" onClick={handleClickOpen}>
-        (+) New Category
+        <AddCircleOutline /> New Category
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a category</DialogTitle>
