@@ -66,7 +66,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
             setOpen(false);
             localStorage.setItem("UserID", response.data.toString());
             localStorage.setItem("Username", username);
-            alert(response.data)
+            alert('Login successful')
         })).catch((response) => {
             alert(response.response.data)
         })

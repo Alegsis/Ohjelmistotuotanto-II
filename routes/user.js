@@ -65,7 +65,7 @@ router.post('/register', async (req, res) => {
         const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, '${userID}', ${insertedCategoryID})`;
         await pool.query(insertSubCategory);
 
-        res.status(200).json({userID: insertedUserID.toString()});
+        res.status(200).json('Register was successful');
       } else{
         res.status(409).send('Email is taken');
       }

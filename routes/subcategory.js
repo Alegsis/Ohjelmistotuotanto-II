@@ -86,9 +86,9 @@ router.post('/new-subcategory', async (req, res) => {
     const {SubCategoryName, Balance, UserID, CategoryID} = req.body;
     const sqlQuery = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES (?, ?, ?, ?)`;
 
-    const rows = await pool.query(sqlQuery,
+    await pool.query(sqlQuery,
         [SubCategoryName, Balance, UserID, CategoryID]);
-    res.status(200).json({SubCategoryID: rows.insertId.toString()});
+    res.status(200).json('New subcategory was added');
 
   } catch (error) {
     res.status(400).send(error.message);

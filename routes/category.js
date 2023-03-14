@@ -82,8 +82,8 @@ router.post('/new-category', async (req, res) => {
     const {CategoryName, UserID} = req.body;
     const sqlQuery = `INSERT INTO category (CategoryName, UserID) VALUES (?, ?)`;
 
-    const rows = await pool.query(sqlQuery, [CategoryName, UserID]);
-    res.status(200).json({CategoryID: rows.insertId.toString()});
+    await pool.query(sqlQuery, [CategoryName, UserID]);
+    res.status(200).json('New category was added');
 
   } catch (error) {
     res.status(400).send(error.message);
