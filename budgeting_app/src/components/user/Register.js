@@ -57,7 +57,7 @@ const Register = () => {
                     setEmail('');
                 }).catch(response => {
                     if (response.response.status === 409) {
-                        alert('Username ' + username + ' is taken')
+                        alert(response.response.data)
                     }
                 })
             } else {
