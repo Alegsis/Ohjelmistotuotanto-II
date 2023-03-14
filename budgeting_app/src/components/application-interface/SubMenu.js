@@ -28,7 +28,7 @@ const SidebarBalance = styled.span`
   margin-left: 16px;
   margin-top: 40px;
   font-size: 16px;
-  color: ${({balance}) => (balance < 0 ? 'red' : 'green')};
+  color: ${props => (props.negative ? '#ff4d4f' : '#52c41a')};
 `;
 
 const DropdownLink = styled(Link)`
@@ -69,7 +69,8 @@ const Submenu = ({item}) => {
           </div>
         </SidebarLink>
         {subnav &&
-            item.subNavi.map((subitem, index) => {
+        item.subNavi.map((subitem, index) => {
+          const isNegative = subitem.balance < 0;
               return (
                   <DropdownLink to={subitem.path} key={index}>
                     <div>
@@ -78,7 +79,7 @@ const Submenu = ({item}) => {
                     </div>
                     <div>
                       {subitem.balance && (
-                          <SidebarBalance>
+                          <SidebarBalance negative={isNegative}>
                             <div style={{display: 'flex'}}>
                               {subitem.balance}
                               <span style={{marginLeft: '5px'}}>€</span>
