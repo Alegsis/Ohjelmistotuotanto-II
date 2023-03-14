@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import {IconButton, InputAdornment, MenuItem} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import Axios from "axios";
 
 const UserSettings = () => {
     const [open, setOpen] = React.useState(false);
@@ -36,35 +37,30 @@ const UserSettings = () => {
         setRePassword('');
     };
 
-    /**
-    const handleSignUp = () => {
-        const baseUrl = "http://localhost:3001/user/register";
-        if(ValidateEmail(email)){
-            if (password === rePassword && 8 <= password.length && 3 <= username.length) {
+
+    const handleChangePassword = () => {
+        const baseUrl = "http://localhost:3001/user/change-password";
+        const userID = localStorage.getItem('UserID')
+        if (password === rePassword && password !== oldPassword && 8 <= password.length) {
                 Axios.post(baseUrl, {
-                    username: username,
-                    password: password,
-                    email: email
-                }).then(() => {
-                    alert("successful insert")
+                    oldPassword: oldPassword,
+                    newPassword: password,
+                    userID: userID
+                }).then(response => {
+                    alert(response.data)
                     setOpen(false);
-                    setUsername('');
                     setPassword('');
                     setRePassword('');
-                    setEmail('');
+                    setOldPassword('')
                 }).catch(response => {
-                    if (response.response.status === 409) {
-                        alert('Username ' + username + ' is taken')
-                    }
+                    alert(response.response.data)
                 })
             } else {
                 alert("Input of data doesn't meet requirements.")
             }
-        } else {
-            alert('Email-address does not meet requirements.')
         }
-    };
-**/
+
+
     return (
         <div className='secondary-button'>
             <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
@@ -82,6 +78,9 @@ const UserSettings = () => {
                         label="Old Password"
                         type={showPassword ? 'text' : 'password'}
                         inputProps={{maxLength: 30}}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
                         fullWidth
                         variant="filled"
                         InputProps={{
@@ -105,6 +104,9 @@ const UserSettings = () => {
                         label="New Password"
                         type={showPassword ? 'text' : 'password'}
                         inputProps={{maxLength: 30}}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
                         fullWidth
                         variant="filled"
                         InputProps={{
@@ -128,6 +130,9 @@ const UserSettings = () => {
                         label="New Password"
                         type={showPassword ? 'text' : 'password'}
                         inputProps={{maxLength: 30 }}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
                         fullWidth
                         variant="filled"
                         InputProps={{
@@ -146,7 +151,7 @@ const UserSettings = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button>Change</Button>
+                    <Button onClick={handleChangePassword}>Change</Button>
                 </DialogActions>
             </Dialog>
         </div>

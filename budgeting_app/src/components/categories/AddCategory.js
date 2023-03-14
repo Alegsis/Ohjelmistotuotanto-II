@@ -23,21 +23,17 @@ const AddCategory = () => {
 
   const handleAddCategory = () => {
     const baseUrl = "http://localhost:3001/category/new-category";
-    //Pitää tarkastaa aikavyöhyke oikein
-    const today = new Date().toISOString().slice(0, 10);
     const userID = localStorage.getItem("UserID");
-    console.log(today);
-    console.log(userID);
-
     Axios.post(baseUrl, {
       CategoryName: category,
       UserID: userID,
     }).then((response) => {
-      alert("successful insert");
-
+      alert(response.data);
       setOpen(false);
       setCategory("");
-    });
+    }).catch(response => {
+      alert(response.response.data)
+    })
   };
 
   return (

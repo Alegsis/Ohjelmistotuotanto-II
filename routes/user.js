@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 const randomString = require("randomstring");
+const saltRounds = 10;
 
 /**
  * Router to check user data
@@ -103,5 +103,37 @@ router.post('/login', async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+/**
+ * Router for password change
+ */
+router.post('/change-password', async (req, res) => {
+  try{
+    const {oldPassword, newPassword, userID} = req.body;
+
+    const sqlGetUser = 'SELECT user.UserPassword FROM user WHERE user.UserID=?';
+    const rows = await pool.query(sqlGetUser, [userID]);
+
+    const isValid = await bcrypt.compare(oldPassword, rows[0].UserPassword);
+
+    if (isValid) {
+      const newEncryptedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+      const updateSQL = 'UPDATE user SET user.UserPassword =? WHERE user.UserID =?'
+      await pool.query(updateSQL, [newEncryptedPassword, userID])
+
+      res.status(200).send('Password changed successfully')
+
+    } else{
+      res.status(401).send('Old password is does not match, try again');
+    }
+
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+
+
 
 module.exports = router;

@@ -95,7 +95,7 @@ const AddSubCategory = () => {
       }
       setCategoryList(updatedArray);
     }).catch((response) => {
-      console.log(response);
+      alert(response.response.data)
     });
   };
 

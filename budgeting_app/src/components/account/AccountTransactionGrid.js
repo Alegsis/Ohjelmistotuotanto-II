@@ -36,8 +36,7 @@ const AccountTransactionGrid = ({AccountName}) => {
             }
             setRows(updatedArray);
         })).catch((response) => {
-            console.log(response);
-            alert('catch AccountTransactionGrid');
+            alert(response.response.data);
         });
     };
 

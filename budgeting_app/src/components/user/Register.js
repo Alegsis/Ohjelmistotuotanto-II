@@ -48,17 +48,15 @@ const Register = () => {
                     username: username,
                     password: password,
                     email: email
-                }).then(() => {
-                    alert("successful insert")
+                }).then((response) => {
+                    alert(response.data)
                     setOpen(false);
                     setUsername('');
                     setPassword('');
                     setRePassword('');
                     setEmail('');
                 }).catch(response => {
-                    if (response.response.status === 409) {
-                        alert(response.response.data)
-                    }
+                    alert(response.response.data)
                 })
             } else {
                 alert("Input of data doesn't meet requirements.")
