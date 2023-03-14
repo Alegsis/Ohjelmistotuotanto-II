@@ -23,6 +23,7 @@
     "mariadb": "^3.0.2",
     "moment": "^2.29.4",
     "nodemon": "^2.0.20",
+    "randomstring": "^1.2.3",
     "react-date-picker": "^9.2.0"
   }
 }
