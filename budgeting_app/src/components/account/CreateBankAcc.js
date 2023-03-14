@@ -45,12 +45,15 @@ const CreateBankAcc = () => {
       BalanceDate: today,
       UserID: userID,
     }).then((response) => {
-      alert("successful insert");
+      alert(response.data);
       setOpen(false);
       setAccountType("");
       setAccountName("");
       setAccountBalance("");
+    }).catch(response => {
+      alert(response.response.data)
     });
+
   };
 
   return (

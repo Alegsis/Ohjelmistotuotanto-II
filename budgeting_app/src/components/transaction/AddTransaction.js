@@ -55,8 +55,7 @@ const AddTransaction = () => {
         setAccountsList([]);
         setAccountsList(updatedArray);
       }).catch((response) => {
-        console.log(response);
-        alert("catch addTransaction");
+        alert(response.response.data);
       });
   };
 
@@ -72,8 +71,7 @@ const AddTransaction = () => {
         setSubCategoryList([]);
         setSubCategoryList(updatedArray2);
       }).catch((response) => {
-        console.log(response);
-        alert("catch AddTransaction2");
+        alert(response.response.data);
       });
   };
 
@@ -91,16 +89,15 @@ const AddTransaction = () => {
       AccountName: account,
       SubCategoryName: subCategory,
       UserID: userID,
-    }).then(() => {
-        alert("successful insert");
+    }).then((response) => {
+        alert(response.data);
         setOpen(false);
         setAccount("");
         setSubCategory("");
         setInflow(0.0);
         setOutflow(0.0);
       }).catch((response) => {
-        console.log(response);
-        alert("Add addTransaction3");
+        alert(response.response.data);
       });
   };
 

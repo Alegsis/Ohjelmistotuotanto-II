@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../helpers/database');
 const bcrypt = require('bcrypt');
+const randomString = require("randomstring");
 const saltRounds = 10;
 
 /**

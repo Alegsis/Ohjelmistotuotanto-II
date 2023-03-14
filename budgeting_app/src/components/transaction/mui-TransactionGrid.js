@@ -53,8 +53,7 @@ export const getUserTransactions = (userID) => {
         }
         return updatedArray;
     })).catch((response) => {
-        console.log(response);
-        alert('catch transactionGrid');
+        alert(response.response.data);
     });
 };
 
