@@ -12,6 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import {Select} from '@mui/material';
 import moment from 'moment/moment';
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 const AddSubCategory = () => {
   const [open, setOpen] = React.useState(false);
@@ -106,7 +107,7 @@ const AddSubCategory = () => {
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" onClick={handleClickOpen}>
-          (+) Add subcategory
+          <AddCircleOutline /> Add subcategory
         </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Create subcategory</DialogTitle>

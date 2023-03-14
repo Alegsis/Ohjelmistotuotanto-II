@@ -7,9 +7,10 @@ import InputLabel from '@mui/material/InputLabel';
 import {Select} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import DialogActions from '@mui/material/DialogActions';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import Axios from 'axios';
 import moment from 'moment';
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 const AddBudget = () => {
 
@@ -79,7 +80,7 @@ const AddBudget = () => {
 
   return (
       <div>
-        <Button onClick={handleClickOpen}> (+) Budget </Button>
+        <Button onClick={handleClickOpen}> <AddCircleOutline /> Budget </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Budget</DialogTitle>
           <DialogContent>
