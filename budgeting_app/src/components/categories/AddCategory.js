@@ -28,8 +28,7 @@ const AddCategory = () => {
     Axios.post(baseUrl, {
       CategoryName: category,
       UserID: userID,
-    }).then((response) => {
-      alert(response.data);
+    }).then(() => {
       setOpen(false);
       setCategory("");
     }).catch(response => {

@@ -44,8 +44,7 @@ const CreateBankAcc = () => {
       Balance: accountBalance,
       BalanceDate: today,
       UserID: userID,
-    }).then((response) => {
-      alert(response.data);
+    }).then(() => {
       setOpen(false);
       setAccountType("");
       setAccountName("");
