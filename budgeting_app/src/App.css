@@ -1,11 +1,11 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    font-family: "Roboto";
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 body {
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
 /* Style the header */
@@ -16,6 +16,7 @@ body {
     text-align: center;
     font-size: 25px;
 }
+
 
 /* Container for flexboxes */
 .row {
@@ -43,6 +44,24 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
+}
+
+/*
+Sidebar icons centering
+ */
+a.css-19qeahj:nth-child(even) > div:nth-child(1),
+a.css-19qeahj:nth-child(odd) > div:nth-child(1),
+#root > div.row > div.column.left > nav > a:nth-child(even) > div:nth-child(1),
+#root > div.row > div.column.left > nav > a:nth-child(odd) > div:nth-child(1){
+    display: flex;
+}
+
+/*
+Account balances
+ */
+.css-1x600hi{
+    display: flex;
+    font-size: 12px !important;
 }
 
 .column.left.hidden {
@@ -120,6 +139,14 @@ body {
     text-align: center;
 }
 
+.budgetingRow{
+    font-weight: 500 !important;
+    font-size: 0.8125rem !important;
+    line-height: 1.75 !important;
+    letter-spacing: 0.02857em !important;
+    text-transform: uppercase !important;
+}
+
 .categoryRow {
     display: flex;
     flex-flow: row wrap;
@@ -142,21 +169,20 @@ body {
     padding: 0 0 0 0;
 }
 
-/* .bank-button {
-    margin-left: auto !important;
-    margin-right: 0px !important;
-    padding-left: 1.5rem;
-    display: block;
-} */
+.bank-button {
+    justify-content: center;
+    display: flex;
+}
 
 #bank-button-1 {
     text-transform: none;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: -10px;
-    margin-top: 2rem;
     color: #ffffff;
     cursor: pointer;
+    justify-content: center;
+    display: flex;
 }
 
 
@@ -202,7 +228,11 @@ body {
 
 .transaction-category {
     flex: 0;
+}
 
+.AddTransaction{
+    line-height: 22.75px;
+    padding: 4px 5px 4px 5px;
 }
 
 .rdg-header-row {
@@ -221,6 +251,11 @@ body {
     padding: 5px 15px;
     border-radius: 4px;
     color: #ee0000;
+}
+
+.MuiBox-root{
+    display: flex;
+    align-content: center;
 }
 
 /*Logged in user button style (tai mui select root*/
@@ -271,3 +306,4 @@ body {
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 10px !important;
 }
+
