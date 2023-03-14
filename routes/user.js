@@ -25,26 +25,50 @@ router.post('/register', async (req, res) => {
     const {username, email, password} = req.body;
     const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
-    const sqlQueryFind = `SELECT Username FROM user WHERE Username=?`;
-    const resultFind = await pool.query(sqlQueryFind, username);
+    const sqlQueryFindUsername = `SELECT user.Username FROM user WHERE user.Username=?`;
+    const resultFindUsername = await pool.query(sqlQueryFindUsername, username);
 
-    if (resultFind.length === 0) {
-      const insertUser = 'INSERT INTO user (Username, Email, UserPassword) VALUES (?, ?, ?)';
-      await pool.query(insertUser, [username, email, encryptedPassword]);
+    if (resultFindUsername.length === 0) {
+      const sqlQueryFindEmail = `SELECT user.Email FROM user WHERE user.Email=?`;
+      const resultFindEmail = await pool.query(sqlQueryFindEmail, email);
 
-      const getInsertedUserID = `SELECT user.UserID from user WHERE user.UserName = '${username}'`
-      const insertedUserID = await pool.query(getInsertedUserID);
-      const userID = insertedUserID[0].UserID;
+      if(resultFindEmail.length === 0){
+        let generateUserID = randomString.generate({
+          length: 40,
+          charset: 'alphabetic'
+        });
 
-      const insertCategory = `INSERT INTO category (CategoryName, UserID) VALUES ("Available", '${userID}')`;
-      const resultInsertCategory = await pool.query(insertCategory);
-      const insertedCategoryID = resultInsertCategory.insertId.toString();
+        const checkUserID = `SELECT user.UserID FROM user WHERE user.UserID=?`;
+        let resultFindEmail = await pool.query(checkUserID, generateUserID);
 
-      const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, '${userID}', ${insertedCategoryID})`;
-      await pool.query(insertSubCategory);
+        while(resultFindEmail.length !== 0){
+          console.log('UserID is taken, I generate new')
+          generateUserID = randomString.generate({
+            length: 40,
+            charset: 'alphabetic'
+          });
+          resultFindEmail = await pool.query(checkUserID, generateUserID);
+        }
 
+        const insertUser = 'INSERT INTO user (UserID, Username, Email, UserPassword) VALUES (?, ?, ?, ?)';
+        await pool.query(insertUser, [generateUserID, username, email, encryptedPassword]);
 
-      res.status(200).json({userID: insertedUserID.toString()});
+        const getInsertedUserID = `SELECT user.UserID from user WHERE user.UserName = '${username}'`
+        const insertedUserID = await pool.query(getInsertedUserID);
+        const userID = insertedUserID[0].UserID;
+
+        const insertCategory = `INSERT INTO category (CategoryName, UserID) VALUES ("Available", '${userID}')`;
+        const resultInsertCategory = await pool.query(insertCategory);
+        const insertedCategoryID = resultInsertCategory.insertId.toString();
+
+        const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, '${userID}', ${insertedCategoryID})`;
+        await pool.query(insertSubCategory);
+
+        res.status(200).json({userID: insertedUserID.toString()});
+      } else{
+        res.status(409).send('Email is taken');
+      }
+
     } else {
       res.status(409).send('Username is taken');
     }
