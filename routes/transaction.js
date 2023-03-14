@@ -79,7 +79,7 @@ router.post('/new-transaction', async (req, res) => {
 (transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
 transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) VALUES (?, ?, ?, ?, ?, ?, '${TransactionDateFormatted}', ${accountID}, ${subCategoryID})`;
 
-    const rows = await pool.query(sqlQuery,
+    await pool.query(sqlQuery,
         [TransactionName, Outflow, Inflow, Recipient,
           TransactionRepeat, Memo]);
 
@@ -110,7 +110,7 @@ WHERE account.AccountID = ${accountID};`;
         await pool.query(updateAccountBalance2);
       }
 
-      res.status(200).json({TransactionID: rows.insertId.toString()});
+      res.status(200).json('New transaction was added');
     }
   } catch (error) {
     res.status(400).send(error);

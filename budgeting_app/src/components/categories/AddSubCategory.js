@@ -77,8 +77,8 @@ const AddSubCategory = () => {
       } else {
         alert('Category name and Sub Category name can not be the same');
       }
-    } catch (error) {
-      alert(error);
+    } catch (response) {
+      alert(response.response.data);
     }
   };
 
