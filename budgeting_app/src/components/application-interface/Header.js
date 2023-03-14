@@ -21,10 +21,11 @@ const NaviIcon = styled(Link)`
 `;
 
 const TotalWrapper = styled.div`
+  font-size: 16px;
   display: flex;
   justify-content: flex-start;
   color: white;
-  padding-left: 4.5em;
+  padding-left: 11em;
 `;
 const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen}) => {
 

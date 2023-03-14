@@ -70,6 +70,7 @@ const Total = () => {
     flex-flow: row wrap;
     justify-content: space-around;
 
+
   `;
 
   const AccountStyleSwitcher = styled.a`
@@ -83,7 +84,7 @@ const Total = () => {
   `;
 
   const SegmentWrapper = styled.div`
-    padding-right: 0.5em;
+    padding-right: 2.5em;
   `;
 
   const DebtStyleSwitcher = styled.a`

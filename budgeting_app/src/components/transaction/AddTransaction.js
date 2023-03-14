@@ -103,7 +103,7 @@ const AddTransaction = () => {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}> Add transaction </Button>
+      <Button onClick={handleClickOpen} className="AddTransaction"> Add transaction </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Transaction</DialogTitle>
         <DialogContent>
