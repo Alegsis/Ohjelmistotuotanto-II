@@ -10,13 +10,17 @@ import Account from "./pages/Account";
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [createAccSuccess, setCreateAccSuccess] = useState(false);
+    const [addTransactionSuccess, setaddTransactionSuccess] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
     }
+
     useEffect(() => {
         if (localStorage.getItem('UserID') !== null) {
             setLoggedIn(true)
+            setIsSidebarOpen(true)
             setTimeout(() => {
                 localStorage.clear();
                 setLoggedIn(false)
@@ -28,16 +32,17 @@ const App = () => {
         <Router>
             <div className="header">
                 <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn}
-                        setLoggedIn={setLoggedIn}/>
+                        setLoggedIn={setLoggedIn} createAccSuccess={createAccSuccess}
+                        setCreateAccSuccess={setCreateAccSuccess}/>
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-                    <Sidebar loggedIn={loggedIn}/>
+                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess}/>
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>
                         <Route path="/dashboard" element={<Dashboard/>}/>
-                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn}/>}/>
+                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess} setaddTransactionSuccess={setaddTransactionSuccess}/>}/>
                         <Route path={`/accounts/:AccountName`} element={<Account/>}/>
                     </Routes>
                 </div>

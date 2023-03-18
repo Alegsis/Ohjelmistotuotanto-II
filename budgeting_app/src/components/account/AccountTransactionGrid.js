@@ -1,11 +1,28 @@
 import Axios from 'axios';
 import {useEffect, useState} from 'react';
-import {DataGrid} from '@mui/x-data-grid';
-import CustomToolbar from "../helpers/GridToolbar";
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarDensitySelector,
+    GridToolbarExport,
+    GridToolbarFilterButton
+} from '@mui/x-data-grid';
 import moment from "moment";
+import AddTransaction from "../transaction/AddTransaction";
 
 const AccountTransactionGrid = ({AccountName}) => {
     const [rows, setRows] = useState([]);
+
+    const CustomToolbar = () => {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarFilterButton />
+                <GridToolbarDensitySelector />
+                <GridToolbarExport />
+                <AddTransaction />
+            </GridToolbarContainer>
+        );
+    }
 
     const columns = [
         {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},
