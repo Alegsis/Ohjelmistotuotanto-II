@@ -11,7 +11,6 @@ const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [createAccSuccess, setCreateAccSuccess] = useState(false);
-
     const handleCreateAccSuccess = () => {
         setCreateAccSuccess(true);
     };
@@ -23,6 +22,7 @@ const App = () => {
     useEffect(() => {
         if (localStorage.getItem('UserID') !== null) {
             setLoggedIn(true)
+            setIsSidebarOpen(true)
             setTimeout(() => {
                 localStorage.clear();
                 setLoggedIn(false)
