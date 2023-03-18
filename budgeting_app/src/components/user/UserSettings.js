@@ -17,6 +17,8 @@ const UserSettings = () => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [currentEmail, setCurrentEmail] = useState('');
+    const [newEmail, setNewEmail] = useState('');
 
     const handleClick = () => {
         setShowPassword(!showPassword);
@@ -60,7 +62,12 @@ const UserSettings = () => {
             }
         }
 
-
+    const handleDelete = () => {
+        console.log('delete')
+    }
+    const handleChangeEmail = () => {
+        console.log('email')
+    }
     return (
         <div className='secondary-button'>
             <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
@@ -81,8 +88,8 @@ const UserSettings = () => {
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
-                        fullWidth
                         variant="filled"
+                        fullWidth
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -107,8 +114,8 @@ const UserSettings = () => {
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
-                        fullWidth
                         variant="filled"
+                        fullWidth
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -133,8 +140,9 @@ const UserSettings = () => {
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
-                        fullWidth
+
                         variant="filled"
+                        fullWidth
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -148,10 +156,50 @@ const UserSettings = () => {
                             setRePassword(event.target.value)
                         }}
                     />
+                    <Button onClick={handleChangePassword} style={{float: "right"}}>Update Password</Button>
+                    <hr style={{width: "100%", height: "2px"}}></hr>
+                    <DialogContentText>
+                        Here you can change your email
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        disabled
+                        margin="dense"
+                        id="current-email"
+                        label="Current email"
+                        inputProps={{maxLength: 60 }}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
+                        variant="filled"
+                        fullWidth
+                        onChange={(event) => {
+                            setCurrentEmail(event.target.value)
+                        }}
+                    />
+                    <TextField
+                        required
+                        autoFocus
+                        margin="dense"
+                        id="first-email"
+                        label="New email"
+                        inputProps={{maxLength: 60 }}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
+                        variant="filled"
+                        fullWidth
+                        onChange={(event) => {
+                            setNewEmail(event.target.value)
+                        }}
+                    />
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleChangePassword}>Change</Button>
+                <DialogActions style={{justifyContent: "space-between"}}>
+                    <Button onClick={handleDelete} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete Account</Button>
+                    <div>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleChangeEmail}>Update Email</Button>
+                    </div>
                 </DialogActions>
             </Dialog>
         </div>
