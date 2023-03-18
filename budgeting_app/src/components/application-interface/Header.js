@@ -28,7 +28,7 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 11em;
 `;
-const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess}) => {
+const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess, setMessage, toggleAlert}) => {
 
     useEffect(() => {
         if (loggedIn || createAccSuccess){
@@ -50,7 +50,7 @@ const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createA
           <Total> </Total>
         </TotalWrapper>
           )}
-        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen}></Login>
+        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen} toggleAlert={toggleAlert} setMessage={setMessage}></Login>
       </HeaderNavi>
   );
 };

@@ -9,7 +9,7 @@ import {
 import moment from "moment";
 import AddTransaction from "./AddTransaction";
 
-const MuiTransactionGrid = ({rows, setaddTransactionSuccess}) => {
+const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, toggleAlert}) => {
 
     const CustomToolbar = () => {
         return (
@@ -17,7 +17,7 @@ const MuiTransactionGrid = ({rows, setaddTransactionSuccess}) => {
                 <GridToolbarFilterButton />
                 <GridToolbarDensitySelector />
                 <GridToolbarExport />
-                <AddTransaction setaddTransactionSuccess={setaddTransactionSuccess}/>
+                <AddTransaction setaddTransactionSuccess={setaddTransactionSuccess} setMessage={setMessage} toggleAlert={toggleAlert}/>
             </GridToolbarContainer>
         );
     }

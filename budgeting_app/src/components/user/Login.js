@@ -14,11 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import {useEffect} from "react";
 import UserSettings from "./UserSettings";
 
-const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
+const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, toggleAlert, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [Greet, setGreet] = React.useState('');
     const [show, setShow] = React.useState('Login');
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -41,11 +40,9 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
 
     useEffect(() => {
         if (loggedIn){
-            setGreet('Hello')
             setShow(localStorage.getItem('Username'))
         }else{
             setShow('Login')
-            setGreet('')
         }
     }, [loggedIn])
 
@@ -61,11 +58,12 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
             setShow(username) //Muutetaan Login buttonin tieto käyttäjännimeksi
             setUsername('');
             setPassword('');
-            setGreet('Hello ')
             setLoggedIn(true)
             setOpen(false);
             localStorage.setItem("UserID", response.data.toString());
             localStorage.setItem("Username", username);
+            setMessage(`Welcome ${username}`)
+            toggleAlert()
         })).catch((response) => {
             alert(response.response.data)
         })
@@ -75,13 +73,12 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen}) => {
         localStorage.removeItem("UserID");
         localStorage.removeItem("Username");
         setShow('Login')
-        setGreet('')
         setIsSidebarOpen(false)
     };
 
     return (
         <div className='primary-button'>
-            <span> <b>{Greet}</b>
+            <span>
             {loggedIn ?
                 <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}
                         inputProps={{ IconComponent: () => null }} >

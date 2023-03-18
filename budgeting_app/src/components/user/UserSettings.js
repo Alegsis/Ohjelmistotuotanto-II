@@ -11,6 +11,7 @@ import {IconButton, InputAdornment, MenuItem} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
 
+
 const UserSettings = () => {
     const [open, setOpen] = React.useState(false);
     const [oldPassword, setOldPassword] = useState('');
@@ -48,8 +49,7 @@ const UserSettings = () => {
                     oldPassword: oldPassword,
                     newPassword: password,
                     userID: userID
-                }).then(response => {
-                    alert(response.data)
+                }).then(() => {
                     setOpen(false);
                     setPassword('');
                     setRePassword('');
@@ -63,10 +63,18 @@ const UserSettings = () => {
         }
 
     const handleDelete = () => {
-        console.log('delete')
+        if (window.confirm("Are you sure you want to delete this item?")) {
+            // user clicked "OK"
+            console.log('ok')
+            // perform delete action here
+        } else {
+            // user clicked "Cancel"
+            console.log('cancel')
+            // do nothing or perform another action here
+        }
     }
     const handleChangeEmail = () => {
-        console.log('email')
+        console.log('a')
     }
     return (
         <div className='secondary-button'>
