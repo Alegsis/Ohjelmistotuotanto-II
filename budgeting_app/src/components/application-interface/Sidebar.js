@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styled from '@emotion/styled';
 import {getUserAccounts} from './SidebarData';
 import Submenu from './SubMenu';
@@ -12,12 +12,7 @@ const SidebarWrap = styled.nav`
   width: 100%;
 `;
 
-const Sidebar = ({loggedIn}) => {
-    const [createAccSuccess, setCreateAccSuccess] = useState(false);
-
-    const handleCreateAccSuccess = () => {
-        setCreateAccSuccess(true);
-    };
+const Sidebar = ({loggedIn, createAccSuccess, handleCreateAccSuccess, setCreateAccSuccess}) => {
 
     const SidebarData = [
         {

@@ -10,10 +10,16 @@ import Account from "./pages/Account";
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [createAccSuccess, setCreateAccSuccess] = useState(false);
+
+    const handleCreateAccSuccess = () => {
+        setCreateAccSuccess(true);
+    };
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
     }
+
     useEffect(() => {
         if (localStorage.getItem('UserID') !== null) {
             setLoggedIn(true)
@@ -28,11 +34,13 @@ const App = () => {
         <Router>
             <div className="header">
                 <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn}
-                        setLoggedIn={setLoggedIn}/>
+                        setLoggedIn={setLoggedIn} createAccSuccess={createAccSuccess}
+                        setCreateAccSuccess={setCreateAccSuccess}/>
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-                    <Sidebar loggedIn={loggedIn}/>
+                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess}
+                             handleCreateAccSuccess={handleCreateAccSuccess}/>
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>

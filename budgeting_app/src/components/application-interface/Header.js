@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {Link} from 'react-router-dom';
 import Login from '../user/Login';
 import Total from './Total';
+import {useEffect} from "react";
 
 const HeaderNavi = styled.div`
   display: flex;
@@ -27,7 +28,13 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 11em;
 `;
-const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen}) => {
+const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess}) => {
+
+    useEffect(() => {
+        if (loggedIn || createAccSuccess){
+            setCreateAccSuccess(false)
+        }
+    },[loggedIn, createAccSuccess])
 
     return (
       <HeaderNavi>
