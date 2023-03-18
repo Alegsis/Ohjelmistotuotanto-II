@@ -12,112 +12,158 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {useEffect, useState} from 'react';
+import Axios from 'axios';
 
-function createData(categoryName, totalBudgetedAmount, totalActivityAmount, totalAvailableAmount) {
-    return {
-        categoryName,
-        totalBudgetedAmount,
-        totalActivityAmount,
-        totalAvailableAmount,
-        //TODO subcategorySection should get subcategories, maybe as a list? We have all calls for amounts already.
-        //TODO Somehow subcategories needs to be grouped under each correct category
-        subcategorySection: [
-            {
-                subcategoryName: 'Asuntolaina',
-                budgetedAmount: '600',
-                activityAmount: -580,
-                availableAmount: 20,
-            },
-            {
-                subcategoryName: 'Autolaina',
-                budgetedAmount: '200',
-                activityAmount: -100,
-                availableAmount: 100,
-            },
-        ],
+const CollapsibleTable = () => {
+    const [gridData, setGridData] = useState();
+    const [rows, setRows] = useState([])
+
+
+    const getGridData = () => {
+        const userID = localStorage.getItem('UserID');
+        const baseURL = `http://localhost:3001/category/${userID}/return-category-dictionary`
+        Axios.get(baseURL)
+        .then((response) => {
+
+            console.log(response.data)
+
+            const data = response.data;
+            const categoryCount = data.length;
+            let tempArray = []
+
+            for(let x = 0; categoryCount > x; x++){
+                console.log('jaa')
+                const categoryName = data[x].category;
+                const subCategoryCount = data[x].subcategory.length;
+
+                let subcategoryArray = [];
+
+                for(let y = 0; subCategoryCount > y; y++){
+                    const subCategoryName = data[x].subcategory[y].category;
+                    const subCategoryBalance = data[x].subcategory[y].balance;
+
+                    const subcategoryJson = {
+                        subcategoryName : subCategoryName,
+                        budgetedAmount : 0,
+                        activityAmount: 0,
+                        availableAmount: subCategoryBalance
+                    }
+                    subcategoryArray.push(subcategoryJson);
+                }
+                tempArray.push(createData(categoryName, 0, 0, 0, subcategoryArray))
+
+            }
+
+            setRows(tempArray)
+
+        }).catch((response) => {
+            alert(response.response.data)
+        })
+    }
+
+    useEffect(() => {
+        getGridData();
+    }, [])
+
+    const createData = (categoryName, totalBudgetedAmount, totalActivityAmount, totalAvailableAmount, subcategorySection) => {
+        console.log(subcategorySection)
+        return {
+            categoryName,
+            totalBudgetedAmount,
+            totalActivityAmount,
+            totalAvailableAmount,
+            subcategorySection
+
+/*
+            subcategorySection: [
+                {
+                    subcategoryName: 'Asuntolaina',
+                    budgetedAmount: '600',
+                    activityAmount: -580,
+                    availableAmount: 20,
+                },
+                {
+                    subcategoryName: 'Autolaina',
+                    budgetedAmount: '200',
+                    activityAmount: -100,
+                    availableAmount: 100,
+                },
+            ],
+
+ */
+        };
+    }
+
+    const Row = (props) => {
+        const { row } = props;
+        const [open, setOpen] = React.useState(false);
+
+        return (
+            <React.Fragment>
+                <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                    <TableCell>
+                        <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setOpen(!open)}
+                        >
+                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        </IconButton>
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                        {row.categoryName}
+                    </TableCell>
+                    <TableCell align="right">{row.totalBudgetedAmount}</TableCell>
+                    <TableCell align="right">{row.totalActivityAmount}</TableCell>
+                    <TableCell align="right">{row.totalAvailableAmount}</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                        <Collapse in={open} timeout="auto" unmountOnExit>
+                            <Box sx={{ margin: 1 }}>
+                                <Table size="small" aria-label="budgets">
+                                    <TableHead>
+
+                                    </TableHead>
+                                    <TableBody>
+                                        {row.subcategorySection.map((subcategoryRow) => (
+                                            <TableRow key={subcategoryRow.subcategoryName}>
+                                                <TableCell component="th" scope="row">
+                                                    {subcategoryRow.subcategoryName}
+                                                </TableCell>
+                                                <TableCell align="right">{subcategoryRow.budgetedAmount}</TableCell>
+                                                <TableCell align="right">{subcategoryRow.activityAmount}</TableCell>
+                                                <TableCell align="right">{subcategoryRow.availableAmount}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </Box>
+                        </Collapse>
+                    </TableCell>
+                </TableRow>
+            </React.Fragment>
+        );
+    }
+
+    Row.propTypes = {
+        row: PropTypes.shape({
+            totalBudgetedAmount: PropTypes.number.isRequired,
+            totalActivityAmount: PropTypes.number.isRequired,
+            totalAvailableAmount: PropTypes.number.isRequired,
+            subcategory: PropTypes.arrayOf(
+                PropTypes.shape({
+                    activityAmount: PropTypes.number.isRequired,
+                    budgetedAmount: PropTypes.string.isRequired,
+                    subcategoryName: PropTypes.string.isRequired,
+                }),
+            ).isRequired,
+            categoryName: PropTypes.string.isRequired,
+        }).isRequired,
     };
-}
 
-function Row(props) {
-    const { row } = props;
-    const [open, setOpen] = React.useState(false);
 
-    return (
-        <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell>
-                    <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setOpen(!open)}
-                    >
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                    {row.categoryName}
-                </TableCell>
-                <TableCell align="right">{row.totalBudgetedAmount}</TableCell>
-                <TableCell align="right">{row.totalActivityAmount}</TableCell>
-                <TableCell align="right">{row.totalAvailableAmount}</TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{ margin: 1 }}>
-                            <Table size="small" aria-label="budgets">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Subcategory</TableCell>
-                                        <TableCell>Budgeted</TableCell>
-                                        <TableCell align="">Activity</TableCell>
-                                        <TableCell align="">Available</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {row.subcategorySection.map((historyRow) => (
-                                        <TableRow key={historyRow.subcategoryName}>
-                                            <TableCell component="th" scope="row">
-                                                {historyRow.subcategoryName}
-                                            </TableCell>
-                                            <TableCell>{historyRow.budgetedAmount}</TableCell>
-                                            <TableCell align="">{historyRow.activityAmount}</TableCell>
-                                            <TableCell align="">{historyRow.availableAmount}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
-        </React.Fragment>
-    );
-}
-
-Row.propTypes = {
-    row: PropTypes.shape({
-        totalBudgetedAmount: PropTypes.number.isRequired,
-        totalActivityAmount: PropTypes.number.isRequired,
-        totalAvailableAmount: PropTypes.number.isRequired,
-        subcategory: PropTypes.arrayOf(
-            PropTypes.shape({
-                activityAmount: PropTypes.number.isRequired,
-                budgetedAmount: PropTypes.string.isRequired,
-                subcategoryName: PropTypes.string.isRequired,
-            }),
-        ).isRequired,
-        categoryName: PropTypes.string.isRequired,
-    }).isRequired,
-};
-
-const rows = [
-    //TODO These are categories!
-    createData('Lainat', 800, -680, 120),
-    createData('Säästäminen', 300, 9.0, 37),
-];
-
-export default function CollapsibleTable() {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -139,3 +185,5 @@ export default function CollapsibleTable() {
         </TableContainer>
     );
 }
+
+export default CollapsibleTable
