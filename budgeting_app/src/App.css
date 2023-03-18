@@ -6,6 +6,7 @@
 
 body {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
+    color: white;
 }
 
 /* Style the header */
@@ -74,6 +75,7 @@ Account balances
     -ms-flex: 1 1;
     flex: 1 1;
     padding: 0;
+    background-color: #5d5d5d;
 }
 
 .column.middle.hidden {
@@ -83,8 +85,16 @@ Account balances
 .MuiCollapse-root,
 .MuiDataGrid-root{
     display: flex;
-    background-color: white;
+    background-color: #5D5D5DFF;
 
+
+}
+
+.MuiTableCell-root{
+    background-color: #5D5D5DFF;
+    border-color: #5D5D5DFF !important;
+    padding: 0px;
+    color: #000000 !important;
 }
 
 /* To be done...
