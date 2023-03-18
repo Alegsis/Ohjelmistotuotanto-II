@@ -1,9 +1,5 @@
 import React from "react";
-import HomeIcon from "@mui/icons-material/Home";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import CreateBankAcc from "../account/CreateBankAcc";
 import Axios from "axios";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SavingsIcon from "@mui/icons-material/Savings";
@@ -55,23 +51,3 @@ export const getUserAccounts = () => {
   return updatedArray;
 };
 
-export const SidebarData = [
-  {
-    title: "Dashboard",
-    path: "/dashboard",
-    icon: <HomeIcon />,
-    iconClosed: <ExpandMoreIcon />,
-    iconOpen: <ExpandLessIcon />,
-  },
-  {
-    title: "Accounts",
-    path: "/accounts",
-    icon: <AccountBalanceIcon />,
-    subNavi: getUserAccounts(),
-  },
-  {
-    title: "",
-    icon: <CreateBankAcc />,
-    path: "/accounts",
-  },
-];
