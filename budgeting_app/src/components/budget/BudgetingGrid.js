@@ -102,7 +102,7 @@ const CollapsibleTable = () => {
         return (
             <React.Fragment>
                 <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                    <TableCell>
+                    <TableCell width="5%">
                         <IconButton
                             aria-label="expand row"
                             size="small"
@@ -111,12 +111,12 @@ const CollapsibleTable = () => {
                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                         </IconButton>
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell width="30%" component="th" scope="row">
                         {row.categoryName}
                     </TableCell>
-                    <TableCell align="right">{row.totalBudgetedAmount}</TableCell>
-                    <TableCell align="right">{row.totalActivityAmount}</TableCell>
-                    <TableCell align="right">{row.totalAvailableAmount}</TableCell>
+                    <TableCell align="right" width="10%">{row.totalBudgetedAmount}</TableCell>
+                    <TableCell align="right" width="10%">{row.totalActivityAmount}</TableCell>
+                    <TableCell align="right" width="10%">{row.totalAvailableAmount}</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -124,14 +124,15 @@ const CollapsibleTable = () => {
                             <Box sx={{ margin: 1 }}>
                                 <Table size="small" aria-label="budgets">
                                     <TableHead>
-
                                     </TableHead>
                                     <TableBody>
                                         {row.subcategorySection.map((subcategoryRow) => (
                                             <TableRow key={subcategoryRow.subcategoryName}>
+                                                <TableCell> </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {subcategoryRow.subcategoryName}
                                                 </TableCell>
+
                                                 <TableCell align="right">{subcategoryRow.budgetedAmount}</TableCell>
                                                 <TableCell align="right">{subcategoryRow.activityAmount}</TableCell>
                                                 <TableCell align="right">{subcategoryRow.availableAmount}</TableCell>
