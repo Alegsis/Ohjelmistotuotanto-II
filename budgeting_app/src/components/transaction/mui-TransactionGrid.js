@@ -1,9 +1,26 @@
 import Axios from 'axios';
-import {DataGrid} from '@mui/x-data-grid';
-import CustomToolbar from "../helpers/GridToolbar";
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarDensitySelector,
+    GridToolbarExport,
+    GridToolbarFilterButton
+} from '@mui/x-data-grid';
 import moment from "moment";
+import AddTransaction from "./AddTransaction";
 
-const MuiTransactionGrid = ({rows}) => {
+const MuiTransactionGrid = ({rows, setaddTransactionSuccess}) => {
+
+    const CustomToolbar = () => {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarFilterButton />
+                <GridToolbarDensitySelector />
+                <GridToolbarExport />
+                <AddTransaction setaddTransactionSuccess={setaddTransactionSuccess}/>
+            </GridToolbarContainer>
+        );
+    }
 
     const columns = [
         {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},

@@ -16,7 +16,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as React from "react";
 
-const AddTransaction = () => {
+const AddTransaction = ({setaddTransactionSuccess}) => {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(dayjs(Date.now()));
   const [transactionName, setTransactionName] = useState("");
@@ -95,6 +95,7 @@ const AddTransaction = () => {
         setSubCategory("");
         setInflow(0.0);
         setOutflow(0.0);
+        setaddTransactionSuccess(true)
       }).catch((response) => {
         alert(response.response.data);
       });

@@ -11,9 +11,7 @@ const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [createAccSuccess, setCreateAccSuccess] = useState(false);
-    const handleCreateAccSuccess = () => {
-        setCreateAccSuccess(true);
-    };
+    const [addTransactionSuccess, setaddTransactionSuccess] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
@@ -39,13 +37,12 @@ const App = () => {
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess}
-                             handleCreateAccSuccess={handleCreateAccSuccess}/>
+                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess}/>
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>
                         <Route path="/dashboard" element={<Dashboard/>}/>
-                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn}/>}/>
+                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess} setaddTransactionSuccess={setaddTransactionSuccess}/>}/>
                         <Route path={`/accounts/:AccountName`} element={<Account/>}/>
                     </Routes>
                 </div>

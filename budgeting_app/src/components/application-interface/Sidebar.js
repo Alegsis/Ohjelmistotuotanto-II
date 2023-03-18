@@ -12,7 +12,7 @@ const SidebarWrap = styled.nav`
   width: 100%;
 `;
 
-const Sidebar = ({loggedIn, createAccSuccess, handleCreateAccSuccess, setCreateAccSuccess}) => {
+const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess}) => {
 
     const SidebarData = [
         {
@@ -30,7 +30,7 @@ const Sidebar = ({loggedIn, createAccSuccess, handleCreateAccSuccess, setCreateA
         },
         {
             title: "",
-            icon: <CreateBankAcc handleCreateAccSuccess={handleCreateAccSuccess}/>,
+            icon: <CreateBankAcc setCreateAccSuccess={setCreateAccSuccess}/>,
             path: "/accounts",
         },
     ];
