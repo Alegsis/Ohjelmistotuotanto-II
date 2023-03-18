@@ -119,20 +119,19 @@ const CollapsibleTable = () => {
                     <TableCell align="right" width="10%">{row.totalAvailableAmount}</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <TableCell colSpan={6}>
                         <Collapse in={open} timeout="auto" unmountOnExit>
-                            <Box sx={{ margin: 1 }}>
+                            <Box sx={{ margin: 0 }}>
                                 <Table size="small" aria-label="budgets">
                                     <TableHead>
                                     </TableHead>
                                     <TableBody>
                                         {row.subcategorySection.map((subcategoryRow) => (
                                             <TableRow key={subcategoryRow.subcategoryName}>
-                                                <TableCell> </TableCell>
+                                                <TableCell></TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {subcategoryRow.subcategoryName}
                                                 </TableCell>
-
                                                 <TableCell align="right">{subcategoryRow.budgetedAmount}</TableCell>
                                                 <TableCell align="right">{subcategoryRow.activityAmount}</TableCell>
                                                 <TableCell align="right">{subcategoryRow.availableAmount}</TableCell>
@@ -167,7 +166,7 @@ const CollapsibleTable = () => {
 
     return (
         <TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
+            <Table aria-label="collapsible table" density="">
                 <TableHead>
                     <TableRow>
                         <TableCell />

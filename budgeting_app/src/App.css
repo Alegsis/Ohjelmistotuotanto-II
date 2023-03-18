@@ -112,10 +112,6 @@ Account balances
     text-align: center;
 }
 
-#root > div.row > div.column.middle > div > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.css-11xur9t-MuiPaper-root-MuiTableContainer-root > table > tbody > tr:nth-child(even) > td,
-#root > div.row > div.column.middle > div > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.css-11xur9t-MuiPaper-root-MuiTableContainer-root > table > tbody > tr:nth-child(odd) > td{
-    /*padding: 0 !important;*/
-}
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other
 @media (max-width: 600px) {
@@ -124,7 +120,6 @@ Account balances
     flex-direction: column;
   }
 }*/
-
 
 .home,
 .category {
@@ -328,3 +323,6 @@ Account balances
     padding: 10px !important;
 }
 
+.css-1ex1afd-MuiTableCell-root{
+    padding: 0 !important;
+}
