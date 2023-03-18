@@ -80,6 +80,13 @@ Account balances
     display: none;
 }
 
+.MuiCollapse-root,
+.MuiDataGrid-root{
+    display: flex;
+    background-color: white;
+
+}
+
 /* To be done...
 .column.right {
     -webkit-flex: 1;
