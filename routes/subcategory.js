@@ -62,10 +62,6 @@ router.get('/user-:UserID/get-subcategory-details/subCategoryName-:SubCategoryNa
     const UserID = req.params.UserID;
     const SubCategoryName = req.params.SubCategoryName;
 
-    console.log(UserID)
-    console.log(SubCategoryName)
-
-
     const sqlQuery = `SELECT subcategory.Balance, category.CategoryName
  FROM subcategory
  INNER JOIN category ON subcategory.CategoryID = category.CategoryID

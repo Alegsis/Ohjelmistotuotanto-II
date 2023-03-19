@@ -23,19 +23,14 @@ const CollapsibleTable = () => {
     const month = localStorage.getItem('Month');
     const year = localStorage.getItem('Year');
     const date = `${year}-${month}`
-    console.log(date)
 
-    //Todo tähän sitten päivämäärä kiinni
     const getSql1 = `http://localhost:3001/subcategory/user-${userID}/activity-and-budgeted-this-month/date-${date}`;
-
     const resultBudget = await Axios.get(getSql1);
     const budgetData = resultBudget.data;
 
 
     const getSql2 = `http://localhost:3001/category/${userID}/return-category-dictionary`;
-
     const resultCategories = await Axios.get(getSql2);
-
     const categoryData = resultCategories.data;
     const categoryCount = categoryData.length;
     let tempArray = [];
@@ -48,7 +43,6 @@ const CollapsibleTable = () => {
       let totalAvailable = 0;
       let totalBudgeted = 0;
       let totalActivity = 0;
-
 
       for (let y = 0; subCategoryCount > y; y++) {
 
@@ -91,24 +85,6 @@ const CollapsibleTable = () => {
       totalActivityAmount,
       totalAvailableAmount,
       subcategorySection,
-
-      /*
-                  subcategorySection: [
-                      {
-                          subcategoryName: 'Asuntolaina',
-                          budgetedAmount: '600',
-                          activityAmount: -580,
-                          availableAmount: 20,
-                      },
-                      {
-                          subcategoryName: 'Autolaina',
-                          budgetedAmount: '200',
-                          activityAmount: -100,
-                          availableAmount: 100,
-                      },
-                  ],
-
-       */
     };
   };
 
