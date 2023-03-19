@@ -19,6 +19,19 @@ router.get('/:id', async (req, res) => {
 });
 
 /**
+ * Router to get users email
+ */
+router.get('/:id/get-email', async (req, res) => {
+  try {
+    const sqlQuery = `SELECT Email FROM user WHERE userID=?`;
+    const rows = await pool.query(sqlQuery, req.params.id);
+    res.status(200).json(rows[0].Email);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+/**
  * Router to register new user
  */
 router.post('/register', async (req, res) => {
@@ -133,6 +146,29 @@ router.post('/change-password', async (req, res) => {
   }
 });
 
+/**
+ * Router for email change
+ */
+router.post('/change-email', async (req, res) => {
+  try{
+    const {newEmail, userID} = req.body;
+
+    const sqlQueryFindEmail = `SELECT user.Email FROM user WHERE user.Email=?`;
+    const resultFindEmail = await pool.query(sqlQueryFindEmail, newEmail);
+
+    if(resultFindEmail.length === 0) {
+
+      const updateSQL = 'UPDATE user SET user.Email =? WHERE user.UserID =?'
+      await pool.query(updateSQL, [newEmail, userID])
+
+      res.status(200).send('email changed successfully')
+    } else {
+      res.status(409).send('Email is already in use');
+    }
+  } catch (error) {
+    res.status(400).send('Something went wrong');
+  }
+});
 
 
 

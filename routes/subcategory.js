@@ -141,6 +141,7 @@ GROUP BY subcategory.SubcategoryName;`
       }
     }
 
+    console.log(budgeted)
     res.status(200).json(budgeted);
 
   } catch (error) {
