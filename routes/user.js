@@ -161,7 +161,7 @@ router.post('/change-email', async (req, res) => {
       const updateSQL = 'UPDATE user SET user.Email =? WHERE user.UserID =?'
       await pool.query(updateSQL, [newEmail, userID])
 
-      res.status(200).send('email changed successfully')
+      res.status(200).send('Email changed successfully')
     } else {
       res.status(409).send('Email is already in use');
     }
