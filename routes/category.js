@@ -70,7 +70,7 @@ WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE c
 
     res.status(200).json(dictionary);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, refresh the page');
   }
 });
 

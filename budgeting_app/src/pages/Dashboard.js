@@ -5,7 +5,7 @@ import MoveDeleteSubCategory
   from '../components/categories/MoveDeleteSubCategory';
 import React from 'react';
 import AddBudget from '../components/budget/AddBudget';
-
+import BudgetingGrid from '../components/budget/BudgetingGrid.js';
 const Dashboard = () => {
   return (
       <div className="home">
@@ -15,7 +15,7 @@ const Dashboard = () => {
           <MoveDeleteSubCategory></MoveDeleteSubCategory>
           <AddBudget/>
         </div>
-        <Budget></Budget>
+        <BudgetingGrid/>
       </div>
   );
 

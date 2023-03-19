@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Login from '../user/Login';
 import Total from './Total';
 import {useEffect} from "react";
+import DateSelector from './DateSelector';
 
 const HeaderNavi = styled.div`
   display: flex;
@@ -50,6 +51,7 @@ const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createA
           <Total> </Total>
         </TotalWrapper>
           )}
+          <DateSelector/>
         <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen}></Login>
       </HeaderNavi>
   );

@@ -62,10 +62,6 @@ router.get('/user-:UserID/get-subcategory-details/subCategoryName-:SubCategoryNa
     const UserID = req.params.UserID;
     const SubCategoryName = req.params.SubCategoryName;
 
-    console.log(UserID)
-    console.log(SubCategoryName)
-
-
     const sqlQuery = `SELECT subcategory.Balance, category.CategoryName
  FROM subcategory
  INNER JOIN category ON subcategory.CategoryID = category.CategoryID
@@ -73,6 +69,80 @@ router.get('/user-:UserID/get-subcategory-details/subCategoryName-:SubCategoryNa
 
     const rows = await pool.query(sqlQuery);
     res.status(200).json(rows);
+  } catch (error) {
+    res.status(400).send('Cant get Activity and Budgeted value');
+  }
+});
+
+/**
+ * Get certain subcategory's transactions sum
+ */
+router.get('/user-:UserID/activity-and-budgeted-this-month/date-:Date', async (req, res) => {
+  try {
+    const userID = req.params.UserID;
+    const date = req.params.Date;
+    const startDate = `${date}-1`
+    const endDate = `${date}-31`
+
+    const sqlQueryActivity = `SELECT subcategory.SubCategoryName, (SUM(transaction.Inflow) - SUM(transaction.Outflow)) AS 'Balance' 
+FROM subcategory 
+INNER JOIN transaction ON subcategory.SubCategoryID = transaction.SubCategoryID 
+INNER JOIN account ON transaction.AccountID = account.AccountID 
+INNER JOIN user ON account.UserID = user.UserID 
+WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds' 
+GROUP BY subcategory.SubcategoryName;`
+
+    const activity = await pool.query(sqlQueryActivity);
+
+
+    const sqlQueryBudgetedTo = `SELECT subcategory.SubCategoryName, SUM(budget.Amount) As 'Budgeted' from subcategory
+INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.ToSubCategoryID
+INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
+INNER JOIN user ON subcategory.UserID = user.UserID
+WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
+GROUP BY subcategory.SubcategoryName;`
+
+    let budgeted = await pool.query(sqlQueryBudgetedTo);
+
+
+    const sqlQueryBudgetedFrom = `SELECT subcategory.SubCategoryName, SUM(budget.Amount) As 'Budgeted' from subcategory
+INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.FromSubCategoryID
+INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
+INNER JOIN user ON subcategory.UserID = user.UserID
+WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
+GROUP BY subcategory.SubcategoryName;`
+
+    const budgetedMinus = await pool.query(sqlQueryBudgetedFrom);
+    const checkIfExists = new Set();
+
+
+    for(let y = 0; budgetedMinus.length > y; y++){
+      checkIfExists.add(budgetedMinus[y].SubCategoryName)
+    }
+
+    for(let x = 0; budgeted.length > x; x++){
+
+      if(checkIfExists.has(budgeted[x].SubCategoryName)){
+        const minusIndex = budgetedMinus.findIndex(obj => obj.SubCategoryName===budgeted[x].SubCategoryName)
+
+        budgeted[x].Budgeted = budgeted[x].Budgeted - budgetedMinus[minusIndex].Budgeted;
+      }
+    }
+
+    for(let z = 0; budgeted.length > z; z++) {
+      for(let n = 0; activity.length > n; n++) {
+        if (budgeted[z].SubCategoryName === activity[n].SubCategoryName){
+          budgeted[z].Activity = activity[n].Balance;
+          break;
+        }
+        else {
+          budgeted[z].Activity = 0;
+        }
+      }
+    }
+
+    res.status(200).json(budgeted);
+
   } catch (error) {
     res.status(400).send(error.message);
   }
