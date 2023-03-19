@@ -10,6 +10,7 @@ import {useState} from "react";
 import {IconButton, InputAdornment, MenuItem} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
+import ValidateEmail from "../../utils/email";
 
 const UserSettings = ({setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
@@ -80,18 +81,22 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
     const handleChangeEmail = () => {
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
-        Axios.post(baseUrl, {
-            newEmail: newEmail,
-            userID: userID
-        }).then(() => {
-            setOpen(false)
-            setNewEmail('')
-            setShowPassword(false)
-            setMessage('Email change was successful')
-            setEffectOpen(true)
-        }).catch(response => {
-            alert(response.response.data)
-        })
+        if(ValidateEmail(newEmail)) {
+            Axios.post(baseUrl, {
+                newEmail: newEmail,
+                userID: userID
+            }).then(() => {
+                setOpen(false)
+                setNewEmail('')
+                setShowPassword(false)
+                setMessage('Email change was successful')
+                setEffectOpen(true)
+            }).catch(response => {
+                alert(response.response.data)
+            })
+        } else {
+            alert('Email-address does not meet requirements.')
+        }
     }
     const handleGetEmail = () => {
         const userID = localStorage.getItem('UserID')
