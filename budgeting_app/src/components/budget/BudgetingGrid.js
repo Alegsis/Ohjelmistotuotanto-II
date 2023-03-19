@@ -20,9 +20,13 @@ const CollapsibleTable = () => {
 
   const getGridData = async () => {
     const userID = localStorage.getItem('UserID');
+    const month = localStorage.getItem('Month');
+    const year = localStorage.getItem('Year');
+    const date = `${year}-${month}`
+    console.log(date)
 
     //Todo tähän sitten päivämäärä kiinni
-    const getSql1 = `http://localhost:3001/subcategory/user-${userID}/activity-and-budgeted-this-month/date-:2`;
+    const getSql1 = `http://localhost:3001/subcategory/user-${userID}/activity-and-budgeted-this-month/date-${date}`;
 
     const resultBudget = await Axios.get(getSql1);
     const budgetData = resultBudget.data;

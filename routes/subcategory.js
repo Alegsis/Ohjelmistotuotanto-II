@@ -85,19 +85,15 @@ router.get('/user-:UserID/activity-and-budgeted-this-month/date-:Date', async (r
   try {
     const userID = req.params.UserID;
     const date = req.params.Date;
-
-    console.log(userID)
-    console.log(Date)
-
-    //TODO laita päivämäärät, kunhan tulee datepicker
-
+    const startDate = `${date}-1`
+    const endDate = `${date}-31`
 
     const sqlQueryActivity = `SELECT subcategory.SubCategoryName, (SUM(transaction.Inflow) - SUM(transaction.Outflow)) AS 'Balance' 
 FROM subcategory 
 INNER JOIN transaction ON subcategory.SubCategoryID = transaction.SubCategoryID 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
 INNER JOIN user ON account.UserID = user.UserID 
-WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '2023-03-01' AND '2023-03-31' AND NOT subcategory.SubCategoryName = 'AvailableFunds' 
+WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds' 
 GROUP BY subcategory.SubcategoryName;`
 
     const activity = await pool.query(sqlQueryActivity);
@@ -107,7 +103,7 @@ GROUP BY subcategory.SubcategoryName;`
 INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.ToSubCategoryID
 INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
 INNER JOIN user ON subcategory.UserID = user.UserID
-WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '2023-03-01' AND '2023-03-31' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
+WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
 GROUP BY subcategory.SubcategoryName;`
 
     let budgeted = await pool.query(sqlQueryBudgetedTo);
@@ -117,7 +113,7 @@ GROUP BY subcategory.SubcategoryName;`
 INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.FromSubCategoryID
 INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
 INNER JOIN user ON subcategory.UserID = user.UserID
-WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '2023-03-01' AND '2023-03-31' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
+WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
 GROUP BY subcategory.SubcategoryName;`
 
     const budgetedMinus = await pool.query(sqlQueryBudgetedFrom);
