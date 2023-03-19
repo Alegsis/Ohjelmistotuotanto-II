@@ -11,7 +11,6 @@ import {IconButton, InputAdornment, MenuItem} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
 
-
 const UserSettings = ({setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [oldPassword, setOldPassword] = useState('');
@@ -30,6 +29,7 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
     };
 
     const handleClickOpen = () => {
+        handleGetEmail()
         setOpen(true);
     };
 
@@ -51,9 +51,9 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                     newPassword: password,
                     userID: userID
                 }).then(() => {
-                    setOpen(false);
-                    setPassword('');
-                    setRePassword('');
+                    setOpen(false)
+                    setPassword('')
+                    setRePassword('')
                     setOldPassword('')
                     setShowPassword(false)
                     setMessage('Password change was successful')
@@ -78,8 +78,31 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
         }
     }
     const handleChangeEmail = () => {
-        console.log('a')
+        const baseUrl = "http://localhost:3001/user/change-email";
+        const userID = localStorage.getItem('UserID')
+        Axios.post(baseUrl, {
+            newEmail: newEmail,
+            userID: userID
+        }).then(() => {
+            setOpen(false)
+            setNewEmail('')
+            setShowPassword(false)
+            setMessage('Email change was successful')
+            setEffectOpen(true)
+        }).catch(response => {
+            alert(response.response.data)
+        })
     }
+    const handleGetEmail = () => {
+        const userID = localStorage.getItem('UserID')
+        const baseUrl = `http://localhost:3001/user/${userID}/get-email`
+        Axios.get(baseUrl).then(((response) => {
+            setCurrentEmail(response.data)
+        })).catch((response) => {
+            alert(response.response.data);
+        });
+    }
+
     return (
         <div className='secondary-button'>
             <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
@@ -178,16 +201,13 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                         disabled
                         margin="dense"
                         id="current-email"
-                        label="Current email"
+                        label= {currentEmail}
                         inputProps={{maxLength: 60 }}
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
                         variant="filled"
                         fullWidth
-                        onChange={(event) => {
-                            setCurrentEmail(event.target.value)
-                        }}
                     />
                     <TextField
                         required
@@ -207,7 +227,7 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                     />
                 </DialogContent>
                 <DialogActions style={{justifyContent: "space-between"}}>
-                    <Button onClick={handleDelete} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete Account</Button>
+                    <Button onClick={handleDelete} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete User</Button>
                     <div>
                         <Button onClick={handleClose}>Cancel</Button>
                         <Button onClick={handleChangeEmail}>Update Email</Button>
