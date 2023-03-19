@@ -213,7 +213,10 @@ Account balances
     margin-right: 0 !important;
     display: block;
 }
-
+.custom-alert {
+    left: 70%;
+    transform: translate(-60%, -60%);
+}
 .delete-button {
     /* margin-left: auto !important;*/
     margin-right: 0 !important;

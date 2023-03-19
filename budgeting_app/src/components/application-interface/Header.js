@@ -29,7 +29,7 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 11em;
 `;
-const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess}) => {
+const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess, setMessage, setEffectOpen}) => {
 
     useEffect(() => {
         if (loggedIn || createAccSuccess){
@@ -52,7 +52,7 @@ const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createA
         </TotalWrapper>
           )}
           <DateSelector/>
-        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen}></Login>
+        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen} setEffectOpen={setEffectOpen} setMessage={setMessage}></Login>
       </HeaderNavi>
   );
 };

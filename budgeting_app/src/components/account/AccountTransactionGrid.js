@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import {useEffect, useState} from 'react';
 import {
     DataGrid,
     GridToolbarContainer,
@@ -8,10 +7,9 @@ import {
     GridToolbarFilterButton
 } from '@mui/x-data-grid';
 import moment from "moment";
-import AddTransaction from "../transaction/AddTransaction";
+import AddAccTransaction from "../transaction/AddAccTransaction";
 
-const AccountTransactionGrid = ({AccountName}) => {
-    const [rows, setRows] = useState([]);
+export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, setAddAccTransactionSuccess, rows}) => {
 
     const CustomToolbar = () => {
         return (
@@ -19,7 +17,7 @@ const AccountTransactionGrid = ({AccountName}) => {
                 <GridToolbarFilterButton />
                 <GridToolbarDensitySelector />
                 <GridToolbarExport />
-                <AddTransaction />
+                <AddAccTransaction setEffectOpen={setEffectOpen} setMessage={setMessage} AccountName={AccountName} setAddAccTransactionSuccess={setAddAccTransactionSuccess}/>
             </GridToolbarContainer>
         );
     }
@@ -33,34 +31,6 @@ const AccountTransactionGrid = ({AccountName}) => {
         {field: 'TransactionRepeat', headerName: 'Repeat', width: 150, editable: true},
         {field: 'Memo', headerName: 'Memo', width: 300, editable: true}
     ];
-    const getAccountTransactions = (userID, accountName) => {
-        const baseUrl = `http://localhost:3001/transaction/user-${userID}/accounts-transactions/account-${accountName}`;
-        const updatedArray = [];
-        Axios.get(baseUrl).then(((response) => {
-            for (let x = 0; x < response.data.length; x++) {
-                updatedArray.push(
-                    {
-                        id: x,
-                        TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
-                        TransactionName: response.data[x].TransactionName,
-                        Outflow: response.data[x].Outflow,
-                        Inflow: response.data[x].Inflow,
-                        Recipient: response.data[x].Recipient,
-                        TransactionRepeat: response.data[x].TransactionRepeat,
-                        Memo: response.data[x].Memo,
-                    },
-                );
-            }
-            setRows(updatedArray);
-        })).catch((response) => {
-            alert(response.response.data);
-        });
-    };
-
-    useEffect(() => {
-        const userID = localStorage.getItem('UserID')
-        getAccountTransactions(userID, AccountName)
-    }, [AccountName]);
 
     return(
         <div style={{ width: '100%' }}>
@@ -80,4 +50,26 @@ const AccountTransactionGrid = ({AccountName}) => {
     )
 }
 
-export default AccountTransactionGrid
+export const getAccountTransactions = (userID, accountName) => {
+    const baseUrl = `http://localhost:3001/transaction/user-${userID}/accounts-transactions/account-${accountName}`;
+    const updatedArray = [];
+    return Axios.get(baseUrl).then(((response) => {
+        for (let x = 0; x < response.data.length; x++) {
+            updatedArray.push(
+                {
+                    id: x,
+                    TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
+                    TransactionName: response.data[x].TransactionName,
+                    Outflow: response.data[x].Outflow,
+                    Inflow: response.data[x].Inflow,
+                    Recipient: response.data[x].Recipient,
+                    TransactionRepeat: response.data[x].TransactionRepeat,
+                    Memo: response.data[x].Memo,
+                },
+            );
+        }
+        return updatedArray;
+    })).catch((response) => {
+        alert(response.response.data);
+    });
+};

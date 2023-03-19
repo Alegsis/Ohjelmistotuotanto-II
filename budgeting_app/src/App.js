@@ -6,12 +6,17 @@ import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
 import {useEffect, useState} from 'react';
 import Account from "./pages/Account";
+import CustomAlert from "./components/alert";
+import * as React from "react";
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [createAccSuccess, setCreateAccSuccess] = useState(false);
     const [addTransactionSuccess, setaddTransactionSuccess] = useState(false);
+    const [addAccTransactionSuccess, setAddAccTransactionSuccess] = useState(false);
+    const [effectOpen, setEffectOpen] = useState(false);
+    const [message, setMessage] = useState('');
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
@@ -30,20 +35,23 @@ const App = () => {
 
     return (
         <Router>
+            <div className="custom-alert" style={{ position: 'fixed', top: '64px', width: '25%' }}>
+                <CustomAlert effectOpen={effectOpen} message={message} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
+            </div>
             <div className="header">
                 <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn}
                         setLoggedIn={setLoggedIn} createAccSuccess={createAccSuccess}
-                        setCreateAccSuccess={setCreateAccSuccess}/>
+                        setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess}/>
+                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>
                         <Route path="/dashboard" element={<Dashboard/>}/>
-                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess} setaddTransactionSuccess={setaddTransactionSuccess}/>}/>
-                        <Route path={`/accounts/:AccountName`} element={<Account/>}/>
+                        <Route path="/accounts" element={<Accounts loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>}/>
+                        <Route path={`/accounts/:AccountName`} element={<Account loggedIn={loggedIn} setEffectOpen={setEffectOpen} setMessage={setMessage} addAccTransactionSuccess={addAccTransactionSuccess} setAddAccTransactionSuccess={setAddAccTransactionSuccess}/>}/>
                     </Routes>
                 </div>
                 {/*<div className="column right">*/}

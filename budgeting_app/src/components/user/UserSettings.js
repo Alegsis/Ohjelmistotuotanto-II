@@ -11,12 +11,15 @@ import {IconButton, InputAdornment, MenuItem} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
 
-const UserSettings = () => {
+
+const UserSettings = ({setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [currentEmail, setCurrentEmail] = useState('');
+    const [newEmail, setNewEmail] = useState('');
 
     const handleClick = () => {
         setShowPassword(!showPassword);
@@ -35,6 +38,7 @@ const UserSettings = () => {
         setOldPassword('')
         setPassword('');
         setRePassword('');
+        setShowPassword(false)
     };
 
 
@@ -46,12 +50,14 @@ const UserSettings = () => {
                     oldPassword: oldPassword,
                     newPassword: password,
                     userID: userID
-                }).then(response => {
-                    alert(response.data)
+                }).then(() => {
                     setOpen(false);
                     setPassword('');
                     setRePassword('');
                     setOldPassword('')
+                    setShowPassword(false)
+                    setMessage('Password change was successful')
+                    setEffectOpen(true)
                 }).catch(response => {
                     alert(response.response.data)
                 })
@@ -60,7 +66,20 @@ const UserSettings = () => {
             }
         }
 
-
+    const handleDelete = () => {
+        if (window.confirm("Are you sure you want to delete this item?")) {
+            // user clicked "OK"
+            console.log('ok')
+            // perform delete action here
+        } else {
+            // user clicked "Cancel"
+            console.log('cancel')
+            // do nothing or perform another action here
+        }
+    }
+    const handleChangeEmail = () => {
+        console.log('a')
+    }
     return (
         <div className='secondary-button'>
             <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
@@ -81,8 +100,8 @@ const UserSettings = () => {
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
-                        fullWidth
                         variant="filled"
+                        fullWidth
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -107,8 +126,8 @@ const UserSettings = () => {
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
-                        fullWidth
                         variant="filled"
+                        fullWidth
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -133,8 +152,9 @@ const UserSettings = () => {
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
-                        fullWidth
+
                         variant="filled"
+                        fullWidth
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -148,10 +168,50 @@ const UserSettings = () => {
                             setRePassword(event.target.value)
                         }}
                     />
+                    <Button onClick={handleChangePassword} style={{float: "right"}}>Update Password</Button>
+                    <hr style={{width: "100%", height: "2px"}}></hr>
+                    <DialogContentText>
+                        Here you can change your email
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        disabled
+                        margin="dense"
+                        id="current-email"
+                        label="Current email"
+                        inputProps={{maxLength: 60 }}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
+                        variant="filled"
+                        fullWidth
+                        onChange={(event) => {
+                            setCurrentEmail(event.target.value)
+                        }}
+                    />
+                    <TextField
+                        required
+                        autoFocus
+                        margin="dense"
+                        id="first-email"
+                        label="New email"
+                        inputProps={{maxLength: 60 }}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                        }}
+                        variant="filled"
+                        fullWidth
+                        onChange={(event) => {
+                            setNewEmail(event.target.value)
+                        }}
+                    />
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleChangePassword}>Change</Button>
+                <DialogActions style={{justifyContent: "space-between"}}>
+                    <Button onClick={handleDelete} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete Account</Button>
+                    <div>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleChangeEmail}>Update Email</Button>
+                    </div>
                 </DialogActions>
             </Dialog>
         </div>
