@@ -64,8 +64,12 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
         <Box mr={1}>
           <AddCircleOutline />
         </Box>
-        <Box mr={2}></Box>
-        Add Account
+        <Box mr={1}>
+        Add 
+        </Box>
+        <Box mr={1}>
+        Account 
+        </Box>
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create Bank Account</DialogTitle>
