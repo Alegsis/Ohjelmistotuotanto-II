@@ -12,7 +12,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
 
 
-const UserSettings = () => {
+const UserSettings = ({setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -38,6 +38,7 @@ const UserSettings = () => {
         setOldPassword('')
         setPassword('');
         setRePassword('');
+        setShowPassword(false)
     };
 
 
@@ -54,6 +55,9 @@ const UserSettings = () => {
                     setPassword('');
                     setRePassword('');
                     setOldPassword('')
+                    setShowPassword(false)
+                    setMessage('Password change was successful')
+                    setEffectOpen(true)
                 }).catch(response => {
                     alert(response.response.data)
                 })

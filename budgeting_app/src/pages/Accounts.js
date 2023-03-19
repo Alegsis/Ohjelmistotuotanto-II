@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import MuiTransactionGrid from "../components/transaction/mui-TransactionGrid";
-import {getUserTransactions} from "../components/transaction/mui-TransactionGrid"
+import MuiTransactionGrid from "../components/account/mui-TransactionGrid";
+import {getUserTransactions} from "../components/account/mui-TransactionGrid"
 
-const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, toggleAlert, setMessage}) => {
+const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, setEffectOpen, setMessage}) => {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, to
 
   return (
       <div className="transaction">
-          <MuiTransactionGrid rows={rows} setaddTransactionSuccess={setaddTransactionSuccess} toggleAlert={toggleAlert} setMessage={setMessage}/>
+          <MuiTransactionGrid rows={rows} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
       </div>
   );
 };

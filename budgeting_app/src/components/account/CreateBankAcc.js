@@ -15,7 +15,7 @@ import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import {Box} from "@mui/material";
 import {useState} from "react";
 
-const CreateBankAcc = ({setCreateAccSuccess, setMessage, toggleAlert}) => {
+const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
   const [open, setOpen] = useState(false);
   const [accountType, setAccountType] = useState("");
   const [accountName, setAccountName] = useState("");
@@ -51,7 +51,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, toggleAlert}) => {
       setAccountBalance("");
       setCreateAccSuccess(true)
       setMessage(`Account ${accountName} was created`)
-      toggleAlert()
+      setEffectOpen(true)
     }).catch(response => {
       alert(response.response.data)
     });

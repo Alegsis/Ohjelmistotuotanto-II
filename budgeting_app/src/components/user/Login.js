@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import {useEffect} from "react";
 import UserSettings from "./UserSettings";
 
-const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, toggleAlert, setMessage}) => {
+const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -63,7 +63,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, toggleAlert, setMessage
             localStorage.setItem("UserID", response.data.toString());
             localStorage.setItem("Username", username);
             setMessage(`Welcome ${username}`)
-            toggleAlert()
+            setEffectOpen(true)
         })).catch((response) => {
             alert(response.response.data)
         })
@@ -83,7 +83,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, toggleAlert, setMessage
                 <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}
                         inputProps={{ IconComponent: () => null }} >
                     <MenuItem value={show} style={{display: 'none'}}>{show}</MenuItem>
-                    <UserSettings></UserSettings>
+                    <UserSettings setMessage={setMessage} setEffectOpen={setEffectOpen}></UserSettings>
                     <MenuItem>Settings</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>

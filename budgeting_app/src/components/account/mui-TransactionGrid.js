@@ -7,9 +7,9 @@ import {
     GridToolbarFilterButton
 } from '@mui/x-data-grid';
 import moment from "moment";
-import AddTransaction from "./AddTransaction";
+import AddTransaction from "../transaction/AddTransaction";
 
-const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, toggleAlert}) => {
+const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, setEffectOpen}) => {
 
     const CustomToolbar = () => {
         return (
@@ -17,7 +17,7 @@ const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, toggleA
                 <GridToolbarFilterButton />
                 <GridToolbarDensitySelector />
                 <GridToolbarExport />
-                <AddTransaction setaddTransactionSuccess={setaddTransactionSuccess} setMessage={setMessage} toggleAlert={toggleAlert}/>
+                <AddTransaction setaddTransactionSuccess={setaddTransactionSuccess} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
             </GridToolbarContainer>
         );
     }

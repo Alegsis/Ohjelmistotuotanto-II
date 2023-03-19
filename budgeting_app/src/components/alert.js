@@ -2,14 +2,18 @@ import React, {useEffect, useState} from "react";
 import {Alert, Collapse, IconButton} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
-const CustomAlert = ({ message, effectOpen}) => {
+const CustomAlert = ({ message, effectOpen, setMessage, setEffectOpen}) => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        setOpen(true);
-        setTimeout(() => {
-            setOpen(false);
-        }, 5000);
+        if(effectOpen) {
+            setOpen(true);
+            setTimeout(() => {
+                setOpen(false);
+                setMessage('')
+                setEffectOpen(false)
+            }, 5000);
+        }
     }, [effectOpen]);
 
     const handleClose = () => {
