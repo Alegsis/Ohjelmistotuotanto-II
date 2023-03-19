@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.7",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-data-grid": "^7.0.0-beta.26",
     "react-date-picker": "^9.2.0",
