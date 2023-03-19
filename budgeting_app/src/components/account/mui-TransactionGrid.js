@@ -24,6 +24,7 @@ const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, setEffe
 
     const columns = [
         {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},
+        {field: 'AccountName', headerName: 'AccountName', width: 150, editable: true},
         {field: 'TransactionName', headerName: 'Transaction Name', width: 200, editable: true},
         {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 150, editable: true},
         {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 150, editable: true},
@@ -59,6 +60,7 @@ export const getUserTransactions = (userID) => {
                 {
                     id: x,
                     TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
+                    AccountName: response.data[x].AccountName,
                     TransactionName: response.data[x].TransactionName,
                     Outflow: response.data[x].Outflow,
                     Inflow: response.data[x].Inflow,
