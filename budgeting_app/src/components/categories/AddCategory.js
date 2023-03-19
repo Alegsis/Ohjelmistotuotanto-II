@@ -25,15 +25,19 @@ const AddCategory = () => {
   const handleAddCategory = () => {
     const baseUrl = "http://localhost:3001/category/new-category";
     const userID = localStorage.getItem("UserID");
-    Axios.post(baseUrl, {
-      CategoryName: category,
-      UserID: userID,
-    }).then(() => {
-      setOpen(false);
-      setCategory("");
-    }).catch(response => {
-      alert(response.response.data)
-    })
+    if (category.length > 2) {
+      Axios.post(baseUrl, {
+        CategoryName: category,
+        UserID: userID,
+      }).then(() => {
+        setOpen(false);
+        setCategory("");
+      }).catch(response => {
+        alert(response.response.data)
+      })
+    } else {
+      alert('The category name must be at least three characters long')
+    }
   };
 
   return (

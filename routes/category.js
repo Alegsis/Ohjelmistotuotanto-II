@@ -80,11 +80,17 @@ WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE c
 router.post('/new-category', async (req, res) => {
   try {
     const {CategoryName, UserID} = req.body;
-    const sqlQuery = `INSERT INTO category (CategoryName, UserID) VALUES (?, ?)`;
 
-    await pool.query(sqlQuery, [CategoryName, UserID]);
-    res.status(200).json('New category was added');
+    const sqlQueryFindCategory = `SELECT category.CategoryName FROM category WHERE category.CategoryName=? AND category.UserID=?`;
+    const resultFindCategory = await pool.query(sqlQueryFindCategory, [CategoryName, UserID]);
 
+    if(resultFindCategory.length === 0) {
+      const sqlQuery = `INSERT INTO category (CategoryName, UserID) VALUES (?, ?)`;
+      await pool.query(sqlQuery, [CategoryName, UserID]);
+      res.status(200).json('New category was added');
+    } else{
+      res.status(409).json('Category already exists');
+    }
   } catch (error) {
     res.status(400).send(error.message);
   }

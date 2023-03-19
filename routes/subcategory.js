@@ -155,11 +155,20 @@ GROUP BY subcategory.SubcategoryName;`
 router.post('/new-subcategory', async (req, res) => {
   try {
     const {SubCategoryName, Balance, UserID, CategoryID} = req.body;
-    const sqlQuery = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES (?, ?, ?, ?)`;
 
-    await pool.query(sqlQuery,
-        [SubCategoryName, Balance, UserID, CategoryID]);
-    res.status(200).json('New subcategory was added');
+    const sqlQueryFindSubcategory = `SELECT subcategory.SubcategoryName FROM subcategory WHERE subcategory.SubcategoryName=? AND subcategory.UserID=?`;
+    const resultFindSubcategory = await pool.query(sqlQueryFindSubcategory, [SubCategoryName, UserID]);
+
+    if(resultFindSubcategory.length === 0) {
+
+      const sqlQuery = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES (?, ?, ?, ?)`;
+
+      await pool.query(sqlQuery,
+          [SubCategoryName, Balance, UserID, CategoryID]);
+      res.status(200).json('New subcategory was added');
+    } else {
+      res.status(409).json('Subcategory already exists');
+    }
 
   } catch (error) {
     res.status(400).send(error.message);

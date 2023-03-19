@@ -51,28 +51,32 @@ const AddSubCategory = () => {
       }
 
       if (!isFound) {
-        const getCategoryID = await Axios.get(getUrl); //.data
-        await Axios.post(postUrl, {
-          SubCategoryName: subCategory,
-          Balance: 0,
-          UserID: userID,
-          CategoryID: getCategoryID.data,
-        });
+        if (subCategory.length > 2) {
+          const getCategoryID = await Axios.get(getUrl); //.data
+          await Axios.post(postUrl, {
+            SubCategoryName: subCategory,
+            Balance: 0,
+            UserID: userID,
+            CategoryID: getCategoryID.data,
+          });
 
-        if(balance > 0){
-          await Axios.post(budgetUrl,
-              {
-                Amount: balance,
-                BudgetDate: moment().format('YYYY-MM-DD'),
-                FromSubCategory: 'AvailableFunds',
-                ToSubCategory: subCategory,
-                UserID: userID,
-              });
+          if (balance > 0) {
+            await Axios.post(budgetUrl,
+                {
+                  Amount: balance,
+                  BudgetDate: moment().format('YYYY-MM-DD'),
+                  FromSubCategory: 'AvailableFunds',
+                  ToSubCategory: subCategory,
+                  UserID: userID,
+                });
+          }
+          setOpen(false);
+          setSubCategory('');
+          setBalance(0);
+          setSelectedCategory('');
+        } else {
+          alert('The subcategory name must be at least three characters long')
         }
-        setOpen(false);
-        setSubCategory('');
-        setBalance(0);
-        setSelectedCategory('');
       } else {
         alert('Category name and Sub Category name can not be the same');
       }
