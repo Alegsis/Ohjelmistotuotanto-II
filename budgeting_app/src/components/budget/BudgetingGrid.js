@@ -16,7 +16,13 @@ import {useEffect, useState} from 'react';
 import Axios from 'axios';
 
 const CollapsibleTable = () => {
+
+  const [accountStyle, setAccountStyle] = useState(true);
   const [rows, setRows] = useState([]);
+
+  const handleAccountChange = (props) => {
+    setAccountStyle(props);
+  };
 
   const getGridData = async () => {
     const userID = localStorage.getItem('UserID');
@@ -34,6 +40,7 @@ const CollapsibleTable = () => {
     const categoryCount = categoryData.length;
     let tempArray = [];
 
+    //TODO here go the conditions of balance look up either Total.js or
     for (let x = 0; categoryCount > x; x++) {
       const categoryName = categoryData[x].category;
       const subCategoryCount = categoryData[x].subcategory.length;
