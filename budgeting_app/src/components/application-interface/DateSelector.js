@@ -6,7 +6,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 const moment = require('moment')
 
-
 const DateSelector = () =>{
     const [date, setDate] = useState();
 
