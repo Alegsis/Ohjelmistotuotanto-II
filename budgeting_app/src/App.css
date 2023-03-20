@@ -191,16 +191,24 @@ Account balances
 }
 
 #bank-button-1 {
-    padding: 6px 120px 10px 1px;
+    padding: 6px 78px 10px 1px;
     text-transform: none;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 0px;
     color: #ffffff;
     cursor: pointer;
-    justify-content: center;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+div>#bank-button-1 {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
 
 
 .login-button {
