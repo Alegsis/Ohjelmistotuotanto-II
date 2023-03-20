@@ -14,7 +14,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
-  Select,
+  Select, Switch,
   TextFieldProps,
 } from '@mui/material';
 import moment from 'moment/moment';
@@ -31,6 +31,7 @@ const AddSubCategory = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   //budget goal variables
+  const [showGoal, setShowGoal] = useState(false);
   const [budgetGoal, setBudgetGoal] = useState('');
   const [budgetType, setBudgetType] = useState('1');
   const [budgetDate, setBudgetDate] = useState();
@@ -187,63 +188,76 @@ const AddSubCategory = () => {
                 }}
             />
 
-            <DialogContentText>
-              (Optional) Here you can set a budget goal for a subcategory. You
-              can
-              select a single
-              time goal, a monthly amount to save or assign a future
-              date as a
-              deadline for amount saved.
-            </DialogContentText>
+            <FormControlLabel control={<Switch default/>}
+                              label="Add a budget goal?"
+                              value="true"
+                              onChange={(e) => setShowGoal(!showGoal)}/>
+
+            {showGoal && (
+                <div>
+
+                  <DialogContentText>
+                    (Optional) Here you can set a budget goal for a subcategory.
+                    You
+                    can
+                    select a single
+                    time goal, a monthly amount to save or assign a future
+                    date as a
+                    deadline for amount saved.
+                  </DialogContentText>
 
 
-            <RadioGroup name="select-budget-goal-type"
-                        defaultValue="single"
-                        aria-labelledby="subcategory-button-1"
-                        onChange={(e) => setBudgetType(e.target.value)}>
+                  <RadioGroup name="select-budget-goal-type"
+                              defaultValue="single"
+                              aria-labelledby="subcategory-button-1"
+                              onChange={(e) => setBudgetType(e.target.value)}>
 
-              <FormControlLabel control={<Radio/>} label="Monthly Saving Goal"
-                                value="1"/>
-              <FormControlLabel control={<Radio/>} label="Save by Date"
-                                value="2"/>
-              {budgetType === '2' && (
-                  <div>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DesktopDatePicker
-                          label="Date"
-                          inputFormat="MM/YYYY"
-                          value={budgetDate}
-                          onChange={date => setBudgetDate(date)}
-                          renderInput={(params: TextFieldProps) => {
-                            return <TextField {...params}/>;
-                          }}
-                          views={['month', 'year']}
-                          showDaysOutsideCurrentMonth
-                      />
-                    </LocalizationProvider>
-                  </div>
+                    <FormControlLabel control={<Radio/>}
+                                      label="Monthly Saving Goal"
+                                      value="1"/>
+                    <FormControlLabel control={<Radio/>} label="Save by Date"
+                                      value="2"/>
+                    {budgetType === '2' && (
+                        <div>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DesktopDatePicker
+                                label="Date"
+                                inputFormat="MM/YYYY"
+                                value={budgetDate}
+                                onChange={date => setBudgetDate(date)}
+                                renderInput={(params: TextFieldProps) => {
+                                  return <TextField {...params}/>;
+                                }}
+                                views={['month', 'year']}
+                                showDaysOutsideCurrentMonth
+                            />
+                          </LocalizationProvider>
+                        </div>
 
-              )}
-              <FormControlLabel control={<Radio/>}
-                                label="Target Balance"
-                                value="3"/>
+                    )}
+                    <FormControlLabel control={<Radio/>}
+                                      label="Target Balance"
+                                      value="3"/>
 
-            </RadioGroup>
+                  </RadioGroup>
 
 
-            <TextField
-                autoFocus
-                margin="dense"
-                id="budgetGoal"
-                label="Budget goal amount"
-                fullWidth
-                inputProps={{maxLength: 20}}
-                value={budgetGoal}
-                variant="filled"
-                onChange={(event) => {
-                  setBudgetGoal(event.target.value);
-                }}
-            />
+                  <TextField
+                      autoFocus
+                      margin="dense"
+                      id="budgetGoal"
+                      label="Budget goal amount"
+                      fullWidth
+                      inputProps={{maxLength: 20}}
+                      value={budgetGoal}
+                      variant="filled"
+                      onChange={(event) => {
+                        setBudgetGoal(event.target.value);
+                      }}
+                  />
+                </div>)}
+
+
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} className="cancel-button">
