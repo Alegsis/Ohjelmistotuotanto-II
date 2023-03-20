@@ -10,17 +10,25 @@ describe('Can you Sign up', function() {
     cy.contains('Sign up').click()
   })
 })
-describe('Can you Log in', function() {
-  it('User is allowed to login.', function() {
+describe('Creating a new account', function() {
+  beforeEach(function() {
     cy.visit('http://localhost:3000')
     cy.contains("Login").click()
     cy.get('input:first').type('Maisanen',{force:true})
     cy.get('input:last').type('kyllikki',{force:true})
     cy.contains('Log in').click({force:true})
-    cy.contains('Dashboard').click()
-    cy.contains('All categories')
+  })
+  it('User is allowed to add account.', function() {
+    cy.contains('AddAccount').click()
+    cy.get('#account-name').type('S-Ryhmä',{force:true})
+    cy.get('#account-balance').type('1000',{force:true})
+    cy.get('[id=\'account-type\']').parent().click()
+    //Tää on vähän SUS, mutta toimii ~90% kerroista :D Pitäis käyttää .Selectiä, mutta tämä homo ei anna
+    cy.contains('Credit Card').click().click()
+    cy.contains('Save').click()
+    cy.contains('Accounts').click()
+    cy.contains('S-Ryhmä')
   })
 })
-
 
 

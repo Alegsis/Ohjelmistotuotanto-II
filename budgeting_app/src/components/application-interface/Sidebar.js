@@ -29,7 +29,7 @@ const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen
             subNavi: getUserAccounts(),
         },
         {
-            title: "",
+            title: "AddAccount",
             icon: <CreateBankAcc setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>,
             path: "/accounts",
         },
