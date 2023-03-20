@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Link} from 'react-router-dom';
+import {Link, useLocation } from 'react-router-dom';
 import Login from '../user/Login';
 import Total from './Total';
 import {useEffect} from "react";
@@ -31,6 +31,9 @@ const TotalWrapper = styled.div`
 `;
 const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess, setMessage, setEffectOpen}) => {
 
+    const location = useLocation();
+    const isDashboardPage = location.pathname === '/dashboard';
+
     useEffect(() => {
         if (loggedIn || createAccSuccess){
             setCreateAccSuccess(false)
@@ -51,7 +54,7 @@ const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createA
           <Total> </Total>
         </TotalWrapper>
           )}
-          <DateSelector/>
+          {isDashboardPage && <DateSelector/>}
         <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen} setEffectOpen={setEffectOpen} setMessage={setMessage}></Login>
       </HeaderNavi>
   );
