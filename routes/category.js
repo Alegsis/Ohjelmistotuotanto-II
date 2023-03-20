@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -28,7 +28,7 @@ router.get('/user-:userID/find-categoryid/categoryname-:categoryName', async (re
     const rows = await pool.query(sqlQuery, [userID, categoryName]);
     res.status(200).json(rows[0].CategoryID);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -92,7 +92,7 @@ router.post('/new-category', async (req, res) => {
       res.status(409).json('Category already exists');
     }
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 

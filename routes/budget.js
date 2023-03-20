@@ -24,7 +24,7 @@ WHERE subcategory.UserID=?`;
 
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -71,7 +71,7 @@ WHERE subcategory.SubCategoryID = ${ToSubCategoryID}`;
     res.status(200).json({budgetID: budgetIDtoString});
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
