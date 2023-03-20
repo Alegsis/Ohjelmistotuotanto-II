@@ -1,11 +1,11 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 body {
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     color: white;
 }
 
@@ -50,17 +50,17 @@ body {
 /*
 Sidebar icons centering
  */
-a.css-19qeahj:nth-child(even) > div:nth-child(1),
-a.css-19qeahj:nth-child(odd) > div:nth-child(1),
-#root > div.row > div.column.left > nav > a:nth-child(even) > div:nth-child(1),
-#root > div.row > div.column.left > nav > a:nth-child(odd) > div:nth-child(1){
+a.css-19qeahj:nth-child(even)>div:nth-child(1),
+a.css-19qeahj:nth-child(odd)>div:nth-child(1),
+#root>div.row>div.column.left>nav>a:nth-child(even)>div:nth-child(1),
+#root>div.row>div.column.left>nav>a:nth-child(odd)>div:nth-child(1) {
     display: flex;
 }
 
 /*
 Account balances
  */
-.css-1x600hi{
+.css-1x600hi {
     display: flex;
     font-size: 12px !important;
 }
@@ -83,12 +83,12 @@ Account balances
 }
 
 .MuiCollapse-root,
-.MuiDataGrid-root{
+.MuiDataGrid-root {
     display: flex;
     background-color: #ffffff;
 }
 
-.MuiTableCell-root{
+.MuiTableCell-root {
     background-color: #ffffff;
     border-color: #ffffff !important;
     padding: 0.5rem !important;
@@ -96,7 +96,7 @@ Account balances
 }
 
 
-    /* To be done...
+/* To be done...
 .column.right {
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -155,7 +155,7 @@ Account balances
     text-align: center;
 }
 
-.budgetingRow{
+.budgetingRow {
     font-weight: 500 !important;
     font-size: 0.8125rem !important;
     line-height: 1.75 !important;
@@ -191,10 +191,11 @@ Account balances
 }
 
 #bank-button-1 {
+    padding: 6px 120px 10px 1px;
     text-transform: none;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: -10px;
+    margin-left: 0px;
     color: #ffffff;
     cursor: pointer;
     justify-content: center;
@@ -213,10 +214,12 @@ Account balances
     margin-right: 0 !important;
     display: block;
 }
+
 .custom-alert {
     left: 70%;
     transform: translate(-60%, -60%);
 }
+
 .delete-button {
     /* margin-left: auto !important;*/
     margin-right: 0 !important;
@@ -249,7 +252,7 @@ Account balances
     flex: 0;
 }
 
-.AddTransaction{
+.AddTransaction {
     line-height: 22.75px;
     padding: 4px 5px 4px 5px;
 }
@@ -272,7 +275,7 @@ Account balances
     color: #ee0000;
 }
 
-.MuiBox-root{
+.MuiBox-root {
     display: flex;
     align-content: center;
 }
@@ -326,6 +329,6 @@ Account balances
     padding: 10px !important;
 }
 
-.css-1ex1afd-MuiTableCell-root{
+.css-1ex1afd-MuiTableCell-root {
     padding: 0 !important;
 }

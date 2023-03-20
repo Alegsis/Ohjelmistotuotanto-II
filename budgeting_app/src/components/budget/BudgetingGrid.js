@@ -50,8 +50,15 @@ const CollapsibleTable = () => {
         const availableAmount = parseFloat(categoryData[x].subcategory[y].balance);
 
         const budgetedIndex = budgetData.findIndex(obj => obj.SubCategoryName===subCategoryName);
-        const budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted);
-        const activityAmount = parseFloat(budgetData[budgetedIndex].Activity);
+
+        let activityAmount = 0;
+        let budgetedAmount = 0;
+
+        if(budgetedIndex !== -1){
+          budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted) || 0;
+          activityAmount = parseFloat(budgetData[budgetedIndex].Activity) || 0;
+        }
+
 
         totalAvailable += availableAmount
         totalBudgeted += budgetedAmount
@@ -65,6 +72,7 @@ const CollapsibleTable = () => {
         };
         subcategoryArray.push(subcategoryJson);
       }
+
       tempArray.push(createData(categoryName, totalBudgeted,
           totalActivity, totalAvailable, subcategoryArray));
     }

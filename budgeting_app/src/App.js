@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
 import {useEffect, useState} from 'react';
 import Account from "./pages/Account";
-import CustomAlert from "./components/alert";
+import CustomAlert from "./utils/alert";
 import * as React from "react";
 
 const App = () => {
