@@ -22,12 +22,11 @@ const CollapsibleTable = () => {
     const userID = localStorage.getItem('UserID');
     const month = localStorage.getItem('Month');
     const year = localStorage.getItem('Year');
-    const date = `${year}-${month}`
+    const date = `${year}-${month}`;
 
     const getSql1 = `http://localhost:3001/subcategory/user-${userID}/activity-and-budgeted-this-month/date-${date}`;
     const resultBudget = await Axios.get(getSql1);
     const budgetData = resultBudget.data;
-
 
     const getSql2 = `http://localhost:3001/category/${userID}/return-category-dictionary`;
     const resultCategories = await Axios.get(getSql2);
@@ -47,22 +46,23 @@ const CollapsibleTable = () => {
       for (let y = 0; subCategoryCount > y; y++) {
 
         const subCategoryName = categoryData[x].subcategory[y].category;
-        const availableAmount = parseFloat(categoryData[x].subcategory[y].balance);
+        const availableAmount = parseFloat(
+            categoryData[x].subcategory[y].balance);
 
-        const budgetedIndex = budgetData.findIndex(obj => obj.SubCategoryName===subCategoryName);
+        const budgetedIndex = budgetData.findIndex(
+            obj => obj.SubCategoryName === subCategoryName);
 
         let activityAmount = 0;
         let budgetedAmount = 0;
 
-        if(budgetedIndex !== -1){
+        if (budgetedIndex !== -1) {
           budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted) || 0;
           activityAmount = parseFloat(budgetData[budgetedIndex].Activity) || 0;
         }
 
-
-        totalAvailable += availableAmount
-        totalBudgeted += budgetedAmount
-        totalActivity += activityAmount
+        totalAvailable += availableAmount;
+        totalBudgeted += budgetedAmount;
+        totalActivity += activityAmount;
 
         const subcategoryJson = {
           subcategoryName: subCategoryName,
@@ -130,8 +130,8 @@ const CollapsibleTable = () => {
                     <TableHead>
                     </TableHead>
                     <TableBody>
-                      {row.subcategorySection.map((subcategoryRow) => (
-                          <TableRow key={subcategoryRow.subcategoryName}>
+                      {row.subcategorySection.map((subcategoryRow, index) => (
+                          <TableRow key={index}>
                             <TableCell></TableCell>
                             <TableCell component="th" scope="row">
                               {subcategoryRow.subcategoryName}
@@ -165,7 +165,7 @@ const CollapsibleTable = () => {
             budgetedAmount: PropTypes.string.isRequired,
             subcategoryName: PropTypes.string.isRequired,
           }),
-      ).isRequired,
+      ),
       categoryName: PropTypes.string.isRequired,
     }).isRequired,
   };
@@ -183,8 +183,8 @@ const CollapsibleTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-                <Row key={row.name} row={row}/>
+            {rows.map((row, index) => (
+                <Row key={index} row={row}/>
             ))}
           </TableBody>
         </Table>
