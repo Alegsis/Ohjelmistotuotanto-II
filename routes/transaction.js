@@ -18,7 +18,7 @@ WHERE user.UserID=?`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -41,7 +41,7 @@ WHERE user.UserID=? AND account.AccountName=?`;
     res.status(200).json(rows);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -113,7 +113,7 @@ WHERE account.AccountID = ${accountID};`;
       res.status(200).json('New transaction was added');
     }
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 

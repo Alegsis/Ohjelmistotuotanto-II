@@ -26,7 +26,7 @@ router.get('/:id/sum-balance', async (req, res) => {
     res.status(200).json(output);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -57,7 +57,7 @@ router.get('/:id/account-name', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -98,7 +98,7 @@ WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID 
     res.status(200).json('New bank account created');
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 

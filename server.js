@@ -28,6 +28,9 @@ app.use('/category', categoryRouter);
 const subcategoryRouter = require('./routes/subcategory');
 app.use('/subcategory', subcategoryRouter);
 
+const goalRouter = require('./routes/goal');
+app.use('/goal', goalRouter);
+
 //Start listening
 app.listen(PORT, () => {
   console.log(`Listening port ${PORT}`);

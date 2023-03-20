@@ -14,7 +14,7 @@ router.get('/:id', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -27,7 +27,7 @@ router.get('/:id/get-email', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows[0].Email);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -88,7 +88,7 @@ router.post('/register', async (req, res) => {
     }
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -113,7 +113,7 @@ router.post('/login', async (req, res) => {
     }
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send("User not found, you must register first");
   }
 });
 

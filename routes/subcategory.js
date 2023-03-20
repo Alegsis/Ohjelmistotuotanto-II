@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -24,7 +24,7 @@ router.get('/:id/subcategory-name', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -37,7 +37,7 @@ router.get('/:id/subcategory-name-and-balance', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -50,7 +50,7 @@ router.get('/:id/available-to-budget', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).send(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -141,11 +141,10 @@ GROUP BY subcategory.SubcategoryName;`
       }
     }
 
-    console.log(budgeted)
     res.status(200).json(budgeted);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -171,7 +170,7 @@ router.post('/new-subcategory', async (req, res) => {
     }
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -187,7 +186,7 @@ router.post('/deactivate-subcategory', async (req, res) => {
     res.status(200).send(`Subcategory ${SubCategoryName} is deactivated`);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -205,7 +204,7 @@ router.post('/update-subcategory', async (req, res) => {
     res.status(200).send(`Subcategory is now ${NewSubCategoryName} and it's category is ${NewCategory}`);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
