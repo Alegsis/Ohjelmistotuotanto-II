@@ -33,8 +33,8 @@ const AddSubCategory = () => {
   //budget goal variables
   const [showGoal, setShowGoal] = useState(false);
   const [budgetGoal, setBudgetGoal] = useState('');
-  const [budgetType, setBudgetType] = useState('1');
-  const [budgetDate, setBudgetDate] = useState();
+  const [budgetGoalType, setBudgetGoalType] = useState('1');
+  const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,6 +42,7 @@ const AddSubCategory = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setShowGoal(false);
     setSubCategory('');
     setBalance(0);
     setSelectedCategory('');
@@ -210,21 +211,21 @@ const AddSubCategory = () => {
                   <RadioGroup name="select-budget-goal-type"
                               defaultValue="single"
                               aria-labelledby="subcategory-button-1"
-                              onChange={(e) => setBudgetType(e.target.value)}>
+                              onChange={(e) => setBudgetGoalType(e.target.value)}>
 
                     <FormControlLabel control={<Radio/>}
                                       label="Monthly Saving Goal"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
                                       value="2"/>
-                    {budgetType === '2' && (
+                    {budgetGoalType === '2' && (
                         <div>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
                                 label="Date"
                                 inputFormat="MM/YYYY"
-                                value={budgetDate}
-                                onChange={date => setBudgetDate(date)}
+                                value={budgetGoalDate}
+                                onChange={date => setBudgetGoalDate(date)}
                                 renderInput={(params: TextFieldProps) => {
                                   return <TextField {...params}/>;
                                 }}
@@ -256,8 +257,6 @@ const AddSubCategory = () => {
                       }}
                   />
                 </div>)}
-
-
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} className="cancel-button">

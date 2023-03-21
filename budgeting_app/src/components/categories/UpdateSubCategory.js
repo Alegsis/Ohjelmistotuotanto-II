@@ -22,7 +22,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 
-const MoveDeleteSubcategory = () => {
+const UpdateSubCategory = () => {
   const [open, setOpen] = useState(false);
   const [subCategory, setsubCategory] = useState('');
   const [balance, setBalance] = useState('');
@@ -34,8 +34,8 @@ const MoveDeleteSubcategory = () => {
   //budget goal variables
   const [showGoal, setShowGoal] = useState(false);
   const [budgetGoal, setBudgetGoal] = useState('');
-  const [budgetType, setBudgetType] = useState('1');
-  const [budgetDate, setBudgetDate] = useState();
+  const [budgetGoalType, setBudgetGoalType] = useState('1');
+  const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,28 +43,32 @@ const MoveDeleteSubcategory = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setShowGoal(false);
     setsubCategory('');
     setBalance('');
     setSelectedCategory('');
     setSelectedSubCategory('');
   };
 
-  const handleBudget = () => {
+  const insertBudgetGoal = () => {
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/goal/new-goal';
-    console.log(budgetType, budgetDate, budgetGoal);
+    console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
     Axios.post(postUrl, {
-      Type: budgetType,
-      Date: budgetDate,
+      Type: budgetGoalType,
+      Date: budgetGoalDate,
       Amount: budgetGoal,
       SubCategoryName: selectedSubCategory,
       UserID: userID,
     }).then(() => {
       alert('Budget addition successful');
+      setShowGoal(false);
       setOpen(false);
+      setBudgetGoalDate(new Date())
       setBudgetGoal(' ');
-      setBudgetType('1');
+      setBudgetGoalType('1');
     }).catch((response) => {
+      setShowGoal(false);
       alert(response.response.data);
     });
   }
@@ -102,7 +106,7 @@ const MoveDeleteSubcategory = () => {
         SubCategoryName: selectedSubCategory,
       }).then(() => {
         alert('Edit successful');
-        handleBudget();
+        insertBudgetGoal();
         setOpen(false);
         setsubCategory('');
         setBalance('');
@@ -163,7 +167,7 @@ const MoveDeleteSubcategory = () => {
           const subCategory = response.data[x].SubCategoryName;
         updatedArray.push({
           value: subCategory,
-          budgetGoal: Amount,
+          budgetGoal: budgetGoal,
         });
         }
       setSubCategoryList(updatedArray);
@@ -310,21 +314,21 @@ const MoveDeleteSubcategory = () => {
                 required
                               defaultValue="single"
                               aria-labelledby="subcategory-button-1"
-                              onChange={(e) => setBudgetType(e.target.value)}>
+                              onChange={(e) => setBudgetGoalType(e.target.value)}>
 
                     <FormControlLabel control={<Radio/>}
                                       label="Monthly Saving Goal"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
                                       value="2"/>
-                    {budgetType === '2' && (
+                    {budgetGoalType === '2' && (
                         <div>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
                                 label="Date"
                                 inputFormat="MM/YYYY"
-                                value={budgetDate}
-                                onChange={date => setBudgetDate(date)}
+                                value={budgetGoalDate}
+                                onChange={date => setBudgetGoalDate(date)}
                                 renderInput={(params: TextFieldProps) => {
                                   return <TextField {...params}/>;
                                 }}
@@ -376,4 +380,4 @@ const MoveDeleteSubcategory = () => {
   );
 };
 
-export default MoveDeleteSubcategory;
+export default UpdateSubCategory;
