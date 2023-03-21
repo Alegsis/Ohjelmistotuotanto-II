@@ -150,25 +150,28 @@ const MoveDeleteSubcategory = () => {
       alert(response.response.data);
     });
   };
-/*
+
   const getUserGoals = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
     const updatedArray = [];
     Axios.get(baseUrl).then((response) => {
       for (let x = 0; x < response.data.length; x++) {
-        if (response.data[x].SubCategoryName.toString() !==
-            'AvailableFunds') {
+        const budgetGoal = response.data[x].Amount;
+        //const budgeType = response.data[x].Type;
+       // const budgetDate = response.data[x].Date;
           const subCategory = response.data[x].SubCategoryName;
-          updatedArray.push({value: subCategory});
+        updatedArray.push({
+          value: subCategory,
+          budgetGoal: Amount,
+        });
         }
-      }
       setSubCategoryList(updatedArray);
     }).catch((response) => {
       alert(response.response.data);
     });
   }
-*/
+
   const updateValues = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`;
