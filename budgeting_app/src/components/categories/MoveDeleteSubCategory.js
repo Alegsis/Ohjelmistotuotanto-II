@@ -48,6 +48,27 @@ const MoveDeleteSubcategory = () => {
     setSelectedCategory('');
     setSelectedSubCategory('');
   };
+
+  const handleBudget = () => {
+    const userID = localStorage.getItem('UserID');
+    const postUrl = 'http://localhost:3001/goal/new-goal';
+    console.log(budgetType, budgetDate, budgetGoal);
+    Axios.post(postUrl, {
+      Type: budgetType,
+      Date: budgetDate,
+      Amount: budgetGoal,
+      SubCategoryName: selectedSubCategory,
+      UserID: userID,
+    }).then(() => {
+      alert('Budget addition successful');
+      setOpen(false);
+      setBudgetGoal(' ');
+      setBudgetType('1');
+    }).catch((response) => {
+      alert(response.response.data);
+    });
+  }
+
   const handleDelete = () => {
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/subcategory/deactivate-subcategory';
@@ -72,7 +93,6 @@ const MoveDeleteSubcategory = () => {
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/subcategory/update-subcategory';
     const getUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`;
-
     Axios.get(getUrl).then((response) => {
       setBalance(response.data[0].Balance);
       Axios.post(postUrl, {
@@ -82,6 +102,7 @@ const MoveDeleteSubcategory = () => {
         SubCategoryName: selectedSubCategory,
       }).then(() => {
         alert('Edit successful');
+        handleBudget();
         setOpen(false);
         setsubCategory('');
         setBalance('');
@@ -92,6 +113,8 @@ const MoveDeleteSubcategory = () => {
       alert(response.response.data);
     });
   };
+
+
 
   const getUserCategories = () => {
     const userID = localStorage.getItem('UserID');
@@ -127,7 +150,25 @@ const MoveDeleteSubcategory = () => {
       alert(response.response.data);
     });
   };
-
+/*
+  const getUserGoals = () => {
+    const userID = localStorage.getItem('UserID');
+    const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
+    const updatedArray = [];
+    Axios.get(baseUrl).then((response) => {
+      for (let x = 0; x < response.data.length; x++) {
+        if (response.data[x].SubCategoryName.toString() !==
+            'AvailableFunds') {
+          const subCategory = response.data[x].SubCategoryName;
+          updatedArray.push({value: subCategory});
+        }
+      }
+      setSubCategoryList(updatedArray);
+    }).catch((response) => {
+      alert(response.response.data);
+    });
+  }
+*/
   const updateValues = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`;
@@ -262,7 +303,8 @@ const MoveDeleteSubcategory = () => {
                   </DialogContentText>
 
 
-                  <RadioGroup name="select-budget-goal-type"
+              <RadioGroup name="select-budget-goal-type"
+                required
                               defaultValue="single"
                               aria-labelledby="subcategory-button-1"
                               onChange={(e) => setBudgetType(e.target.value)}>
@@ -298,7 +340,8 @@ const MoveDeleteSubcategory = () => {
 
 
                   <TextField
-                      autoFocus
+                autoFocus
+                required
                       margin="dense"
                       id="budgetGoal"
                       label="Budget goal amount"
