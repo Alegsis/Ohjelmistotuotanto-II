@@ -33,7 +33,7 @@ const UpdateSubCategory = () => {
 
   //budget goal variables
   const [showGoal, setShowGoal] = useState(false);
-  const [budgetGoal, setBudgetGoal] = useState('');
+  const [budgetGoal, setBudgetGoal] = useState('0');
   const [budgetGoalType, setBudgetGoalType] = useState('1');
   const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
 
@@ -65,7 +65,7 @@ const UpdateSubCategory = () => {
       setShowGoal(false);
       setOpen(false);
       setBudgetGoalDate(new Date())
-      setBudgetGoal(' ');
+      setBudgetGoal('0');
       setBudgetGoalType('1');
     }).catch((response) => {
       setShowGoal(false);
@@ -106,7 +106,9 @@ const UpdateSubCategory = () => {
         SubCategoryName: selectedSubCategory,
       }).then(() => {
         alert('Edit successful');
+        if (budgetGoalType !== '' && budgetGoal !== '0' || showGoal === false) {
         insertBudgetGoal();
+      };
         setOpen(false);
         setsubCategory('');
         setBalance('');
