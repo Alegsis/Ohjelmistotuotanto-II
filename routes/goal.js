@@ -45,7 +45,7 @@ router.post('/new-goal', async (req, res) => {
 
     } else {
       const subCategoryID = resultFindGoal[0].SubCategoryID;
-      const sqlQuery = `UPDATE goal SET goal.Amount = ${Amount}, goal.GoalType = '${Type}', goal.GoalDate = '${Date}' WHERE goal.SubCategoryID = ${subCategoryID}`
+      const sqlQuery = `UPDATE goal SET goal.Amount = ${Amount}, goal.GoalType = '${Type}', goal.GoalDate = '${formatDate}' WHERE goal.SubCategoryID = ${subCategoryID}`
       await pool.query(sqlQuery);
       res.status(200).json('Goal updated successfully');
     }
