@@ -199,6 +199,7 @@ const UpdateSubCategory = () => {
   useEffect(() => {
     getUserGoals();
   }, [open]);
+  
   useEffect(() => {
     getUserSubCategories();
   }, [open]);
