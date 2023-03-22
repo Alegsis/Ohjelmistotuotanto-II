@@ -26,16 +26,29 @@ router.post('/new-goal', async (req, res) => {
     const {SubCategoryName, Amount, Date, Type, UserID} = req.body;
     const formatDate = moment(Date).format('YYYY-MM-DD');
 
-    const sqlQueryFindSubcategory = `SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubcategoryName=? AND subcategory.UserID=?`;
-    const resultFindSubcategoryID = await pool.query(sqlQueryFindSubcategory,
-        [SubCategoryName, UserID]);
-    const subCategoryID = resultFindSubcategoryID[0].SubCategoryID;
+    const sqlQueryFindGoal = `SELECT goal.SubCategoryID 
+ FROM goal 
+ INNER JOIN subcategory ON goal.SubCategoryID = subcategory.SubCategoryID
+ WHERE subcategory.SubCategoryName=? AND subcategory.UserID=?`;
+    const resultFindGoal = await pool.query(sqlQueryFindGoal, [SubCategoryName, UserID]);
 
-    const sqlQuery = `INSERT INTO goal (goal.Amount, goal.GoalDate, goal.GoalType, goal.SubCategoryID) VALUES (?, ?, ?, ?)`;
-    await pool.query(sqlQuery,
-        [Amount, formatDate, Type, subCategoryID]);
-    res.status(200).json('New goal was added');
+    if(resultFindGoal.length === 0) {
+      const sqlQueryFindSubcategory = `SELECT subcategory.SubCategoryID FROM subcategory WHERE subcategory.SubcategoryName=? AND subcategory.UserID=?`;
+      const resultFindSubcategoryID = await pool.query(sqlQueryFindSubcategory,
+          [SubCategoryName, UserID]);
+      const subCategoryID = resultFindSubcategoryID[0].SubCategoryID;
 
+      const sqlQuery = `INSERT INTO goal (goal.Amount, goal.GoalDate, goal.GoalType, goal.SubCategoryID) VALUES (?, ?, ?, ?)`;
+      await pool.query(sqlQuery,
+          [Amount, formatDate, Type, subCategoryID]);
+      res.status(200).json('New goal was added');
+
+    } else {
+      const subCategoryID = resultFindGoal[0].SubCategoryID;
+      const sqlQuery = `UPDATE goal SET goal.Amount = ${Amount}, goal.GoalType = '${Type}', goal.GoalDate = '${Date}' WHERE goal.SubCategoryID = ${subCategoryID}`
+      await pool.query(sqlQuery);
+      res.status(200).json('Goal updated successfully');
+    }
   } catch (error) {
     res.status(400).send('Something went wrong, please try again');
   }
