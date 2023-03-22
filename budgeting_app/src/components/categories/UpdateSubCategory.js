@@ -190,18 +190,16 @@ const UpdateSubCategory = () => {
     });
   };
 
-  
-
   useEffect(() => {
     getUserCategories();
   }, [open]);
 
   useEffect(() => {
-    getUserGoals();
-  }, [open]);
-  
-  useEffect(() => {
     getUserSubCategories();
+  }, [open]);
+
+  useEffect(() => {
+    getUserGoals();
   }, [open]);
 
   useEffect(() => {

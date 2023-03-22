@@ -50,6 +50,29 @@ const AddSubCategory = () => {
 
   //TODO add budget goal things here
 
+  const insertBudgetGoal = () => {
+    const userID = localStorage.getItem('UserID');
+    const postUrl = 'http://localhost:3001/goal/new-goal';
+    console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
+    Axios.post(postUrl, {
+      Type: budgetGoalType,
+      Date: budgetGoalDate,
+      Amount: budgetGoal,
+      SubCategoryName: selectedSubCategory,
+      UserID: userID,
+    }).then(() => {
+      alert('Budget addition successful');
+      setShowGoal(false);
+      setOpen(false);
+      setBudgetGoalDate(new Date())
+      setBudgetGoal('0');
+      setBudgetGoalType('1');
+    }).catch((response) => {
+      setShowGoal(false);
+      alert(response.response.data);
+    });
+  }
+
   const handleAddSubCategory = async () => {
     try {
       const userID = localStorage.getItem('UserID');
@@ -88,6 +111,9 @@ const AddSubCategory = () => {
                   UserID: userID,
                 });
           }
+          if (budgetGoalType !== '' && budgetGoal > 0 || showGoal === false) {
+            insertBudgetGoal();
+          };
           setOpen(false);
           setSubCategory('');
           setBalance(0);
@@ -102,6 +128,27 @@ const AddSubCategory = () => {
       alert(response.response.data);
     }
   };
+
+  const getUserGoals = () => {
+    const userID = localStorage.getItem('UserID');
+    const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
+    const updatedArray = [];
+    Axios.get(baseUrl).then((response) => {
+      for (let x = 0; x < response.data.length; x++) {
+        const budgetGoal = response.data[x].Amount;
+        //const budgeType = response.data[x].Type;
+       // const budgetDate = response.data[x].Date;
+          const subCategory = response.data[x].SubCategoryName;
+        updatedArray.push({
+          value: subCategory,
+          budgetGoal: budgetGoal,
+        });
+        }
+      setSubCategoryList(updatedArray);
+    }).catch((response) => {
+      alert(response.response.data);
+    });
+  }
 
   const getUserCategories = () => {
     const userID = localStorage.getItem('UserID');
@@ -119,6 +166,10 @@ const AddSubCategory = () => {
       alert(response.response.data);
     });
   };
+
+  useEffect(() => {
+    getUserGoals();
+  }, [open]);
 
   React.useEffect(() => {
     getUserCategories();
