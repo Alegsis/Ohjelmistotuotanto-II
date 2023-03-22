@@ -106,7 +106,7 @@ const UpdateSubCategory = () => {
         SubCategoryName: selectedSubCategory,
       }).then(() => {
         alert('Edit successful');
-        if (budgetGoalType !== '' && budgetGoal !== '0' || showGoal === false) {
+        if (budgetGoalType !== '' && budgetGoal > 0 || showGoal === false) {
         insertBudgetGoal();
       };
         setOpen(false);
@@ -190,10 +190,15 @@ const UpdateSubCategory = () => {
     });
   };
 
+  
+
   useEffect(() => {
     getUserCategories();
   }, [open]);
 
+  useEffect(() => {
+    getUserGoals();
+  }, [open]);
   useEffect(() => {
     getUserSubCategories();
   }, [open]);
