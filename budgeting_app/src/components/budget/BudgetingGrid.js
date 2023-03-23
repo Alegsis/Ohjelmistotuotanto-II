@@ -68,7 +68,8 @@ const CollapsibleTable = ({rows}) => {
                             <TableCell
                                 align="right">{subcategoryRow.activityAmount}</TableCell>
                             <TableCell
-                                align="right">{subcategoryRow.availableAmount}</TableCell>
+                                align="right"
+                                style={{backgroundColor: subcategoryRow.goalColor}}>{subcategoryRow.availableAmount}</TableCell>
                           </TableRow>
                       ))}
                     </TableBody>
@@ -147,6 +148,11 @@ export const getGridData = async () => {
   const categoryCount = categoryData.length;
   let tempArray = [];
 
+  const getSql3 = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
+  const resultGoals = await Axios.get(getSql3);
+  const goalsData = resultGoals.data;
+  console.log(goalsData);
+
   //TODO here go the conditions of balance look up either Total.js or
   for (let x = 0; categoryCount > x; x++) {
     const categoryName = categoryData[x].category;
@@ -166,12 +172,37 @@ export const getGridData = async () => {
       const budgetedIndex = budgetData.findIndex(
           obj => obj.SubCategoryName === subCategoryName);
 
+      const goalIndex = goalsData.findIndex(
+          obj => obj.SubCategoryName === subCategoryName);
+
       let activityAmount = 0;
       let budgetedAmount = 0;
+      let goalAmount = 0;
+      let color;
 
       if (budgetedIndex !== -1) {
         budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted) || 0;
         activityAmount = parseFloat(budgetData[budgetedIndex].Activity) || 0;
+      }
+      if (goalIndex !== -1) {
+        goalAmount = parseFloat(goalsData[goalIndex].Amount) || 0;
+      }
+
+      if (goalAmount === 0){
+        //green
+        color = '#099300';
+      }
+      else if ((goalAmount - activityAmount) > 0 ) {
+        //orange
+        color = '#fd8200';
+      }
+      else if ((goalAmount - activityAmount) === 0) {
+        //green
+        color = '#099300';
+      }
+      else if ((goalAmount - activityAmount) < 0) {
+        //red
+        color = '#ca0000';
       }
 
       totalAvailable += availableAmount;
@@ -183,6 +214,7 @@ export const getGridData = async () => {
         budgetedAmount: budgetedAmount,
         activityAmount: activityAmount,
         availableAmount: availableAmount,
+        goalColor: color,
       };
       subcategoryArray.push(subcategoryJson);
     }
@@ -191,7 +223,8 @@ export const getGridData = async () => {
         totalActivity, totalAvailable, subcategoryArray));
   }
 
-  return tempArray
+  console.log(tempArray);
+  return tempArray;
 };
 
 export default CollapsibleTable;

@@ -85,6 +85,9 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
       setBalance('');
       setSelectedCategory('');
       setSelectedSubCategory('');
+      setAddDashboardSuccess(true)
+      setMessage('Subcategory was deleted')
+      setEffectOpen(true)
     }).catch((response) => {
       alert(response.response.data);
     });
@@ -122,8 +125,6 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     });
   };
 
-
-
   const getUserCategories = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/category/${userID}`;
@@ -159,6 +160,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     });
   };
 
+/*
   const getUserGoals = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
@@ -172,13 +174,16 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         updatedArray.push({
           value: subCategory,
           budgetGoal: budgetGoal,
+
         });
         }
-      setSubCategoryList(updatedArray);
     }).catch((response) => {
       alert(response.response.data);
     });
   }
+
+ */
+
 
   const updateValues = () => {
     const userID = localStorage.getItem('UserID');
@@ -194,14 +199,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
   useEffect(() => {
     getUserCategories();
-  }, [open]);
-
-  useEffect(() => {
     getUserSubCategories();
-  }, [open]);
-
-  useEffect(() => {
-    getUserGoals();
   }, [open]);
 
   useEffect(() => {
