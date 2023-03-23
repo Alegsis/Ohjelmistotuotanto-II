@@ -192,15 +192,15 @@ export const getGridData = async () => {
         //green
         color = '#099300';
       }
-      else if ((goalAmount - activityAmount) > 0 ) {
+      else if ((activityAmount + goalAmount ) > 0 ) {
         //orange
         color = '#fd8200';
       }
-      else if ((goalAmount - activityAmount) === 0) {
+      else if ((activityAmount + goalAmount ) === 0) {
         //green
         color = '#099300';
       }
-      else if ((goalAmount - activityAmount) < 0) {
+      else if ((activityAmount + goalAmount ) < 0) {
         //red
         color = '#ca0000';
       }
