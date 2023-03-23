@@ -22,7 +22,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 
-const UpdateSubCategory = () => {
+const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => {
   const [open, setOpen] = useState(false);
   const [subCategory, setsubCategory] = useState('');
   const [balance, setBalance] = useState('');
@@ -53,7 +53,6 @@ const UpdateSubCategory = () => {
   const insertBudgetGoal = () => {
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/goal/new-goal';
-    console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
     Axios.post(postUrl, {
       Type: budgetGoalType,
       Date: budgetGoalDate,
@@ -108,12 +107,15 @@ const UpdateSubCategory = () => {
         alert('Edit successful');
         if (budgetGoalType !== '' && budgetGoal > 0 || showGoal === false) {
         insertBudgetGoal();
-      };
+      }
         setOpen(false);
         setsubCategory('');
         setBalance('');
         setSelectedCategory('');
         setSelectedSubCategory('');
+        setAddDashboardSuccess(true)
+        setMessage('Subcategory was edited')
+        setEffectOpen(true)
       });
     }).catch((response) => {
       alert(response.response.data);
@@ -301,7 +303,7 @@ const UpdateSubCategory = () => {
             <FormControlLabel control={<Switch default/>}
                               label="Add a budget goal?"
                               value="true"
-                              onChange={(e) => setShowGoal(!showGoal)}/>
+                              onChange={() => setShowGoal(!showGoal)}/>
 
             {showGoal && (
                 <div>

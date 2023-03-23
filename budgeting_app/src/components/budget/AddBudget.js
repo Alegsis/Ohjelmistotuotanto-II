@@ -12,7 +12,7 @@ import Axios from 'axios';
 import moment from 'moment';
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
-const AddBudget = () => {
+const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
 
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(0.00);
@@ -66,10 +66,13 @@ const AddBudget = () => {
           ToSubCategory: toSubCategory,
           UserID: userID,
         }).then(() => {
-      setOpen(false);
-      setFromSubCategory('');
-      setToSubCategory('');
-      setAmount(0.00);
+        setOpen(false);
+        setFromSubCategory('');
+        setToSubCategory('');
+        setAmount(0.00);
+        setAddDashboardSuccess(true)
+        setMessage('Budget was made')
+        setEffectOpen(true)
     }).catch(response => {
       alert(response.response.data);
     });

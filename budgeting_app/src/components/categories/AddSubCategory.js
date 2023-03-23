@@ -23,7 +23,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 
-const AddSubCategory = () => {
+const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const [open, setOpen] = React.useState(false);
   const [subCategory, setSubCategory] = React.useState('');
   const [balance, setBalance] = React.useState(0);
@@ -114,11 +114,14 @@ const AddSubCategory = () => {
           }
           if (budgetGoalType !== '' && budgetGoal > 0 || showGoal === false) {
             insertBudgetGoal();
-          };
+          }
           setOpen(false);
           setSubCategory('');
           setBalance(0);
           setSelectedCategory('');
+          setAddDashboardSuccess(true)
+          setMessage('New subcategory was made')
+          setEffectOpen(true)
         } else {
           alert('The subcategory name must be at least three characters long');
         }
@@ -244,7 +247,7 @@ const AddSubCategory = () => {
             <FormControlLabel control={<Switch default/>}
                               label="Add a budget goal?"
                               value="true"
-                              onChange={(e) => setShowGoal(!showGoal)}/>
+                              onChange={() => setShowGoal(!showGoal)}/>
 
             {showGoal && (
                 <div>

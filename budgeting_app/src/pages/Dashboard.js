@@ -1,19 +1,31 @@
 import AddCategory from '../components/categories/AddCategory';
 import AddSubCategory from '../components/categories/AddSubCategory';
 import MoveDeleteSubCategory from '../components/categories/UpdateSubCategory';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AddBudget from '../components/budget/AddBudget';
-import BudgetingGrid from '../components/budget/BudgetingGrid.js';
-const Dashboard = () => {
-  return (
+import BudgetingGrid, {getGridData} from '../components/budget/BudgetingGrid.js';
+
+const Dashboard = ({loggedIn, addDashboardSuccess, setAddDashboardSuccess, setMessage, setEffectOpen}) => {
+    const [rows, setRows] = useState([]);
+
+    useEffect(() => {
+        if (loggedIn || addDashboardSuccess) {
+            getGridData().then((data) => setRows(data)).catch((error) => {
+                console.log(error)
+                alert('error DashBoard')
+            })
+            setAddDashboardSuccess(false)
+        }
+    }, [loggedIn, addDashboardSuccess]);
+    return (
       <div className="home">
         <div className="budgetingRow">
-          <AddCategory></AddCategory>
-          <AddSubCategory></AddSubCategory>
-          <MoveDeleteSubCategory></MoveDeleteSubCategory>
-          <AddBudget/>
+          <AddCategory setAddDashboardSuccess={setAddDashboardSuccess} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
+          <AddSubCategory setAddDashboardSuccess={setAddDashboardSuccess} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
+          <MoveDeleteSubCategory setAddDashboardSuccess={setAddDashboardSuccess} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
+          <AddBudget setAddDashboardSuccess={setAddDashboardSuccess} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
         </div>
-        <BudgetingGrid/>
+        <BudgetingGrid rows={rows}/>
       </div>
   );
 
