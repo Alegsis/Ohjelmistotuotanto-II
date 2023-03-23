@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -29,6 +29,7 @@ const AddSubCategory = () => {
   const [balance, setBalance] = React.useState(0);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [goalsList, setgoalsList] = useState([]);
 
   //budget goal variables
   const [showGoal, setShowGoal] = useState(false);
@@ -53,12 +54,12 @@ const AddSubCategory = () => {
   const insertBudgetGoal = () => {
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/goal/new-goal';
-    console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
+    //console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
     Axios.post(postUrl, {
       Type: budgetGoalType,
       Date: budgetGoalDate,
       Amount: budgetGoal,
-      SubCategoryName: selectedSubCategory,
+      SubCategoryName: subCategory,
       UserID: userID,
     }).then(() => {
       alert('Budget addition successful');
@@ -144,7 +145,7 @@ const AddSubCategory = () => {
           budgetGoal: budgetGoal,
         });
         }
-      setSubCategoryList(updatedArray);
+      setgoalsList(updatedArray);
     }).catch((response) => {
       alert(response.response.data);
     });
