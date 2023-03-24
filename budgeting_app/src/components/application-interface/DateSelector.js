@@ -6,7 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 const moment = require('moment')
 
-const DateSelector = (setAddDashboardSuccess) =>{
+const DateSelector = ({setAddDashboardSuccess}) =>{
     const [date, setDate] = useState(moment());
 
     useEffect(() => {
@@ -16,6 +16,7 @@ const DateSelector = (setAddDashboardSuccess) =>{
 
     const handleDateChange = (newDate) => {
         setDate(newDate)
+        setAddDashboardSuccess(true)
     }
 
     return (

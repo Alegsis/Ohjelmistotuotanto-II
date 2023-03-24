@@ -19,7 +19,6 @@ const App = () => {
     const [effectOpen, setEffectOpen] = useState(false);
     const [message, setMessage] = useState('');
 
-
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
     }
