@@ -86,7 +86,6 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                         inputProps={{ IconComponent: () => null }} >
                     <MenuItem value={show} style={{display: 'none'}}>{show}</MenuItem>
                     <UserSettings setMessage={setMessage} setEffectOpen={setEffectOpen}></UserSettings>
-                    <MenuItem>Settings</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>
                 :
