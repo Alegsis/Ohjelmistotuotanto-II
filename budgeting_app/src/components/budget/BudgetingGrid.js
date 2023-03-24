@@ -151,7 +151,6 @@ export const getGridData = async () => {
   const getSql3 = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
   const resultGoals = await Axios.get(getSql3);
   const goalsData = resultGoals.data;
-  console.log(goalsData);
 
   //TODO here go the conditions of balance look up either Total.js or
   for (let x = 0; categoryCount > x; x++) {
@@ -223,7 +222,6 @@ export const getGridData = async () => {
         totalActivity, totalAvailable, subcategoryArray));
   }
 
-  console.log(tempArray);
   return tempArray;
 };
 

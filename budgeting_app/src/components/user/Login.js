@@ -13,7 +13,6 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect} from "react";
 import UserSettings from "./UserSettings";
-import DateSelector from "../application-interface/DateSelector"
 
 const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
@@ -73,6 +72,8 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         setLoggedIn(false);
         localStorage.removeItem("UserID");
         localStorage.removeItem("Username");
+        localStorage.removeItem("Month");
+        localStorage.removeItem("Year")
         setShow('Login')
         setIsSidebarOpen(false)
     };

@@ -43,7 +43,7 @@ const App = () => {
             <div className="header">
                 <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn}
                         setLoggedIn={setLoggedIn} createAccSuccess={createAccSuccess}
-                        setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
+                        setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage} setAddDashboardSuccess={setAddDashboardSuccess}/>
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
