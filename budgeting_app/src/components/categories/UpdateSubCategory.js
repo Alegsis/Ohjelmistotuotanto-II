@@ -372,17 +372,19 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
                 </div>)}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDelete} className="delete-button">
+          <DialogActions style={{justifyContent: "space-between"}}>
+            <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>
               Delete
             </Button>
-            <Button onClick={handleClose} className="cancel-button">
-              Cancel
-            </Button>
-            <Button onClick={handleEditSubCategory}
-                    className="Save-button">
-              Save changes
-            </Button>
+            <div>
+              <Button onClick={handleClose} className="cancel-button">
+                Cancel
+              </Button>
+              <Button onClick={handleEditSubCategory}
+                      className="Save-button">
+                Save changes
+              </Button>
+            </div>
           </DialogActions>
         </Dialog>
       </div>
