@@ -174,6 +174,8 @@ export const getGridData = async () => {
       const goalIndex = goalsData.findIndex(
           obj => obj.SubCategoryName === subCategoryName);
 
+
+
       let activityAmount = 0;
       let budgetedAmount = 0;
       let goalAmount = 0;
