@@ -59,10 +59,11 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
     const addTransaction = () => {
         const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
+
         Axios.post(baseUrl, {
             TransactionName: transactionName,
-            Outflow: outflow,
-            Inflow: inflow,
+            Outflow: outflow || 0,
+            Inflow: inflow || 0,
             Recipient: recipient,
             TransactionRepeat: transactionRepeat,
             Memo: memo,
@@ -79,6 +80,18 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
             setMessage('Transaction was made')
             setEffectOpen(true)
         }).catch((response) => {
+            console.log({
+                TransactionName: transactionName,
+                Outflow: outflow,
+                Inflow: inflow,
+                Recipient: recipient,
+                TransactionRepeat: transactionRepeat,
+                Memo: memo,
+                TransactionDate: date,
+                AccountName: AccountName,
+                SubCategoryName: subCategory,
+                UserID: userID,
+            })
             alert(response.response.data);
         });
     };

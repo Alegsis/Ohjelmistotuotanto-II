@@ -211,16 +211,16 @@ export const getGridData = async () => {
 
       const subcategoryJson = {
         subcategoryName: subCategoryName,
-        budgetedAmount: budgetedAmount,
-        activityAmount: activityAmount,
-        availableAmount: availableAmount,
+        budgetedAmount: budgetedAmount.toFixed(2),
+        activityAmount: activityAmount.toFixed(2),
+        availableAmount: availableAmount.toFixed(2),
         goalColor: color,
       };
       subcategoryArray.push(subcategoryJson);
     }
 
-    tempArray.push(createData(categoryName, totalBudgeted,
-        totalActivity, totalAvailable, subcategoryArray));
+    tempArray.push(createData(categoryName, totalBudgeted.toFixed(2),
+        totalActivity.toFixed(2), totalAvailable.toFixed(2), subcategoryArray));
   }
 
   return tempArray;

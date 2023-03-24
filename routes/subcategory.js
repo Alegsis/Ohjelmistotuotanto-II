@@ -93,6 +93,7 @@ WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '${start
 GROUP BY subcategory.SubcategoryName;`
 
     const activity = await pool.query(sqlQueryActivity);
+    console.log(activity)
 
 
     const sqlQueryBudgetedTo = `SELECT subcategory.SubCategoryName, SUM(budget.Amount) As 'Budgeted' from subcategory
@@ -113,6 +114,7 @@ WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND
 GROUP BY subcategory.SubcategoryName;`
 
     const budgetedMinus = await pool.query(sqlQueryBudgetedFrom);
+
     const checkIfExists = new Set();
 
 
