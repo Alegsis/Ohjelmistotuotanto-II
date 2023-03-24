@@ -52,6 +52,9 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
   //TODO add budget goal things here
 
   const insertBudgetGoal = () => {
+    if (!showGoal) {
+      return;
+    }
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/goal/new-goal';
     //console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);

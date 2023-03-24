@@ -51,6 +51,9 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
   };
 
   const insertBudgetGoal = () => {
+    if (!showGoal) {
+      return;
+    }
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/goal/new-goal';
     Axios.post(postUrl, {
