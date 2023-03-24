@@ -35,9 +35,12 @@ router.get('/user-:userID/find-categoryid/categoryname-:categoryName', async (re
 /**
  * Find users all categories and them subcategories
  */
-router.get('/:id/return-category-dictionary', async (req, res) => {
+router.get('/:id/return-category-dictionary/date-:date', async (req, res) => {
   try {
     const userID = req.params.id;
+    const date = req.params.date;
+    const endDate = `${date}-31`
+
     const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=? AND category.CategoryName != 'Available' `;
     const categories = await pool.query(sqlQueryCategories, userID);
     let dictionary = [];
@@ -47,9 +50,34 @@ router.get('/:id/return-category-dictionary', async (req, res) => {
       let categoryName = categories[x].CategoryName
       let categoryBalance = 0;
 
-      const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory
- WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = '${userID}') AND subcategory.IsActive = 1`;
+      /*
+      VARMUUDEN VUOKSI VIELÄ TÄSSÄ
+       SELECT subcategory.SubCategoryName, subcategory.Balance FROM subcategory
+ WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = '${userID}') AND subcategory.IsActive = 1
+       */
+      const sqlQuerySubCategories = `SELECT subcategory.SubCategoryName,
+       subcategory.Balance + COALESCE(query2.budgeted_amount, 0) - COALESCE(query3.budgeted_amount, 0) AS Balance
+FROM subcategory
+LEFT JOIN
+  (SELECT subcategory.SubCategoryName, SUM(budget.Amount) AS budgeted_amount
+   FROM subcategory
+   INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.FromSubCategoryID
+   INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
+   WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = '${userID}')
+     AND budget.BudgetDate > '${endDate}'
+   GROUP BY subcategory.SubCategoryName) AS query2 ON subcategory.SubCategoryName = query2.SubCategoryName
+LEFT JOIN
+  (SELECT subcategory.SubCategoryName, SUM(budget.Amount) AS budgeted_amount
+   FROM subcategory
+   INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.ToSubCategoryID
+   INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
+   WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${categoryName}' AND category.UserID = '${userID}')
+     AND budget.BudgetDate > '${endDate}'
+   GROUP BY subcategory.SubCategoryName) AS query3 ON subcategory.SubCategoryName = query3.SubCategoryName
+WHERE subcategory.UserID = '${userID}' AND subcategory.SubCategoryName != 'AvailableFunds' AND subcategory.IsActive = 1;`;
+
       const subCategories = await pool.query(sqlQuerySubCategories);
+      console.log(subCategories)
 
       for(let y = 0; y < subCategories.length; y++){
         let subcategoryBalance = parseFloat(subCategories[y].Balance);
