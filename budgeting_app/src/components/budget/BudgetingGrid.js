@@ -187,19 +187,20 @@ export const getGridData = async () => {
         goalAmount = parseFloat(goalsData[goalIndex].Amount) || 0;
       }
 
+      //goalType 1 here made (maybe?):
       if (goalAmount === 0){
         //green
         color = '#099300';
       }
-      else if ((activityAmount + goalAmount ) > 0 ) {
+      else if (budgetedAmount < goalAmount ) {
         //orange
         color = '#fd8200';
       }
-      else if ((activityAmount + goalAmount ) === 0) {
+      else if (budgetedAmount >= goalAmount) {
         //green
         color = '#099300';
       }
-      else if ((activityAmount + goalAmount ) < 0) {
+      else if (availableAmount < 0) {
         //red
         color = '#ca0000';
       }
