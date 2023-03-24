@@ -85,11 +85,13 @@ WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID 
 
     await pool.query(insertTransaction);
 
-    const updateSubcategory = `UPDATE subcategory 
+    if (AccountType === 'Cash' || AccountType === 'Checking' || AccountType === 'Savings') {
+      const updateSubcategory = `UPDATE subcategory 
 SET subcategory.Balance = subcategory.Balance + ${Balance} 
 WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}';`;
 
-    await pool.query(updateSubcategory);
+      await pool.query(updateSubcategory);
+    }
 
     res.status(200).json('New bank account created');
 

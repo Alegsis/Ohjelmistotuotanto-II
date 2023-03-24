@@ -142,7 +142,7 @@ export const getGridData = async () => {
   const resultBudget = await Axios.get(getSql1);
   const budgetData = resultBudget.data;
 
-  const getSql2 = `http://localhost:3001/category/${userID}/return-category-dictionary`;
+  const getSql2 = `http://localhost:3001/category/${userID}/return-category-dictionary/date-${date}`;
   const resultCategories = await Axios.get(getSql2);
   const categoryData = resultCategories.data;
   const categoryCount = categoryData.length;
