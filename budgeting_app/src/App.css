@@ -90,8 +90,8 @@ Account balances
 }
 
 .MuiTableCell-root {
-    background-color: #3a3434;
-    border-color: #3a3434 !important;
+    /*background-color: #3a3434;
+    border-color: #3a3434 !important;*/
     padding: 0.5rem !important;
     color: #000000 !important;
 }
@@ -356,4 +356,15 @@ div>#bank-button-1 {
     width: 100px;
     max-width: 150px;
     padding-right: 16px !important;
+}
+
+.BudgetHeaderCell,
+.BudgetCatHeaderCell,
+.BudgetSubCategoryHeaderCell,
+.BudgetSubCategoryCell,
+.BudgetHeaderCell2,
+.BudgetCatHeaderCell2,
+.column.middle{
+    background-color: white !important;
+    color: black !important;
 }
