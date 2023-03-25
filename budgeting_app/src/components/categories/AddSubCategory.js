@@ -57,7 +57,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
     }
     const userID = localStorage.getItem('UserID');
     const postUrl = 'http://localhost:3001/goal/new-goal';
-    console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
+   // console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
     Axios.post(postUrl, {
       Type: budgetGoalType,
       Date: budgetGoalDate,
@@ -115,7 +115,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                   UserID: userID,
                 });
           }
-          if (budgetGoalType !== '' && budgetGoal > 0 || showGoal === false) {
+          if (budgetGoalType !== '' && budgetGoal > 0) {
             insertBudgetGoal();
           }
           setOpen(false);
@@ -139,23 +139,21 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
   const getUserGoals = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
-    const updatedArray = [];
     Axios.get(baseUrl).then((response) => {
       for (let x = 0; x < response.data.length; x++) {
         const budgetGoal = response.data[x].Amount;
-        //const budgeType = response.data[x].Type;
-       // const budgetDate = response.data[x].Date;
-          const subCategory = response.data[x].SubCategoryName;
-        updatedArray.push({
-          value: subCategory,
-          budgetGoal: budgetGoal,
-        });
-        }
-      setgoalsList(updatedArray);
+        const budgetType = response.data[x].GoalType;
+        const Category = response.data[x].CategoryName;
+       // if (Category === selectedCategory) { //vaatii työstöä että saa kategoriat toimimaan oikein
+          setBudgetGoal(budgetGoal);
+          setBudgetGoalType(budgetType);
+       // }
+      }
     }).catch((response) => {
       alert(response.response.data);
     });
-  }
+  };
+  
 
   const getUserCategories = () => {
     const userID = localStorage.getItem('UserID');
@@ -174,14 +172,15 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
     });
   };
 
-  useEffect(() => {
-    getUserGoals();
-  }, [open]);
+ 
 
   React.useEffect(() => {
     getUserCategories();
   }, [open]);
 
+  useEffect(() => {
+    getUserGoals();
+  }, [open, selectedCategory]);
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" onClick={handleClickOpen}>
@@ -267,7 +266,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
 
 
                   <RadioGroup name="select-budget-goal-type"
-                              defaultValue="single"
+                              value={budgetGoalType}
                               aria-labelledby="subcategory-button-1"
                               onChange={(e) => setBudgetGoalType(e.target.value)}>
 

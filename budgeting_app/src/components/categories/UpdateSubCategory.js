@@ -133,7 +133,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         SubCategoryName: selectedSubCategory,
       }).then(() => {
         alert('Edit successful');
-        if (budgetGoalType !== '' && budgetGoal > 0 || showGoal === false) {
+        if (budgetGoalType !== '' && budgetGoal > 0) {
         insertBudgetGoal();
       }
         setOpen(false);
@@ -167,6 +167,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     });
   };
 
+  
+  
   const getUserSubCategories = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/subcategory/${userID}`;
@@ -184,53 +186,12 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
       alert(response.response.data);
     });
   };
-/*
-  const getUserGoals = () => {
-    
-    const userID = localStorage.getItem('UserID');
-    const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
-    console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
-    const updatedArray = [];
-    Axios.get(baseUrl).then((response) => {
-      for (let x = 0; x < response.data.length; x++) {
-        const budgetGoal = response.data[x].Amount;
-        const budgetType = response.data[x].GoalType;
-       // const budgetDate = response.data[x].Date;
-          const subCategory = response.data[x].SubCategoryName;
-        updatedArray.push({
-          value: subCategory,
-          budgetGoal: budgetGoal,
-          budgetType: budgetType
-        });
-        }
-    }).catch((response) => {
-      alert(response.response.data);
-    });
-  }*/
-  /*
-  const getUserGoals = () => {
-    const userID = localStorage.getItem('UserID');
-    const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
 
-    Axios.get(baseUrl)
-      .then((response) => {
-        const goals = response.data;
-        const subCategoryGoal = goals.find((goal) => goal.SubCategoryName === selectedSubCategory);
-        if (subCategoryGoal) {
-          setBudgetGoal(subCategoryGoal.Amount);
-          setBudgetGoalType(subCategoryGoal.GoalType);
-        }
-      })
-      .catch((error) => {
-        alert(error.response.data);
-      });
-  };*/
-  
+
   const getUserGoals = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
     console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
-    const updatedArray = [];
     Axios.get(baseUrl).then((response) => {
       for (let x = 0; x < response.data.length; x++) {
         const budgetGoal = response.data[x].Amount;
@@ -261,7 +222,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
       alert(response.response.data);
     });
   };
-
+   
+  
   useEffect(() => {
     getUserCategories();
     getUserSubCategories();
@@ -383,7 +345,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
               <RadioGroup name="select-budget-goal-type"
                 required
-                              defaultValue="single"
+                              value={budgetGoalType}
                               aria-labelledby="subcategory-button-1"
                               onChange={(e) => setBudgetGoalType(e.target.value)}>
 
