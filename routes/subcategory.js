@@ -186,6 +186,11 @@ router.post('/deactivate-subcategory', async (req, res) => {
  WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
     await pool.query(sqlQuery);
 
+    const deleteGoal = `DELETE FROM goal WHERE goal.SubCategoryID =
+ (SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}')`;
+    await pool.query(deleteGoal);
+
+
     res.status(200).send(`Subcategory ${SubCategoryName} is deactivated`);
 
   } catch (error) {

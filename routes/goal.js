@@ -10,7 +10,7 @@ router.get('/:id/get-goal-amounts', async (req, res) => {
   try {
     const sqlQuery = `SELECT goal.Amount, goal.GoalType, subcategory.SubCategoryName FROM goal 
 INNER JOIN subcategory ON goal.SubCategoryID = subcategory.SubCategoryID 
-WHERE UserID=?`;
+WHERE UserID=? AND subcategory.IsActive = 1`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {

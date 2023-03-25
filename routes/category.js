@@ -102,4 +102,21 @@ router.post('/new-category', async (req, res) => {
   }
 });
 
+/**
+ * Update category's name
+ */
+router.post('/update-category', async (req, res) => {
+  try {
+    const {OldCategoryName, NewCategoryName, UserID} = req.body;
+    const sqlQuery = `UPDATE subcategory SET subcategory.SubCategoryName = '${NewCategoryName}'
+ WHERE category.UserID = '${UserID}' AND category.SubCategoryName = '${OldCategoryName}'`;
+    await pool.query(sqlQuery);
+
+    res.status(200).send(`Subcategory ${OldCategoryName} is now ${NewCategoryName}`);
+
+  } catch (error) {
+    res.status(400).send('Something went wrong, please try again');
+  }
+});
+
 module.exports = router;
