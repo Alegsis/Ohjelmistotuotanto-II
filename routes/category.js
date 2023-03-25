@@ -7,7 +7,7 @@ const pool = require('../helpers/database');
  */
 router.get('/:id', async (req, res) => {
   try {
-    const sqlQuery = `SELECT CategoryName FROM category WHERE UserID=?`;
+    const sqlQuery = `SELECT CategoryName FROM category WHERE UserID=? AND category.IsActive = 1`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
