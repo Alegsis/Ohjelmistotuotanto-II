@@ -75,7 +75,7 @@ Account balances
     -ms-flex: 1 1;
     flex: 1 1;
     padding: 0;
-    background-color: #ffffff;
+    background-color: #3a3434;
 }
 
 .column.middle.hidden {
@@ -85,12 +85,13 @@ Account balances
 .MuiCollapse-root,
 .MuiDataGrid-root {
     display: flex;
-    background-color: #ffffff;
+    background-color: #3a3434;
+    color: white !important;
 }
 
 .MuiTableCell-root {
-    background-color: #ffffff;
-    border-color: #ffffff !important;
+    /*background-color: #3a3434;
+    border-color: #3a3434 !important;*/
     padding: 0.5rem !important;
     color: #000000 !important;
 }
@@ -138,13 +139,6 @@ Account balances
     display: block;
 }
 
-.budgetingRow {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
 .primary-button,
 .login-select {
     margin-left: auto !important;
@@ -156,6 +150,10 @@ Account balances
 }
 
 .budgetingRow {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
     font-weight: 500 !important;
     font-size: 0.8125rem !important;
     line-height: 1.75 !important;
@@ -235,8 +233,7 @@ div>#bank-button-1 {
 }
 
 .TransactionGrid,
-.AccountGrid,
-.Budget {
+.AccountGrid{
     flex: 1 1 auto;
     height: auto;
 }
@@ -337,6 +334,37 @@ div>#bank-button-1 {
     padding: 10px !important;
 }
 
-.css-1ex1afd-MuiTableCell-root {
-    padding: 0 !important;
+.BudgetHeaderCell,
+.BudgetCatHeaderCell,
+.BudgetSubCategoryHeaderCell{
+    background-color: #3a3434;
+    color: #ffffff !important;
+    width: 100px;
+    max-width: 150px;
+}
+.BudgetSubCategoryCell{
+    background-color: #3a3434;
+    color: #ffffff !important;
+    width: 100px;
+    max-width: 150px;
+}
+
+.BudgetHeaderCell2,
+.BudgetCatHeaderCell2{
+    background-color: #3a3434;
+    color: #ffffff !important;
+    width: 100px;
+    max-width: 150px;
+    padding-right: 16px !important;
+}
+
+.BudgetHeaderCell,
+.BudgetCatHeaderCell,
+.BudgetSubCategoryHeaderCell,
+.BudgetSubCategoryCell,
+.BudgetHeaderCell2,
+.BudgetCatHeaderCell2,
+.column.middle{
+    background-color: white !important;
+    color: black !important;
 }

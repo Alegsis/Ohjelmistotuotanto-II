@@ -29,8 +29,8 @@ const CollapsibleTable = ({rows}) => {
 
     return (
         <React.Fragment>
-          <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
-            <TableCell width="5%">
+          <TableRow>
+            <TableCell className="BudgetCatHeaderCell" width="5%">
               <IconButton
                   aria-label="expand row"
                   size="small"
@@ -39,36 +39,36 @@ const CollapsibleTable = ({rows}) => {
                 {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
               </IconButton>
             </TableCell>
-            <TableCell width="30%" component="th" scope="row">
+            <TableCell className="BudgetCatHeaderCell" width="30%" component="th" scope="row" >
               {row.categoryName}
             </TableCell>
-            <TableCell align="right"
-                       width="10%">{row.totalBudgetedAmount}</TableCell>
-            <TableCell align="right"
+            <TableCell className="BudgetCatHeaderCell" align="right" size="small"
+                       width="10%" >{row.totalBudgetedAmount}</TableCell>
+            <TableCell className="BudgetCatHeaderCell" align="right" size="small"
                        width="10%">{row.totalActivityAmount}</TableCell>
-            <TableCell align="right"
+            <TableCell className="BudgetCatHeaderCell2" align="right" size="small"
                        width="10%">{row.totalAvailableAmount}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={6}>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <Box sx={{margin: 0}}>
+              <Collapse padding-right="0" style={{width: "100%"}} in={open} timeout="auto" unmountOnExit>
+                <Box sx={{margin:0}}>
                   <Table size="small" aria-label="budgets">
                     <TableHead>
                     </TableHead>
                     <TableBody>
                       {row.subcategorySection.map((subcategoryRow, index) => (
                           <TableRow key={index}>
-                            <TableCell></TableCell>
-                            <TableCell component="th" scope="row">
+                            <TableCell className="BudgetSubCategoryCell" align="left" ></TableCell>
+                            <TableCell className="BudgetSubCategoryCell" component="th" scope="row" size="small">
                               {subcategoryRow.subcategoryName}
                             </TableCell>
-                            <TableCell
-                                align="right">{subcategoryRow.budgetedAmount}</TableCell>
-                            <TableCell
-                                align="right">{subcategoryRow.activityAmount}</TableCell>
-                            <TableCell
-                                align="right"
+                            <TableCell className="BudgetSubCategoryCell"
+                                align="right" size="small">{subcategoryRow.budgetedAmount}</TableCell>
+                            <TableCell className="BudgetSubCategoryCell"
+                                align="right" size="small">{subcategoryRow.activityAmount}</TableCell>
+                            <TableCell className="BudgetSubCategoryCell"
+                                align="right" size="small"
                                 style={{backgroundColor: subcategoryRow.goalColor}}>{subcategoryRow.availableAmount}</TableCell>
                           </TableRow>
                       ))}
@@ -103,11 +103,11 @@ const CollapsibleTable = ({rows}) => {
         <Table aria-label="collapsible table" density="">
           <TableHead>
             <TableRow>
-              <TableCell/>
-              <TableCell>All categories</TableCell>
-              <TableCell align="right">Budgeted</TableCell>
-              <TableCell align="right">Activity</TableCell>
-              <TableCell align="right">Available</TableCell>
+              <TableCell align="left" className="BudgetHeaderCell"></TableCell>
+              <TableCell align="left" className="BudgetHeaderCell">All categories</TableCell>
+              <TableCell align="right" className="BudgetHeaderCell">Budgeted</TableCell>
+              <TableCell align="right" className="BudgetHeaderCell">Activity</TableCell>
+              <TableCell align="right"className="BudgetHeaderCell2">Available</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -142,7 +142,7 @@ export const getGridData = async () => {
   const resultBudget = await Axios.get(getSql1);
   const budgetData = resultBudget.data;
 
-  const getSql2 = `http://localhost:3001/category/${userID}/return-category-dictionary`;
+  const getSql2 = `http://localhost:3001/category/${userID}/return-category-dictionary/date-${date}`;
   const resultCategories = await Axios.get(getSql2);
   const categoryData = resultCategories.data;
   const categoryCount = categoryData.length;

@@ -80,8 +80,30 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     const postUrl = 'http://localhost:3001/subcategory/deactivate-subcategory';
     Axios.post(postUrl, {
       SubCategoryName: selectedSubCategory,
-      UserID: userID,
+      UserID: userID
     }).then(() => {
+      handleAddBudget();
+    }).catch((response) => {
+      alert(response.response.data);
+    });
+  };
+
+  const handleAddBudget = () => {
+    const userID = localStorage.getItem('UserID');
+    const baseUrl = `http://localhost:3001/budget/new-budget`;
+    const year = localStorage.getItem('Year')
+    const month = localStorage.getItem('Month')
+    const date = `${year}-${month}-01`
+
+    Axios.post(baseUrl,
+        {
+          Amount: balance,
+          BudgetDate: date,
+          FromSubCategory: selectedSubCategory,
+          ToSubCategory: 'AvailableFunds',
+          UserID: userID,
+          Type: 1
+        }).then(() => {
       alert('Delete was successful');
       setOpen(false);
       setsubCategory('');
@@ -91,7 +113,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
       setAddDashboardSuccess(true)
       setMessage('Subcategory was deleted')
       setEffectOpen(true)
-    }).catch((response) => {
+    }).catch(response => {
       alert(response.response.data);
     });
   };
@@ -412,17 +434,19 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
                 </div>)}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleDelete} className="delete-button">
+          <DialogActions style={{justifyContent: "space-between"}}>
+            <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>
               Delete
             </Button>
-            <Button onClick={handleClose} className="cancel-button">
-              Cancel
-            </Button>
-            <Button onClick={handleEditSubCategory}
-                    className="Save-button">
-              Save changes
-            </Button>
+            <div>
+              <Button onClick={handleClose} className="cancel-button">
+                Cancel
+              </Button>
+              <Button onClick={handleEditSubCategory}
+                      className="Save-button">
+                Save changes
+              </Button>
+            </div>
           </DialogActions>
         </Dialog>
       </div>

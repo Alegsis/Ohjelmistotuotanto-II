@@ -182,7 +182,8 @@ router.post('/new-subcategory', async (req, res) => {
 router.post('/deactivate-subcategory', async (req, res) => {
   try {
     const {UserID, SubCategoryName} = req.body;
-    const sqlQuery = `UPDATE subcategory SET subcategory.IsActive = 0 WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
+    const sqlQuery = `UPDATE subcategory SET subcategory.IsActive = 0, subcategory.Balance = 0
+ WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
     await pool.query(sqlQuery);
 
     res.status(200).send(`Subcategory ${SubCategoryName} is deactivated`);
