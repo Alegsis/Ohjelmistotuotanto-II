@@ -108,8 +108,8 @@ router.post('/new-category', async (req, res) => {
 router.post('/update-category', async (req, res) => {
   try {
     const {OldCategoryName, NewCategoryName, UserID} = req.body;
-    const sqlQuery = `UPDATE subcategory SET subcategory.SubCategoryName = '${NewCategoryName}'
- WHERE category.UserID = '${UserID}' AND category.SubCategoryName = '${OldCategoryName}'`;
+    const sqlQuery = `UPDATE category SET category.CategoryName = '${NewCategoryName}'
+ WHERE category.UserID = '${UserID}' AND category.CategoryName = '${OldCategoryName}'`;
     await pool.query(sqlQuery);
 
     res.status(200).send(`Subcategory ${OldCategoryName} is now ${NewCategoryName}`);
