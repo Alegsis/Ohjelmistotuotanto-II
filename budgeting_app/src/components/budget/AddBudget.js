@@ -9,10 +9,9 @@ import MenuItem from '@mui/material/MenuItem';
 import DialogActions from '@mui/material/DialogActions';
 import React, {useState} from 'react';
 import Axios from 'axios';
-import moment from 'moment';
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
-const AddBudget = () => {
+const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
 
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(0.00);
@@ -57,19 +56,25 @@ const AddBudget = () => {
   const addBudget = () => {
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/budget/new-budget`;
+    const year = localStorage.getItem('Year')
+    const month = localStorage.getItem('Month')
+    const date = `${year}-${month}-01`
+
     Axios.post(baseUrl,
         {
           Amount: amount,
-          //Todo tähän tulee päivämäärä, joka on headerissa!!!!!!!!!!! kunhan se on luotuna headeriin
-          BudgetDate: moment().format('YYYY-MM-DD'),
+          BudgetDate: date,
           FromSubCategory: fromSubCategory,
           ToSubCategory: toSubCategory,
           UserID: userID,
         }).then(() => {
-      setOpen(false);
-      setFromSubCategory('');
-      setToSubCategory('');
-      setAmount(0.00);
+        setOpen(false);
+        setFromSubCategory('');
+        setToSubCategory('');
+        setAmount(0.00);
+        setAddDashboardSuccess(true)
+        setMessage('Budget was made')
+        setEffectOpen(true)
     }).catch(response => {
       alert(response.response.data);
     });

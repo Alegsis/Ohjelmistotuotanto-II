@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -23,7 +23,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {DesktopDatePicker} from '@mui/x-date-pickers/DesktopDatePicker';
 
-const AddSubCategory = () => {
+const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const [open, setOpen] = React.useState(false);
   const [subCategory, setSubCategory] = React.useState('');
   const [balance, setBalance] = React.useState(0);
@@ -33,8 +33,8 @@ const AddSubCategory = () => {
   //budget goal variables
   const [showGoal, setShowGoal] = useState(false);
   const [budgetGoal, setBudgetGoal] = useState('');
-  const [budgetType, setBudgetType] = useState('1');
-  const [budgetDate, setBudgetDate] = useState();
+  const [budgetGoalType, setBudgetGoalType] = useState('1');
+  const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,12 +42,39 @@ const AddSubCategory = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setShowGoal(false);
     setSubCategory('');
     setBalance(0);
     setSelectedCategory('');
   };
 
   //TODO add budget goal things here
+
+  const insertBudgetGoal = () => {
+    if (!showGoal) {
+      return;
+    }
+    const userID = localStorage.getItem('UserID');
+    const postUrl = 'http://localhost:3001/goal/new-goal';
+   // console.log(budgetGoalType, budgetGoalDate, budgetGoal, selectedSubCategory, userID);
+    Axios.post(postUrl, {
+      Type: budgetGoalType,
+      Date: budgetGoalDate,
+      Amount: budgetGoal,
+      SubCategoryName: subCategory,
+      UserID: userID,
+    }).then(() => {
+      alert('Budget addition successful');
+      setShowGoal(false);
+      setOpen(false);
+      setBudgetGoalDate(new Date())
+      setBudgetGoal('0');
+      setBudgetGoalType('1');
+    }).catch((response) => {
+      setShowGoal(false);
+      alert(response.response.data);
+    });
+  }
 
   const handleAddSubCategory = async () => {
     try {
@@ -87,10 +114,16 @@ const AddSubCategory = () => {
                   UserID: userID,
                 });
           }
+          if (budgetGoalType !== '' && budgetGoal > 0) {
+            insertBudgetGoal();
+          }
           setOpen(false);
           setSubCategory('');
           setBalance(0);
           setSelectedCategory('');
+          setAddDashboardSuccess(true)
+          setMessage('New subcategory was made')
+          setEffectOpen(true)
         } else {
           alert('The subcategory name must be at least three characters long');
         }
@@ -101,6 +134,8 @@ const AddSubCategory = () => {
       alert(response.response.data);
     }
   };
+
+  
 
   const getUserCategories = () => {
     const userID = localStorage.getItem('UserID');
@@ -119,10 +154,13 @@ const AddSubCategory = () => {
     });
   };
 
+ 
+
   React.useEffect(() => {
     getUserCategories();
   }, [open]);
 
+  
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" onClick={handleClickOpen}>
@@ -191,7 +229,7 @@ const AddSubCategory = () => {
             <FormControlLabel control={<Switch default/>}
                               label="Add a budget goal?"
                               value="true"
-                              onChange={(e) => setShowGoal(!showGoal)}/>
+                              onChange={() => setShowGoal(!showGoal)}/>
 
             {showGoal && (
                 <div>
@@ -208,23 +246,23 @@ const AddSubCategory = () => {
 
 
                   <RadioGroup name="select-budget-goal-type"
-                              defaultValue="single"
+                              value={budgetGoalType}
                               aria-labelledby="subcategory-button-1"
-                              onChange={(e) => setBudgetType(e.target.value)}>
+                              onChange={(e) => setBudgetGoalType(e.target.value)}>
 
                     <FormControlLabel control={<Radio/>}
                                       label="Monthly Saving Goal"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
                                       value="2"/>
-                    {budgetType === '2' && (
+                    {budgetGoalType === '2' && (
                         <div>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
                                 label="Date"
                                 inputFormat="MM/YYYY"
-                                value={budgetDate}
-                                onChange={date => setBudgetDate(date)}
+                                value={budgetGoalDate}
+                                onChange={date => setBudgetGoalDate(date)}
                                 renderInput={(params: TextFieldProps) => {
                                   return <TextField {...params}/>;
                                 }}
@@ -256,8 +294,6 @@ const AddSubCategory = () => {
                       }}
                   />
                 </div>)}
-
-
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} className="cancel-button">

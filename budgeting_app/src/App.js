@@ -15,6 +15,7 @@ const App = () => {
     const [createAccSuccess, setCreateAccSuccess] = useState(false);
     const [addTransactionSuccess, setaddTransactionSuccess] = useState(false);
     const [addAccTransactionSuccess, setAddAccTransactionSuccess] = useState(false);
+    const [addDashboardSuccess, setAddDashboardSuccess] = useState(false);
     const [effectOpen, setEffectOpen] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -41,7 +42,7 @@ const App = () => {
             <div className="header">
                 <Header setIsSidebarOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} loggedIn={loggedIn}
                         setLoggedIn={setLoggedIn} createAccSuccess={createAccSuccess}
-                        setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
+                        setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage} setAddDashboardSuccess={setAddDashboardSuccess}/>
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
@@ -49,7 +50,7 @@ const App = () => {
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>
-                        <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/dashboard" element={<Dashboard loggedIn={loggedIn} addDashboardSuccess={addDashboardSuccess} setAddDashboardSuccess={setAddDashboardSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>}/>
                         <Route path="/accounts" element={<Accounts loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>}/>
                         <Route path={`/accounts/:AccountName`} element={<Account loggedIn={loggedIn} setEffectOpen={setEffectOpen} setMessage={setMessage} addAccTransactionSuccess={addAccTransactionSuccess} setAddAccTransactionSuccess={setAddAccTransactionSuccess}/>}/>
                     </Routes>
