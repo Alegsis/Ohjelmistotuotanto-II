@@ -24,7 +24,7 @@ WHERE subcategory.UserID=?`;
 
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -39,7 +39,10 @@ router.post('/new-budget', async (req, res) => {
       FromSubCategory,
       ToSubCategory,
       UserID,
+        Type
     } = req.body;
+
+    //if type is 1, it's for deleting subcategory (Not to reduce balance from Subcategory)
 
     const insertBudget = `INSERT INTO budget (Amount, BudgetDate, FromCategory, ToCategory) VALUES (?, ?, ?, ?)`;
     const rows = await pool.query(insertBudget,
@@ -56,12 +59,12 @@ router.post('/new-budget', async (req, res) => {
     const insertMergebsc = `INSERT INTO mergebsc(mergebsc.BudgetID, mergebsc.FromSubCategoryID, mergebsc.ToSubCategoryID) VALUES (${budgetID}, ?, ?);`;
     await pool.query(insertMergebsc, [FromSubCategoryID, ToSubCategoryID]);
 
-
-    const updateFromBalance = `UPDATE subcategory 
+    if(Type !== 1) {
+      const updateFromBalance = `UPDATE subcategory 
 SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${FromSubCategoryID}) - ${Amount} 
 WHERE subcategory.SubCategoryID = ${FromSubCategoryID}`;
-    await pool.query(updateFromBalance);
-
+      await pool.query(updateFromBalance);
+    }
     const updateToBalance = `UPDATE subcategory 
 SET SubCategory.Balance = (SELECT SubCategory.Balance FROM subcategory WHERE subcategory.SubCategoryID = ${ToSubCategoryID}) + ${Amount} 
 WHERE subcategory.SubCategoryID = ${ToSubCategoryID}`;
@@ -71,7 +74,7 @@ WHERE subcategory.SubCategoryID = ${ToSubCategoryID}`;
     res.status(200).json({budgetID: budgetIDtoString});
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 

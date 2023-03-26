@@ -6,32 +6,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 const moment = require('moment')
 
-const DateSelector = () =>{
-    const [date, setDate] = useState();
+const DateSelector = ({setAddDashboardSuccess}) =>{
+    const [date, setDate] = useState(moment());
 
-       useEffect( () => {
-           if(date !== undefined){
-               const separatedDate = date.format('MM/YYYY').split("/");
-               const Month = separatedDate[0];
-               const Year = separatedDate[1];
-               const saveToStorage = async (Month,Year) =>{
-                   await localStorage.setItem("Month", Month);
-                   await localStorage.setItem("Year", Year);
-                   setDate(date)
-               }
-               saveToStorage(Month,Year)
 
-           }
-       }, [date]);
+    useEffect(() => {
+        localStorage.setItem("Month", date.format("MM"));
+        localStorage.setItem("Year", date.format("YYYY"));
+    }, [date]);
 
-       useEffect( () =>{
-           setDate(moment())
-       }, [])
-
-        useEffect( () =>{
-        setDate(moment())
-        }, )
-
+    const handleDateChange = (newDate) => {
+        setDate(newDate)
+        setAddDashboardSuccess(true)
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -39,7 +26,7 @@ const DateSelector = () =>{
                 label="Date"
                 inputFormat="MM/YYYY"
                 value={date}
-                onChange={date => setDate(date)}
+                onChange={handleDateChange}
                 renderInput={(params: TextFieldProps) => {
                     return <TextField {...params}/>;
                 }}

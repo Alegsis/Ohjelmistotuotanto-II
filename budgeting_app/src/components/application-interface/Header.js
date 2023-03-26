@@ -29,7 +29,7 @@ const TotalWrapper = styled.div`
   color: white;
   padding-left: 11em;
 `;
-const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess, setMessage, setEffectOpen}) => {
+const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createAccSuccess, setCreateAccSuccess, setMessage, setEffectOpen, setAddDashboardSuccess}) => {
 
     const location = useLocation();
     const isDashboardPage = location.pathname === '/dashboard';
@@ -54,7 +54,7 @@ const Header = ({toggleSidebar, loggedIn, setLoggedIn, setIsSidebarOpen, createA
           <Total> </Total>
         </TotalWrapper>
           )}
-          {isDashboardPage && <DateSelector/>}
+          {isDashboardPage && loggedIn && <DateSelector setAddDashboardSuccess={setAddDashboardSuccess}/>}
         <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} setIsSidebarOpen={setIsSidebarOpen} setEffectOpen={setEffectOpen} setMessage={setMessage}></Login>
       </HeaderNavi>
   );

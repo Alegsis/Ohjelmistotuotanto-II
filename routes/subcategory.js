@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -24,7 +24,7 @@ router.get('/:id/subcategory-name', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -37,7 +37,7 @@ router.get('/:id/subcategory-name-and-balance', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -50,7 +50,7 @@ router.get('/:id/available-to-budget', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).send(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -93,6 +93,7 @@ WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '${start
 GROUP BY subcategory.SubcategoryName;`
 
     const activity = await pool.query(sqlQueryActivity);
+    console.log(activity)
 
 
     const sqlQueryBudgetedTo = `SELECT subcategory.SubCategoryName, SUM(budget.Amount) As 'Budgeted' from subcategory
@@ -113,6 +114,7 @@ WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND
 GROUP BY subcategory.SubcategoryName;`
 
     const budgetedMinus = await pool.query(sqlQueryBudgetedFrom);
+
     const checkIfExists = new Set();
 
 
@@ -141,11 +143,10 @@ GROUP BY subcategory.SubcategoryName;`
       }
     }
 
-    console.log(budgeted)
     res.status(200).json(budgeted);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -171,7 +172,7 @@ router.post('/new-subcategory', async (req, res) => {
     }
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -181,13 +182,19 @@ router.post('/new-subcategory', async (req, res) => {
 router.post('/deactivate-subcategory', async (req, res) => {
   try {
     const {UserID, SubCategoryName} = req.body;
-    const sqlQuery = `UPDATE subcategory SET subcategory.IsActive = 0 WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
+    const sqlQuery = `UPDATE subcategory SET subcategory.IsActive = 0, subcategory.Balance = 0
+ WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}'`;
     await pool.query(sqlQuery);
+
+    const deleteGoal = `DELETE FROM goal WHERE goal.SubCategoryID =
+ (SELECT subcategory.SubCategoryID from subcategory WHERE subcategory.UserID = '${UserID}' AND subcategory.SubCategoryName = '${SubCategoryName}')`;
+    await pool.query(deleteGoal);
+
 
     res.status(200).send(`Subcategory ${SubCategoryName} is deactivated`);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -205,7 +212,7 @@ router.post('/update-subcategory', async (req, res) => {
     res.status(200).send(`Subcategory is now ${NewSubCategoryName} and it's category is ${NewCategory}`);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 

@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 import Axios from "axios";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
-const AddCategory = () => {
+const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const [open, setOpen] = React.useState(false);
   const [category, setCategory] = React.useState("");
 
@@ -32,6 +32,9 @@ const AddCategory = () => {
       }).then(() => {
         setOpen(false);
         setCategory("");
+        setAddDashboardSuccess(true)
+        setMessage('New category was added')
+        setEffectOpen(true)
       }).catch(response => {
         alert(response.response.data)
       })

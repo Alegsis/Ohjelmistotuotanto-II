@@ -26,7 +26,7 @@ router.get('/:id/sum-balance', async (req, res) => {
     res.status(200).json(output);
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -57,7 +57,7 @@ router.get('/:id/account-name', async (req, res) => {
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 
@@ -72,33 +72,31 @@ router.post('/new-account', async (req, res) => {
     const rows = await pool.query(sqlQuery,
         [AccountName, AccountType, Balance, BalanceDate, UserID]);
 
-    if (AccountType === 'Cash' || AccountType === 'Checking' || AccountType === 'Savings'){
-      const insertedAccountID = rows.insertId;
-      const transactionName = 'Available Funds Update'
-      const subcategoryName = 'AvailableFunds'
+    const insertedAccountID = rows.insertId;
+    const transactionName = 'Starting balance';
+    const subcategoryName = 'AvailableFunds';
 
-      const insertTransaction = `INSERT INTO transaction 
+    const insertTransaction = `INSERT INTO transaction 
 (transaction.TransactionName, transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
 transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) 
 VALUES ('${transactionName}', ${Balance}, ' ', 'Once', ' ', '${BalanceDate}', ${insertedAccountID}, (SELECT subcategory.SubCategoryID 
 FROM subcategory 
-WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}'))`
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}'))`;
 
-      await pool.query(insertTransaction)
+    await pool.query(insertTransaction);
 
-
+    if (AccountType === 'Cash' || AccountType === 'Checking' || AccountType === 'Savings') {
       const updateSubcategory = `UPDATE subcategory 
 SET subcategory.Balance = subcategory.Balance + ${Balance} 
-WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}';`
+WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}';`;
 
-      await pool.query(updateSubcategory)
-
+      await pool.query(updateSubcategory);
     }
 
     res.status(200).json('New bank account created');
 
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send('Something went wrong, please try again');
   }
 });
 

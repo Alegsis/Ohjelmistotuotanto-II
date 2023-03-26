@@ -78,10 +78,11 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
   const addTransaction = () => {
     const userID = localStorage.getItem("UserID");
     const baseUrl = `http://localhost:3001/transaction/new-transaction`;
+
     Axios.post(baseUrl, {
       TransactionName: transactionName,
-      Outflow: outflow,
-      Inflow: inflow,
+      Outflow: outflow || 0,
+      Inflow: inflow || 0,
       Recipient: recipient,
       TransactionRepeat: transactionRepeat,
       Memo: memo,
@@ -100,6 +101,18 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
         setEffectOpen(true)
       }).catch((response) => {
         alert(response.response.data);
+      console.log({
+        TransactionName: transactionName,
+        Outflow: outflow,
+        Inflow: inflow,
+        Recipient: recipient,
+        TransactionRepeat: transactionRepeat,
+        Memo: memo,
+        TransactionDate: date,
+        AccountName: account,
+        SubCategoryName: subCategory,
+        UserID: userID,
+      })
       });
   };
 
