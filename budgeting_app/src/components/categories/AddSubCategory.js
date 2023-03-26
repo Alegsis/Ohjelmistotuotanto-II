@@ -29,7 +29,6 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
   const [balance, setBalance] = React.useState(0);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [goalsList, setgoalsList] = useState([]);
 
   //budget goal variables
   const [showGoal, setShowGoal] = useState(false);
@@ -136,23 +135,6 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
     }
   };
 
-  const getUserGoals = () => {
-    const userID = localStorage.getItem('UserID');
-    const baseUrl = `http://localhost:3001/goal/${userID}/get-goal-amounts`;
-    Axios.get(baseUrl).then((response) => {
-      for (let x = 0; x < response.data.length; x++) {
-        const budgetGoal = response.data[x].Amount;
-        const budgetType = response.data[x].GoalType;
-        const Category = response.data[x].CategoryName;
-       // if (Category === selectedCategory) { //vaatii työstöä että saa kategoriat toimimaan oikein
-          setBudgetGoal(budgetGoal);
-          setBudgetGoalType(budgetType);
-       // }
-      }
-    }).catch((response) => {
-      alert(response.response.data);
-    });
-  };
   
 
   const getUserCategories = () => {
@@ -178,9 +160,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
     getUserCategories();
   }, [open]);
 
-  useEffect(() => {
-    getUserGoals();
-  }, [open, selectedCategory]);
+  
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" onClick={handleClickOpen}>

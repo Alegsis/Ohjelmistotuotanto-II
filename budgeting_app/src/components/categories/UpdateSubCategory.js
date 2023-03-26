@@ -48,6 +48,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     setBalance('');
     setSelectedCategory('');
     setSelectedSubCategory('');
+    setBudgetGoal('0');
+    setBudgetGoalType('1');
   };
 
   const insertBudgetGoal = () => {
@@ -141,6 +143,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         setBalance('');
         setSelectedCategory('');
         setSelectedSubCategory('');
+        setBudgetGoal('0');
+        setBudgetGoalType('1');
         setAddDashboardSuccess(true)
         setMessage('Subcategory was edited')
         setEffectOpen(true)
