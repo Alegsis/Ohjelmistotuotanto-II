@@ -83,12 +83,14 @@ const CollapsibleTable = ({rows}) => {
                                        align="right" size="small"
                                        icon={subcategoryRow.goalIcon}
                                        style={{color: subcategoryRow.goalColor}}>
-                              {subcategoryRow.goalIcon}
-                              <span
-                                  style={{
-                                    backgroundColor: subcategoryRow.goalColor,
-                                    fontWeight: 'bold',
-                                  }}>{subcategoryRow.availableAmount}  </span>
+                              <div>{subcategoryRow.goalIcon}</div>
+                              <div>
+                                <span
+                                    style={{
+                                      backgroundColor: subcategoryRow.goalColor,
+                                      fontWeight: 'bold',
+                                    }}>{subcategoryRow.availableAmount}  </span>
+                              </div>
 
                             </TableCell>
                           </TableRow>
@@ -213,6 +215,7 @@ export const getGridData = async () => {
       }
 
       //goalType 1 here made (maybe?):
+      //note setting this to 0 in backend doesn't quite work yet so...
       if (goalAmount === 0) {
         //white
         color = '#ffffff';

@@ -343,10 +343,14 @@ div > #bank-button-1 {
 }
 
 .BudgetSubCategoryCell {
+    display: flex;
+    flex-wrap: wrap;
     background-color: #3a3434;
     color: #ffffff;
     width: 100px;
     max-width: 150px;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .BudgetSubCategoryCell span {
