@@ -343,19 +343,25 @@ div > #bank-button-1 {
 }
 
 .BudgetSubCategoryCell {
-    display: flex;
-    flex-wrap: wrap;
     background-color: #3a3434;
     color: #ffffff;
     width: 100px;
     max-width: 150px;
-    align-items: flex-start;
-    justify-content: space-between;
+
 }
 
 .BudgetSubCategoryCell span {
     border-radius: 0.25em;
     color: white;
+}
+
+.budgetStyleWrapper {
+    display: flex;
+    float: right;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+    
 }
 
 .BudgetHeaderCell2,

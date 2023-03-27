@@ -83,15 +83,16 @@ const CollapsibleTable = ({rows}) => {
                                        align="right" size="small"
                                        icon={subcategoryRow.goalIcon}
                                        style={{color: subcategoryRow.goalColor}}>
-                              <div>{subcategoryRow.goalIcon}</div>
-                              <div>
+                              <div className="budgetStyleWrapper">
+                                <div>{subcategoryRow.goalIcon}</div>
+                                <div>
                                 <span
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
                                       fontWeight: 'bold',
                                     }}>{subcategoryRow.availableAmount}  </span>
+                                </div>
                               </div>
-
                             </TableCell>
                           </TableRow>
                       ))}
