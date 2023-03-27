@@ -50,10 +50,10 @@ body {
 /*
 Sidebar icons centering
  */
-a.css-19qeahj:nth-child(even)>div:nth-child(1),
-a.css-19qeahj:nth-child(odd)>div:nth-child(1),
-#root>div.row>div.column.left>nav>a:nth-child(even)>div:nth-child(1),
-#root>div.row>div.column.left>nav>a:nth-child(odd)>div:nth-child(1) {
+a.css-19qeahj:nth-child(even) > div:nth-child(1),
+a.css-19qeahj:nth-child(odd) > div:nth-child(1),
+#root > div.row > div.column.left > nav > a:nth-child(even) > div:nth-child(1),
+#root > div.row > div.column.left > nav > a:nth-child(odd) > div:nth-child(1) {
     display: flex;
 }
 
@@ -201,12 +201,11 @@ Account balances
     justify-content: center;
 }
 
-div>#bank-button-1 {
+div > #bank-button-1 {
     flex-grow: 1;
     display: flex;
     justify-content: center;
 }
-
 
 
 .login-button {
@@ -233,7 +232,7 @@ div>#bank-button-1 {
 }
 
 .TransactionGrid,
-.AccountGrid{
+.AccountGrid {
     flex: 1 1 auto;
     height: auto;
 }
@@ -336,21 +335,37 @@ div>#bank-button-1 {
 
 .BudgetHeaderCell,
 .BudgetCatHeaderCell,
-.BudgetSubCategoryHeaderCell{
-    background-color: #3a3434;
-    color: #ffffff !important;
-    width: 100px;
-    max-width: 150px;
-}
-.BudgetSubCategoryCell{
+.BudgetSubCategoryHeaderCell {
     background-color: #3a3434;
     color: #ffffff !important;
     width: 100px;
     max-width: 150px;
 }
 
+.BudgetSubCategoryCell {
+    background-color: #3a3434;
+    color: #ffffff;
+    width: 100px;
+    max-width: 150px;
+
+}
+
+.BudgetSubCategoryCell span {
+    border-radius: 0.25em;
+    color: white;
+}
+
+.budgetStyleWrapper {
+    display: flex;
+    float: right;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+    
+}
+
 .BudgetHeaderCell2,
-.BudgetCatHeaderCell2{
+.BudgetCatHeaderCell2 {
     background-color: #3a3434;
     color: #ffffff !important;
     width: 100px;
@@ -364,7 +379,7 @@ div>#bank-button-1 {
 .BudgetSubCategoryCell,
 .BudgetHeaderCell2,
 .BudgetCatHeaderCell2,
-.column.middle{
-    background-color: white !important;
+.column.middle {
+    background-color: white;
     color: black !important;
 }
