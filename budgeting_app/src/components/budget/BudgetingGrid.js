@@ -81,10 +81,15 @@ const CollapsibleTable = ({rows}) => {
                                        size="small">{subcategoryRow.activityAmount}</TableCell>
                             <TableCell className="BudgetSubCategoryCell"
                                        align="right" size="small"
-                                       icon={subcategoryRow.goalIcon}>
-                              <span
-                                  style={{backgroundColor: subcategoryRow.goalColor}}>{subcategoryRow.availableAmount}  </span>
+                                       icon={subcategoryRow.goalIcon}
+                                       style={{color: subcategoryRow.goalColor}}>
                               {subcategoryRow.goalIcon}
+                              <span
+                                  style={{
+                                    backgroundColor: subcategoryRow.goalColor,
+                                    fontWeight: 'bold',
+                                  }}>{subcategoryRow.availableAmount}  </span>
+
                             </TableCell>
                           </TableRow>
                       ))}
@@ -216,17 +221,17 @@ export const getGridData = async () => {
       if (budgetedAmount < goalAmount) {
         //orange
         color = '#fd8200';
-        icon = <ErrorOutlineIcon/>;
+        icon = <ErrorOutlineIcon style={{fill: 'orange'}}/>;
       }
       if (budgetedAmount >= goalAmount) {
         //green
         color = '#099300';
-        icon = <CheckCircleOutlineIcon/>;
+        icon = <CheckCircleOutlineIcon style={{fill: 'green'}}/>;
       }
       if (availableAmount < 0) {
         //red
         color = '#ca0000';
-        icon = <ErrorIcon/>;
+        icon = <ErrorIcon style={{fill: 'red'}}/>;
       }
 
       totalAvailable += availableAmount;

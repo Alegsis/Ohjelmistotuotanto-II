@@ -349,6 +349,11 @@ div > #bank-button-1 {
     max-width: 150px;
 }
 
+.BudgetSubCategoryCell span {
+    border-radius: 0.25em;
+    color: white;
+}
+
 .BudgetHeaderCell2,
 .BudgetCatHeaderCell2 {
     background-color: #3a3434;
