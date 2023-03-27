@@ -14,6 +14,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {useState} from 'react';
 import Axios from 'axios';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorIcon from '@mui/icons-material/Error';
+import {Link} from '@mui/material';
 
 const CollapsibleTable = ({rows}) => {
 
@@ -39,37 +43,50 @@ const CollapsibleTable = ({rows}) => {
                 {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
               </IconButton>
             </TableCell>
-            <TableCell className="BudgetCatHeaderCell" width="30%" component="th" scope="row" >
+            <TableCell className="BudgetCatHeaderCell" width="30%"
+                       component="th" scope="row">
               {row.categoryName}
             </TableCell>
-            <TableCell className="BudgetCatHeaderCell" align="right" size="small"
-                       width="10%" >{row.totalBudgetedAmount}</TableCell>
-            <TableCell className="BudgetCatHeaderCell" align="right" size="small"
+            <TableCell className="BudgetCatHeaderCell" align="right"
+                       size="small"
+                       width="10%">{row.totalBudgetedAmount}</TableCell>
+            <TableCell className="BudgetCatHeaderCell" align="right"
+                       size="small"
                        width="10%">{row.totalActivityAmount}</TableCell>
-            <TableCell className="BudgetCatHeaderCell2" align="right" size="small"
+            <TableCell className="BudgetCatHeaderCell2" align="right"
+                       size="small"
                        width="10%">{row.totalAvailableAmount}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={6}>
-              <Collapse padding-right="0" style={{width: "100%"}} in={open} timeout="auto" unmountOnExit>
-                <Box sx={{margin:0}}>
+              <Collapse padding-right="0" style={{width: '100%'}} in={open}
+                        timeout="auto" unmountOnExit>
+                <Box sx={{margin: 0}}>
                   <Table size="small" aria-label="budgets">
                     <TableHead>
                     </TableHead>
                     <TableBody>
                       {row.subcategorySection.map((subcategoryRow, index) => (
                           <TableRow key={index}>
-                            <TableCell className="BudgetSubCategoryCell" align="left" ></TableCell>
-                            <TableCell className="BudgetSubCategoryCell" component="th" scope="row" size="small">
+                            <TableCell className="BudgetSubCategoryCell"
+                                       align="left"></TableCell>
+                            <TableCell className="BudgetSubCategoryCell"
+                                       component="th" scope="row" size="small">
                               {subcategoryRow.subcategoryName}
                             </TableCell>
                             <TableCell className="BudgetSubCategoryCell"
-                                align="right" size="small">{subcategoryRow.budgetedAmount}</TableCell>
+                                       align="right"
+                                       size="small">{subcategoryRow.budgetedAmount}</TableCell>
                             <TableCell className="BudgetSubCategoryCell"
-                                align="right" size="small">{subcategoryRow.activityAmount}</TableCell>
+                                       align="right"
+                                       size="small">{subcategoryRow.activityAmount}</TableCell>
                             <TableCell className="BudgetSubCategoryCell"
-                                align="right" size="small"
-                                style={{backgroundColor: subcategoryRow.goalColor}}>{subcategoryRow.availableAmount}</TableCell>
+                                       align="right" size="small"
+                                       icon={subcategoryRow.goalIcon}>
+                              <span
+                                  style={{backgroundColor: subcategoryRow.goalColor}}>{subcategoryRow.availableAmount}  </span>
+                              {subcategoryRow.goalIcon}
+                            </TableCell>
                           </TableRow>
                       ))}
                     </TableBody>
@@ -104,10 +121,14 @@ const CollapsibleTable = ({rows}) => {
           <TableHead>
             <TableRow>
               <TableCell align="left" className="BudgetHeaderCell"></TableCell>
-              <TableCell align="left" className="BudgetHeaderCell">All categories</TableCell>
-              <TableCell align="right" className="BudgetHeaderCell">Budgeted</TableCell>
-              <TableCell align="right" className="BudgetHeaderCell">Activity</TableCell>
-              <TableCell align="right"className="BudgetHeaderCell2">Available</TableCell>
+              <TableCell align="left" className="BudgetHeaderCell">All
+                categories</TableCell>
+              <TableCell align="right"
+                         className="BudgetHeaderCell">Budgeted</TableCell>
+              <TableCell align="right"
+                         className="BudgetHeaderCell">Activity</TableCell>
+              <TableCell align="right"
+                         className="BudgetHeaderCell2">Available</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -152,7 +173,6 @@ export const getGridData = async () => {
   const resultGoals = await Axios.get(getSql3);
   const goalsData = resultGoals.data;
 
-  //TODO here go the conditions of balance look up either Total.js or
   for (let x = 0; categoryCount > x; x++) {
     const categoryName = categoryData[x].category;
     const subCategoryCount = categoryData[x].subcategory.length;
@@ -174,12 +194,11 @@ export const getGridData = async () => {
       const goalIndex = goalsData.findIndex(
           obj => obj.SubCategoryName === subCategoryName);
 
-
-
       let activityAmount = 0;
       let budgetedAmount = 0;
       let goalAmount = 0;
       let color;
+      let icon;
 
       if (budgetedIndex !== -1) {
         budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted) || 0;
@@ -190,21 +209,25 @@ export const getGridData = async () => {
       }
 
       //goalType 1 here made (maybe?):
-      if (goalAmount === 0){
-        //green
-        color = '#099300';
+      if (goalAmount === 0) {
+        //white
+        color = '#ffffff';
+        icon = <CheckCircleOutlineIcon/>;
       }
-      else if (budgetedAmount < goalAmount ) {
+      if (budgetedAmount < goalAmount) {
         //orange
         color = '#fd8200';
+        icon = <ErrorOutlineIcon/>;
       }
-      else if (budgetedAmount >= goalAmount) {
+      if (budgetedAmount >= goalAmount) {
         //green
         color = '#099300';
+        icon = <CheckCircleOutlineIcon/>;
       }
-      else if (availableAmount < 0) {
+      if (availableAmount < 0) {
         //red
         color = '#ca0000';
+        icon = <ErrorIcon/>;
       }
 
       totalAvailable += availableAmount;
@@ -217,8 +240,10 @@ export const getGridData = async () => {
         activityAmount: activityAmount.toFixed(2),
         availableAmount: availableAmount.toFixed(2),
         goalColor: color,
+        goalIcon: icon,
       };
       subcategoryArray.push(subcategoryJson);
+      console.log(subcategoryArray);
     }
 
     tempArray.push(createData(categoryName, totalBudgeted.toFixed(2),
