@@ -20,12 +20,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 const CollapsibleTable = ({rows}) => {
 
-  const [accountStyle, setAccountStyle] = useState(true);
-
-  const handleAccountChange = (props) => {
-    setAccountStyle(props);
-  };
-
   const Row = (props) => {
     const {row} = props;
     const [open, setOpen] = React.useState(false);
