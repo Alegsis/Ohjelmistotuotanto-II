@@ -12,8 +12,11 @@ import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import {Select} from "@mui/material";
 import PropTypes from "prop-types";
+import {useState} from "react";
 
-const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, setEffectOpen}) => {
+const MuiTransactionGrid = ({rows, setRows, setaddTransactionSuccess, setMessage, setEffectOpen}) => {
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [pageSize, setPageSize] = useState(10)
 
     const CustomToolbar = () => {
         return (
@@ -66,12 +69,31 @@ const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, setEffe
         value: PropTypes.any,
     };
 
+    const handleCellEditCommit = ({ id, field, value }) => {
+        const updatedRows = rows.map((row) => {
+            if (row.id === id) {
+                return {
+                    ...row,
+                    [field]: value,
+                };
+            }
+            return row;
+        });
+        setRows(updatedRows);
+    };
+
+    const handleGetSelectedData = (id) => {
+        const selectedData = rows.filter(row => row.id === id);
+        console.log(selectedData);
+    };
+
     const renderSelectEditInputCell = (params) => {
         return <SelectEditInputCell {...params} />;
     };
 
     const handleSaveClick = (id) => () => {
         console.log(id)
+        handleGetSelectedData(id)
     };
 
     const handleDeleteClick = (id) => () => {
@@ -80,7 +102,7 @@ const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, setEffe
 
     const columns = [
         {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},
-        {field: 'AccountName', headerName: 'AccountName', width: 150, editable: true},
+        {field: 'AccountName', headerName: 'AccountName', width: 150},
         {field: 'TransactionName', headerName: 'Transaction Name', width: 200, editable: true},
         {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 100, editable: true},
         {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 100, editable: true},
@@ -118,12 +140,18 @@ const MuiTransactionGrid = ({rows, setaddTransactionSuccess, setMessage, setEffe
                 autoHeight {...columns}
                 columns={columns}
                 rows={rows}
-                checkboxSelection
-                disableSelectionOnClick
+                onSelectionModelChange={(newSelection) => {
+                    setSelectedRows(newSelection);
+                }}
+                selectionModel={selectedRows}
+                onCellEditCommit={handleCellEditCommit}
                 components={{
                     Toolbar: CustomToolbar,
                 }}
                 className="TransactionGrid"
+                rowsPerPageOptions={[10,25,50]}
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             />
     </div>
     )

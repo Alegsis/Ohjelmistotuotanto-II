@@ -20,7 +20,7 @@ const Account = ({loggedIn, setMessage, setEffectOpen, setAddAccTransactionSucce
 
     return (
         <div className="transaction">
-            <AccountTransactionGrid rows={rows} AccountName={AccountName} setMessage={setMessage} setEffectOpen={setEffectOpen} setAddAccTransactionSuccess={setAddAccTransactionSuccess}/>
+            <AccountTransactionGrid rows={rows} AccountName={AccountName} setMessage={setMessage} setRows={setRows} setEffectOpen={setEffectOpen} setAddAccTransactionSuccess={setAddAccTransactionSuccess}/>
         </div>
     );
 };
