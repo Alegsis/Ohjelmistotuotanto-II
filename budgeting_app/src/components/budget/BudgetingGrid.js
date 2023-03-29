@@ -109,7 +109,7 @@ const CollapsibleTable = ({rows}) => {
       subcategory: PropTypes.arrayOf(
           PropTypes.shape({
             activityAmount: PropTypes.number.isRequired,
-            budgetedAmount: PropTypes.string.isRequired,
+            budgetedAmount: PropTypes.number.isRequired,
             subcategoryName: PropTypes.string.isRequired,
           }),
       ),
@@ -248,8 +248,11 @@ export const getGridData = async () => {
       subcategoryArray.push(subcategoryJson);
     }
 
-    tempArray.push(createData(categoryName, totalBudgeted.toFixed(2),
-        totalActivity.toFixed(2), totalAvailable.toFixed(2), subcategoryArray));
+    tempArray.push(
+        createData(categoryName, parseFloat(totalBudgeted.toFixed(2)),
+            parseFloat(totalActivity.toFixed(2)),
+            parseFloat(totalAvailable.toFixed(2)),
+            subcategoryArray));
   }
 
   return tempArray;
