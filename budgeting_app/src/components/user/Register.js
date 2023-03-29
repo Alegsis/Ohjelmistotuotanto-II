@@ -81,7 +81,7 @@ const Register = () => {
                         required
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="username"
                         label="Username"
                         fullWidth
                         inputProps={{maxLength: 30}}
@@ -95,7 +95,7 @@ const Register = () => {
                         required
                         autoFocus
                         margin="dense"
-                        id="password-first"
+                        id="password"
                         label="Password"
                         type={showPassword ? 'text' : 'password'}
                         inputProps={{maxLength: 30}}

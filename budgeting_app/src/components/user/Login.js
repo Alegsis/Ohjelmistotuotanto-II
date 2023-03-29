@@ -137,7 +137,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                 <DialogActions>
                     <Register></Register>
                     <Button onClick={handleClose} className="cancel-button">Cancel</Button>
-                    <Button onClick={handleCloseAndLogin} className="login-button">Login</Button>
+                    <Button onClick={handleCloseAndLogin} className="login-button">Log in</Button>
                 </DialogActions>
             </Dialog>
         </div>
