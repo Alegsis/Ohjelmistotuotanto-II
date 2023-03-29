@@ -89,7 +89,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>
                 :
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button className='login-select' variant="outlined" onClick={handleClickOpen}>
                     {show}
                 </Button>
             }
