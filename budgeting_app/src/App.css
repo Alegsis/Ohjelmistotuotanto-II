@@ -85,8 +85,8 @@ Account balances
 .MuiCollapse-root,
 .MuiDataGrid-root {
     display: flex;
-    background-color: #3a3434;
-    color: white !important;
+    /*background-color: #3a3434;*/
+    /*color: white !important;*/
 }
 
 .MuiTableCell-root {
@@ -361,7 +361,7 @@ div > #bank-button-1 {
     align-items: center;
     justify-content: center;
     font-size: medium;
-    
+
 }
 
 .BudgetHeaderCell2,
