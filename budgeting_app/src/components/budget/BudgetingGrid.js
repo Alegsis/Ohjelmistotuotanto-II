@@ -26,7 +26,7 @@ const CollapsibleTable = ({rows}) => {
 
     return (
         <React.Fragment>
-          <TableRow>
+          <TableRow className="BudgetCatHeaderRow">
             <TableCell className="BudgetCatHeaderCell" width="5%">
               <IconButton
                   aria-label="expand row"
@@ -70,7 +70,7 @@ const CollapsibleTable = ({rows}) => {
                             <TableCell className="BudgetSubCategoryCell"
                                        align="right"
                                        size="small">{subcategoryRow.budgetedAmount}</TableCell>
-                            <TableCell className="BudgetSubCategoryCell"
+                            <TableCell className="BudgetSubCategoryCellActivity"
                                        align="right"
                                        size="small">{subcategoryRow.activityAmount}</TableCell>
                             <TableCell className="BudgetSubCategoryCell"
@@ -78,12 +78,12 @@ const CollapsibleTable = ({rows}) => {
                                        icon={subcategoryRow.goalIcon}
                                        style={{color: subcategoryRow.goalColor}}>
                               <div className="budgetStyleWrapper">
-                                <div>{subcategoryRow.goalIcon}</div>
+                                <div className="goalIconClass">{subcategoryRow.goalIcon}</div>
                                 <div>
                                 <span
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
-                                      fontWeight: 'bold',
+                                      fontWeight: 'bold'
                                     }}>{subcategoryRow.availableAmount}  </span>
                                 </div>
                               </div>
