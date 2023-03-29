@@ -4,12 +4,14 @@ import {
     GridToolbarContainer,
     GridToolbarDensitySelector,
     GridToolbarExport,
-    GridToolbarFilterButton
+    GridToolbarFilterButton, useGridApiContext
 } from '@mui/x-data-grid';
 import moment from "moment";
 import AddAccTransaction from "../transaction/AddAccTransaction";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import {Select} from "@mui/material";
+import PropTypes from "prop-types";
 
 export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, setAddAccTransactionSuccess, rows}) => {
 
@@ -23,6 +25,51 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
             </GridToolbarContainer>
         );
     }
+
+    function SelectEditInputCell(props) {
+        const { id, value, field } = props;
+        const apiRef = useGridApiContext();
+
+        const handleChange = async (event) => {
+            await apiRef.current.setEditCellValue({ id, field, value: event.target.value });
+        };
+
+        return (
+            <Select
+                value={value}
+                onChange={handleChange}
+                size="small"
+                sx={{ height: 1 }}
+                native
+                autoFocus
+            >
+                <option>Once</option>
+                <option>Daily</option>
+                <option>Weekly</option>
+                <option>Monthly</option>
+                <option>Yearly</option>
+            </Select>
+        );
+    }
+    SelectEditInputCell.propTypes = {
+        /**
+         * The column field of the cell that triggered the event.
+         */
+        field: PropTypes.string.isRequired,
+        /**
+         * The grid row id.
+         */
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        /**
+         * The cell value.
+         * If the column has `valueGetter`, use `params.row` to directly access the fields.
+         */
+        value: PropTypes.any,
+    };
+
+    const renderSelectEditInputCell = (params) => {
+        return <SelectEditInputCell {...params} />;
+    };
 
     const handleSaveClick = (id) => () => {
         console.log(id)
@@ -38,7 +85,7 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
         {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 100, editable: true},
         {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 100, editable: true},
         {field: 'Recipient', headerName: 'Payee', width: 100, editable: true},
-        {field: 'TransactionRepeat', headerName: 'Repeat', width: 100, editable: true},
+        {field: 'TransactionRepeat', headerName: 'Repeat', renderEditCell: renderSelectEditInputCell, width: 100, editable: true},
         {field: 'Memo', headerName: 'Memo', width: 200, editable: true},
         {
             field: 'actions',
