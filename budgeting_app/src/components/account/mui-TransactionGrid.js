@@ -164,7 +164,7 @@ export const getUserTransactions = (userID) => {
         for (let x = 0; x < response.data.length; x++) {
             updatedArray.push(
                 {
-                    id: x,
+                    id: response.data[x].TransactionID,
                     TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
                     AccountName: response.data[x].AccountName,
                     TransactionName: response.data[x].TransactionName,

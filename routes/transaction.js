@@ -8,7 +8,7 @@ const moment = require('moment/moment');
  */
 router.get('/:id', async (req, res) => {
   try {
-    const sqlQuery = `SELECT transaction.TransactionName, account.AccountName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
+    const sqlQuery = `SELECT transaction.TransactionID, transaction.TransactionName, account.AccountName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
 transaction.TransactionRepeat, transaction.Memo, transaction.TransactionDate 
 FROM transaction 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
@@ -27,7 +27,7 @@ WHERE user.UserID=?`;
  */
 router.get('/user-:userID/accounts-transactions/account-:accountName', async (req, res) => {
   try{
-    const sqlQuery = `SELECT transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
+    const sqlQuery = `SELECT transaction.TransactionID, transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
 transaction.TransactionRepeat, transaction.Memo, transaction.TransactionDate 
 FROM transaction 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
