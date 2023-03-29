@@ -149,7 +149,7 @@ Account balances
     text-align: center;
 }
 
-.login-select {
+.login-select{
     margin-left: auto !important;
     margin-right: 0 !important;
     padding-right: 1.2rem;
@@ -341,7 +341,8 @@ div > #bank-button-1 {
     border-radius: 4px !important;
 }
 
-.MuiOutlinedInput-notchedOutline {
+.MuiOutlinedInput-notchedOutline,
+.MuiButton-outlined{
     border-width: 1px !important;
     border-radius: 12px !important;
     border-color: #ffffff !important;
