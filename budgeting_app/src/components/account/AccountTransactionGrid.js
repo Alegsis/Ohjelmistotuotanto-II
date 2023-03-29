@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import {
-    DataGrid,
+    DataGrid, GridActionsCellItem,
     GridToolbarContainer,
     GridToolbarDensitySelector,
     GridToolbarExport,
@@ -8,6 +8,8 @@ import {
 } from '@mui/x-data-grid';
 import moment from "moment";
 import AddAccTransaction from "../transaction/AddAccTransaction";
+import SaveIcon from "@mui/icons-material/Save";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, setAddAccTransactionSuccess, rows}) => {
 
@@ -22,14 +24,44 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
         );
     }
 
+    const handleSaveClick = (id) => () => {
+        console.log(id)
+    };
+
+    const handleDeleteClick = (id) => () => {
+        console.log(id)
+    };
+
     const columns = [
         {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},
         {field: 'TransactionName', headerName: 'Transaction Name', width: 200, editable: true},
-        {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 150, editable: true},
-        {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 150, editable: true},
-        {field: 'Recipient', headerName: 'Payee', width: 150, editable: true},
-        {field: 'TransactionRepeat', headerName: 'Repeat', width: 150, editable: true},
-        {field: 'Memo', headerName: 'Memo', width: 300, editable: true}
+        {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 100, editable: true},
+        {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 100, editable: true},
+        {field: 'Recipient', headerName: 'Payee', width: 100, editable: true},
+        {field: 'TransactionRepeat', headerName: 'Repeat', width: 100, editable: true},
+        {field: 'Memo', headerName: 'Memo', width: 200, editable: true},
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 100,
+            cellClassName: 'actions',
+            getActions: ({ id }) => {
+                return [
+                    <GridActionsCellItem
+                        icon={<SaveIcon />}
+                        label="Save"
+                        onClick={handleSaveClick(id)}
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
+                        color="inherit"
+                    />,
+                ];
+            },
+        },
     ];
 
     return(
