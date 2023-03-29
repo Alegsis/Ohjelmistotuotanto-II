@@ -92,8 +92,9 @@ Account balances
 .MuiTableCell-root {
     /*background-color: #3a3434;
     border-color: #3a3434 !important;*/
-    padding: 0.5rem !important;
+    padding: 0 0.5rem 0 0.5rem !important;
     color: #000000 !important;
+    border-bottom: none !important;
 }
 
 
@@ -382,4 +383,18 @@ div > #bank-button-1 {
 .column.middle {
     background-color: white;
     color: black !important;
+    border-bottom: none;
+}
+
+.BudgetCatHeaderCell,
+.BudgetCatHeaderCell2{
+    background-color: #f6f6f6;
+    font-weight: bold !important;
+}
+
+
+
+.goalIconClass{
+    /*padding-top: 4px;*/
+    margin-top: 4px;
 }

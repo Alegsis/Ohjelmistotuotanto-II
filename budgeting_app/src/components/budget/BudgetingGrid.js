@@ -26,7 +26,7 @@ const CollapsibleTable = ({rows}) => {
 
     return (
         <React.Fragment>
-          <TableRow>
+          <TableRow className="BudgetCatHeaderRow">
             <TableCell className="BudgetCatHeaderCell" width="5%">
               <IconButton
                   aria-label="expand row"
@@ -78,7 +78,7 @@ const CollapsibleTable = ({rows}) => {
                                        icon={subcategoryRow.goalIcon}
                                        style={{color: subcategoryRow.goalColor}}>
                               <div className="budgetStyleWrapper">
-                                <div>{subcategoryRow.goalIcon}</div>
+                                <div className="goalIconClass">{subcategoryRow.goalIcon}</div>
                                 <div>
                                 <span
                                     style={{
