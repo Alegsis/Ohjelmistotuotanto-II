@@ -343,7 +343,8 @@ div > #bank-button-1 {
     max-width: 150px;
 }
 
-.BudgetSubCategoryCell {
+.BudgetSubCategoryCell,
+.BudgetSubCategoryCellActivity{
     background-color: #3a3434;
     color: #ffffff;
     width: 100px;
@@ -352,8 +353,11 @@ div > #bank-button-1 {
 }
 
 .BudgetSubCategoryCell span {
-    border-radius: 0.25em;
+    border-radius: 0.5em;
     color: white;
+    padding-right: 0.25em;
+    padding-left: 0.25em;
+    margin-right: -0.5em;
 }
 
 .budgetStyleWrapper {
@@ -380,6 +384,7 @@ div > #bank-button-1 {
 .BudgetSubCategoryCell,
 .BudgetHeaderCell2,
 .BudgetCatHeaderCell2,
+.BudgetSubCategoryCellActivity,
 .column.middle {
     background-color: white;
     color: black !important;
@@ -392,7 +397,9 @@ div > #bank-button-1 {
     font-weight: bold !important;
 }
 
-
+.BudgetSubCategoryCellActivity{
+    padding-right: 0.23rem !important;
+}
 
 .goalIconClass{
     /*padding-top: 4px;*/

@@ -70,7 +70,7 @@ const CollapsibleTable = ({rows}) => {
                             <TableCell className="BudgetSubCategoryCell"
                                        align="right"
                                        size="small">{subcategoryRow.budgetedAmount}</TableCell>
-                            <TableCell className="BudgetSubCategoryCell"
+                            <TableCell className="BudgetSubCategoryCellActivity"
                                        align="right"
                                        size="small">{subcategoryRow.activityAmount}</TableCell>
                             <TableCell className="BudgetSubCategoryCell"
@@ -83,7 +83,7 @@ const CollapsibleTable = ({rows}) => {
                                 <span
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
-                                      fontWeight: 'bold',
+                                      fontWeight: 'bold'
                                     }}>{subcategoryRow.availableAmount}  </span>
                                 </div>
                               </div>
