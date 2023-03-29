@@ -78,12 +78,13 @@ const CollapsibleTable = ({rows}) => {
                                        icon={subcategoryRow.goalIcon}
                                        style={{color: subcategoryRow.goalColor}}>
                               <div className="budgetStyleWrapper">
-                                <div className="goalIconClass">{subcategoryRow.goalIcon}</div>
+                                <div
+                                    className="goalIconClass">{subcategoryRow.goalIcon}</div>
                                 <div>
                                 <span
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
-                                      fontWeight: 'bold'
+                                      fontWeight: 'bold',
                                     }}>{subcategoryRow.availableAmount}  </span>
                                 </div>
                               </div>
@@ -245,7 +246,6 @@ export const getGridData = async () => {
         goalIcon: icon,
       };
       subcategoryArray.push(subcategoryJson);
-      console.log(subcategoryArray);
     }
 
     tempArray.push(createData(categoryName, totalBudgeted.toFixed(2),
