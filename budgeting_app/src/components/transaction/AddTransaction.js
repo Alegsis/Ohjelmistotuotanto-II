@@ -23,7 +23,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
   const [recipient, setRecipient] = useState("");
   const [inflow, setInflow] = useState(0.0);
   const [outflow, setOutflow] = useState(0.0);
-  const [transactionRepeat, setTransactionRepeat] = useState("");
+  const [transactionRepeat, setTransactionRepeat] = useState("Once");
   const [memo, setMemo] = useState("");
   const [account, setAccount] = useState("");
   const [accountsList, setAccountsList] = useState([]);
@@ -181,7 +181,6 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
             }}
           />
           <TextField
-            required
             autoFocus
             margin="dense"
             id="memo"
