@@ -82,14 +82,14 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         <div className='primary-button'>
             <span>
             {loggedIn ?
-                <Select className='login-select' value={show} onChange={(event) => setShow(event.target.value)}
-                        inputProps={{ IconComponent: () => null }} >
+                <Select className='login-select' variant="outlined" value={show} onChange={(event) => setShow(event.target.value)}
+                        inputProps={{IconComponent: () => null }} >
                     <MenuItem value={show} style={{display: 'none'}}>{show}</MenuItem>
                     <UserSettings setMessage={setMessage} setEffectOpen={setEffectOpen}></UserSettings>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>
                 :
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button className='login-select' variant="outlined" onClick={handleClickOpen}>
                     {show}
                 </Button>
             }

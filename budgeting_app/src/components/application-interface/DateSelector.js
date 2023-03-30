@@ -22,16 +22,25 @@ const DateSelector = ({setAddDashboardSuccess}) =>{
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DesktopDatePicker
+            <DesktopDatePicker className="monthYearPicker"
                 label="Date"
-                inputFormat="MM/YYYY"
+                inputFormat="MMMM YYYY"
                 value={date}
                 onChange={handleDateChange}
                 renderInput={(params: TextFieldProps) => {
-                    return <TextField {...params}/>;
+                    return <TextField variant="outlined"{...params}/>;
                 }}
                 views={["month", "year"]}
                 showDaysOutsideCurrentMonth
+                renderInput={(params) => (
+                    <TextField variant="outlined" size="small"
+                        {...params}
+                        sx={{
+                            svg: { color: '#fff' },
+                            input: { color: '#fff' },
+                        }}
+                    />
+                )}
             />
         </LocalizationProvider>
     );
