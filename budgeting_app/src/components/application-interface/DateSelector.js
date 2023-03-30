@@ -15,10 +15,12 @@ const DateSelector = ({setAddDashboardSuccess}) =>{
         localStorage.setItem("Year", date.format("YYYY"));
     }, [date]);
 
+
     const handleDateChange = (newDate) => {
         setDate(newDate)
         setAddDashboardSuccess(true)
     }
+
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -28,16 +30,19 @@ const DateSelector = ({setAddDashboardSuccess}) =>{
                 value={date}
                 onChange={handleDateChange}
                 renderInput={(params: TextFieldProps) => {
-                    return <TextField variant="outlined"{...params}/>;
+                    return <TextField variant="outlined" {...params}/>;
                 }}
                 views={["month", "year"]}
                 showDaysOutsideCurrentMonth
                 renderInput={(params) => (
-                    <TextField variant="outlined" size="small"
+                    <TextField variant="outlined"  size="small"
                         {...params}
                         sx={{
                             svg: { color: '#fff' },
                             input: { color: '#fff' },
+                            legend: { display: 'none'},
+                            label: {display: 'none'}
+
                         }}
                     />
                 )}
