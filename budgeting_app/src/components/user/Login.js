@@ -13,6 +13,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect} from "react";
 import UserSettings from "./UserSettings";
+import styled from '@emotion/styled';
 
 const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
@@ -78,18 +79,84 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         setIsSidebarOpen(false)
     };
 
+    const headerStyling ={
+        "&.Mui-focused": {
+            "& fieldset": {
+                borderColor: '#d380ff',
+                color: "#d380ff",
+                outlineColor: "#d380ff",
+                outlineWidth: "2px"
+            },
+            //color: "#d380ff !important",
+            outlineColor: "#d380ff !important",
+            outlineWidth: "2px"
+        },
+        "&.MuiOutlinedInput-root:hover": {
+            "& fieldset": {
+                borderColor: '#d380ff !important',
+                color: "#d380ff",
+                outlineColor: "#d380ff",
+                outlineWidth: "2px"
+            }
+        },
+        "&.MuiOutlinedInput-root:focused": {
+            "& fieldset": {
+                borderColor: '#d380ff !important',
+                color: "#d380ff",
+                outlineColor: "#d380ff",
+                outlineWidth: "2px"
+            }
+        },
+        "&.MuiOutlinedInput-root": {
+            color: "#ffffff",
+        "& fieldset": {
+            borderColor: '#ffffff !important',
+                color: "#d380ff",
+            }
+        },
+        "&.MuiButtonBase-root": {
+            color: "#ffffff",
+            borderColor: '#ffffff !important',
+            borderRadius: '4px !important',
+            "& fieldset": {
+                borderColor: '#ffffff !important',
+                color: "#d380ff",
+            }
+        },
+        "&.MuiButtonBase-root:hover": {
+            borderColor: '#d380ff !important',
+            color: "#d380ff",
+            borderRadius: '4px !important',
+            "& fieldset": {
+                borderColor: '#ffffff !important',
+                color: "#d380ff",
+            }
+        },
+
+        "&.MuiOutlinedInput-root:active": {
+            color: "#ffffff !important",
+            "& fieldset": {
+                borderColor: '#ffffff !important',
+                color: "#d380ff",
+            }
+        }
+
+    };
+
     return (
-        <div className='primary-button'>
+        <div className='primary-button' >
             <span>
             {loggedIn ?
-                <Select className='login-select' variant="outlined" value={show} onChange={(event) => setShow(event.target.value)}
+                <Select
+                    sx={headerStyling}
+                    className='login-select' variant="outlined" value={show} onChange={(event) => setShow(event.target.value)}
                         inputProps={{IconComponent: () => null }} >
                     <MenuItem value={show} style={{display: 'none'}}>{show}</MenuItem>
                     <UserSettings setMessage={setMessage} setEffectOpen={setEffectOpen}></UserSettings>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>
                 :
-                <Button className='login-select' variant="outlined" onClick={handleClickOpen}>
+                <Button sx={headerStyling} className='login-select' variant="outlined" onClick={handleClickOpen}>
                     {show}
                 </Button>
             }
