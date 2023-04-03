@@ -109,7 +109,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                 {
                   Amount: balance,
                   BudgetDate: moment().format('YYYY-MM-DD'),
-                  FromSubCategory: 'AvailableFunds',
+                  FromSubCategory: 'Available Funds',
                   ToSubCategory: subCategory,
                   UserID: userID,
                 });

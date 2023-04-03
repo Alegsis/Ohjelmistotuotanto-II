@@ -74,7 +74,7 @@ router.post('/new-account', async (req, res) => {
 
     const insertedAccountID = rows.insertId;
     const transactionName = 'Starting balance';
-    const subcategoryName = 'AvailableFunds';
+    const subcategoryName = 'Available Funds';
 
     const insertTransaction = `INSERT INTO transaction 
 (transaction.TransactionName, transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
