@@ -84,6 +84,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
       SubCategoryName: selectedSubCategory,
       UserID: userID
     }).then(() => {
+      //Deleted subcategory balance goes to availablefunds
       handleAddBudget();
     }).catch((response) => {
       alert(response.response.data);

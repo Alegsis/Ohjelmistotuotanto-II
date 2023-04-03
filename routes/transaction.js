@@ -8,17 +8,20 @@ const moment = require('moment/moment');
  */
 router.get('/:id', async (req, res) => {
   try {
-    const sqlQuery = `SELECT transaction.TransactionName, account.AccountName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
+    const sqlQuery = `SELECT transaction.TransactionName, account.AccountName, transaction.Outflow,transaction.Inflow, transaction.Recipient, subcategory.SubcategoryName, 
 transaction.TransactionRepeat, transaction.Memo, transaction.TransactionDate 
 FROM transaction 
+INNER JOIN subcategory ON transaction.SubCategoryID = subcategory.SubCategoryID 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
 INNER JOIN user ON account.UserID = user.UserID 
 WHERE user.UserID=?`;
 
+    console.log(sqlQuery)
+
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).json(rows);
   } catch (error) {
-    res.status(400).send('Something went wrong, please try again');
+    res.status(400).send(error);
   }
 });
 
@@ -27,9 +30,10 @@ WHERE user.UserID=?`;
  */
 router.get('/user-:userID/accounts-transactions/account-:accountName', async (req, res) => {
   try{
-    const sqlQuery = `SELECT transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, 
+    const sqlQuery = `SELECT transaction.TransactionName, transaction.Outflow,transaction.Inflow, transaction.Recipient, subcategory.SubcategoryName, 
 transaction.TransactionRepeat, transaction.Memo, transaction.TransactionDate 
 FROM transaction 
+INNER JOIN subcategory ON transaction.SubCategoryID = subcategory.SubCategoryID 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
 INNER JOIN user ON account.UserID = user.UserID 
 WHERE user.UserID=? AND account.AccountName=?`;
