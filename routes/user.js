@@ -75,7 +75,9 @@ router.post('/register', async (req, res) => {
         const resultInsertCategory = await pool.query(insertCategory);
         const insertedCategoryID = resultInsertCategory.insertId.toString();
 
-        const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES ("AvailableFunds", 0, '${userID}', ${insertedCategoryID})`;
+        const insertSubCategory = `INSERT INTO subcategory (SubCategoryName, Balance, UserID, CategoryID) VALUES 
+("Available Funds", 0, '${userID}', ${insertedCategoryID}), 
+("Account Transfer", 0, '${userID}', ${insertedCategoryID})`;
         await pool.query(insertSubCategory);
 
         res.status(200).json('Register was successful');
@@ -99,17 +101,21 @@ router.post('/login', async (req, res) => {
   try {
     const {username, password} = req.body;
 
-    const sqlGetUser = 'SELECT userID, UserPassword FROM user WHERE Username=?';
+    const sqlGetUser = 'SELECT user.userID, user.UserPassword, user.IsActive FROM user WHERE user.Username=?';
     const rows = await pool.query(sqlGetUser, username);
 
     const isValid = await bcrypt.compare(password, rows[0].UserPassword);
 
-    if (isValid) {
-      const sqlGetUser = `SELECT userID FROM user WHERE Username=?`;
-      const userID = await pool.query(sqlGetUser, username);
-      res.status(200).json(userID[0].userID);
-    } else if (!isValid) {
-      res.status(401).send('Wrong password');
+    if(rows[0].IsActive === 1){
+      if (isValid) {
+        const sqlGetUser = `SELECT userID FROM user WHERE Username=?`;
+        const userID = await pool.query(sqlGetUser, username);
+        res.status(200).json(userID[0].userID);
+      } else {
+        res.status(401).send('Wrong password');
+      }
+    } else{
+      res.status(401).send('User is not active');
     }
 
   } catch (error) {
@@ -165,6 +171,22 @@ router.post('/change-email', async (req, res) => {
     } else {
       res.status(409).send('Email is already in use');
     }
+  } catch (error) {
+    res.status(400).send('Something went wrong');
+  }
+});
+
+/**
+ * Delete user
+ */
+router.post('/delete-user', async (req, res) => {
+  try{
+    const {userID} = req.body;
+
+    const updateSQL = 'UPDATE user SET user.IsActive=0 WHERE user.UserID=?'
+    await pool.query(updateSQL, userID)
+
+    res.status(200).send('User is deleted')
   } catch (error) {
     res.status(400).send('Something went wrong');
   }
