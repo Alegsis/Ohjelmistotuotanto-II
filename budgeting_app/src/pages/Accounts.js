@@ -18,7 +18,7 @@ const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, se
 
   return (
       <div className="transaction">
-          <MuiTransactionGrid rows={rows} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
+          <MuiTransactionGrid rows={rows} setRows={setRows} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
       </div>
   );
 };

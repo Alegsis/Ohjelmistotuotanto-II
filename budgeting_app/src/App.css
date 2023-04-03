@@ -215,7 +215,7 @@ Account balances
     text-transform: none;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 0px;
+    margin-left: 0;
     color: #ffffff;
     cursor: pointer;
     display: flex;
@@ -243,8 +243,11 @@ div > #bank-button-1 {
 }
 
 .custom-alert {
-    left: 70%;
+    left: 85%;
     transform: translate(-60%, -60%);
+    position: fixed;
+    top: 7rem;
+    width: 25%;
 }
 
 .delete-button {
@@ -351,7 +354,6 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
 }
 
 
-
 .MuiSelect-icon {
     display: none;
 }
@@ -437,7 +439,7 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     color: white;
     border-color: white;
     width: 7.3em;
-    margin-top: 0px !important;
+    margin-top: 0 !important;
     margin-left: 4em !important;
     top: -0px;
 }

@@ -46,7 +46,7 @@ router.get('/:id/subcategory-name-and-balance', async (req, res) => {
  */
 router.get('/:id/available-to-budget', async (req, res) => {
   try {
-    const sqlQuery = `SELECT subcategory.Balance FROM subcategory WHERE UserID=? AND subcategory.SubCategoryName = 'AvailableFunds'`;
+    const sqlQuery = `SELECT subcategory.Balance FROM subcategory WHERE UserID=? AND subcategory.SubCategoryName = 'Available Funds'`;
     const rows = await pool.query(sqlQuery, req.params.id);
     res.status(200).send(rows);
   } catch (error) {
@@ -92,7 +92,7 @@ FROM subcategory
 INNER JOIN transaction ON subcategory.SubCategoryID = transaction.SubCategoryID 
 INNER JOIN account ON transaction.AccountID = account.AccountID 
 INNER JOIN user ON account.UserID = user.UserID 
-WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds' 
+WHERE user.UserID = '${userID}' AND transaction.TransactionDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'Available Funds' 
 GROUP BY subcategory.SubcategoryName;`;
 
         const activity = await pool.query(sqlQueryActivity);
@@ -101,7 +101,7 @@ GROUP BY subcategory.SubcategoryName;`;
 INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.ToSubCategoryID
 INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
 INNER JOIN user ON subcategory.UserID = user.UserID
-WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
+WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'Available Funds'
 GROUP BY subcategory.SubcategoryName;`;
 
         let budgeted = await pool.query(sqlQueryBudgetedTo);
@@ -110,7 +110,7 @@ GROUP BY subcategory.SubcategoryName;`;
 INNER JOIN mergebsc ON subcategory.SubCategoryID = mergebsc.FromSubCategoryID
 INNER JOIN budget ON mergebsc.BudgetID = budget.BudgetID
 INNER JOIN user ON subcategory.UserID = user.UserID
-WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'AvailableFunds'
+WHERE user.UserID = '${userID}' AND budget.BudgetDate BETWEEN '${startDate}' AND '${endDate}' AND NOT subcategory.SubCategoryName = 'Available Funds'
 GROUP BY subcategory.SubcategoryName;`;
 
         const budgetedMinus = await pool.query(sqlQueryBudgetedFrom);

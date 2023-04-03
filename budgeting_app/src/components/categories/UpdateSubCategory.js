@@ -84,6 +84,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
       SubCategoryName: selectedSubCategory,
       UserID: userID
     }).then(() => {
+      //Deleted subcategory balance goes to availablefunds
       handleAddBudget();
     }).catch((response) => {
       alert(response.response.data);
@@ -102,7 +103,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
           Amount: balance,
           BudgetDate: date,
           FromSubCategory: selectedSubCategory,
-          ToSubCategory: 'AvailableFunds',
+          ToSubCategory: 'Available Funds',
           UserID: userID,
           Type: 1
         }).then(() => {
@@ -179,8 +180,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     const updatedArray = [];
     Axios.get(baseUrl).then((response) => {
       for (let x = 0; x < response.data.length; x++) {
-        if (response.data[x].SubCategoryName.toString() !==
-            'AvailableFunds') {
+        if (response.data[x].SubCategoryName.toString() !== 'Account Transfer' && response.data[x].SubCategoryName.toString() !== 'Available Funds') {
           const subCategory = response.data[x].SubCategoryName;
           updatedArray.push({value: subCategory});
         }

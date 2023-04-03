@@ -36,7 +36,7 @@ const App = () => {
 
     return (
         <Router>
-            <div className="custom-alert" style={{ position: 'fixed', top: '64px', width: '25%' }}>
+            <div className="custom-alert">
                 <CustomAlert effectOpen={effectOpen} message={message} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
             </div>
             <div className="header">
