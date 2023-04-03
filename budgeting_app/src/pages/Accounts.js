@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import MuiTransactionGrid from "../components/account/mui-TransactionGrid";
-import {getUserTransactions} from "../components/account/mui-TransactionGrid"
+import {AccountsTransactionGrid, getUserTransactions} from "../components/account/Accounts-TransactionGrid"
+import {getPayeeList} from "../components/transaction/Payeelist";
 
 const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, setEffectOpen, setMessage}) => {
     const [rows, setRows] = useState([]);
+    const [payeeList, setPayeeList] = useState([])
 
     useEffect(() => {
         if (loggedIn || addTransactionSuccess) {
@@ -11,16 +12,16 @@ const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, se
             getUserTransactions(userID).then((data) => setRows(data)).catch((error) => {
                 console.log(error)
                 alert('error retrieving UserTransactions')
-            });
+            })
             setaddTransactionSuccess(false)
         }
     }, [loggedIn, addTransactionSuccess]);
 
   return (
       <div className="transaction">
-          <MuiTransactionGrid rows={rows} setRows={setRows} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
+          <AccountsTransactionGrid rows={rows} setRows={setRows} payeeList={payeeList} setaddTransactionSuccess={setaddTransactionSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
       </div>
-  );
-};
+  )
+}
 
-export default Accounts;
+export default Accounts

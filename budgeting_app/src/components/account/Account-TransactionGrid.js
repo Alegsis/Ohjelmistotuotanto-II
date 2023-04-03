@@ -7,14 +7,15 @@ import {
     GridToolbarFilterButton, useGridApiContext
 } from '@mui/x-data-grid';
 import moment from "moment";
-import AddTransaction from "../transaction/AddTransaction";
+import AddAccTransaction from "../transaction/AddAccTransaction";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import {Select} from "@mui/material";
 import PropTypes from "prop-types";
-import {useState} from "react";
+import React, {useState} from "react";
+import MenuItem from "@mui/material/MenuItem";
 
-const MuiTransactionGrid = ({rows, setRows, setaddTransactionSuccess, setMessage, setEffectOpen}) => {
+export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, setAddAccTransactionSuccess, rows, setRows, payeeList}) => {
     const [selectedRows, setSelectedRows] = useState([]);
     const [pageSize, setPageSize] = useState(10)
 
@@ -24,34 +25,52 @@ const MuiTransactionGrid = ({rows, setRows, setaddTransactionSuccess, setMessage
                 <GridToolbarFilterButton />
                 <GridToolbarDensitySelector />
                 <GridToolbarExport />
-                <AddTransaction setaddTransactionSuccess={setaddTransactionSuccess} setMessage={setMessage} setEffectOpen={setEffectOpen}/>
+                <AddAccTransaction setEffectOpen={setEffectOpen} setMessage={setMessage} AccountName={AccountName} setAddAccTransactionSuccess={setAddAccTransactionSuccess}/>
             </GridToolbarContainer>
         );
     }
-    function SelectEditInputCell(props) {
+
+    const SelectEditInputCell = (props) => {
         const { id, value, field } = props;
         const apiRef = useGridApiContext();
-
         const handleChange = async (event) => {
             await apiRef.current.setEditCellValue({ id, field, value: event.target.value });
         };
-
-        return (
-            <Select
-                value={value}
-                onChange={handleChange}
-                size="small"
-                sx={{ height: 1 }}
-                native
-                autoFocus
-            >
-                <option>Once</option>
-                <option>Daily</option>
-                <option>Weekly</option>
-                <option>Monthly</option>
-                <option>Yearly</option>
-            </Select>
-        );
+        if(field === ('TransactionRepeat')){
+            return (
+                <Select
+                    value={value}
+                    onChange={handleChange}
+                    size="small"
+                    sx={{ height: 1 }}
+                    native
+                    autoFocus
+                >
+                    <option>Once</option>
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </Select>
+            );
+        }else if(field === ('Recipient')){
+            return (
+                <Select
+                    value={value}
+                    onChange={handleChange}
+                    size="small"
+                    sx={{ height: 1 }}
+                    native
+                    autoFocus
+                >
+                    {payeeList.map((payee) => (
+                        <MenuItem key={payee.value} value={payee.value}>
+                            {payee.value}
+                        </MenuItem>
+                    ))}
+                </Select>
+            )
+        }
     }
     SelectEditInputCell.propTypes = {
         /**
@@ -101,15 +120,14 @@ const MuiTransactionGrid = ({rows, setRows, setaddTransactionSuccess, setMessage
     };
 
     const columns = [
-        {field: 'TransactionDate', headerName: 'DATE', width: 150, editable: true},
-        {field: 'AccountName', headerName: 'AccountName', width: 150},
+        {field: 'TransactionDate', headerName: 'DATE', width: 150},
         {field: 'TransactionName', headerName: 'Transaction Name', width: 200, editable: true},
         {field: 'Subcategory', headerName: 'Subcategory', width: 200},
         {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 100, editable: true},
         {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 100, editable: true},
-        {field: 'Recipient', headerName: 'Payee', width: 100, editable: true},
-        {field: 'TransactionRepeat', headerName: 'Repeat', width: 100, renderEditCell: renderSelectEditInputCell, editable: true},
-        {field: 'Memo', headerName: 'Memo', width: 100, editable: true},
+        {field: 'Recipient', headerName: 'Payee', renderEditCell: renderSelectEditInputCell, width: 100,  editable: true},
+        {field: 'TransactionRepeat', headerName: 'Repeat', renderEditCell: renderSelectEditInputCell, width: 100, editable: true},
+        {field: 'Memo', headerName: 'Memo', width: 200, editable: true},
         {
             field: 'actions',
             type: 'actions',
@@ -117,19 +135,19 @@ const MuiTransactionGrid = ({rows, setRows, setaddTransactionSuccess, setMessage
             width: 100,
             cellClassName: 'actions',
             getActions: ({ id }) => {
-                    return [
-                        <GridActionsCellItem
-                            icon={<SaveIcon />}
-                            label="Save"
-                            onClick={handleSaveClick(id)}
-                        />,
-                        <GridActionsCellItem
-                            icon={<DeleteIcon />}
-                            label="Delete"
-                            onClick={handleDeleteClick(id)}
-                            color="inherit"
-                        />,
-                    ];
+                return [
+                    <GridActionsCellItem
+                        icon={<SaveIcon />}
+                        label="Save"
+                        onClick={handleSaveClick(id)}
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
+                        color="inherit"
+                    />,
+                ];
             },
         },
     ];
@@ -154,12 +172,12 @@ const MuiTransactionGrid = ({rows, setRows, setaddTransactionSuccess, setMessage
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             />
-    </div>
+        </div>
     )
 }
 
-export const getUserTransactions = (userID) => {
-    const baseUrl = `http://localhost:3001/transaction/${userID}`;
+export const getAccountTransactions = (userID, accountName) => {
+    const baseUrl = `http://localhost:3001/transaction/user-${userID}/accounts-transactions/account-${accountName}`;
     const updatedArray = [];
     return Axios.get(baseUrl).then(((response) => {
         for (let x = 0; x < response.data.length; x++) {
@@ -167,7 +185,6 @@ export const getUserTransactions = (userID) => {
                 {
                     id: response.data[x].TransactionID,
                     TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
-                    AccountName: response.data[x].AccountName,
                     TransactionName: response.data[x].TransactionName,
                     Subcategory: response.data[x].SubcategoryName,
                     Outflow: response.data[x].Outflow,
@@ -183,5 +200,3 @@ export const getUserTransactions = (userID) => {
         alert(response.response.data);
     });
 };
-
-export default MuiTransactionGrid
