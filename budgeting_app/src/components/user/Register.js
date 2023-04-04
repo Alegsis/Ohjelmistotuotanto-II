@@ -179,7 +179,7 @@ const Register = () => {
                             style: { textTransform: "lowercase" },
                             maxLength: 60,
                         }}
-                        variant="outlined"
+                        variant="filled"
                         value={email}
                         onChange={handleChange}
                         error={emailError}
