@@ -19,7 +19,38 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
     const [rePassword, setRePassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [currentEmail, setCurrentEmail] = useState('');
-    const [newEmail, setNewEmail] = useState('');
+
+
+        const [newEmail, setNewEmail] = useState("");
+        const [emailError, setEmailError] = useState(false);
+
+        const validateEmail = (email) => {
+            // regular expression for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                // invalid email format
+                return false;
+            }
+
+            // split the email address into parts
+            const parts = email.split("@");
+            const domainParts = parts[1].split(".");
+            const tld = domainParts[domainParts.length - 1].toLowerCase();
+
+            // list of valid top-level domains
+            const validTLDs = ["com", "org", "net", "edu", "gov", "fi"];
+
+            // check if the top-level domain is valid
+            return validTLDs.includes(tld);
+        };
+
+        const handleEmailChange = (event) => {
+            const value = event.target.value;
+            setNewEmail(value);
+            setEmailError(!validateEmail(value));
+        };
+
 
     const handleClick = () => {
         setShowPassword(!showPassword);
@@ -206,8 +237,8 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                         disabled
                         margin="dense"
                         id="current-email"
-                        label= {currentEmail}
-                        inputProps={{maxLength: 60 }}
+                        label={currentEmail}
+                        inputProps={{ maxLength: 60 }}
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
@@ -220,15 +251,20 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                         margin="dense"
                         id="first-email"
                         label="New email"
-                        inputProps={{maxLength: 60 }}
+                        inputProps={{ maxLength: 60 }}
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
                         variant="filled"
                         fullWidth
-                        onChange={(event) => {
-                            setNewEmail(event.target.value)
-                        }}
+                        value={newEmail}
+                        onChange={handleEmailChange}
+                        error={emailError}
+                        helperText={
+                            emailError
+                                ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)"
+                                : ""
+                        }
                     />
                 </DialogContent>
                 <DialogActions style={{justifyContent: "space-between"}}>
