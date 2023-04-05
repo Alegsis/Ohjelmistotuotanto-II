@@ -42,13 +42,16 @@ const CollapsibleTable = ({rows}) => {
             </TableCell>
             <TableCell className="BudgetCatHeaderCell" align="right"
                        size="small"
-                       width="10%">{row.totalBudgetedAmount}</TableCell>
+                       width="10%">{row.totalBudgetedAmount.toFixed(
+                2)}</TableCell>
             <TableCell className="BudgetCatHeaderCell" align="right"
                        size="small"
-                       width="10%">{row.totalActivityAmount}</TableCell>
+                       width="10%">{row.totalActivityAmount.toFixed(
+                2)}</TableCell>
             <TableCell className="BudgetCatHeaderCell2" align="right"
                        size="small"
-                       width="10%">{row.totalAvailableAmount}</TableCell>
+                       width="10%">{row.totalAvailableAmount.toFixed(
+                2)}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={6}>
@@ -180,9 +183,9 @@ export const getGridData = async () => {
     const subCategoryCount = categoryData[x].subcategory.length;
 
     let subcategoryArray = [];
-    let totalAvailable = 0;
-    let totalBudgeted = 0;
-    let totalActivity = 0;
+    let totalAvailable = 0.00;
+    let totalBudgeted = 0.00;
+    let totalActivity = 0.00;
 
     for (let y = 0; subCategoryCount > y; y++) {
 
@@ -196,19 +199,23 @@ export const getGridData = async () => {
       const goalIndex = goalsData.findIndex(
           obj => obj.SubCategoryName === subCategoryName);
 
-      let activityAmount = 0;
-      let budgetedAmount = 0;
-      let goalAmount = 0;
+      let activityAmount = 0.00;
+      let budgetedAmount = 0.00;
+      let goalAmount = 0.00;
       let color;
       let icon;
 
       if (budgetedIndex !== -1) {
-        budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted) || 0;
-        activityAmount = parseFloat(budgetData[budgetedIndex].Activity) || 0;
+        budgetedAmount = parseFloat(budgetData[budgetedIndex].Budgeted) || 0.00;
+        activityAmount = parseFloat(budgetData[budgetedIndex].Activity) || 0.00;
       }
       if (goalIndex !== -1) {
-        goalAmount = parseFloat(goalsData[goalIndex].Amount) || 0;
+        goalAmount = parseFloat(goalsData[goalIndex].Amount) || 0.00;
       }
+
+      // totalAvailable = parseFloat(totalAvailable.toFixed(2));
+      // totalBudgeted = parseFloat(totalBudgeted.toFixed(2));
+      // totalActivity = parseFloat(totalActivity.toFixed(2));
 
       //goalType 1 here made (maybe?):
       //note setting this to 0 in backend doesn't quite work yet so...
