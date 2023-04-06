@@ -54,13 +54,13 @@ router.get('/user-:userID/get-payee-list', async (req, res) => {
   try{
     const userID = req.params.userID;
     const sqlQuery = `SELECT transaction.Recipient AS 'Payee' FROM transaction 
-WHERE transaction.AccountID = (SELECT account.AccountID FROM account WHERE account.UserID = '${userID}') AND transaction.Recipient != '';`;
+WHERE transaction.AccountID IN (SELECT account.AccountID FROM account WHERE account.UserID = '${userID}') AND transaction.Recipient != '';`;
 
     const rows = await pool.query(sqlQuery, userID);
     res.status(200).json(rows);
 
   } catch (error) {
-    res.status(400).send('Something went wrong, please try again');
+    res.status(400).send(error.message);
   }
 });
 
@@ -69,7 +69,6 @@ WHERE transaction.AccountID = (SELECT account.AccountID FROM account WHERE accou
  */
 router.post('/new-transaction', async (req, res) => {
   try {
-
     const {
       TransactionName,
       Outflow,
@@ -132,6 +131,29 @@ WHERE account.AccountID = ${accountID};`;
       res.status(200).json('New transaction was added');
     }
   } catch (error) {
+    res.status(400).send('Something went wrong, please try again');
+  }
+});
+
+/**
+ * Update transaction
+ */
+router.post('/update-transaction', async (req, res) => {
+  try {
+    const {
+      TransactionName,
+      Recipient,
+      TransactionRepeat,
+      Memo,
+        TransactionID
+    } = req.body;
+
+    const updateTransactionSQL = `UPDATE transaction SET transaction.Recipient = '${Recipient}', 
+transaction.TransactionName = '${TransactionName}', transaction.TransactionRepeat = '${TransactionRepeat}', transaction.Memo = '${Memo}' 
+WHERE transaction.TransactionID = ${TransactionID};`
+    await pool.query(updateTransactionSQL);
+    res.status(200).json('Transaction updated successfully');
+    } catch (error) {
     res.status(400).send('Something went wrong, please try again');
   }
 });
