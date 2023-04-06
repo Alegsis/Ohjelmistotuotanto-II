@@ -2,11 +2,11 @@ import Axios from "axios";
 
 export const getPayeeList = () => {
     const userID = localStorage.getItem('UserID');
-    const baseUrl = `http://localhost:3001/category/${userID}`;
+    const baseUrl = `http://localhost:3001/transaction/user-${userID}/get-payee-list`;
     const updatedArray = [];
     return Axios.get(baseUrl).then((response) => {
         for (let x = 0; x < response.data.length; x++) {
-            const payee = response.data[x].Recipient;
+            const payee = response.data[x].Payee;
             updatedArray.push({value: payee});
         }
         return updatedArray;
@@ -15,11 +15,4 @@ export const getPayeeList = () => {
     });
 };
 
-//Tämä Account, Accountiin kuhan on bäckkis
-/**
-getPayeeList().then((data) => setPayeeList(data)).catch((error) => {
-    console.log(error)
-    alert('error retrieving Payeelist')
-})
 
- **/
