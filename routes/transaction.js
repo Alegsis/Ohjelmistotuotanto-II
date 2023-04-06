@@ -54,13 +54,13 @@ router.get('/user-:userID/get-payee-list', async (req, res) => {
   try{
     const userID = req.params.userID;
     const sqlQuery = `SELECT transaction.Recipient AS 'Payee' FROM transaction 
-WHERE transaction.AccountID = (SELECT account.AccountID FROM account WHERE account.UserID = '${userID}') AND transaction.Recipient != '';`;
+WHERE transaction.AccountID IN (SELECT account.AccountID FROM account WHERE account.UserID = '${userID}') AND transaction.Recipient != '';`;
 
     const rows = await pool.query(sqlQuery, userID);
     res.status(200).json(rows);
 
   } catch (error) {
-    res.status(400).send('Something went wrong, please try again');
+    res.status(400).send(error.message);
   }
 });
 
