@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
 router.get('/user-:userID/find-categoryid/categoryname-:categoryName',
     async (req, res) => {
       try {
-        const sqlQuery = `SELECT category.CategoryID FROM category WHERE category.UserID=? AND category.CategoryName=?`;
+        const sqlQuery = `SELECT category.CategoryID FROM category WHERE category.UserID=? AND category.CategoryName=? AND category.IsActive = 1`;
 
         const userID = req.params.userID;
         const categoryName = req.params.categoryName;
@@ -42,7 +42,7 @@ router.get('/:id/return-category-dictionary/date-:date', async (req, res) => {
     const date = req.params.date;
     const endDate = `${date}-31`;
 
-    const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=? AND category.CategoryName != 'Available' `;
+    const sqlQueryCategories = `SELECT category.CategoryName FROM category WHERE UserID=? AND category.CategoryName != 'Available' AND category.IsActive = 1`;
     const categories = await pool.query(sqlQueryCategories, userID);
     let dictionary = [];
 
@@ -129,5 +129,30 @@ router.post('/update-category', async (req, res) => {
     res.status(400).send('Something went wrong, please try again');
   }
 });
+
+/**
+ * Update category's name
+ */
+router.post('/delete-category', async (req, res) => {
+  try {
+    const {CategoryName, UserID} = req.body;
+    const sqlQueryCheckSubcategoryCount = `SELECT subcategory.SubCategoryName FROM subcategory 
+WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE category.CategoryName = '${CategoryName}' AND category.UserID = '${UserID}') AND subcategory.IsActive = 1;`;
+    const subcategoryCount = await pool.query(sqlQueryCheckSubcategoryCount);
+
+    if(subcategoryCount.length === 0){
+      const sqlQueryDelete = `UPDATE category SET category.IsActive = 0 WHERE category.UserID = '${UserID}' AND category.CategoryName = '${CategoryName}'`;
+      await pool.query(sqlQueryDelete);
+      res.status(200).json('Category deleted succesfully');
+    } else {
+      res.status(409).json('You must delete all subcategories before you can delete category');
+    }
+
+  } catch (error) {
+    res.status(400).send('Something went wrong, please try again');
+  }
+});
+
+
 
 module.exports = router;
