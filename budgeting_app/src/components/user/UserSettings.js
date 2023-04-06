@@ -26,7 +26,8 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
 
         const validateEmail = (email) => {
             // regular expression for email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            //const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailRegex = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,})$/;
 
             if (!emailRegex.test(email)) {
                 // invalid email format
@@ -112,7 +113,7 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
     const handleChangeEmail = () => {
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
-        if(ValidateEmail(newEmail)) {
+        if(validateEmail(newEmail)) {
             Axios.post(baseUrl, {
                 newEmail: newEmail,
                 userID: userID
@@ -125,8 +126,8 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
             }).catch(response => {
                 alert(response.response.data)
             })
-        } else {
-            alert('Email-address does not meet requirements.')
+        //} else {
+        //    alert('Email-address does not meet requirements.')
         }
     }
     const handleGetEmail = () => {
