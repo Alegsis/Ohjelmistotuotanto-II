@@ -26,10 +26,13 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
 
         const [newEmail, setNewEmail] = useState("");
         const [emailError, setEmailError] = useState(false);
+        const [emailInUse, setEmailInUse] = useState(false);
+
 
         const validateEmail = (email) => {
             // regular expression for email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            //const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailRegex = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,})$/;
 
             if (!emailRegex.test(email)) {
                 // invalid email format
@@ -52,6 +55,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
             const value = event.target.value;
             setNewEmail(value);
             setEmailError(!validateEmail(value));
+            setEmailInUse(false);
         };
 
 
@@ -74,6 +78,8 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         setPassword('');
         setRePassword('');
         setShowPassword(false)
+        setNewEmail('')
+        setEmailError(false)
     };
     const handleDeleteConfirmationOpen = () => {
         setDeleteConfirmationOpen(true);
@@ -138,7 +144,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const handleChangeEmail = () => {
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
-        if(ValidateEmail(newEmail)) {
+        if(validateEmail(newEmail)) {
             Axios.post(baseUrl, {
                 newEmail: newEmail,
                 userID: userID
@@ -149,10 +155,10 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                 setMessage('Email change was successful')
                 setEffectOpen(true)
             }).catch(response => {
-                alert(response.response.data)
+                setEmailInUse(response.response.data)
             })
-        } else {
-            alert('Email-address does not meet requirements.')
+        //} else {
+        //    alert('Email-address does not meet requirements.')
         }
     }
     const handleGetEmail = () => {
@@ -288,10 +294,12 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         fullWidth
                         value={newEmail}
                         onChange={handleEmailChange}
-                        error={emailError}
+                        error={emailError || emailInUse}
                         helperText={
                             emailError
                                 ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)"
+                                : emailInUse
+                                ? "Email already in use. Check your input."
                                 : ""
                         }
                     />
