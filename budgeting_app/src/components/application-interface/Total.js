@@ -9,6 +9,7 @@ const Total = () => {
   const [availableToBudget, setAvailableToBudget] = useState(0);
   const [accountStyle, setAccountStyle] = useState(true);
   const [debtStyle, setDebtStyle] = useState(true);
+  const [budgetStyle, setBudgetStyle] = useState(true);
 
   const handleAccountChange = (props) => {
     setAccountStyle(props);
@@ -18,9 +19,13 @@ const Total = () => {
     setDebtStyle(props);
   };
 
+  const handleBudgetChange = (props) => {
+    setBudgetStyle(props);
+  };
+
   useEffect(() => {
-    fetchTotalAmount()
-    fetchBudget()
+    fetchTotalAmount();
+    fetchBudget();
   });
 
   const fetchTotalAmount = () => {
@@ -57,19 +62,22 @@ const Total = () => {
   const fetchBudget = () => {
     const userID = localStorage.getItem('UserID');
     const baseurl = `http://localhost:3001/subcategory/${userID}/available-to-budget`;
-    Axios.get(baseurl)
-    .then((res) => {
-      setAvailableToBudget(res.data[0].Balance)
+    Axios.get(baseurl).then((res) => {
+      setAvailableToBudget(res.data[0].Balance);
+      if (availableToBudget < 0) {
+        setBudgetStyle(false);
+      } else {
+        setBudgetStyle(true);
+      }
     }).catch((err) => {
       console.log(err);
     });
-  }
+  };
 
   const TotalsWrapper = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-
 
   `;
 
@@ -88,6 +96,16 @@ const Total = () => {
   `;
 
   const DebtStyleSwitcher = styled.a`
+    &.positive {
+      color: darkseagreen;
+    }
+
+    &.negative {
+      color: indianred;
+    }
+  `;
+
+  const BudgetStyleSwitcher = styled.a`
     &.positive {
       color: darkseagreen;
     }
@@ -116,12 +134,13 @@ const Total = () => {
 
         <SegmentWrapper>
           Available to budget: &nbsp;
-            <DebtStyleSwitcher className={accountStyle ? 'positive' : 'negative'}>
-              {availableToBudget}€
-            </DebtStyleSwitcher>
+          <BudgetStyleSwitcher
+              className={budgetStyle ? 'positive' : 'negative'}>
+            {availableToBudget}€
+          </BudgetStyleSwitcher>
         </SegmentWrapper>
       </TotalsWrapper>
   );
-}
+};
 
 export default Total;

@@ -57,7 +57,17 @@ router.get('/:id/return-category-dictionary/date-:date', async (req, res) => {
       const subCategories = await pool.query(sqlQuerySubCategories);
 
       for (let y = 0; y < subCategories.length; y++) {
-        let subcategoryBalance = parseFloat(subCategories[y].Balance);
+        const sqlQueryDecreaseFutureBudget = `SELECT 
+IFNULL((SELECT sum(budget.amount) FROM budget WHERE budget.ToCategory = '${subCategories[y].SubCategoryName}' AND budget.BudgetDate > '${endDate}'),0) - 
+IFNULL((SELECT sum(budget.amount) FROM budget WHERE budget.FromCategory = '${subCategories[y].SubCategoryName}' AND budget.BudgetDate > '${endDate}'),0) AS 'Minus'`
+
+        console.log(sqlQueryDecreaseFutureBudget)
+
+        const decreaseFutureBudgetData = await pool.query(sqlQueryDecreaseFutureBudget);
+        let decreaseValue = decreaseFutureBudgetData[0].Minus || 0;
+        console.log(decreaseValue)
+        let subcategoryBalance = parseFloat(subCategories[y].Balance - decreaseValue);
+
         subCategoriesList.push({
           category: subCategories[y].SubCategoryName,
           balance: parseFloat(subcategoryBalance.toFixed(2)),
