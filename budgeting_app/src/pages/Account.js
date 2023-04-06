@@ -16,10 +16,7 @@ const Account = ({loggedIn, setMessage, setEffectOpen, setAddAccTransactionSucce
                 console.log(error)
                 console.log('error retrieving UserAccountTransactions')
             })
-            getPayeeList().then((data) => {
-                console.log(data)
-                setPayeeList(data)
-            }).catch((error) => {
+            getPayeeList().then((data) => setPayeeList(data)).catch((error) => {
                 console.log(error)
                 console.log('error retrieving Payeelist')
             })

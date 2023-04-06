@@ -101,22 +101,40 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
         setRows(updatedRows);
     };
 
-    const handleGetSelectedData = (id) => {
-        const selectedData = rows.filter(row => row.id === id);
-        console.log(selectedData);
-    };
-
     const renderSelectEditInputCell = (params) => {
         return <SelectEditInputCell {...params} />;
     };
 
     const handleSaveClick = (id) => () => {
-        console.log(id)
-        handleGetSelectedData(id)
+        const selectedData = rows.filter(row => row.id === id);
+        const baseUrl = 'http://localhost:3001/transaction/update-transaction'
+        Axios.post(baseUrl, {
+            TransactionName: selectedData[0].TransactionName,
+            Recipient: selectedData[0].Recipient,
+            TransactionRepeat: selectedData[0].TransactionRepeat,
+            Memo: selectedData[0].Memo,
+            TransactionID: selectedData[0].id
+        }).then(() => {
+            alert('edit success')
+        }).catch(response => {
+            alert(response.response.data)
+        })
     };
 
     const handleDeleteClick = (id) => () => {
-        console.log(id)
+        const selectedData = rows.filter(row => row.id === id);
+        const baseUrl = 'http://localhost:3001/transaction/delete-transaction'
+
+        if (window.confirm('Are you sure?')) {
+            Axios.post(baseUrl, {
+                TransactionID: selectedData[0].id
+            }).then(() => {
+                setAddAccTransactionSuccess(true)
+                alert('delete success success')
+            }).catch(response => {
+                alert(response.response.data)
+            })
+        }
     };
 
     const columns = [
