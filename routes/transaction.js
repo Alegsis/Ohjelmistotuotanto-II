@@ -158,4 +158,20 @@ WHERE transaction.TransactionID = ${TransactionID};`
   }
 });
 
+/**
+ * Update transaction
+ */
+router.post('/delete-transaction', async (req, res) => {
+  try {
+    const {TransactionID} = req.body;
+
+    const updateTransactionSQL = `DELETE FROM transaction WHERE transaction.TransactionID = ${TransactionID}`
+    await pool.query(updateTransactionSQL);
+
+    res.status(200).json('Transaction deleted successfully');
+  } catch (error) {
+    res.status(400).send('Something went wrong, please try again');
+  }
+});
+
 module.exports = router;
