@@ -23,6 +23,8 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
 
         const [newEmail, setNewEmail] = useState("");
         const [emailError, setEmailError] = useState(false);
+        const [emailInUse, setEmailInUse] = useState(false);
+
 
         const validateEmail = (email) => {
             // regular expression for email validation
@@ -50,6 +52,7 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
             const value = event.target.value;
             setNewEmail(value);
             setEmailError(!validateEmail(value));
+            setEmailInUse(false);
         };
 
 
@@ -72,6 +75,8 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
         setPassword('');
         setRePassword('');
         setShowPassword(false)
+        setNewEmail('')
+        setEmailError(false)
     };
 
 
@@ -124,7 +129,7 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                 setMessage('Email change was successful')
                 setEffectOpen(true)
             }).catch(response => {
-                alert(response.response.data)
+                setEmailInUse(response.response.data)
             })
         //} else {
         //    alert('Email-address does not meet requirements.')
@@ -260,10 +265,12 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                         fullWidth
                         value={newEmail}
                         onChange={handleEmailChange}
-                        error={emailError}
+                        error={emailError || emailInUse}
                         helperText={
                             emailError
                                 ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)"
+                                : emailInUse
+                                ? "Email already in use. Check your input."
                                 : ""
                         }
                     />
