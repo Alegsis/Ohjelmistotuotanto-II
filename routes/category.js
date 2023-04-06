@@ -131,7 +131,7 @@ router.post('/update-category', async (req, res) => {
 });
 
 /**
- * Update category's name
+ * Delete category (if it doesn't have subcategories linked)
  */
 router.post('/delete-category', async (req, res) => {
   try {
@@ -147,7 +147,6 @@ WHERE subcategory.CategoryID = (SELECT category.CategoryID FROM category WHERE c
     } else {
       res.status(409).json('You must delete all subcategories before you can delete category');
     }
-
   } catch (error) {
     res.status(400).send('Something went wrong, please try again');
   }
