@@ -28,7 +28,7 @@ const SidebarBalance = styled.span`
   margin-left: 16px;
   margin-top: 40px;
   font-size: 16px;
-  color: ${props => (props.negative ? 'darkseagreen' : 'indianred')};
+  color: ${props => (props.negative ? 'indianred' : 'darkseagreen')};
 `;
 
 const DropdownLink = styled(Link)`
