@@ -8,17 +8,20 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import {IconButton, InputAdornment, MenuItem} from "@mui/material";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {Email, Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
 import ValidateEmail from "../../utils/email";
 
-const UserSettings = ({setEffectOpen, setMessage}) => {
+
+const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [open, setOpen] = React.useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
     const [currentEmail, setCurrentEmail] = useState('');
+    const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
 
         const [newEmail, setNewEmail] = useState("");
@@ -78,7 +81,14 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
         setNewEmail('')
         setEmailError(false)
     };
-
+    const handleDeleteConfirmationOpen = () => {
+        setDeleteConfirmationOpen(true);
+      };
+      
+      const handleDeleteConfirmationClose = () => {
+        setDeleteConfirmationOpen(false);
+      };
+    
 
     const handleChangePassword = () => {
         const baseUrl = "http://localhost:3001/user/change-password";
@@ -103,18 +113,34 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                 alert("Input of data doesn't meet requirements.")
             }
         }
+        
+      
+   
 
     const handleDelete = () => {
-        if (window.confirm("Are you sure you want to delete this item?")) {
-            // user clicked "OK"
-            console.log('ok')
-            // perform delete action here
-        } else {
-            // user clicked "Cancel"
-            console.log('cancel')
-            // do nothing or perform another action here
-        }
-    }
+        const baseUrl = "http://localhost:3001/user/delete-user";
+        const userID = localStorage.getItem('UserID');
+        const username = localStorage.getItem('Username');
+        const url = "http://localhost:3001/user/login";
+        Axios.post(url, {
+            username: username,
+            password: password,
+        }).then(() => {
+                    Axios.post(baseUrl, {
+                      userID: userID,
+                    }).then(() => {
+                        handleLogout();
+                        alert("User Deleted");
+                      setDeleteConfirmationOpen(false);
+                  }
+                ).catch((response) => {
+                    alert(response.response.data)
+                })
+                }).catch((response) => {
+                    alert(response.response.data)
+                })
+    };
+    
     const handleChangeEmail = () => {
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
@@ -144,6 +170,9 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
             alert(response.response.data);
         });
     }
+
+   
+    
 
     return (
         <div className='secondary-button'>
@@ -275,16 +304,52 @@ const UserSettings = ({setEffectOpen, setMessage}) => {
                         }
                     />
                 </DialogContent>
-                <DialogActions style={{justifyContent: "space-between"}}>
-                    <Button onClick={handleDelete} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete User</Button>
-                    <div>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleChangeEmail}>Update Email</Button>
-                    </div>
-                </DialogActions>
+                <DialogActions style={{ justifyContent: "space-between" }}>
+    <Button onClick={handleDeleteConfirmationOpen} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete User</Button>
+    <div>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleChangeEmail}>Update Email</Button>
+    </div>
+    <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
+        <DialogTitle>Delete User Account</DialogTitle>
+        <DialogContent>
+            <DialogContentText>
+                If you are sure you want to delete your account, enter your password and click the Delete button.
+            </DialogContentText>
+            <TextField
+            autoFocus
+            margin="dense"
+            id="password"
+            label="Password For Deletion"
+            type={showPassword2 ? 'text' : 'password'}
+            inputProps={{maxLength: 30}}
+            onKeyDown={(e) => {
+                e.stopPropagation();
+            }}
+            variant="filled"
+            fullWidth
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                            {showPassword2 ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                ),
+            }}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
+            <Button onClick={handleDelete} style={{ color: "red" }}>Delete</Button>
+        </DialogActions>
+    </Dialog>
+</DialogActions>
             </Dialog>
         </div>
     );
 }
 
-export default UserSettings
+export default UserProfile;
