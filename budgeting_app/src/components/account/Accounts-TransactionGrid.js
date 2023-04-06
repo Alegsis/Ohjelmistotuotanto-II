@@ -55,12 +55,11 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
         }else if(field === ('Recipient')){
             return (
                 <Select
-                    value={value}
-                    onChange={handleChange}
                     size="small"
                     sx={{ height: 1 }}
-                    native
                     autoFocus
+                    onChange={handleChange}
+                    value={value}
                 >
                     {payeeList.map((payee) => (
                         <MenuItem key={payee.value} value={payee.value}>
@@ -125,7 +124,7 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
         {field: 'Subcategory', headerName: 'Subcategory', width: 200},
         {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 100},
         {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 100},
-        {field: 'Recipient', headerName: 'Payee', width: 100, editable: true},
+        {field: 'Recipient', headerName: 'Payee', width: 100, renderEditCell: renderSelectEditInputCell, editable: true},
         {field: 'TransactionRepeat', headerName: 'Repeat', width: 100, renderEditCell: renderSelectEditInputCell, editable: true},
         {field: 'Memo', headerName: 'Memo', width: 100, editable: true},
         {
@@ -195,8 +194,7 @@ export const getUserTransactions = (userID) => {
       updatedArray.push(
           {
             id: response.data[x].TransactionID,
-            TransactionDate: moment(response.data[x].TransactionDate).
-                format('YYYY-MM-DD'),
+            TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
             AccountName: response.data[x].AccountName,
             TransactionName: response.data[x].TransactionName,
             Subcategory: response.data[x].SubcategoryName,

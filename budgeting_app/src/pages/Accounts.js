@@ -11,7 +11,11 @@ const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, se
             const userID = localStorage.getItem('UserID');
             getUserTransactions(userID).then((data) => setRows(data)).catch((error) => {
                 console.log(error)
-                alert('error retrieving UserTransactions')
+                console.log('error retrieving UserAccountsTransactions')
+            })
+            getPayeeList().then((data) => setPayeeList(data)).catch((error) => {
+                console.log(error)
+                console.log('error retrieving Payeelist')
             })
             setaddTransactionSuccess(false)
         }

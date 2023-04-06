@@ -36,6 +36,7 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
         const handleChange = async (event) => {
             await apiRef.current.setEditCellValue({ id, field, value: event.target.value });
         };
+
         if(field === ('TransactionRepeat')){
             return (
                 <Select
@@ -56,12 +57,11 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
         }else if(field === ('Recipient')){
             return (
                 <Select
-                    value={value}
-                    onChange={handleChange}
                     size="small"
                     sx={{ height: 1 }}
-                    native
                     autoFocus
+                    onChange={handleChange}
+                    value={value}
                 >
                     {payeeList.map((payee) => (
                         <MenuItem key={payee.value} value={payee.value}>

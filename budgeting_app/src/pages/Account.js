@@ -14,7 +14,14 @@ const Account = ({loggedIn, setMessage, setEffectOpen, setAddAccTransactionSucce
             const userID = localStorage.getItem('UserID');
             getAccountTransactions(userID, AccountName).then((data) => setRows(data)).catch((error) => {
                 console.log(error)
-                alert('error retrieving UserAccountTransactions')
+                console.log('error retrieving UserAccountTransactions')
+            })
+            getPayeeList().then((data) => {
+                console.log(data)
+                setPayeeList(data)
+            }).catch((error) => {
+                console.log(error)
+                console.log('error retrieving Payeelist')
             })
             setAddAccTransactionSuccess(false)
         }
