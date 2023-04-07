@@ -321,7 +321,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
             margin="dense"
             id="password"
             label="Password For Deletion"
-            type={showPassword2 ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             inputProps={{maxLength: 30}}
             onKeyDown={(e) => {
                 e.stopPropagation();
@@ -332,7 +332,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                 endAdornment: (
                     <InputAdornment position="end">
                         <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                            {showPassword2 ? <VisibilityOff /> : <Visibility />}
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                     </InputAdornment>
                 ),
