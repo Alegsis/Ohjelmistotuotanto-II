@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Collapse, IconButton} from "@mui/material";
+import {Alert, Collapse} from "@mui/material";
 
 const CustomAlert = ({ message, effectOpen, setMessage, setEffectOpen}) => {
     const [open, setOpen] = useState(false);
@@ -17,9 +17,7 @@ const CustomAlert = ({ message, effectOpen, setMessage, setEffectOpen}) => {
 
     return (
         <Collapse in={open}>
-            <Alert
-                sx={{ mb: 2 }}
-            >
+            <Alert sx={{ mb: 2 }}>
                 {message}
             </Alert>
         </Collapse>

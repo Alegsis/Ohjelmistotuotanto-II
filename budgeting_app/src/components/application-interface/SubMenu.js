@@ -48,13 +48,13 @@ const DropdownLinkSubMenu = styled(Link)`
   }
 `;
 
-const Submenu = ({item, createAccSuccess, addAccTransactionSuccess, addTransactionSuccess}) => {
+const Submenu = ({item, createAccSuccess}) => {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
 
     useEffect(() => {
         setSubnav(false)
-    },[createAccSuccess, addAccTransactionSuccess, addTransactionSuccess])
+    },[createAccSuccess])
 
   return (
       <>
