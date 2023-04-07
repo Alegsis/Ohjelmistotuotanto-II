@@ -43,15 +43,15 @@ const CollapsibleTable = ({rows}) => {
             <TableCell className="BudgetCatHeaderCell" align="right"
                        size="small"
                        width="10%">{row.totalBudgetedAmount.toFixed(
-                2)}</TableCell>
+                2)} €</TableCell>
             <TableCell className="BudgetCatHeaderCellAcitivity" align="right"
                        size="small"
                        width="10%">{row.totalActivityAmount.toFixed(
-                2)}</TableCell>
+                2)} €</TableCell>
             <TableCell className="BudgetCatHeaderCell2" align="right"
                        size="small"
                        width="10%">{row.totalAvailableAmount.toFixed(
-                2)}</TableCell>
+                2)} €</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={6}>
@@ -88,7 +88,7 @@ const CollapsibleTable = ({rows}) => {
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
                                       fontWeight: 'bold',
-                                    }}>{subcategoryRow.availableAmount}  </span>
+                                    }}>{subcategoryRow.availableAmount}</span>
                                 </div>
                               </div>
                             </TableCell>
