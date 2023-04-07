@@ -186,7 +186,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
               <InputLabel id="account">Payee *</InputLabel>
               <Select
                 style={{ height: "50px", width: "550px" }}
-                id="account-name"
+                id="account-payee-name"
                 labelId="account"
                 fullWidth
                 required
@@ -281,7 +281,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
             Cancel
           </Button>
           <Button className="add-transaction" onClick={addTransaction}>
-            Add Transaction
+            Add new transaction
           </Button>
         </DialogActions>
       </Dialog>
