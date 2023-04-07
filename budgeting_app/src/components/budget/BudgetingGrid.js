@@ -201,6 +201,8 @@ export const getGridData = async () => {
       let activityAmount = 0.00;
       let budgetedAmount = 0.00;
       let goalAmount = 0.00;
+      let goalType = 0;
+      let goalDate = 0;
       let color;
       let icon;
 
@@ -210,36 +212,66 @@ export const getGridData = async () => {
       }
       if (goalIndex !== -1) {
         goalAmount = parseFloat(goalsData[goalIndex].Amount) || 0.00;
+        goalType = parseInt(goalsData[goalIndex].GoalType);
+        goalDate = goalsData[goalIndex].GoalDate;
       }
 
-      // totalAvailable = parseFloat(totalAvailable.toFixed(2));
-      // totalBudgeted = parseFloat(totalBudgeted.toFixed(2));
-      // totalActivity = parseFloat(totalActivity.toFixed(2));
 
-      //goalType 1 here made (maybe?):
-      //note setting this to 0 in backend doesn't quite work yet so...
-      if (goalAmount === 0) {
-        //white
-        color = '#ffffff';
-        icon = <CheckCircleOutlineIcon/>;
-      }
-      if (budgetedAmount < goalAmount) {
-        //orange
-        color = '#fd8200';
-        icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
-          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
-      }
-      if (budgetedAmount >= goalAmount) {
-        //green
-        color = '#099300';
-        icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
-          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
-      }
-      if (availableAmount < 0) {
-        //red
-        color = '#ca0000';
-        icon = <ErrorIcon style={{fill: '#ca0000', paddingBottom: "3px",
-          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+      //Goaltype switch-case
+      switch(goalType){
+        //subcategory doesn't have goal --> it's dark in dashboard
+        case 0:
+            color = '#000000';
+            icon = <CheckCircleOutlineIcon/>;
+          break;
+
+        //type 1 - Monthly Saving Goal
+        case 1:
+          if (budgetedAmount < goalAmount) {
+            //orange
+            color = '#fd8200';
+            icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          if (budgetedAmount >= goalAmount) {
+            //green
+            color = '#099300';
+            icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          if (availableAmount < 0) {
+            //red
+            color = '#ca0000';
+            icon = <ErrorIcon style={{fill: '#ca0000', paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          break;
+
+
+        //type 2 - Save by Date
+        case 2:
+          /*
+          !!!!!!!!!!!!!!!IN PROGRESS!!!!!!!!!!!!! SAMI K .
+
+          console.log(subCategoryName)
+          const getBudgetedSum = `http://localhost:3001/budget/user-${userID}/get-budgeted-sum/subcategory-${subCategoryName}`;
+          const resultCategories = await Axios.get(getBudgetedSum);
+          console.log(resultCategories.data)
+          const currentDate = new Date().toISOString();
+          console.log(currentDate < goalDate);
+          if(goalDate >= currentDate && )
+
+           */
+
+
+          break;
+
+
+        //type 3 - Target Balance
+        case 3:
+
+
+          break;
       }
 
       totalAvailable += availableAmount;
