@@ -136,15 +136,15 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
     };
 
     const columns = [
-        {field: 'TransactionDate', headerName: 'DATE', width: 150},
-        {field: 'AccountName', headerName: 'AccountName', width: 150},
+        {field: 'TransactionDate', headerName: 'DATE', width: 110},
         {field: 'TransactionName', headerName: 'Transaction Name', width: 200, editable: true},
+        {field: 'AccountName', headerName: 'AccountName', width: 150},
         {field: 'Subcategory', headerName: 'Subcategory', width: 200},
-        {field: 'Outflow', headerName: 'Outflow', type: 'number', width: 100},
-        {field: 'Inflow', headerName: 'Inflow', type: 'number', width: 100},
-        {field: 'Recipient', headerName: 'Payee', width: 100, renderEditCell: renderSelectEditInputCell, editable: true},
+        {field: 'Outflow', headerName: 'Outflow', type: 'number', minWidth: 100},
+        {field: 'Inflow', headerName: 'Inflow', type: 'number', minWidth: 100},
+        {field: 'Recipient', headerName: 'Payee', minWidth: 100, width:200, renderEditCell: renderSelectEditInputCell, editable: true},
         {field: 'TransactionRepeat', headerName: 'Repeat', width: 100, renderEditCell: renderSelectEditInputCell, editable: true},
-        {field: 'Memo', headerName: 'Memo', width: 100, editable: true},
+        {field: 'Memo', headerName: 'Memo', minWidth: 100, editable: true},
         {
             field: 'actions',
             type: 'actions',
