@@ -226,17 +226,20 @@ export const getGridData = async () => {
       if (budgetedAmount < goalAmount) {
         //orange
         color = '#fd8200';
-        icon = <ErrorOutlineIcon style={{fill: 'orange'}}/>;
+        icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
+          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
       }
       if (budgetedAmount >= goalAmount) {
         //green
         color = '#099300';
-        icon = <CheckCircleOutlineIcon style={{fill: 'green'}}/>;
+        icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
+          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
       }
       if (availableAmount < 0) {
         //red
         color = '#ca0000';
-        icon = <ErrorIcon style={{fill: 'red'}}/>;
+        icon = <ErrorIcon style={{fill: '#ca0000', paddingBottom: "3px",
+          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
       }
 
       totalAvailable += availableAmount;

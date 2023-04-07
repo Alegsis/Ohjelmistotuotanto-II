@@ -372,7 +372,10 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     color: #ffffff !important;
     width: 100px;
     max-width: 150px;
+    min-width: 90px;
 }
+
+
 
 .BudgetSubCategoryCell,
 .BudgetSubCategoryCellActivity{
@@ -381,9 +384,11 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     width: 100px;
     max-width: 150px;
 
+
 }
 
 .BudgetSubCategoryCell span {
+    font-size: 14px !important;
     border-radius: 0.5em;
     color: white;
     padding-right: 0.25em;
@@ -396,17 +401,17 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     float: right;
     align-items: center;
     justify-content: center;
-    font-size: medium;
+    font-size: 6px !important;
 }
 .BudgetHeaderCell,
 .BudgetHeaderCell2,
 .BudgetCatHeaderCell2 {
     background-color: #3a3434;
     color: #ffffff !important;
-    width: 100px;
+    width: 120px;
     height: 39.5px;
     max-width: 150px;
-    padding-right: 16px !important;
+    padding-right: 10px !important;
 }
 
 .BudgetHeaderCell,
@@ -421,7 +426,14 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     color: black !important;
     border-bottom: none;
 }
+.BudgetCatHeaderCell{
 
+}
+.BudgetHeaderCell,
+.BudgetHeaderCell2{
+    background-color: #cfcfcf;
+    font-weight: bold !important;
+}
 
 .BudgetCatHeaderCell,
 .BudgetCatHeaderCell2{
@@ -429,11 +441,13 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     font-weight: bold !important;
 }
 
-.BudgetHeaderCell,
-.BudgetHeaderCell2{
-    background-color: #cfcfcf;
-    font-weight: bold !important;
-
+.BudgetHeaderCell2,
+.BudgetCatHeaderCell2 {
+    padding-right: 16px !important;
+    /* font-size: 16px !important; */
+}
+.BudgetSubCategoryCell2{
+    font-size: 13px !important;
 }
 
 .MuiTableHead-root{
@@ -477,6 +491,7 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     color: #fff !important;
 }
 
+/* Datagrid footer with pages and how many to show */
 .css-17jjc08-MuiDataGrid-footerContainer{
     justify-content: center !important;
 }
