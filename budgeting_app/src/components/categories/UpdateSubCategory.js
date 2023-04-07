@@ -135,7 +135,6 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         UserID: userID,
         SubCategoryName: selectedSubCategory,
       }).then(() => {
-        alert('Edit successful');
         if (budgetGoalType !== '' && budgetGoal > 0) {
         insertBudgetGoal();
       }
@@ -148,6 +147,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         setBudgetGoalType('1');
         setAddDashboardSuccess(true)
         setMessage('Subcategory was edited')
+        setEffectOpen(true)
+        setMessage('Edit subcategory was successful')
         setEffectOpen(true)
       });
     }).catch((response) => {

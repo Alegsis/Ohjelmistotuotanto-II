@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -64,12 +64,13 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
       SubCategoryName: subCategory,
       UserID: userID,
     }).then(() => {
-      alert('Budget addition successful');
       setShowGoal(false);
       setOpen(false);
       setBudgetGoalDate(new Date())
       setBudgetGoal('0');
       setBudgetGoalType('1');
+      setMessage('Subcategory goal was made')
+      setEffectOpen(true)
     }).catch((response) => {
       setShowGoal(false);
       alert(response.response.data);
