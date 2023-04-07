@@ -113,7 +113,8 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
             Memo: selectedData[0].Memo,
             TransactionID: selectedData[0].id
         }).then(() => {
-            alert('edit success')
+            setMessage('Edit was successful')
+            setEffectOpen(true)
         }).catch(response => {
             alert(response.response.data)
         })
@@ -127,8 +128,9 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
             Axios.post(baseUrl, {
                 TransactionID: selectedData[0].id
             }).then(() => {
-                alert('delete success success')
                 setaddTransactionSuccess(true)
+                setMessage('Delete was successful')
+                setEffectOpen(true)
             }).catch(response => {
                 alert(response.response.data)
             })

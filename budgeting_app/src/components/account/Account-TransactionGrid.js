@@ -115,7 +115,8 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
             Memo: selectedData[0].Memo,
             TransactionID: selectedData[0].id
         }).then(() => {
-            alert('edit success')
+            setMessage('Edit was successful')
+            setEffectOpen(true)
         }).catch(response => {
             alert(response.response.data)
         })
@@ -130,7 +131,8 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
                 TransactionID: selectedData[0].id
             }).then(() => {
                 setAddAccTransactionSuccess(true)
-                alert('delete success success')
+                setMessage('Delete was successful')
+                setEffectOpen(true)
             }).catch(response => {
                 alert(response.response.data)
             })
