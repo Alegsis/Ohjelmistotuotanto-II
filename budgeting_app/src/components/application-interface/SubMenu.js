@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styled from '@emotion/styled';
 
@@ -48,9 +48,13 @@ const DropdownLinkSubMenu = styled(Link)`
   }
 `;
 
-const Submenu = ({item}) => {
+const Submenu = ({item, createAccSuccess, addAccTransactionSuccess, addTransactionSuccess}) => {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
+
+    useEffect(() => {
+        setSubnav(false)
+    },[createAccSuccess, addAccTransactionSuccess, addTransactionSuccess])
 
   return (
       <>

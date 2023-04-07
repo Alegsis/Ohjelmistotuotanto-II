@@ -46,7 +46,7 @@ const App = () => {
             </div>
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
-                    <Sidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
+                    <Sidebar loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess} addAccTransactionSuccess={addAccTransactionSuccess} createAccSuccess={createAccSuccess} setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>

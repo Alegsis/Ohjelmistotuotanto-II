@@ -12,7 +12,7 @@ const SidebarWrap = styled.nav`
   width: 100%;
 `;
 
-const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen, setMessage}) => {
+const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen, setMessage, addAccTransactionSuccess, addTransactionSuccess}) => {
 
     const SidebarData = [
         {
@@ -47,7 +47,7 @@ const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen
   return (
       <SidebarWrap>
         {SidebarData.map((item, index) => {
-          return <Submenu item={item} key={index} />;
+          return <Submenu item={item} key={index} createAccSuccess={createAccSuccess} addAccTransactionSuccess={addAccTransactionSuccess} addTransactionSuccess={addTransactionSuccess}/>;
         })}
       </SidebarWrap>
   );
