@@ -181,7 +181,8 @@ Account balances
     line-height: 1.75 !important;
     letter-spacing: 0.02857em !important;
     text-transform: uppercase !important;
-    height: 40.5px;
+    min-height: 39.75px !important;
+    padding: 4px 4px 0px 4px;
 }
 
 .categoryRow {

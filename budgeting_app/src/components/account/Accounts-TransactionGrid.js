@@ -212,11 +212,15 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
             <DataGrid
                 sx={{
                 height: 300,
-            width: '100%',
-            ' & .transactionsHeader': {
-            //backgroundColor: '#f6f6f6',
-        },
-            }}
+                width: '100%',
+                    ' & .transactionsHeader': {
+                        fontWeight: "bold !important",
+                    },
+                    boxShadow: 2,
+                    ' & .MuiDataGrid-cell:hover': {
+                        color: '#A400FFFF',
+                    },
+                }}
                 experimentalFeatures={{ columnGrouping: true }}
                 density="compact"
                 autoHeight {...columns}
