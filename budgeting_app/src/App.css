@@ -418,10 +418,21 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     border-bottom: none;
 }
 
+
 .BudgetCatHeaderCell,
 .BudgetCatHeaderCell2{
     background-color: #f6f6f6;
     font-weight: bold !important;
+}
+
+.BudgetHeaderCell,
+.BudgetHeaderCell2{
+    background-color: #cfcfcf;
+    font-weight: bold !important;
+}
+
+.MuiTableHead-root{
+    background-color: #f6f6f6 !important;
 }
 
 .BudgetSubCategoryCellActivity{
