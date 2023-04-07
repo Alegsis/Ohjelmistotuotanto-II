@@ -252,6 +252,26 @@ div > #bank-button-1 {
     width: 25%;
 }
 
+.sideBarAccountDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.sideBarAccountName{
+    display: flex;
+    align-content: flex-start;
+}
+.sideBarAccountBalance{
+    display: flex;
+    padding-top: 0px;
+    padding-right: 5px;
+    text-align: end;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
 .delete-button {
     /* margin-left: auto !important;*/
     margin-right: 0 !important;

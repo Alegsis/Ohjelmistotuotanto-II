@@ -25,7 +25,7 @@ const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen
         {
             title: "Accounts",
             path: "/accounts",
-            icon: <AccountBalanceIcon />,
+            icon: <AccountBalanceIcon/>,
             subNavi: getUserAccounts(),
         },
         {
