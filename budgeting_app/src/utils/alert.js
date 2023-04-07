@@ -11,7 +11,7 @@ const CustomAlert = ({ message, effectOpen, setMessage, setEffectOpen}) => {
                 setOpen(false);
                 setMessage('')
                 setEffectOpen(false)
-            }, 5000);
+            }, 1500);
         }
     }, [effectOpen]);
 

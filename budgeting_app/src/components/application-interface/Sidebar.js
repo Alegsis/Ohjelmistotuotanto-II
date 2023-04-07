@@ -26,10 +26,12 @@ const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen
             title: "Accounts",
             path: "/accounts",
             icon: <AccountBalanceIcon/>,
+            iconClosed: <ExpandMoreIcon />,
+            iconOpen: <ExpandLessIcon />,
             subNavi: getUserAccounts(),
         },
         {
-            title: "AddAccount",
+            title: "",
             icon: <CreateBankAcc setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>,
             path: "/accounts",
         },

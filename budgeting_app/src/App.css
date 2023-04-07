@@ -41,8 +41,8 @@ body {
     (flex-shrink and flex-basis) are optional. The default is 0 1 auto */
     background-color: #15171c;
     padding: 10px 10px 10px 0 !important;
-    width: 250px;
-    height: 100vh;
+    width: 260px;
+    overflow: auto !important;
     display: flex;
     justify-content: center;
 }
