@@ -370,6 +370,15 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
 .BudgetSubCategoryHeaderCell {
     background-color: #3a3434;
     color: #ffffff !important;
+    padding-right: 15px !important;
+    width: 100px;
+    max-width: 150px;
+    min-width: 90px;
+}
+.BudgetCatHeaderCellAcitivity {
+    background-color: #3a3434;
+    color: #ffffff !important;
+    padding-right: 10px !important;
     width: 100px;
     max-width: 150px;
     min-width: 90px;
@@ -382,9 +391,14 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     background-color: #3a3434;
     color: #ffffff;
     width: 100px;
-    max-width: 150px;
+    max-width: 100px;
 
+}
 
+#root > div.row > div.column.middle > div >
+div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.css-11xur9t-MuiPaper-root-MuiTableContainer-root >
+table > tbody > tr:nth-child(4) > td > div > div > div > div > table > tbody > tr:nth-child(2) > td.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignLeft.MuiTableCell-sizeSmall.BudgetSubCategoryCell.css-cbyouk-MuiTableCell-root{
+    padding-left: 0.65em !important;
 }
 
 .BudgetSubCategoryCell span {
@@ -416,6 +430,7 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
 
 .BudgetHeaderCell,
 .BudgetCatHeaderCell,
+.BudgetCatHeaderCellAcitivity,
 .BudgetSubCategoryHeaderCell,
 .BudgetSubCategoryCell,
 .BudgetHeaderCell2,
@@ -426,9 +441,10 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     color: black !important;
     border-bottom: none;
 }
-.BudgetCatHeaderCell{
+.BudgetCatHeaderCellAcitivity{
 
 }
+
 .BudgetHeaderCell,
 .BudgetHeaderCell2{
     background-color: #cfcfcf;
@@ -436,6 +452,7 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
 }
 
 .BudgetCatHeaderCell,
+.BudgetCatHeaderCellAcitivity,
 .BudgetCatHeaderCell2{
     background-color: #f6f6f6;
     font-weight: bold !important;

@@ -44,7 +44,7 @@ const CollapsibleTable = ({rows}) => {
                        size="small"
                        width="10%">{row.totalBudgetedAmount.toFixed(
                 2)}</TableCell>
-            <TableCell className="BudgetCatHeaderCell" align="right"
+            <TableCell className="BudgetCatHeaderCellAcitivity" align="right"
                        size="small"
                        width="10%">{row.totalActivityAmount.toFixed(
                 2)}</TableCell>
@@ -65,7 +65,7 @@ const CollapsibleTable = ({rows}) => {
                       {row.subcategorySection.map((subcategoryRow, index) => (
                           <TableRow key={index}>
                             <TableCell className="BudgetSubCategoryCell"
-                                       align="left"></TableCell>
+                                       align="left" sx={{width: "102px"}}></TableCell>
                             <TableCell className="BudgetSubCategoryCell"
                                        component="th" scope="row" size="small">
                               {subcategoryRow.subcategoryName}
