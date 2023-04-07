@@ -164,8 +164,8 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
   
   return (
       <div className="subcategory-button">
-        <Button id="subcategory-button-1" onClick={handleClickOpen}>
-          <AddCircleOutline/> Add subcategory
+        <Button id="subcategory-button-1" sx={{fontSize: "13px"}} onClick={handleClickOpen}>
+          <AddCircleOutline sx={{fontSize: "18px", marginLeft: "-2px", marginRight: "8px"}}/> Add subcategory
         </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Create subcategory</DialogTitle>

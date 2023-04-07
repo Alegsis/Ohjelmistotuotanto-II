@@ -212,7 +212,11 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
                     height: 300,
                     width: '100%',
                     ' & .transactionsHeader': {
-                        backgroundColor: '#f6f6f6',
+                        fontWeight: "bold !important",
+                    },
+                    boxShadow: 2,
+                    ' & .MuiDataGrid-cell:hover': {
+                        color: '#A400FFFF',
                     },
                 }}
                 experimentalFeatures={{ columnGrouping: true }}

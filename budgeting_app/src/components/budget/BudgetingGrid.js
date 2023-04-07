@@ -22,7 +22,7 @@ const CollapsibleTable = ({rows}) => {
 
   const Row = (props) => {
     const {row} = props;
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     return (
         <React.Fragment>
@@ -43,15 +43,15 @@ const CollapsibleTable = ({rows}) => {
             <TableCell className="BudgetCatHeaderCell" align="right"
                        size="small"
                        width="10%">{row.totalBudgetedAmount.toFixed(
-                2)}</TableCell>
-            <TableCell className="BudgetCatHeaderCell" align="right"
+                2)} €</TableCell>
+            <TableCell className="BudgetCatHeaderCellAcitivity" align="right"
                        size="small"
                        width="10%">{row.totalActivityAmount.toFixed(
-                2)}</TableCell>
+                2)} €</TableCell>
             <TableCell className="BudgetCatHeaderCell2" align="right"
                        size="small"
                        width="10%">{row.totalAvailableAmount.toFixed(
-                2)}</TableCell>
+                2)} €</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={6}>
@@ -65,7 +65,7 @@ const CollapsibleTable = ({rows}) => {
                       {row.subcategorySection.map((subcategoryRow, index) => (
                           <TableRow key={index}>
                             <TableCell className="BudgetSubCategoryCell"
-                                       align="left"></TableCell>
+                                       align="left" sx={{width: "102px"}}></TableCell>
                             <TableCell className="BudgetSubCategoryCell"
                                        component="th" scope="row" size="small">
                               {subcategoryRow.subcategoryName}
@@ -88,7 +88,7 @@ const CollapsibleTable = ({rows}) => {
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
                                       fontWeight: 'bold',
-                                    }}>{subcategoryRow.availableAmount}  </span>
+                                    }}>{subcategoryRow.availableAmount}</span>
                                 </div>
                               </div>
                             </TableCell>
@@ -126,14 +126,13 @@ const CollapsibleTable = ({rows}) => {
           <TableHead>
             <TableRow>
               <TableCell align="left" className="BudgetHeaderCell"></TableCell>
-              <TableCell align="left" className="BudgetHeaderCell">All
-                categories</TableCell>
+              <TableCell align="left" className="BudgetHeaderCell">ALL CATEGORIES</TableCell>
               <TableCell align="right"
-                         className="BudgetHeaderCell">Budgeted</TableCell>
+                         className="BudgetHeaderCell">BUDGETED</TableCell>
               <TableCell align="right"
-                         className="BudgetHeaderCell">Activity</TableCell>
+                         className="BudgetHeaderCell">ACTIVITY</TableCell>
               <TableCell align="right"
-                         className="BudgetHeaderCell2">Available</TableCell>
+                         className="BudgetHeaderCell2">AVAILABLE</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -227,17 +226,20 @@ export const getGridData = async () => {
       if (budgetedAmount < goalAmount) {
         //orange
         color = '#fd8200';
-        icon = <ErrorOutlineIcon style={{fill: 'orange'}}/>;
+        icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
+          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
       }
       if (budgetedAmount >= goalAmount) {
         //green
         color = '#099300';
-        icon = <CheckCircleOutlineIcon style={{fill: 'green'}}/>;
+        icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
+          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
       }
       if (availableAmount < 0) {
         //red
         color = '#ca0000';
-        icon = <ErrorIcon style={{fill: 'red'}}/>;
+        icon = <ErrorIcon style={{fill: '#ca0000', paddingBottom: "3px",
+          fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
       }
 
       totalAvailable += availableAmount;
