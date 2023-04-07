@@ -212,7 +212,7 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
                     height: 300,
                     width: '100%',
                     ' & .transactionsHeader': {
-                        backgroundColor: '#f6f6f6',
+                    //    backgroundColor: '#f6f6f6',
                     },
                 }}
                 experimentalFeatures={{ columnGrouping: true }}

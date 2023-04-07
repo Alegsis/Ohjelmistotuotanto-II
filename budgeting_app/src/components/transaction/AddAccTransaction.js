@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as React from "react";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 
 const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOpen, AccountName}) => {
     const [open, setOpen] = useState(false);
@@ -98,7 +99,7 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
 
     return (
         <div>
-            <Button onClick={handleClickOpen} className="AddTransaction"> Add transaction </Button>
+            <Button onClick={handleClickOpen} className="AddTransaction"> <AddCircleOutline sx={{fontSize: "18px", marginLeft: "-2px", marginRight: "8px"}}/> Add transaction </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add Transaction</DialogTitle>
                 <DialogContent>

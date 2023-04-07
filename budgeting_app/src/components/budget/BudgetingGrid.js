@@ -22,7 +22,7 @@ const CollapsibleTable = ({rows}) => {
 
   const Row = (props) => {
     const {row} = props;
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     return (
         <React.Fragment>
@@ -126,14 +126,13 @@ const CollapsibleTable = ({rows}) => {
           <TableHead>
             <TableRow>
               <TableCell align="left" className="BudgetHeaderCell"></TableCell>
-              <TableCell align="left" className="BudgetHeaderCell">All
-                categories</TableCell>
+              <TableCell align="left" className="BudgetHeaderCell">ALL CATEGORIES</TableCell>
               <TableCell align="right"
-                         className="BudgetHeaderCell">Budgeted</TableCell>
+                         className="BudgetHeaderCell">BUDGETED</TableCell>
               <TableCell align="right"
-                         className="BudgetHeaderCell">Activity</TableCell>
+                         className="BudgetHeaderCell">ACTIVITY</TableCell>
               <TableCell align="right"
-                         className="BudgetHeaderCell2">Available</TableCell>
+                         className="BudgetHeaderCell2">AVAILABLE</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
