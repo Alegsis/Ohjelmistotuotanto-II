@@ -8,7 +8,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import Axios from "axios";
-import ValidateEmail from "../../utils/email";
 import {IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
@@ -72,7 +71,7 @@ const Register = () => {
 
     const handleSignUp = () => {
         const baseUrl = "http://localhost:3001/user/register";
-        if(ValidateEmail(email)){
+        if(validateEmail(email)){
             if (password === rePassword && 8 <= password.length && 3 <= username.length) {
                 Axios.post(baseUrl, {
                     username: username,
