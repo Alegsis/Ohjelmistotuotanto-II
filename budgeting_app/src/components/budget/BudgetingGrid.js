@@ -221,7 +221,6 @@ export const getGridData = async () => {
         //subcategory doesn't have goal --> it's dark in dashboard
         case 0:
             color = '#000000';
-            icon = <CheckCircleOutlineIcon/>;
           break;
 
         //type 1 - Monthly Saving Goal
