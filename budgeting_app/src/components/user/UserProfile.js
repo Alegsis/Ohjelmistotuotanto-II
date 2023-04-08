@@ -19,7 +19,6 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [showPassword2, setShowPassword2] = useState(false);
     const [currentEmail, setCurrentEmail] = useState('');
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 

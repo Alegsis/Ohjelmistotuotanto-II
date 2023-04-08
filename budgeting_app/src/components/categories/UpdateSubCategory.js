@@ -16,6 +16,7 @@ import {
   RadioGroup,
   Select, Switch,
   TextFieldProps,
+  Typography,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
@@ -36,6 +37,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
   const [budgetGoal, setBudgetGoal] = useState('0');
   const [budgetGoalType, setBudgetGoalType] = useState('1');
   const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
+  const [budgetGoalMonthlyAmount, setBudgetGoalMonthlyAmount] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,6 +53,23 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     setBudgetGoal('0');
     setBudgetGoalType('1');
   };
+  if (budgetGoalType === '2') {
+    const today = new Date();
+    const monthsLeft = (budgetGoalDate.getFullYear() - today.getFullYear()) * 12 + (budgetGoalDate.getMonth() - today.getMonth());
+    const monthlyAmount = Math.ceil(balance / monthsLeft);
+    setBudgetGoalMonthlyAmount(monthlyAmount);
+  }
+
+  const handleBudgetGoalTypeChange = (e) => {
+    setBudgetGoalType(e.target.value);
+    if (e.target.value === '2') {
+      setBudgetGoalMonthlyAmount(calculateBudgetGoalMonthlyAmount());
+    } else {
+      setBudgetGoalMonthlyAmount('');
+    }
+  };
+  
+  
 
   const insertBudgetGoal = () => {
     if (!showGoal) {
@@ -356,7 +375,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                                       label="Monthly Saving Goal"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
-                                      value="2"/>
+                  value="2" />
                     {budgetGoalType === '2' && (
                         <div>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -374,13 +393,13 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                           </LocalizationProvider>
                         </div>
 
-                    )}
+                )}
+                
                     <FormControlLabel control={<Radio/>}
                                       label="Target Balance"
-                                      value="3"/>
-
+                  value="3" />
                   </RadioGroup>
-
+                
 
                   <TextField
                 autoFocus
@@ -397,7 +416,14 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                       }}
                   />
 
-                </div>)}
+            </div>)}
+            {budgetGoalType === '2' && budgetGoalMonthlyAmount !== '' && (
+  <div>
+    <Typography variant="body1" gutterBottom>
+      To meet your goal, you need to budget {budgetGoalMonthlyAmount} monthly.
+    </Typography>
+  </div>
+)}
           </DialogContent>
           <DialogActions style={{justifyContent: "space-between"}}>
             <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>

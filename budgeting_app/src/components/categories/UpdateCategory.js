@@ -34,7 +34,7 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
 
     const handleDelete = () => {
         const userID = localStorage.getItem('UserID');
-        const postUrl = 'http://localhost:3001/category/deactivate-category'; //Vaihtoon urli muuten pitäis möyhentää
+        const postUrl = 'http://localhost:3001/category/delete-category';
         Axios.post(postUrl, {
             CategoryName: selectedCategory,
             UserID: userID,
