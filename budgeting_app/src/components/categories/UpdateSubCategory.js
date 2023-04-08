@@ -16,7 +16,6 @@ import {
   RadioGroup,
   Select, Switch,
   TextFieldProps,
-  Typography,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
@@ -53,24 +52,15 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     setBudgetGoal('0');
     setBudgetGoalType('1');
   };
-  if (budgetGoalType === '2') {
-    const today = new Date();
-    const monthsLeft = (budgetGoalDate.getFullYear() - today.getFullYear()) * 12 + (budgetGoalDate.getMonth() - today.getMonth());
-    const monthlyAmount = Math.ceil(balance / monthsLeft);
-    setBudgetGoalMonthlyAmount(monthlyAmount);
-  }
-
-  const handleBudgetGoalTypeChange = (e) => {
-    setBudgetGoalType(e.target.value);
-    if (e.target.value === '2') {
-      setBudgetGoalMonthlyAmount(calculateBudgetGoalMonthlyAmount());
-    } else {
-      setBudgetGoalMonthlyAmount('');
+  const calculateBudgetGoalMonthlyAmount = () => {
+    if (budgetGoalType === '2') {
+      const today = new Date();
+      const monthsLeft = (new Date(budgetGoalDate).getFullYear() - today.getFullYear()) * 12 + (new Date(budgetGoalDate).getMonth() - today.getMonth());
+      const monthlyAmount = Math.ceil(budgetGoal / monthsLeft);
+      setBudgetGoalMonthlyAmount(monthlyAmount);
     }
-  };
+  }
   
-  
-
   const insertBudgetGoal = () => {
     if (!showGoal) {
       return;
@@ -253,6 +243,11 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
   }, [open]);
 
   useEffect(() => {
+    calculateBudgetGoalMonthlyAmount();
+  }, [budgetGoalType, budgetGoalDate]);
+  
+
+  useEffect(() => {
     if (selectedSubCategory !== '') {
       updateValues();
     }
@@ -377,8 +372,9 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
                   value="2" />
-                    {budgetGoalType === '2' && (
-                        <div>
+                {budgetGoalType === '2' && (
+                <div>
+                  
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
                                 label="Date"
@@ -418,13 +414,10 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                   />
 
             </div>)}
-            {budgetGoalType === '2' && budgetGoalMonthlyAmount !== '' && (
-  <div>
-    <Typography variant="body1" gutterBottom>
-      To meet your goal, you need to budget {budgetGoalMonthlyAmount} monthly.
-    </Typography>
-  </div>
+            {budgetGoalType === '2' && (
+  <p>To meet your goal, you need to budget {budgetGoalMonthlyAmount} € monthly.</p>
 )}
+
           </DialogContent>
           <DialogActions style={{justifyContent: "space-between"}}>
             <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>
