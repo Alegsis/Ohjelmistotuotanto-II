@@ -154,7 +154,6 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         UserID: userID,
         SubCategoryName: selectedSubCategory,
       }).then(() => {
-        alert('Edit successful');
         if (budgetGoalType !== '' && budgetGoal > 0) {
         insertBudgetGoal();
       }
@@ -167,6 +166,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         setBudgetGoalType('1');
         setAddDashboardSuccess(true)
         setMessage('Subcategory was edited')
+        setEffectOpen(true)
+        setMessage('Edit subcategory was successful')
         setEffectOpen(true)
       });
     }).catch((response) => {
@@ -259,8 +260,8 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
   return (
       <div className="subcategory-button">
-        <Button id="subcategory-button-1" onClick={handleClickOpen}>
-          <EditIcon/> edit subcategory
+        <Button id="subcategory-button-1" sx={{fontSize: "13px"}} onClick={handleClickOpen}>
+          <EditIcon sx={{fontSize: "18px", marginLeft: "-2px", marginRight: "8px"}}/> edit subcategory
         </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Edit subcategory</DialogTitle>
