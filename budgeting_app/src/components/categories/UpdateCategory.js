@@ -39,7 +39,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
             CategoryName: selectedCategory,
             UserID: userID,
         }).then(() => {
-            alert('Delete was successful');
             setOpen(false);
             setCategory('');
             setBalance('');
@@ -65,7 +64,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
                 UserID: userID,
                 CategoryName: selectedCategory,
             }).then(() => {
-                alert('Edit successful');
                 setOpen(false);
                 setCategory('');
                 setBalance('');

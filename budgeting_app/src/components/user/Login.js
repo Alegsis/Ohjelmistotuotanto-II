@@ -13,8 +13,6 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect} from "react";
 import UserProfile from "./UserProfile";
-import styled from '@emotion/styled';
-
 
 const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
@@ -204,7 +202,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Register></Register>
+                    <Register setEffectOpen={setEffectOpen} setMessage={setMessage}></Register>
                     <Button onClick={handleClose} className="cancel-button">Cancel</Button>
                     <Button onClick={handleCloseAndLogin} className="login-button">Log in</Button>
                 </DialogActions>
