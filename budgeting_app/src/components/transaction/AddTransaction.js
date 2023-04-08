@@ -16,7 +16,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import * as React from "react";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
-import { getPayeeList } from "./Payeelist";
 
 const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) => {
   const [open, setOpen] = useState(false);
