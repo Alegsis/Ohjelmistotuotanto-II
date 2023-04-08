@@ -119,8 +119,8 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
 
     return (
         <div className="subcategory-button">
-            <Button id="subcategory-button-1" onClick={handleClickOpen}>
-                <EditIcon/> Edit category
+            <Button id="subcategory-button-1" sx={{fontSize: "13px"}} onClick={handleClickOpen}>
+                <EditIcon sx={{fontSize: "18px", marginLeft: "-2px", marginRight: "8px"}}/> Edit category
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit category</DialogTitle>

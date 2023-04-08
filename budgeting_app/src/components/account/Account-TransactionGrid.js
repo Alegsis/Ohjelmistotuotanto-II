@@ -115,7 +115,8 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
             Memo: selectedData[0].Memo,
             TransactionID: selectedData[0].id
         }).then(() => {
-            alert('edit success')
+            setMessage('Edit was successful')
+            setEffectOpen(true)
         }).catch(response => {
             alert(response.response.data)
         })
@@ -130,7 +131,8 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
                 TransactionID: selectedData[0].id
             }).then(() => {
                 setAddAccTransactionSuccess(true)
-                alert('delete success success')
+                setMessage('Delete was successful')
+                setEffectOpen(true)
             }).catch(response => {
                 alert(response.response.data)
             })
@@ -147,10 +149,6 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
             headerName: 'Transaction Name',
             width: 200,
             editable: true},
-        {field: 'AccountName',
-            headerClassName: 'transactionsHeader',
-            headerName: 'AccountName',
-            width: 150},
         {field: 'Subcategory',
             headerClassName: 'transactionsHeader',
             headerName: 'Subcategory',
@@ -214,7 +212,11 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
                     height: 300,
                     width: '100%',
                     ' & .transactionsHeader': {
-                        backgroundColor: '#f6f6f6',
+                        fontWeight: "bold !important",
+                    },
+                    boxShadow: 2,
+                    ' & .MuiDataGrid-cell:hover': {
+                        color: '#A400FFFF',
                     },
                 }}
                 experimentalFeatures={{ columnGrouping: true }}
