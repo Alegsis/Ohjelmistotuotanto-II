@@ -228,6 +228,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
             />
 
             <FormControlLabel control={<Switch default/>}
+                              id="switch"
                               label="Add a budget goal?"
                               value="true"
                               onChange={() => setShowGoal(!showGoal)}/>
@@ -253,13 +254,16 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
 
                     <FormControlLabel control={<Radio/>}
                                       label="Monthly Saving Goal"
+                                      id="monthlyGoal"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
-                                      value="2"/>
+                                      value="2"
+                                      id="ByDateGoal"/>
                     {budgetGoalType === '2' && (
                         <div>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
+                                id="datePicker"
                                 label="Date"
                                 inputFormat="MM/YYYY"
                                 value={budgetGoalDate}

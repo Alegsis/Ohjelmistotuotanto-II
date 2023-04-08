@@ -3,10 +3,10 @@
 //     cy.visit('http://localhost:3000')
 //     cy.contains("Login").click()
 //     cy.contains('Sign Up').click()
-//     cy.get('#username').type('aleksi12',{force:true})
+//     cy.get('#username').type('aleksi111',{force:true})
 //     cy.get('#password').type('votkulinen',{force:true})
 //     cy.get('#password-again').type('votkulinen',{force:true})
-//     cy.get('#email').type('aleksi@hotmale1.com',{force:true})
+//     cy.get('#email').type('aleksi1@hotmale1.com',{force:true})
 //     cy.contains('Sign up').click()
 //   })
 // })
@@ -39,16 +39,23 @@ describe('Creating a new account', function() {
   //   cy.contains("Turhakkeet")
   // })
   //
-  // it('User is allowed to add new subcategories.', function() {
-  //   cy.contains('Dashboard').click()
-  //   cy.contains('Add subcategory').click()
-  //   cy.get('#Category').click();
-  //   cy.get('[data-value="Turhakkeet"]').click();
-  //   cy.get('#sub-category').type('VedenalainenPyykinpesukone',{force:true})
-  //   cy.get("#balance").type('666',{force:true})
-  //   cy.contains('Save').click();
-  //   cy.contains("VedenalainenPyykinpesukone")
-  // })
+  it('User is allowed to add new subcategories.', function() {
+    cy.contains('Dashboard').click()
+    cy.contains('Add subcategory').click()
+    cy.get('#Category').click();
+    cy.get('[data-value="Turhakkeet"]').click();
+    cy.get('#sub-category').type('TissienPienennysLeikkaus',{force:true})
+    cy.get("#balance").type('666',{force:true})
+    cy.get("#switch").click();
+    cy.get("#ByDateGoal").click()
+
+
+    // cy.get('#datePicker').click()
+    // cy.get('input[value="05/2023"]').click();
+
+//    cy.contains('Save').click();
+//    cy.contains("TissienPienennysLeikkaus")
+  })
   //
   // it('User is allowed to edit categories.', function() {
   //   cy.contains('Dashboard').click()
@@ -58,6 +65,16 @@ describe('Creating a new account', function() {
   //   cy.get('#category').type('Hassuttelu',{force:true})
   //   cy.contains('Save changes').click();
   // })
+
+  // it('User is allowed to delete categories.', function() {
+  //   cy.contains('Dashboard').click()
+  //   cy.contains('Edit category').click()
+  //   cy.get('#Category').click();
+  //   cy.get('[data-value="Turhakkeet"]').click();
+  //   cy.contains('Delete').click();
+  // })
+
+
   //
   // it('User is allowed to edit subcategories.', function() {
   //   cy.contains('Dashboard').click()
@@ -70,16 +87,17 @@ describe('Creating a new account', function() {
   //   cy.contains('Save changes').click();
   // })
 
-  it('User is allowed to budget', function() {
-    cy.contains('Dashboard').click()
-    cy.contains('Budget').click()
-    cy.get('#fromSubcategory').click();
-    cy.get('[data-value="VedenalainenPyykinpesukone"]').click();
-    cy.get('#subcategory-name').click();
-    cy.get('[data-value="Pyllytin"]').click();
-    cy.get('#amount').type(153.55);
-    cy.contains("Make budgeting").click()
-  })
+
+  // it('User is allowed to budget', function() {
+  //   cy.contains('Dashboard').click()
+  //   cy.contains('Budget').click()
+  //   cy.get('#fromSubcategory').click();
+  //   cy.get('[data-value="VedenalainenPyykinpesukone"]').click();
+  //   cy.get('#subcategory-name').click();
+  //   cy.get('[data-value="Pyllytin"]').click();
+  //   cy.get('#amount').type(153.55);
+  //   cy.contains("Make budgeting").click()
+  // })
 
 
   // it('User is allowed to add transactions.', function() {
