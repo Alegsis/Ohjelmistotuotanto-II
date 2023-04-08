@@ -30,43 +30,57 @@ describe('Creating a new account', function() {
   //   cy.contains('Accounts').click()
   //   cy.contains('Osuuspankki')
   // })
+  //
+  // it('User is allowed to add new categories.', function() {
+  //   cy.contains('Dashboard').click()
+  //   cy.contains('Add Category').click()
+  //   cy.get('#category').type('Turhakkeet',{force:true})
+  //   cy.contains('Save').click();
+  //   cy.contains("Turhakkeet")
+  // })
+  //
+  // it('User is allowed to add new subcategories.', function() {
+  //   cy.contains('Dashboard').click()
+  //   cy.contains('Add subcategory').click()
+  //   cy.get('#Category').click();
+  //   cy.get('[data-value="Turhakkeet"]').click();
+  //   cy.get('#sub-category').type('VedenalainenPyykinpesukone',{force:true})
+  //   cy.get("#balance").type('666',{force:true})
+  //   cy.contains('Save').click();
+  //   cy.contains("VedenalainenPyykinpesukone")
+  // })
+  //
+  // it('User is allowed to edit categories.', function() {
+  //   cy.contains('Dashboard').click()
+  //   cy.contains('Edit category').click()
+  //   cy.get('#Category').click();
+  //   cy.get('[data-value="Turhakkeet"]').click();
+  //   cy.get('#category').type('Hassuttelu',{force:true})
+  //   cy.contains('Save changes').click();
+  // })
+  //
+  // it('User is allowed to edit subcategories.', function() {
+  //   cy.contains('Dashboard').click()
+  //   cy.contains('edit subcategory').click()
+  //   cy.get('#SubCategory').click();
+  //   cy.get('[data-value="VedenalainenPyykinpesukone"]').click();
+  //   cy.get('#Category').click();
+  //   cy.get('[data-value="kategoria"]').click();
+  //   cy.get('#sub-category').type('Kissanruoka',{force:true})
+  //   cy.contains('Save changes').click();
+  // })
 
-  it('User is allowed to add new categories.', function() {
+  it('User is allowed to budget', function() {
     cy.contains('Dashboard').click()
-    cy.contains('New Category').click()
-    cy.get('#category').type('Auto',{force:true})
-    cy.contains('Save').click();
+    cy.contains('Budget').click()
+    cy.get('#fromSubcategory').click();
+    cy.get('[data-value="VedenalainenPyykinpesukone"]').click();
+    cy.get('#subcategory-name').click();
+    cy.get('[data-value="Pyllytin"]').click();
+    cy.get('#amount').type(153.55);
+    cy.contains("Make budgeting").click()
   })
 
-  it('User is allowed to add new subcategories.', function() {
-    cy.contains('Dashboard').click()
-    cy.contains('Add subcategory').click()
-    cy.get('#Category').click();
-    cy.get('[data-value="Auto"]').click();
-    cy.get('#sub-category').type('Pesula',{force:true})
-    cy.get("#balance").type('666',{force:true})
-    cy.contains('Save').click();
-  })
-
-  it('User is allowed to edit categories.', function() {
-    cy.contains('Dashboard').click()
-    cy.contains('Edit category').click()
-    cy.get('#Category').click();
-    cy.get('[data-value="Auto"]').click();
-    cy.get('#category').type('Talo',{force:true})
-    cy.contains('Save changes').click();
-  })
-
-  it('User is allowed to edit subcategories.', function() {
-    cy.contains('Dashboard').click()
-    cy.contains('edit subcategory').click()
-    cy.get('#SubCategory').click();
-    cy.get('[data-value="Pesula"]').click();
-    cy.get('#Category').click();
-    cy.get('[data-value="TIssitPylly"]').click();
-    cy.get('#sub-category').type('Kalusteet',{force:true})
-    cy.contains('Save changes').click();
-  })
 
   // it('User is allowed to add transactions.', function() {
   //
