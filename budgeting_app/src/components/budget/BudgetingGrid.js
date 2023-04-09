@@ -12,7 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import {useState} from 'react';
 import Axios from 'axios';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -222,24 +221,50 @@ export const getGridData = async () => {
         //subcategory doesn't have goal --> it's dark in dashboard
         case 0:
             color = '#000000';
-            icon = <CheckCircleOutlineIcon/>;
           break;
 
         //type 1 - Monthly Saving Goal
         case 1:
-          if (budgetedAmount < goalAmount) {
+          if (availableAmount < 0) {
+            //red
+            color = '#ca0000';
+            icon = <ErrorIcon style={{fill: '#ca0000', paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          else if (budgetedAmount < goalAmount) {
             //orange
             color = '#fd8200';
             icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
               fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
           }
-          if (budgetedAmount >= goalAmount) {
+          else if (budgetedAmount >= goalAmount) {
             //green
             color = '#099300';
             icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
               fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
           }
-          if (availableAmount < 0) {
+          break;
+
+        //type 2 - Save by Date
+        case 2:
+          const getBudgetedSumType2 = `http://localhost:3001/budget/user-${userID}/get-budgeted-sum-type-2/subcategory-${subCategoryName}`;
+          const getBudgetedSumResultType2 = await Axios.get(getBudgetedSumType2);
+          const BudgetedSumType2 = getBudgetedSumResultType2.data;
+          const currentDate = new Date().toISOString();
+
+          if(BudgetedSumType2 >= goalAmount){
+            //green
+            color = '#099300';
+            icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          else if(goalDate >= currentDate && BudgetedSumType2 < goalAmount){
+            //orange
+            color = '#fd8200';
+            icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          else if(goalDate < currentDate && BudgetedSumType2 < goalAmount){
             //red
             color = '#ca0000';
             icon = <ErrorIcon style={{fill: '#ca0000', paddingBottom: "3px",
@@ -247,30 +272,24 @@ export const getGridData = async () => {
           }
           break;
 
-
-        //type 2 - Save by Date
-        case 2:
-          /*
-          !!!!!!!!!!!!!!!IN PROGRESS!!!!!!!!!!!!! SAMI K .
-
-          console.log(subCategoryName)
-          const getBudgetedSum = `http://localhost:3001/budget/user-${userID}/get-budgeted-sum/subcategory-${subCategoryName}`;
-          const resultCategories = await Axios.get(getBudgetedSum);
-          console.log(resultCategories.data)
-          const currentDate = new Date().toISOString();
-          console.log(currentDate < goalDate);
-          if(goalDate >= currentDate && )
-
-           */
-
-
-          break;
-
-
         //type 3 - Target Balance
         case 3:
+          const getBudgetedSumType3 = `http://localhost:3001/budget/user-${userID}/get-budgeted-sum-type-3/subcategory-${subCategoryName}`;
+          const getBudgetedSumResultType3 = await Axios.get(getBudgetedSumType3);
+          const BudgetedSumType3 = getBudgetedSumResultType3.data;
 
-
+          if(BudgetedSumType3 >= goalAmount){
+            //green
+            color = '#099300';
+            icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
+          else{
+            //orange
+            color = '#fd8200';
+            icon = <ErrorOutlineIcon style={{fill: 'orange',paddingBottom: "3px",
+              fontSize: "23px", marginLeft: "-2px", marginRight: "6px"}}/>;
+          }
           break;
       }
 

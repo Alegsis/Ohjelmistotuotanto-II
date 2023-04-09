@@ -115,12 +115,20 @@ router.post('/new-category', async (req, res) => {
 router.post('/update-category', async (req, res) => {
   try {
     const {OldCategoryName, NewCategoryName, UserID} = req.body;
-    const sqlQuery = `UPDATE category SET category.CategoryName = '${NewCategoryName}'
- WHERE category.UserID = '${UserID}' AND category.CategoryName = '${OldCategoryName}'`;
-    await pool.query(sqlQuery);
 
-    res.status(200).
-        send(`Subcategory ${OldCategoryName} is now ${NewCategoryName}`);
+    const sqlQueryFindCategory = `SELECT category.CategoryName FROM category WHERE category.CategoryName=? AND category.UserID=?`;
+    const resultFindCategory = await pool.query(sqlQueryFindCategory,
+        [NewCategoryName, UserID]);
+
+    if (resultFindCategory.length === 0) {
+      const sqlQuery = `UPDATE category SET category.CategoryName = '${NewCategoryName}' 
+WHERE category.UserID = '${UserID}' AND category.CategoryName = '${OldCategoryName}'`;
+      await pool.query(sqlQuery);
+      res.status(200).send(`Subcategory ${OldCategoryName} is now ${NewCategoryName}`);
+    }
+    else {
+      res.status(409).json('Category name already exists');
+    }
 
   } catch (error) {
     res.status(400).send('Something went wrong, please try again');
