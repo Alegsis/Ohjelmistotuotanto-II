@@ -264,7 +264,6 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                         <div>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
-                                id="datePicker"
                                 label="Date"
                                 inputFormat="MM/YYYY"
                                 value={budgetGoalDate}
