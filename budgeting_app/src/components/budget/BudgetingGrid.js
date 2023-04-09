@@ -274,11 +274,8 @@ export const getGridData = async () => {
 
         //type 3 - Target Balance
         case 3:
-          const getBudgetedSumType3 = `http://localhost:3001/budget/user-${userID}/get-budgeted-sum-type-3/subcategory-${subCategoryName}`;
-          const getBudgetedSumResultType3 = await Axios.get(getBudgetedSumType3);
-          const BudgetedSumType3 = getBudgetedSumResultType3.data;
 
-          if(BudgetedSumType3 >= goalAmount){
+          if(availableAmount >= goalAmount){
             //green
             color = '#099300';
             icon = <CheckCircleOutlineIcon style={{fill: 'green',paddingBottom: "3px",
