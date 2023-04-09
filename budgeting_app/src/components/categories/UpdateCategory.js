@@ -52,32 +52,37 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
         });
     };
 
-    //TODO when backend is done should be easy to connect
-    const handleEditCategory = () => {
+    const getCategory = () => {
         const userID = localStorage.getItem('UserID');
-        const postUrl = 'http://localhost:3001/category/update-category';
-        const getUrl = `http://localhost:3001/category/user-${userID}/get-category-details/CategoryName-${selectedCategory}`;
+        const getUrl = `http://localhost:3001/category/user-${userID}/find-categoryid/categoryname-${selectedCategory}`;
         Axios.get(getUrl).then((response) => {
             setBalance(response.data[0].Balance);
-            Axios.post(postUrl, {
-                NewCategoryName: Category,
-                NewCategory: selectedCategory,
-                UserID: userID,
-                CategoryName: selectedCategory,
-            }).then(() => {
-                alert('Edit successful');
-                setOpen(false);
-                setCategory('');
-                setBalance('');
-                setSelectedCategory('');
-                setAddDashboardSuccess(true)
-                setMessage('Category was edited')
-                setEffectOpen(true)
-            });
+            setCategory(selectedCategory);
         }).catch((response) => {
             alert(response.response.data);
         });
-    };
+    }
+ 
+    const handleEditCategory = () => {
+        const userID = localStorage.getItem('UserID');
+        const postUrl = 'http://localhost:3001/category/update-category';
+        Axios.post(postUrl, {
+            OldCategoryName: selectedCategory,
+            NewCategoryName: Category,
+            UserID: userID,
+        }).then(() => {
+            alert('Edit successful');
+            setOpen(false);
+            setCategory('');
+            setBalance('');
+            setSelectedCategory('');
+            setAddDashboardSuccess(true)
+            setMessage('Category was edited')
+            setEffectOpen(true)
+        }).catch((response) => {
+            alert(response.response.data);
+        });
+    }
 
     const getUserCategories = () => {
         const userID = localStorage.getItem('UserID');
@@ -109,7 +114,10 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
 
     useEffect(() => {
         getUserCategories();
+        getCategory();
     }, [open]);
+
+    
 
     useEffect(() => {
         if (selectedCategory !== '') {

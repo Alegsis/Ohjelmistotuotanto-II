@@ -52,6 +52,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     setBudgetGoal('0');
     setBudgetGoalType('1');
   };
+  
   const calculateBudgetGoalMonthlyAmount = () => {
     if (budgetGoalType === '2') {
       const today = new Date();
