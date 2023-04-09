@@ -52,17 +52,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
         });
     };
 
-    const getCategory = () => {
-        const userID = localStorage.getItem('UserID');
-        const getUrl = `http://localhost:3001/category/user-${userID}/find-categoryid/categoryname-${selectedCategory}`;
-        Axios.get(getUrl).then((response) => {
-            setBalance(response.data[0].Balance);
-            setCategory(selectedCategory);
-        }).catch((response) => {
-            alert(response.response.data);
-        });
-    }
- 
     const handleEditCategory = () => {
         const userID = localStorage.getItem('UserID');
         const postUrl = 'http://localhost:3001/category/update-category';
@@ -100,30 +89,10 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
             alert(response.response.data);
         });
     };
-    //TODO when backend is done should be easy to connect
-    const updateValues = () => {
-        const userID = localStorage.getItem('UserID');
-        const baseUrl = `http://localhost:3001/category/user-${userID}/get-category-details/CategoryName-${selectedCategory}`;
-        Axios.get(baseUrl).then((response) => {
-            setBalance(response.data[0].Balance);
-            setCategory(selectedCategory);
-        }).catch((response) => {
-            alert(response.response.data);
-        });
-    };
 
     useEffect(() => {
         getUserCategories();
-        getCategory();
     }, [open]);
-
-    
-
-    useEffect(() => {
-        if (selectedCategory !== '') {
-            updateValues();
-        }
-    }, [selectedCategory]);
 
     return (
         <div className="subcategory-button">
@@ -176,20 +145,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
                         variant="filled"
                         onChange={(event) => {
                             setCategory(event.target.value);
-                        }}
-                    />
-                    <TextField
-                        autoFocus
-                        disabled
-                        margin="dense"
-                        id="balance"
-                        label="Balance"
-                        fullWidth
-                        inputProps={{maxLength: 20}}
-                        value={balance}
-                        variant="filled"
-                        onChange={(event) => {
-                            setBalance(event.target.value);
                         }}
                     />
                 </DialogContent>
