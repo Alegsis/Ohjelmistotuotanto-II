@@ -11,7 +11,7 @@ import Axios from "axios";
 import {IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
-const Register = () => {
+const Register = ({setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -77,13 +77,14 @@ const Register = () => {
                     username: username,
                     password: password,
                     email: email
-                }).then((response) => {
-                    alert(response.data)
+                }).then(() => {
                     setOpen(false);
                     setUsername('');
                     setPassword('');
                     setRePassword('');
                     setEmail('');
+                    setMessage('Register was successful')
+                    setEffectOpen(true)
                 }).catch(response => {
                     alert(response.response.data)
                 })

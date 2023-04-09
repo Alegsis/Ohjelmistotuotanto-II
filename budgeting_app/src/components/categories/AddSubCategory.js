@@ -119,6 +119,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
             insertBudgetGoal();
           }
           setOpen(false);
+          setShowGoal(false);
           setSubCategory('');
           setBalance(0);
           setSelectedCategory('');
