@@ -36,6 +36,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
   const [budgetGoal, setBudgetGoal] = useState('0');
   const [budgetGoalType, setBudgetGoalType] = useState('1');
   const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
+  const [budgetGoalMonthlyAmount, setBudgetGoalMonthlyAmount] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,7 +52,16 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     setBudgetGoal('0');
     setBudgetGoalType('1');
   };
-
+  
+  const calculateBudgetGoalMonthlyAmount = () => {
+    if (budgetGoalType === '2') {
+      const today = new Date();
+      const monthsLeft = (new Date(budgetGoalDate).getFullYear() - today.getFullYear()) * 12 + (new Date(budgetGoalDate).getMonth() - today.getMonth());
+      const monthlyAmount = Math.ceil(budgetGoal / monthsLeft);
+      setBudgetGoalMonthlyAmount(monthlyAmount);
+    }
+  }
+  
   const insertBudgetGoal = () => {
     if (!showGoal) {
       return;
@@ -234,6 +244,11 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
   }, [open]);
 
   useEffect(() => {
+    calculateBudgetGoalMonthlyAmount();
+  }, [budgetGoalType, budgetGoalDate]);
+  
+
+  useEffect(() => {
     if (selectedSubCategory !== '') {
       updateValues();
     }
@@ -357,9 +372,10 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                                       label="Monthly Saving Goal"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
-                                      value="2"/>
-                    {budgetGoalType === '2' && (
-                        <div>
+                  value="2" />
+                {budgetGoalType === '2' && (
+                <div>
+                  
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DesktopDatePicker
                                 label="Date"
@@ -375,13 +391,13 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                           </LocalizationProvider>
                         </div>
 
-                    )}
+                )}
+                
                     <FormControlLabel control={<Radio/>}
                                       label="Target Balance"
-                                      value="3"/>
-
+                  value="3" />
                   </RadioGroup>
-
+                
 
                   <TextField
                 autoFocus
@@ -398,7 +414,11 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                       }}
                   />
 
-                </div>)}
+            </div>)}
+            {budgetGoalType === '2' && (
+  <p>To meet your goal, you need to budget {budgetGoalMonthlyAmount} € monthly.</p>
+)}
+
           </DialogContent>
           <DialogActions style={{justifyContent: "space-between"}}>
             <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>
