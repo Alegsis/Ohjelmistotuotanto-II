@@ -6,7 +6,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import { Select } from "@mui/material";
+import { Select, Switch, FormControlLabel, } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
@@ -28,6 +28,8 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
     const [memo, setMemo] = useState("");
     const [subCategory, setSubCategory] = useState("");
     const [subCategoryList, setSubCategoryList] = useState([]);
+    const [payeeList, setPayeeList] = useState([]);
+    const [showGoal, setShowGoal] = useState(false);
 
     const handleChange = (newValue) => {
         setDate(newValue);
@@ -39,6 +41,22 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
     const handleClose = () => {
         setOpen(false);
         setSubCategory("");
+    };
+
+    const getPayeeList = () => {
+        const userID = localStorage.getItem('UserID');
+        const baseUrl = `http://localhost:3001/transaction/user-${userID}/get-payee-list`;
+        const updatedArray = [];
+        return Axios.get(baseUrl).then((response) => {
+            for (let x = 0; x < response.data.length; x++) {
+                const payee = response.data[x].Payee;
+                updatedArray.push({value: payee});
+          }
+          setPayeeList([]);
+          setPayeeList(updatedArray);
+        }).catch((response) => {
+            alert(response.response.data);
+        });
     };
 
     const getUserSubcategories = () => {
@@ -149,18 +167,54 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
                             setInflow(parseFloat(event.target.value));
                         }}
                     />
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="payee"
-                        label="Payee"
-                        fullWidth
-                        variant="filled"
-                        onChange={(event) => {
-                            setRecipient(event.target.value);
-                        }}
-                    />
+                    <div className="transaction-selects">
+            <div className="transaction-payee">
+              <InputLabel id="account">Payee *</InputLabel>
+              <Select
+                style={{ height: "50px", width: "550px" }}
+                id="payee-list"
+                labelId="Payee"
+                fullWidth
+                required
+                onOpen={getPayeeList}
+                value={recipient}
+                onChange={(event) => {
+                  setRecipient(event.target.value);
+                }}
+              >
+                {payeeList.map((recipient) => (
+                  <MenuItem key={recipient.value} value={recipient.value}>
+                    {recipient.value}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+          </div>
+          <FormControlLabel control={<Switch default/>}
+                              label="Add a payee?"
+                              value="true"
+                              onChange={() => setShowGoal(!showGoal)}/>
+
+            {showGoal && (
+                <div>
+
+
+                  <DialogContentText>
+                    Here you can type a payee.
+                  </DialogContentText>
+                  <TextField
+            required
+            autoFocus
+            margin="dense"
+            id="payee"
+            label="Payee"
+            fullWidth
+            variant="filled"
+            onChange={(event) => {
+              setRecipient(event.target.value);
+            }}
+          />
+                </div>)}
                     <TextField
                         required
                         autoFocus
