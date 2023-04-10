@@ -19,7 +19,6 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [showPassword2, setShowPassword2] = useState(false);
     const [currentEmail, setCurrentEmail] = useState('');
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
@@ -284,7 +283,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         required
                         autoFocus
                         margin="dense"
-                        id="first-email"
+                        id="new-email"
                         label="New email"
                         inputProps={{ maxLength: 60 }}
                         onKeyDown={(e) => {
@@ -321,7 +320,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
             margin="dense"
             id="password"
             label="Password For Deletion"
-            type={showPassword2 ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             inputProps={{maxLength: 30}}
             onKeyDown={(e) => {
                 e.stopPropagation();
@@ -332,7 +331,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                 endAdornment: (
                     <InputAdornment position="end">
                         <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                            {showPassword2 ? <VisibilityOff /> : <Visibility />}
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                     </InputAdornment>
                 ),
@@ -343,7 +342,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         </DialogContent>
         <DialogActions>
             <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
-            <Button onClick={handleDelete} style={{ color: "red" }}>Delete</Button>
+            <Button onClick={handleDelete} style={{ color: "red" }}>Remove</Button>
         </DialogActions>
     </Dialog>
 </DialogActions>
