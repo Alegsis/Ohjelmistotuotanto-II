@@ -23,6 +23,7 @@
 //     //cy.get("button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.css-1e6y48t-MuiButtonBase-root-MuiButton-root").click()
 //     cy.contains("Remove").click({force:true})
 //
+
 //   })
 
 // })
