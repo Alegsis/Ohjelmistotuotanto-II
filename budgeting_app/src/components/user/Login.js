@@ -73,6 +73,11 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
             setPassword('');
             setLoggedIn(true)
             setOpen(false);
+            setUserNotFoundError(false);
+            setUserNotActiveError(false);
+            setPasswordError(false);
+            setPasswordTouched(false);
+            setPasswordEmpty(false);
             localStorage.setItem("UserID", response.data.toString());
             localStorage.setItem("Username", username);
             setMessage(`Welcome ${username}`)
