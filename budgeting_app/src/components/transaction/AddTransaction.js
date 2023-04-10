@@ -187,14 +187,14 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
               setInflow(parseFloat(event.target.value));
             }}
           />
-
+          
           
           <div className="transaction-selects">
             <div className="transaction-payee">
               <InputLabel id="account">Payee *</InputLabel>
               <Select
                 style={{ height: "50px", width: "550px" }}
-                id="account-payee-list"
+                id="payee-list"
                 labelId="Payee"
                 fullWidth
                 required
@@ -214,7 +214,6 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
           </div>
           <FormControlLabel control={<Switch default/>}
                               label="Add a payee?"
-                            id="switch"
                               value="true"
                               onChange={() => setShowGoal(!showGoal)}/>
 
@@ -315,7 +314,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
             Cancel
           </Button>
           <Button className="add-transaction" onClick={addTransaction}>
-            Add new transaction
+            Add Transaction
           </Button>
         </DialogActions>
       </Dialog>

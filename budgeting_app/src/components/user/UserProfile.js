@@ -283,7 +283,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         required
                         autoFocus
                         margin="dense"
-                        id="new-email"
+                        id="first-email"
                         label="New email"
                         inputProps={{ maxLength: 60 }}
                         onKeyDown={(e) => {
@@ -342,7 +342,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         </DialogContent>
         <DialogActions>
             <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
-            <Button onClick={handleDelete} style={{ color: "red" }}>Remove</Button>
+            <Button onClick={handleDelete} style={{ color: "red" }}>Delete</Button>
         </DialogActions>
     </Dialog>
 </DialogActions>
