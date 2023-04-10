@@ -86,7 +86,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
             id="account-name"
             label="Account Name"
             fullWidth
-            inputProps={{maxLength: 30}}
+            inputProps={{maxLength: 20}}
             value={accountName}
             variant="filled"
             onChange={(event) => {

@@ -257,13 +257,13 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" sx={{fontSize: "13px"}} onClick={handleClickOpen}>
-          <EditIcon sx={{fontSize: "18px", marginLeft: "-2px", marginRight: "8px"}}/> edit subcategory
+          <EditIcon sx={{fontSize: "18px", marginLeft: "-2px", marginRight: "8px"}}/> edit subcategory & goal
         </Button>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Edit subcategory</DialogTitle>
+          <DialogTitle>Edit subcategory & goal</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To edit a sub category, you need to select a
+              To edit a subcategory, you need to select a
               subcategory. You can
               change category or subcategory's
               name if it is needed. It is also possible to delete
