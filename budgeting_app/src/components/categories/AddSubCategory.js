@@ -162,7 +162,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
     getUserCategories();
   }, [open]);
 
-  
+
   return (
       <div className="subcategory-button">
         <Button id="subcategory-button-1" sx={{fontSize: "13px"}} onClick={handleClickOpen}>
@@ -229,6 +229,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
             />
 
             <FormControlLabel control={<Switch default/>}
+                              id="Switch"
                               label="Add a budget goal?"
                               value="true"
                               onChange={() => setShowGoal(!showGoal)}/>
@@ -254,8 +255,11 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
 
                     <FormControlLabel control={<Radio/>}
                                       label="Monthly Saving Goal"
+                                      id="ByMonth"
                                       value="1"/>
-                    <FormControlLabel control={<Radio/>} label="Save by Date"
+                    <FormControlLabel control={<Radio/>}
+                                      id="budgetGoal"
+                                      label="Save by Date"
                                       value="2"/>
                     {budgetGoalType === '2' && (
                         <div>

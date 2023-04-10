@@ -194,7 +194,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
               <InputLabel id="account">Payee *</InputLabel>
               <Select
                 style={{ height: "50px", width: "550px" }}
-                id="payee-list"
+                id="account-payee-list"
                 labelId="Payee"
                 fullWidth
                 required
@@ -215,6 +215,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
           <FormControlLabel control={<Switch default/>}
                               label="Add a payee?"
                               value="true"
+                            id="switch"
                               onChange={() => setShowGoal(!showGoal)}/>
 
             {showGoal && (
@@ -314,7 +315,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
             Cancel
           </Button>
           <Button className="add-transaction" onClick={addTransaction}>
-            Add Transaction
+            Add new Transaction
           </Button>
         </DialogActions>
       </Dialog>

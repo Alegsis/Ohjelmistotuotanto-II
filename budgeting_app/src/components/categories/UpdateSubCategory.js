@@ -345,6 +345,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
             />
 
             <FormControlLabel control={<Switch default/>}
+                              id="Switch"
                               label="Add a budget goal?"
                               value="true"
                               onChange={() => setShowGoal(!showGoal)}/>
@@ -370,6 +371,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
                     <FormControlLabel control={<Radio/>}
                                       label="Monthly Saving Goal"
+                                      id="ByMonth"
                                       value="1"/>
                     <FormControlLabel control={<Radio/>} label="Save by Date"
                   value="2" />
@@ -403,7 +405,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                 autoFocus
                 required
                       margin="dense"
-                      id="budgetGoal"
+                      id="ByDateGoal"
                       label="Budget goal amount"
                       fullWidth
                       inputProps={{maxLength: 20}}

@@ -52,10 +52,10 @@ describe('Testing basic functionalities', function() {
     cy.contains("Update Password").click()
   })
 
-  it('Change password back just to make testing easier.', function() {
+  it('Allowed to change email.', function() {
     cy.get('div.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.login-select.css-12vt7ln-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root').click()
     cy.contains("Profile").click()
-    cy.get("#new-email").type("allun@salasana.net")
+    cy.get("#first-email").type("allun@salasana.net")
     cy.contains("Update Email").click()
   })
 
@@ -77,22 +77,22 @@ describe('Testing basic functionalities', function() {
     cy.contains('Save').click();
     cy.contains("Maitokauppa")
   })
-  //
+
   it('User is allowed to add new subcategories with goals.', function() {
     cy.contains('Dashboard').click()
     cy.contains('Add subcategory').click()
     cy.get('#Category').click();
-    cy.get('[data-value="Maitokauppa"]').click();
-    cy.get('#sub-category').type('Maito',{force:true})
+    cy.get('[data-value="Juttusia"]').click();
+    cy.get('#sub-category').type('asioita',{force:true})
     cy.get("#balance").type('666',{force:true})
-    cy.get("#switch").click();
-    cy.get("#ByDateGoal").click()
+    cy.get("#Switch").click();
+    cy.get("#budgetGoal").click()
     cy.get('button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-edgeEnd.MuiIconButton-sizeMedium.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root').eq(1).click();
     cy.contains('Jun').click();
     cy.get('button').contains("2023").click()
     cy.get("#budgetGoal").type("1000")
     cy.get("button").contains("Save").click()
-    cy.contains("Maito")
+    cy.contains("asioita")
   })
 
   it('User is allowed to edit categories.', function() {
@@ -118,16 +118,16 @@ describe('Testing basic functionalities', function() {
     cy.contains('Dashboard').click()
     cy.contains('edit subcategory').click()
     cy.get('#SubCategory').click();
-    cy.get('[data-value="Lapsivedenkeitin"]').click();
+    cy.get('[data-value="MatinPesuneste"]').click();
     cy.get('#Category').click();
     cy.get('[data-value="Turhakkeita"]').click();
-    cy.get('#sub-category').clear().type('MatinPesuneste',{force:true})
+    cy.get('#sub-category').clear().type('Votkuli',{force:true})
     cy.get("#Switch").click();
     cy.get("#ByMonth").click()
-    cy.get("#budgetGoal").clear().type("1000")
+    cy.get("#ByDateGoal").clear().type("1000")
     cy.get("button").contains("Save").click()
     cy.contains('Save changes').click();
-    cy.contains("MatinPesuneste")
+    cy.contains("Votkuli")
 
   })
 
@@ -135,7 +135,7 @@ describe('Testing basic functionalities', function() {
     cy.contains('Dashboard').click()
     cy.contains('edit subcategory').click()
     cy.get('#SubCategory').click();
-    cy.get('[data-value="Viinaostokset69"]').click();
+    cy.get('[data-value="asioita"]').click();
     cy.contains('Delete').click();
   })
 
@@ -151,22 +151,7 @@ describe('Testing basic functionalities', function() {
   })
 
 
-  it('User is allowed to add transactions via accounts view.', function() {
 
-    cy.contains('Accounts').click()
-    cy.wait(2000)
-    cy.contains('Add transaction').click()
-    cy.get('#transactionName').type('Vaatekuluista',{force:true})
-    cy.get('#inflow').type('30',{force:true})
-    cy.get('#account-payee-list').click()
-    cy.get('[data-value="mauri"]').click();
-    cy.get('#memo').type('ostoksilla äiteen kanssa',{force:true})
-    cy.get('#account-name').click();
-    cy.get('[data-value="S-Pankki"]').click();
-    cy.get('#subcategory-name').click();
-    cy.get('[data-value="MatinPesuneste"]').click();
-    cy.contains('Add new transaction').click();
-  })
 
   it('User is allowed to add transactions via accounts view + add new payee.', function() {
 
@@ -181,8 +166,25 @@ describe('Testing basic functionalities', function() {
     cy.get('#account-name').click();
     cy.get('[data-value="S-Pankki"]').click();
     cy.get('#subcategory-name').click();
-    cy.get('[data-value="MatinPesuneste"]').click();
-    cy.contains('Add new transaction').click();
+    cy.get('[data-value="Votkuli"]').click();
+    cy.contains('Add new Transaction').click();
+  })
+
+  it('User is allowed to add transactions via accounts view.', function() {
+
+    cy.contains('Accounts').click()
+    cy.wait(2000)
+    cy.contains('Add transaction').click()
+    cy.get('#transactionName').type('Vaatekuluista',{force:true})
+    cy.get('#inflow').type('30',{force:true})
+    cy.get('#account-payee-list').click()
+    cy.get('[data-value="isäukko"]').click();
+    cy.get('#memo').type('ostoksilla isin kanssa',{force:true})
+    cy.get('#account-name').click();
+    cy.get('[data-value="S-Pankki"]').click();
+    cy.get('#subcategory-name').click();
+    cy.get('[data-value="Votkuli"]').click();
+    cy.contains('Add new Transaction').click();
   })
 
   it('User is allowed to add transactions under specific account.', function() {
@@ -195,7 +197,7 @@ describe('Testing basic functionalities', function() {
     cy.get('button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeSmall.MuiPickersCalendarHeader-switchViewButton.css-12mkn7b-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton').click();
     cy.get("button").contains("2025").click()
     cy.get('button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-edgeStart.MuiIconButton-sizeSmall.MuiPickersArrowSwitcher-button.css-jro82b-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button').click();
-    cy.contains("18").click()
+    cy.get("button.MuiButtonBase-root.MuiPickersDay-root.MuiPickersDay-dayWithMargin.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root").eq(24).click()
     cy.get('#transactionName').type('Vaatekuluista',{force:true})
     cy.get('#inflow').type('30',{force:true})
     cy.get("#switch").click()
@@ -205,7 +207,7 @@ describe('Testing basic functionalities', function() {
     cy.get('[data-value="S-Pankki"]').click();
     cy.get('#subcategory-name').click();
     cy.get('[data-value="Nuuskutin"]').click();
-    cy.contains('Add new transaction').click();
+    cy.contains('Add new Transaction').click();
   })
 })
 

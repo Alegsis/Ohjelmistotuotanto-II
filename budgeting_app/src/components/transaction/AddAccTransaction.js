@@ -172,7 +172,7 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
               <InputLabel id="account">Payee *</InputLabel>
               <Select
                 style={{ height: "50px", width: "550px" }}
-                id="payee-list"
+                id="account-payee-list"
                 labelId="Payee"
                 fullWidth
                 required
@@ -192,6 +192,7 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
           </div>
           <FormControlLabel control={<Switch default/>}
                               label="Add a payee?"
+                            id="switch"
                               value="true"
                               onChange={() => setShowGoal(!showGoal)}/>
 
@@ -286,7 +287,7 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
                         Cancel
                     </Button>
                     <Button className="add-transaction" onClick={addTransaction}>
-                        Add Transaction
+                        Add new Transaction
                     </Button>
                 </DialogActions>
             </Dialog>
