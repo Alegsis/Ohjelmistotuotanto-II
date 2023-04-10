@@ -1,0 +1,43 @@
+Index: budgeting_app/cypress/e2e/testings.cy.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>describe('Can you Sign up', function() {\r\n  it('User is allowed to Register.', function() {\r\n    cy.visit('http://localhost:3000')\r\n    cy.contains(\"Login\").click()\r\n    cy.contains('Sign Up').click()\r\n    cy.get('#username').type('Maisanen',{force:true})\r\n    cy.get('#password').type('kyllikki',{force:true})\r\n    cy.get('#password-again').type('kyllikki',{force:true})\r\n    cy.get('#email').type('kyllikki@hotmale.com',{force:true})\r\n    cy.contains('Sign up').click()\r\n  })\r\n})\r\ndescribe('Creating a new account', function() {\r\n  beforeEach(function() {\r\n    cy.visit('http://localhost:3000')\r\n    cy.contains(\"Login\").click()\r\n    cy.get('input:first').type('Maisanen',{force:true})\r\n    cy.get('input:last').type('kyllikki',{force:true})\r\n    cy.contains('Log in').click({force:true})\r\n  })\r\n  it('User is allowed to add account.', function() {\r\n    cy.contains('AddAccount').click()\r\n    cy.get('#account-name').type('S-Ryhmä',{force:true})\r\n    cy.get('#account-balance').type('1000',{force:true})\r\n    cy.get('[id=\\'account-type\\']').parent().click()\r\n    //Tää on vähän SUS, mutta toimii ~90% kerroista :D Pitäis käyttää .Selectiä, mutta tämä homo ei anna\r\n    cy.contains('Credit Card').click().click()\r\n    cy.contains('Save').click()\r\n    cy.contains('Accounts').click()\r\n    cy.contains('S-Ryhmä')\r\n  })\r\n})\r\n\r\n\r\n
+===================================================================
+diff --git a/budgeting_app/cypress/e2e/testings.cy.js b/budgeting_app/cypress/e2e/testings.cy.js
+--- a/budgeting_app/cypress/e2e/testings.cy.js	
++++ b/budgeting_app/cypress/e2e/testings.cy.js	
+@@ -3,10 +3,10 @@
+     cy.visit('http://localhost:3000')
+     cy.contains("Login").click()
+     cy.contains('Sign Up').click()
+-    cy.get('#username').type('Maisanen',{force:true})
+-    cy.get('#password').type('kyllikki',{force:true})
+-    cy.get('#password-again').type('kyllikki',{force:true})
+-    cy.get('#email').type('kyllikki@hotmale.com',{force:true})
++    cy.get('#username').type('miumau',{force:true})
++    cy.get('#password').type('miumaumiumau',{force:true})
++    cy.get('#password-again').type('miumaumiumau',{force:true})
++    cy.get('#email').type('miumaumiumau@hotmale.com',{force:true})
+     cy.contains('Sign up').click()
+   })
+ })
+@@ -14,8 +14,8 @@
+   beforeEach(function() {
+     cy.visit('http://localhost:3000')
+     cy.contains("Login").click()
+-    cy.get('input:first').type('Maisanen',{force:true})
+-    cy.get('input:last').type('kyllikki',{force:true})
++    cy.get('input:first').type('miumau',{force:true})
++    cy.get('input:last').type('miumaumiumau',{force:true})
+     cy.contains('Log in').click({force:true})
+   })
+   it('User is allowed to add account.', function() {
+@@ -24,7 +24,7 @@
+     cy.get('#account-balance').type('1000',{force:true})
+     cy.get('[id=\'account-type\']').parent().click()
+     //Tää on vähän SUS, mutta toimii ~90% kerroista :D Pitäis käyttää .Selectiä, mutta tämä homo ei anna
+-    cy.contains('Credit Card').click().click()
++    cy.contains('Cash').click().click()
+     cy.contains('Save').click()
+     cy.contains('Accounts').click()
+     cy.contains('S-Ryhmä')
