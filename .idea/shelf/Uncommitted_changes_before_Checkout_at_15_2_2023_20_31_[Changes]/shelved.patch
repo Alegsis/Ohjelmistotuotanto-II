@@ -1,0 +1,46 @@
+Index: budgeting_app/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"budgeting_app\",\r\n  \"version\": \"0.1.0\",\r\n  \"private\": true,\r\n  \"dependencies\": {\r\n    \"@emotion/react\": \"^11.10.5\",\r\n    \"@emotion/styled\": \"^11.10.5\",\r\n    \"@mui/icons-material\": \"^5.11.0\",\r\n    \"@mui/material\": \"^5.11.7\",\r\n    \"@reduxjs/toolkit\": \"^1.9.2\",\r\n    \"@testing-library/jest-dom\": \"^5.16.5\",\r\n    \"@testing-library/react\": \"^13.4.0\",\r\n    \"@testing-library/user-event\": \"^13.5.0\",\r\n    \"axios\": \"^1.3.1\",\r\n    \"cors\": \"^2.8.5\",\r\n    \"react\": \"^18.2.0\",\r\n    \"react-dom\": \"^18.2.0\",\r\n    \"react-redux\": \"^8.0.5\",\r\n    \"react-router-dom\": \"^6.8.0\",\r\n    \"react-scripts\": \"^5.0.1\",\r\n    \"web-vitals\": \"^2.1.4\"\r\n  },\r\n  \"scripts\": {\r\n    \"start\": \"react-scripts start\",\r\n    \"build\": \"react-scripts build\",\r\n    \"test\": \"react-scripts test\",\r\n    \"eject\": \"react-scripts eject\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": [\r\n      \"react-app\",\r\n      \"react-app/jest\"\r\n    ]\r\n  },\r\n  \"browserslist\": {\r\n    \"production\": [\r\n      \">0.2%\",\r\n      \"not dead\",\r\n      \"not op_mini all\"\r\n    ],\r\n    \"development\": [\r\n      \"last 1 chrome version\",\r\n      \"last 1 firefox version\",\r\n      \"last 1 safari version\"\r\n    ]\r\n  },\r\n  \"devDependencies\": {\r\n    \"jest\": \"^27.5.1\",\r\n    \"supertest\": \"^6.3.3\"\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/budgeting_app/package.json b/budgeting_app/package.json
+--- a/budgeting_app/package.json	
++++ b/budgeting_app/package.json	
+@@ -23,7 +23,7 @@
+   "scripts": {
+     "start": "react-scripts start",
+     "build": "react-scripts build",
+-    "test": "react-scripts test",
++    "test": "react-scripts test --verbose --runInBand",
+     "eject": "react-scripts eject"
+   },
+   "eslintConfig": {
+@@ -47,5 +47,12 @@
+   "devDependencies": {
+     "jest": "^27.5.1",
+     "supertest": "^6.3.3"
++  },
++  "jest": {
++    "preset": "ts-jest",
++    "testEnvironment": "node",
++    "transformIgnorePatterns": [
++      "node_modules/(?!variables/.*)"
++    ]
+   }
+ }
+Index: babel.config.js
+===================================================================
+diff --git a/babel.config.js b/babel.config.js
+new file mode 100644
+--- /dev/null	
++++ b/babel.config.js	
+@@ -0,0 +1,6 @@
++module.exports = {
++    presets: [
++        '@babel/preset-env',
++        ['@babel/preset-react', {runtime: 'automatic'}],
++    ],
++};
+\ No newline at end of file
