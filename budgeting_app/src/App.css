@@ -512,7 +512,7 @@ table > tbody > tr:nth-child(4) > td > div > div > div > div > table > tbody > t
     border-color: white;
     width: 7.3em;
     margin-top: 0 !important;
-    margin-left: 4em !important;
+    margin-left: 0 !important;
     top: -0px;
 }
 
@@ -522,7 +522,9 @@ table > tbody > tr:nth-child(4) > td > div > div > div > div > table > tbody > t
     border-color: white;
     font-size: 16px;
 }
-
+.dateSelector{
+    margin-left: 3em !important;
+}
 
 .css-1e86fgl-MuiFormControl-root-MuiTextField-root input {
     color: #fff !important;
