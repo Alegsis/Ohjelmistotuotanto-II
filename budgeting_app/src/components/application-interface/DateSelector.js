@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
-import { TextFieldProps } from "@mui/material";
+import {styled, TextFieldProps} from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -9,6 +9,46 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const moment = require('moment')
+
+const CssTextField = styled(TextField)({
+    '& label.Mui-focused': {
+        color: 'white',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'white',
+        color: 'white',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'white',
+            color: 'white',
+        },
+        '&:hover fieldset': {
+            borderColor: '#d380ff',
+            color: 'white',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#d380ff',
+            color: 'white',
+        },
+        '& .MuiInputBase-input': {
+            color: 'white',
+        },
+        '& .MuiIconButton-root': {
+            color: 'white',
+        },
+        '& .MuiIconButton-root:hover': {
+            color: '#d380ff',
+        },
+        '& .MuiButtonBase-root': {
+            color: 'white',
+        },
+        '& .MuiButtonBase-root:hover': {
+            color: '#d380ff',
+        }
+
+    },
+});
 
 const DateSelector = ({ setAddDashboardSuccess }) => {
     const [date, setDate] = useState(moment());
@@ -39,7 +79,7 @@ const DateSelector = ({ setAddDashboardSuccess }) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
                 className="monthYearPicker"
-                label="Date"
+                label=""
                 inputFormat="MMMM YYYY"
                 value={date}
                 onChange={handleDateChange}
@@ -48,23 +88,19 @@ const DateSelector = ({ setAddDashboardSuccess }) => {
                         style={{
                             display: "flex",
                             alignItems: "center",
+                            textColor: "white",
                         }}
                     >
-                        <IconButton size="medium" sx={{color: "#FFFFFF"}} onClick={handlePrevMonthClick}>
+                        <IconButton size="medium" sx={{color: 'white'}} onClick={handlePrevMonthClick}>
                             <KeyboardArrowLeftIcon />
                         </IconButton>
-                        <TextField
+                        <CssTextField
                             variant="outlined"
                             size="small"
+                            label=""
                             {...params}
-                            sx={{
-                                svg: { color: "#fff" },
-                                input: { color: "#fff" },
-                                legend: { display: "none" },
-                                label: { display: "none" },
-                            }}
                         />
-                        <IconButton size="medium" sx={{color: "#FFFFFF"}} onClick={handleNextMonthClick}>
+                        <IconButton size="medium" sx={{color: 'white'}} onClick={handleNextMonthClick}>
                             <KeyboardArrowRightIcon />
                         </IconButton>
                     </div>
