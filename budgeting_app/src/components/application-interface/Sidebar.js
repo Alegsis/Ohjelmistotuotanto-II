@@ -12,7 +12,7 @@ const SidebarWrap = styled.nav`
   width: 100%;
 `;
 
-const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen, setMessage}) => {
+const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen, setMessage, addTransactionSuccess, addAccTransactionSuccess}) => {
 
     const SidebarData = [
         {
@@ -38,16 +38,14 @@ const Sidebar = ({loggedIn, createAccSuccess, setCreateAccSuccess, setEffectOpen
     ];
 
     useEffect(() => {
-        if (loggedIn || createAccSuccess){
-            SidebarData[1].subNavi = getUserAccounts()
-            setCreateAccSuccess(false)
-        }
-    },[loggedIn, createAccSuccess])
+        SidebarData[1].subNavi = getUserAccounts()
+        setCreateAccSuccess(false)
+    },[loggedIn, createAccSuccess, addTransactionSuccess, addAccTransactionSuccess])
 
   return (
       <SidebarWrap>
         {SidebarData.map((item, index) => {
-          return <Submenu item={item} key={index} createAccSuccess={createAccSuccess}/>;
+          return <Submenu item={item} key={index} createAccSuccess={createAccSuccess} addTransactionSuccess={addTransactionSuccess} addAccTransactionSuccess={addAccTransactionSuccess}/>;
         })}
       </SidebarWrap>
   );

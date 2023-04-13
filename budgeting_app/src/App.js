@@ -47,7 +47,8 @@ const App = () => {
             <div className="row">
                 <div className={`column left ${isSidebarOpen ? '' : 'hidden'}`}>
                     <MemoizedSidebar loggedIn={loggedIn} createAccSuccess={createAccSuccess}
-                                     setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}/>
+                                     setCreateAccSuccess={setCreateAccSuccess} setEffectOpen={setEffectOpen} setMessage={setMessage}
+                                     addTransactionSuccess={addTransactionSuccess} addAccTransactionSuccess={addAccTransactionSuccess}/>
                 </div>
                 <div className={`column middle ${loggedIn ? '' : 'hidden'}`}>
                     <Routes>
