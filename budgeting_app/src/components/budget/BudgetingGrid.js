@@ -220,7 +220,7 @@ export const getGridData = async () => {
       switch(goalType){
         //subcategory doesn't have goal --> it's dark in dashboard
         case 0:
-            color = '#000000';
+            color = '#dedede';
           break;
 
         //type 1 - Monthly Saving Goal
