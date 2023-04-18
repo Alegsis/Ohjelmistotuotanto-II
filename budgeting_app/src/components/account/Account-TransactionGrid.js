@@ -259,14 +259,25 @@ export const getAccountTransactions = (userID, accountName) => {
     const updatedArray = [];
     return Axios.get(baseUrl).then(((response) => {
         for (let x = 0; x < response.data.length; x++) {
+            let outflowCheck;
+            let inflowCheck;
+
+            if (response.data[x].Outflow === '0.00') {
+                outflowCheck = null;
+            } else outflowCheck = response.data[x].Outflow;
+
+            if (response.data[x].Inflow === '0.00') {
+                inflowCheck = null;
+            } else inflowCheck = response.data[x].Inflow;
+
             updatedArray.push(
                 {
                     id: response.data[x].TransactionID,
                     TransactionDate: moment(response.data[x].TransactionDate).format('YYYY-MM-DD'),
                     TransactionName: response.data[x].TransactionName,
                     Subcategory: response.data[x].SubcategoryName,
-                    Outflow: response.data[x].Outflow,
-                    Inflow: response.data[x].Inflow,
+                    Outflow: outflowCheck,
+                    Inflow: inflowCheck,
                     Recipient: response.data[x].Recipient,
                     TransactionRepeat: response.data[x].TransactionRepeat,
                     Memo: response.data[x].Memo,

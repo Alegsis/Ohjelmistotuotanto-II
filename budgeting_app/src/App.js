@@ -57,7 +57,7 @@ const App = () => {
                                                                      setEffectOpen={setEffectOpen} setMessage={setMessage}/>}/>
                         <Route path="/accounts" element={<Accounts loggedIn={loggedIn} addTransactionSuccess={addTransactionSuccess}
                                                                    setaddTransactionSuccess={setaddTransactionSuccess}
-                                                                   setEffectOpen={setEffectOpen} setMessage={setMessage}/>}/>
+                                                                   setEffectOpen={setEffectOpen} setMessage={setMessage} createAccSuccess={createAccSuccess}/>}/>
                         <Route path={`/accounts/:AccountName`} element={<Account loggedIn={loggedIn} setEffectOpen={setEffectOpen}
                                                                                  setMessage={setMessage}
                                                                                  addAccTransactionSuccess={addAccTransactionSuccess}
