@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {AccountsTransactionGrid, getUserTransactions} from "../components/account/Accounts-TransactionGrid"
 import {getPayeeList} from "../components/transaction/Payeelist";
 
-const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, setEffectOpen, setMessage}) => {
+const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, setEffectOpen, setMessage, createAccSuccess}) => {
     const [rows, setRows] = useState([]);
     const [payeeList, setPayeeList] = useState([])
 
@@ -19,7 +19,7 @@ const Accounts = ({loggedIn, addTransactionSuccess, setaddTransactionSuccess, se
             })
             setaddTransactionSuccess(false)
         }
-    }, [loggedIn, addTransactionSuccess]);
+    }, [loggedIn, addTransactionSuccess, createAccSuccess]);
 
   return (
       <div className="transaction">
