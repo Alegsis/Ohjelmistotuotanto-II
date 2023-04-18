@@ -61,13 +61,13 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
   return (
     <div className="bank-button">
       <Button id="bank-button-1" display="flex" justifycontent="space-between" onClick={handleClickOpen}>
-        <Box mr={1}>
-          <AddCircleOutline sx={{fontSize: "18px"}}/>
+        <Box mr={1} sx ={{paddingLeft: "0px", paddingRight: "1px"}}>
+          <AddCircleOutline sx={{fontSize: "20px"}}/>
         </Box>
-        <Box mr={1} sx={{fontSize: "14px", textAlign: "right"}}>
+        <Box mr={1} sx={{fontSize: "17px", fontWeight: "400", textAlign: "right"}}>
         Add
         </Box>
-        <Box mr={1} sx={{fontSize: "14px", textAlign: "right"}}>
+        <Box mr={1} sx={{fontSize: "17px", fontWeight: "400", textAlign: "right"}}>
         Account
         </Box>
       </Button>
