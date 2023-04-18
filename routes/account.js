@@ -67,33 +67,42 @@ router.get('/:id/account-name', async (req, res) => {
 router.post('/new-account', async (req, res) => {
   try {
     const {AccountName, AccountType, Balance, BalanceDate, UserID} = req.body;
-    const sqlQuery = `INSERT INTO account (AccountName, AccountType, Balance, BalanceDate, UserID) VALUES (?, ?, ?, ?, ?)`;
 
-    const rows = await pool.query(sqlQuery,
-        [AccountName, AccountType, Balance, BalanceDate, UserID]);
+    const sqlQueryFindAccount = `SELECT account.AccountName FROM account WHERE account.AccountName=? AND account.UserID=?`;
+    const resultFindAccount = await pool.query(sqlQueryFindAccount,
+        [AccountName, UserID]);
 
-    const insertedAccountID = rows.insertId;
-    const transactionName = 'Starting balance';
-    const subcategoryName = 'Available Funds';
+    if (resultFindAccount.length === 0) {
+      const sqlQuery = `INSERT INTO account (AccountName, AccountType, Balance, BalanceDate, UserID) VALUES (?, ?, ?, ?, ?)`;
+      const rows = await pool.query(sqlQuery,
+          [AccountName, AccountType, Balance, BalanceDate, UserID]);
 
-    const insertTransaction = `INSERT INTO transaction 
+      const insertedAccountID = rows.insertId;
+      const transactionName = 'Starting balance';
+      const subcategoryName = 'Available Funds';
+
+      const insertTransaction = `INSERT INTO transaction 
 (transaction.TransactionName, transaction.Inflow, transaction.Recipient, transaction.TransactionRepeat, 
 transaction.Memo, transaction.TransactionDate, transaction.AccountID, transaction.SubCategoryID) 
 VALUES ('${transactionName}', ${Balance}, ' ', 'Once', ' ', '${BalanceDate}', ${insertedAccountID}, (SELECT subcategory.SubCategoryID 
 FROM subcategory 
 WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}'))`;
 
-    await pool.query(insertTransaction);
+      await pool.query(insertTransaction);
 
-    if (AccountType === 'Cash' || AccountType === 'Checking' || AccountType === 'Savings') {
-      const updateSubcategory = `UPDATE subcategory 
+      if (AccountType === 'Cash' || AccountType === 'Checking' ||
+          AccountType === 'Savings') {
+        const updateSubcategory = `UPDATE subcategory 
 SET subcategory.Balance = subcategory.Balance + ${Balance} 
 WHERE subcategory.SubCategoryName = '${subcategoryName}' AND subcategory.UserID = '${UserID}';`;
 
-      await pool.query(updateSubcategory);
+        await pool.query(updateSubcategory);
+      }
+      res.status(200).json('New bank account created');
     }
-
-    res.status(200).json('New bank account created');
+    else {
+      res.status(409).json('Account name already exists, please create a unique one');
+    }
 
   } catch (error) {
     res.status(400).send('Something went wrong, please try again');
