@@ -125,10 +125,23 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
     const handleDeleteClick = (id) => () => {
         const selectedData = rows.filter(row => row.id === id);
         const baseUrl = 'http://localhost:3001/transaction/delete-transaction'
-
+        const UserID = localStorage.getItem('UserID')
+        const AccountName = localStorage.getItem('AccountName')
+        let Amount;
+        if(selectedData[0].Outflow > 0){
+            Amount = Math.abs(selectedData[0].Outflow) * -1
+        }
+        if(selectedData[0].Inflow > 0){
+            Amount = selectedData[0].Inflow
+        }
+        console.log(Amount)
         if (window.confirm('Are you sure?')) {
             Axios.post(baseUrl, {
-                TransactionID: selectedData[0].id
+                TransactionID: selectedData[0].id,
+                UserID: UserID,
+                Amount: Amount,
+                AccountName: AccountName,
+                SubCategoryName: selectedData[0].Subcategory
             }).then(() => {
                 setAddAccTransactionSuccess(true)
                 setMessage('Delete was successful')
