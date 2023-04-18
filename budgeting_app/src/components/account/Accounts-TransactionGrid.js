@@ -125,11 +125,11 @@ export const AccountsTransactionGrid = ({rows, setRows, setaddTransactionSuccess
         const baseUrl = 'http://localhost:3001/transaction/delete-transaction'
         const UserID = localStorage.getItem('UserID')
         let Amount;
-        if(selectedData[0].Outflow > 0){
-            Amount = Math.abs(selectedData[0].Outflow) * -1
-        }
         if(selectedData[0].Inflow > 0){
-            Amount = selectedData[0].Inflow
+            Amount = Math.abs(selectedData[0].Inflow) * -1
+        }
+        if(selectedData[0].Outflow > 0){
+            Amount = selectedData[0].Outflow
         }
         if (window.confirm('Are you sure?')) {
             Axios.post(baseUrl, {
