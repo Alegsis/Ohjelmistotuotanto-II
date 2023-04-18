@@ -6,6 +6,7 @@ import {getPayeeList} from "../components/transaction/Payeelist";
 
 const Account = ({loggedIn, setMessage, setEffectOpen, setAddAccTransactionSuccess, addAccTransactionSuccess}) => {
     const { AccountName } = useParams()
+    localStorage.setItem('AccountName',AccountName)
     const [rows, setRows] = useState([])
     const [payeeList, setPayeeList] = useState([])
 

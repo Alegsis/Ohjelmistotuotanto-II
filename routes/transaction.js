@@ -152,6 +152,9 @@ router.post('/update-transaction', async (req, res) => {
 transaction.TransactionName = '${TransactionName}', transaction.TransactionRepeat = '${TransactionRepeat}', transaction.Memo = '${Memo}' 
 WHERE transaction.TransactionID = ${TransactionID};`
     await pool.query(updateTransactionSQL);
+
+
+
     res.status(200).json('Transaction updated successfully');
     } catch (error) {
     res.status(400).send('Something went wrong, please try again');
@@ -165,8 +168,10 @@ router.post('/delete-transaction', async (req, res) => {
   try {
     const {TransactionID} = req.body;
 
-    const updateTransactionSQL = `DELETE FROM transaction WHERE transaction.TransactionID = ${TransactionID}`
-    await pool.query(updateTransactionSQL);
+    //const selectTransactionSQL = `SELECT transaction.`
+
+    const deleteTransactionSQL = `DELETE FROM transaction WHERE transaction.TransactionID = ${TransactionID}`
+    await pool.query(deleteTransactionSQL);
 
     res.status(200).json('Transaction deleted successfully');
   } catch (error) {
