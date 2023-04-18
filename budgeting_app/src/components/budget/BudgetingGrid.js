@@ -87,6 +87,7 @@ const CollapsibleTable = ({rows}) => {
                                     style={{
                                       backgroundColor: subcategoryRow.goalColor,
                                       fontWeight: 'bold',
+                                      color: subcategoryRow.goalColor === 'white' ? '#666666' : 'white'
                                     }}>{subcategoryRow.availableAmount}</span>
                                 </div>
                               </div>
@@ -218,9 +219,9 @@ export const getGridData = async () => {
 
       //Goaltype switch-case
       switch(goalType){
-        //subcategory doesn't have goal --> it's dark in dashboard
+        //subcategory doesn't have goal --> text is dark grey in dashboard
         case 0:
-            color = '#dedede';
+            color = 'white';
           break;
 
         //type 1 - Monthly Saving Goal
