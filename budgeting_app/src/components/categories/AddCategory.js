@@ -61,7 +61,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
             id="category"
             label="Category"
             fullWidth
-            inputProps={{ maxLength: 50 }}
+            inputProps={{ maxLength: 10 }}
             value={category}
             variant="filled"
             onChange={(event) => {
