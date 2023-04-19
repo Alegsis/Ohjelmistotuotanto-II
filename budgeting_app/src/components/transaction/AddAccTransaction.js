@@ -34,8 +34,8 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
     const [transactionNameEmpty, setTransactionNameEmpty] = useState(false);
     const [payeeEmpty, setPayeeEmpty] = useState(false);
     const [subcategoryEmpty, setSubcategoryEmpty] = useState(false);
-    const [showGoal, setShowGoal] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
+
     const handleChange = (newValue) => {
         setDate(newValue);
     };
@@ -80,10 +80,10 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
         setPayeeEmpty(false)
         setSubcategoryEmpty(false)
         setIsDisabled(true);
-    setTimeout(() => {
-      setIsDisabled(false);
-    }, 2000
-    )
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
         const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
         if (transactionName !== "") {

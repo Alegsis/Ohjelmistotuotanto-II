@@ -19,7 +19,7 @@ import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import {getPayeeList} from "./Payeelist";
 
 const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) => {
-  const [isDisabled, setIsDisabled] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState(dayjs(Date.now()));
     const [transactionName, setTransactionName] = useState("");
@@ -97,12 +97,12 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
     };
 
     const addTransaction = () => {
-      setIsDisabled(true);
-      setTimeout(() => {
-            setIsDisabled(false);
-          }, 2000
-      )
-      const userID = localStorage.getItem("UserID");
+        setIsDisabled(true);
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
+        const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
         setTransactionNameEmpty(false)
         setPayeeEmpty(false)
@@ -195,9 +195,9 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
                         }}
                         error={transactionNameEmpty}
                         helperText={
-                        transactionNameEmpty
-                            ? "add transactionName"
-                            : ""
+                            transactionNameEmpty
+                                ? "add transactionName"
+                                : ""
                         }
                     />
                     <TextField
