@@ -61,11 +61,11 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
             id="category"
             label="Category"
             fullWidth
-            inputProps={{ maxLength: 50 }}
+            inputProps={{ maxLength: 10 }}
             value={category}
             variant="filled"
             onChange={(event) => {
-              setCategory(event.target.value);
+              setCategory(event.target.value.slice(0, 1).toUpperCase() + event.target.value.slice(1).toLowerCase());
             }}
           />
         </DialogContent>
