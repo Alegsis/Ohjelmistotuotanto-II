@@ -22,9 +22,12 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
     setOpen(false);
     setCategory("");
     setCategoryError(false);
+    setCategoryAlreadyExistsError(false);
   };
 
   const [categoryError, setCategoryError] = useState(false);
+
+  const [categoryAlreadyExistsError, setCategoryAlreadyExistsError] = useState(false);
 
   const handleAddCategory = () => {
     const baseUrl = "http://localhost:3001/category/new-category";
@@ -41,7 +44,12 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
         setEffectOpen(true)
         setCategoryError(false);
       }).catch(response => {
-        alert(response.response.data)
+        switch (response.response.data) {
+          case "Category already exists":
+            setCategoryError(false);
+            setCategoryAlreadyExistsError(true)
+            break;
+        }
       })
     } else {
       setCategoryError(true)
@@ -72,10 +80,12 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
             onChange={(event) => {
               setCategory(event.target.value);
             }}
-            error={categoryError}
+            error={categoryError || categoryAlreadyExistsError}
             helperText={
               categoryError
                   ? "Category should be atleast 3 character long"
+                  : categoryAlreadyExistsError
+                  ? "Category already exists"
                   : ""
             }
           />
