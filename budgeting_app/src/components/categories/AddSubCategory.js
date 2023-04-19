@@ -51,8 +51,6 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
         setSelectedCategory('');
     };
 
-    //TODO add budget goal things here
-
     const insertBudgetGoal = () => {
         if (!showGoal) {
             return;

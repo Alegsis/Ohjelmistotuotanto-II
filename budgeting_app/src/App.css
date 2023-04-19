@@ -183,7 +183,7 @@ Account balances
     letter-spacing: 0.02857em !important;
     text-transform: uppercase !important;
     min-height: 39.75px !important;
-    padding: 4px 4px 0px 4px;
+    padding: 4px 4px 0 4px;
 }
 
 .categoryRow {
@@ -266,11 +266,11 @@ div > #bank-button-1 {
 }
 .sideBarAccountBalance{
     display: flex;
-    padding-top: 0px;
+    padding-top: 0;
     padding-right: 5px;
     text-align: end;
     margin-left: auto;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .delete-button {
@@ -416,9 +416,7 @@ css-1d3z3hw-MuiOutlinedInput-notchedOutline{
 
 }
 
-#root > div.row > div.column.middle > div >
-div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.css-11xur9t-MuiPaper-root-MuiTableContainer-root >
-table > tbody > tr:nth-child(4) > td > div > div > div > div > table > tbody > tr:nth-child(2) > td.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignLeft.MuiTableCell-sizeSmall.BudgetSubCategoryCell.css-cbyouk-MuiTableCell-root{
+#root > div.row > div.column.middle > div >div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiTableContainer-root.css-11xur9t-MuiPaper-root-MuiTableContainer-root > table > tbody > tr:nth-child(4) > td > div > div > div > div > table > tbody > tr:nth-child(2) > td.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignLeft.MuiTableCell-sizeSmall.BudgetSubCategoryCell.css-cbyouk-MuiTableCell-root{
     padding-left: 0.65em !important;
 }
 

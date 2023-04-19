@@ -8,9 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import {IconButton, InputAdornment, MenuItem} from "@mui/material";
-import {Email, Visibility, VisibilityOff} from "@mui/icons-material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
-import ValidateEmail from "../../utils/email";
+
 
 
 const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {

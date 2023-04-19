@@ -131,8 +131,6 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
         });
     };
 
-    //TODO when backend has implemented changes update them here
-
     const handleEditSubCategory = () => {
         const userID = localStorage.getItem('UserID');
         const postUrl = 'http://localhost:3001/subcategory/update-subcategory';
