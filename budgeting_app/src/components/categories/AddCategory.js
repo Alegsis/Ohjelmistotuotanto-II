@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Axios from "axios";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import {useState} from "react";
 
 const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const [open, setOpen] = React.useState(false);
@@ -20,7 +21,10 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const handleClose = () => {
     setOpen(false);
     setCategory("");
+    setCategoryError('');
   };
+
+  const [categoryError, setCategoryError] = useState(false);
 
   const handleAddCategory = () => {
     const baseUrl = "http://localhost:3001/category/new-category";
@@ -39,7 +43,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
         alert(response.response.data)
       })
     } else {
-      alert('The category name must be at least three characters long')
+      setCategoryError(true)
     }
   };
 
@@ -67,13 +71,19 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
             onChange={(event) => {
               setCategory(event.target.value);
             }}
+            error={categoryError}
+            helperText={
+              categoryError
+                  ? "Category should be atleast 3 character long"
+                  : ""
+            }
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
-          <Button onClick={handleAddCategory} className="Save-button">
+          <Button type="submit" onClick={handleAddCategory} className="Save-button">
             Save
           </Button>
         </DialogActions>
