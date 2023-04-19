@@ -18,7 +18,7 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const [fromSubCategory, setFromSubCategory] = useState('');
   const [toSubCategory, setToSubCategory] = useState('');
   const [subCategoryList, setSubCategoryList] = useState([]);
-
+  const [isDisabled, setIsDisabled] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -54,6 +54,11 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   };
 
   const addBudget = () => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 2000
+    )
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/budget/new-budget`;
     const year = localStorage.getItem('Year')
@@ -152,7 +157,7 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
           <DialogActions>
             <Button onClick={handleClose}
                     className="cancel-button">Cancel</Button>
-            <Button className="add-transaction" onClick={addBudget}>Make
+            <Button className="add-transaction" onClick={addBudget} disabled={isDisabled}>Make
               budgeting</Button>
           </DialogActions>
         </Dialog>

@@ -20,10 +20,12 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
   const [accountType, setAccountType] = useState("");
   const [accountName, setAccountName] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+  
 
   const handleClose = () => {
     setOpen(false);
@@ -33,6 +35,11 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
   };
 
   const handleCreateAcc = () => {
+    setIsDisabled(true);
+  setTimeout(() => {
+    setIsDisabled(false);
+  }, 2000
+  )
     const baseUrl = "http://localhost:3001/account/new-account";
     //Pitää tarkastaa aikavyöhyke oikein
     const today = new Date().toISOString().slice(0, 10);
@@ -132,7 +139,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
           <Button onClick={handleClose} className="cancel-button">
             Cancel
           </Button>
-          <Button onClick={handleCreateAcc} className="Save-button">
+          <Button onClick={handleCreateAcc} disabled={isDisabled} className="Save-button">
             Save
           </Button>
         </DialogActions>

@@ -30,7 +30,7 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
     const [subCategoryList, setSubCategoryList] = useState([]);
     const [payeeList, setPayeeList] = useState([]);
     const [showGoal, setShowGoal] = useState(false);
-
+    const [isDisabled, setIsDisabled] = useState(false);
     const handleChange = (newValue) => {
         setDate(newValue);
     };
@@ -76,6 +76,11 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
     };
 
     const addTransaction = () => {
+        setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 2000
+    )
         const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
 
@@ -286,7 +291,7 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
                     <Button onClick={handleClose} className="cancel-button">
                         Cancel
                     </Button>
-                    <Button className="add-transaction" onClick={addTransaction}>
+                    <Button className="add-transaction" onClick={addTransaction} disabled={isDisabled}>
                         Add new Transaction
                     </Button>
                 </DialogActions>
