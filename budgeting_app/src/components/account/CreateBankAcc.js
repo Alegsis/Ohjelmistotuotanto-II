@@ -39,9 +39,8 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
         setAccountTypeEmpty(false)
         setIsDisabled(true);
         setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
+            setIsDisabled(false);
+        }, 2000)
         const baseUrl = "http://localhost:3001/account/new-account";
         //Pitää tarkastaa aikavyöhyke oikein
         const today = new Date().toISOString().slice(0, 10);
@@ -70,8 +69,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
         }
     };
 
-    return (
-        <div className="bank-button">
+    return (<div className="bank-button">
             <Button id="bank-button-1" display="flex" justifycontent="space-between" onClick={handleClickOpen}>
                 <Box mr={1} sx={{paddingLeft: "0px", paddingRight: "1px"}}>
                     <AddCircleOutline sx={{fontSize: "20px"}}/>
@@ -132,11 +130,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                                 setAccountType(event.target.value);
                             }}
                             error={accountTypeEmpty}
-                            helperText={
-                                accountTypeEmpty
-                                    ? "add AccountType"
-                                    : ""
-                            }
+                            helperText={accountTypeEmpty ? "add AccountType" : ""}
                         >
                             <MenuItem value="Cash">Cash</MenuItem>
                             <MenuItem value="Checking">Checking</MenuItem>
@@ -155,8 +149,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
-    );
+        </div>);
 }
 
 export default CreateBankAcc
