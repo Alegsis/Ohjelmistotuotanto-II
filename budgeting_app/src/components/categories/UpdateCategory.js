@@ -133,33 +133,34 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
                     </FormControl>
 
                     <TextField
-                    required
-                    autoFocus
-                    margin="dense"
-                    id="category"
-                    label="Category name"
-                    fullWidth
-                    inputProps={{ maxLength: 10 }}
-                    value={Category}
-                    variant="filled"
-                    onChange={(event) => {
-                    setCategory(event.target.value.slice(0, 1).toUpperCase() + event.target.value.slice(1).toLowerCase());
-                     }}
-/>
+                        required
+                        autoFocus
+                        margin="dense"
+                        id="category"
+                        label="Category name"
+                        fullWidth
+                        inputProps={{maxLength: 10}}
+                        value={Category}
+                        variant="filled"
+                        onChange={(event) => {
+                            setCategory(event.target.value.slice(0, 1).toUpperCase() + event.target.value.slice(1).toLowerCase());
+                        }}
+                    />
 
                 </DialogContent>
                 <DialogActions style={{justifyContent: "space-between"}}>
-                    <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>
+                    <Button onClick={handleDelete} className="delete-button"
+                            style={{color: "red", backgroundColor: "#ffebee"}}>
                         Delete
                     </Button>
                     <div>
-                    <Button onClick={handleClose} className="cancel-button">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleEditCategory}
-                            className="Save-button">
-                        Save changes
-                    </Button>
+                        <Button onClick={handleClose} className="cancel-button">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleEditCategory}
+                                className="Save-button">
+                            Save changes
+                        </Button>
                     </div>
                 </DialogActions>
             </Dialog>

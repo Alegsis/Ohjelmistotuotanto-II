@@ -48,7 +48,6 @@ const Register = ({setEffectOpen, setMessage}) => {
     };
 
 
-
     const handleClick = () => {
         setShowPassword(!showPassword);
     };
@@ -71,7 +70,7 @@ const Register = ({setEffectOpen, setMessage}) => {
 
     const handleSignUp = () => {
         const baseUrl = "http://localhost:3001/user/register";
-        if(validateEmail(email)){
+        if (validateEmail(email)) {
             if (password === rePassword && 8 <= password.length && 3 <= username.length) {
                 Axios.post(baseUrl, {
                     username: username,
@@ -135,7 +134,7 @@ const Register = ({setEffectOpen, setMessage}) => {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -151,14 +150,14 @@ const Register = ({setEffectOpen, setMessage}) => {
                         id="password-again"
                         label="Password"
                         type={showPassword ? 'text' : 'password'}
-                        inputProps={{maxLength: 30 }}
+                        inputProps={{maxLength: 30}}
                         fullWidth
                         variant="filled"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -176,7 +175,7 @@ const Register = ({setEffectOpen, setMessage}) => {
                         type="email"
                         fullWidth
                         inputProps={{
-                            style: { textTransform: "lowercase" },
+                            style: {textTransform: "lowercase"},
                             maxLength: 60,
                         }}
                         variant="filled"

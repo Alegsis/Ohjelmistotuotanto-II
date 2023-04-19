@@ -50,11 +50,10 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
     };
 
 
-
     useEffect(() => {
-        if (loggedIn){
+        if (loggedIn) {
             setShow(localStorage.getItem('Username'))
-        }else{
+        } else {
             setShow('Login')
         }
     }, [loggedIn])
@@ -67,7 +66,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         Axios.post(baseUrl, {
             username: username,
             password: password
-        }).then(((response) =>{
+        }).then(((response) => {
             setShow(username) //Muutetaan Login buttonin tieto käyttäjännimeksi
             setUsername('');
             setPassword('');
@@ -111,7 +110,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         })
     };
 
- const handleLogout = () => {
+    const handleLogout = () => {
         setLoggedIn(false);
         localStorage.removeItem("UserID");
         localStorage.removeItem("Username");
@@ -121,7 +120,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         setIsSidebarOpen(false)
     };
 
-    const headerStyling ={
+    const headerStyling = {
         "&.Mui-focused": {
             "& fieldset": {
                 borderColor: '#d380ff',
@@ -151,8 +150,8 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
         },
         "&.MuiOutlinedInput-root": {
             color: "#ffffff",
-        "& fieldset": {
-            borderColor: '#ffffff !important',
+            "& fieldset": {
+                borderColor: '#ffffff !important',
                 color: "#d380ff",
             }
         },
@@ -186,15 +185,17 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
     };
 
     return (
-        <div className='primary-button' >
+        <div className='primary-button'>
             <span>
             {loggedIn ?
                 <Select
                     sx={headerStyling}
-                    className='login-select' variant="outlined" value={show} onChange={(event) => setShow(event.target.value)}
-                        inputProps={{IconComponent: () => null }} >
+                    className='login-select' variant="outlined" value={show}
+                    onChange={(event) => setShow(event.target.value)}
+                    inputProps={{IconComponent: () => null}}>
                     <MenuItem value={show} style={{display: 'none'}}>{show}</MenuItem>
-                    <UserProfile setMessage={setMessage} setEffectOpen={setEffectOpen} handleLogout={handleLogout}></UserProfile>
+                    <UserProfile setMessage={setMessage} setEffectOpen={setEffectOpen}
+                                 handleLogout={handleLogout}></UserProfile>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Select>
                 :
@@ -218,7 +219,9 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                         inputProps={{maxLength: 30}}
                         fullWidth
                         variant="filled"
-                        onChange={(event) => {setUsername(event.target.value)}}
+                        onChange={(event) => {
+                            setUsername(event.target.value)
+                        }}
 
                     />
                     <TextField
@@ -234,7 +237,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -243,7 +246,8 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                         onBlur={() => {
                             if (!password) {
                                 setPasswordEmpty(true);
-                            } if (password) {
+                            }
+                            if (password) {
                                 setPasswordEmpty(false);
                             }
                         }}
@@ -255,14 +259,14 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                         error={passwordError || userNotFoundError || userNotActiveError || (passwordTouched && passwordEmpty)}
                         helperText={
                             passwordError
-                            ? "Password or username was incorrect."
-                            : userNotFoundError
-                            ? "User not found. Check your inputs or create a new account with Sign up -button."
-                            : userNotActiveError
-                            ? "User not active, contact administrator."
-                            : passwordTouched && passwordEmpty
-                            ? "Password is required."
-                            : ""
+                                ? "Password or username was incorrect."
+                                : userNotFoundError
+                                    ? "User not found. Check your inputs or create a new account with Sign up -button."
+                                    : userNotActiveError
+                                        ? "User not active, contact administrator."
+                                        : passwordTouched && passwordEmpty
+                                            ? "Password is required."
+                                            : ""
                         }
                     />
                 </DialogContent>

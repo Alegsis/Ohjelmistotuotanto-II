@@ -8,9 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {useState} from "react";
 import {IconButton, InputAdornment, MenuItem} from "@mui/material";
-import {Email, Visibility, VisibilityOff} from "@mui/icons-material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
-import ValidateEmail from "../../utils/email";
+
 
 
 const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
@@ -23,39 +23,39 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
 
-        const [newEmail, setNewEmail] = useState("");
-        const [emailError, setEmailError] = useState(false);
-        const [emailInUse, setEmailInUse] = useState(false);
+    const [newEmail, setNewEmail] = useState("");
+    const [emailError, setEmailError] = useState(false);
+    const [emailInUse, setEmailInUse] = useState(false);
 
 
-        const validateEmail = (email) => {
-            // regular expression for email validation
-            //const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const emailRegex = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,})$/;
+    const validateEmail = (email) => {
+        // regular expression for email validation
+        //const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,})$/;
 
-            if (!emailRegex.test(email)) {
-                // invalid email format
-                return false;
-            }
+        if (!emailRegex.test(email)) {
+            // invalid email format
+            return false;
+        }
 
-            // split the email address into parts
-            const parts = email.split("@");
-            const domainParts = parts[1].split(".");
-            const tld = domainParts[domainParts.length - 1].toLowerCase();
+        // split the email address into parts
+        const parts = email.split("@");
+        const domainParts = parts[1].split(".");
+        const tld = domainParts[domainParts.length - 1].toLowerCase();
 
-            // list of valid top-level domains
-            const validTLDs = ["com", "org", "net", "edu", "gov", "fi"];
+        // list of valid top-level domains
+        const validTLDs = ["com", "org", "net", "edu", "gov", "fi"];
 
-            // check if the top-level domain is valid
-            return validTLDs.includes(tld);
-        };
+        // check if the top-level domain is valid
+        return validTLDs.includes(tld);
+    };
 
-        const handleEmailChange = (event) => {
-            const value = event.target.value;
-            setNewEmail(value);
-            setEmailError(!validateEmail(value));
-            setEmailInUse(false);
-        };
+    const handleEmailChange = (event) => {
+        const value = event.target.value;
+        setNewEmail(value);
+        setEmailError(!validateEmail(value));
+        setEmailInUse(false);
+    };
 
 
     const handleClick = () => {
@@ -82,39 +82,35 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     };
     const handleDeleteConfirmationOpen = () => {
         setDeleteConfirmationOpen(true);
-      };
-      
-      const handleDeleteConfirmationClose = () => {
+    };
+
+    const handleDeleteConfirmationClose = () => {
         setDeleteConfirmationOpen(false);
-      };
-    
+    };
+
 
     const handleChangePassword = () => {
         const baseUrl = "http://localhost:3001/user/change-password";
         const userID = localStorage.getItem('UserID')
         if (password === rePassword && password !== oldPassword && 8 <= password.length) {
-                Axios.post(baseUrl, {
-                    oldPassword: oldPassword,
-                    newPassword: password,
-                    userID: userID
-                }).then(() => {
-                    setOpen(false)
-                    setPassword('')
-                    setRePassword('')
-                    setOldPassword('')
-                    setShowPassword(false)
-                    setMessage('Password change was successful')
-                    setEffectOpen(true)
-                }).catch(response => {
-                    alert(response.response.data)
-                })
-            } else {
-                alert("Input of data doesn't meet requirements.")
-            }
+            Axios.post(baseUrl, {
+                oldPassword: oldPassword, newPassword: password, userID: userID
+            }).then(() => {
+                setOpen(false)
+                setPassword('')
+                setRePassword('')
+                setOldPassword('')
+                setShowPassword(false)
+                setMessage('Password change was successful')
+                setEffectOpen(true)
+            }).catch(response => {
+                alert(response.response.data)
+            })
+        } else {
+            alert("Input of data doesn't meet requirements.")
         }
-        
-      
-   
+    }
+
 
     const handleDelete = () => {
         const baseUrl = "http://localhost:3001/user/delete-user";
@@ -122,31 +118,28 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         const username = localStorage.getItem('Username');
         const url = "http://localhost:3001/user/login";
         Axios.post(url, {
-            username: username,
-            password: password,
+            username: username, password: password,
         }).then(() => {
-                    Axios.post(baseUrl, {
-                      userID: userID,
-                    }).then(() => {
-                        handleLogout();
-                        alert("User Deleted");
-                      setDeleteConfirmationOpen(false);
-                  }
-                ).catch((response) => {
-                    alert(response.response.data)
-                })
-                }).catch((response) => {
-                    alert(response.response.data)
-                })
+            Axios.post(baseUrl, {
+                userID: userID,
+            }).then(() => {
+                handleLogout();
+                alert("User Deleted");
+                setDeleteConfirmationOpen(false);
+            }).catch((response) => {
+                alert(response.response.data)
+            })
+        }).catch((response) => {
+            alert(response.response.data)
+        })
     };
-    
+
     const handleChangeEmail = () => {
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
-        if(validateEmail(newEmail)) {
+        if (validateEmail(newEmail)) {
             Axios.post(baseUrl, {
-                newEmail: newEmail,
-                userID: userID
+                newEmail: newEmail, userID: userID
             }).then(() => {
                 setOpen(false)
                 setNewEmail('')
@@ -156,8 +149,8 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
             }).catch(response => {
                 setEmailInUse(response.response.data)
             })
-        //} else {
-        //    alert('Email-address does not meet requirements.')
+            //} else {
+            //    alert('Email-address does not meet requirements.')
         }
     }
     const handleGetEmail = () => {
@@ -170,11 +163,8 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         });
     }
 
-   
-    
 
-    return (
-        <div className='secondary-button'>
+    return (<div className='secondary-button'>
             <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>User Profile</DialogTitle>
@@ -196,13 +186,11 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         variant="filled"
                         fullWidth
                         InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
+                            endAdornment: (<InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
-                                </InputAdornment>
-                            ),
+                                </InputAdornment>),
                         }}
                         onChange={(event) => {
                             setOldPassword(event.target.value)
@@ -222,13 +210,11 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         variant="filled"
                         fullWidth
                         InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
+                            endAdornment: (<InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
-                                </InputAdornment>
-                            ),
+                                </InputAdornment>),
                         }}
                         onChange={(event) => {
                             setPassword(event.target.value)
@@ -241,7 +227,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         id="password-again"
                         label="New Password"
                         type={showPassword ? 'text' : 'password'}
-                        inputProps={{maxLength: 30 }}
+                        inputProps={{maxLength: 30}}
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
@@ -249,13 +235,11 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         variant="filled"
                         fullWidth
                         InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
+                            endAdornment: (<InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
-                                </InputAdornment>
-                            ),
+                                </InputAdornment>),
                         }}
                         onChange={(event) => {
                             setRePassword(event.target.value)
@@ -272,7 +256,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         margin="dense"
                         id="current-email"
                         label={currentEmail}
-                        inputProps={{ maxLength: 60 }}
+                        inputProps={{maxLength: 60}}
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
@@ -285,7 +269,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         margin="dense"
                         id="first-email"
                         label="New email"
-                        inputProps={{ maxLength: 60 }}
+                        inputProps={{maxLength: 60}}
                         onKeyDown={(e) => {
                             e.stopPropagation();
                         }}
@@ -294,61 +278,54 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         value={newEmail}
                         onChange={handleEmailChange}
                         error={emailError || emailInUse}
-                        helperText={
-                            emailError
-                                ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)"
-                                : emailInUse
-                                ? "Email already in use. Check your input."
-                                : ""
-                        }
+                        helperText={emailError ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)" : emailInUse ? "Email already in use. Check your input." : ""}
                     />
                 </DialogContent>
-                <DialogActions style={{ justifyContent: "space-between" }}>
-    <Button onClick={handleDeleteConfirmationOpen} style={{ color: "red", backgroundColor: "#ffebee" }}>Delete User</Button>
-    <div>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleChangeEmail}>Update Email</Button>
-    </div>
-    <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
-        <DialogTitle>Delete User Account</DialogTitle>
-        <DialogContent>
-            <DialogContentText>
-                If you are sure you want to delete your account, enter your password and click the Delete button.
-            </DialogContentText>
-            <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            label="Password For Deletion"
-            type={showPassword ? 'text' : 'password'}
-            inputProps={{maxLength: 30}}
-            onKeyDown={(e) => {
-                e.stopPropagation();
-            }}
-            variant="filled"
-            fullWidth
-            InputProps={{
-                endAdornment: (
-                    <InputAdornment position="end">
-                        <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                    </InputAdornment>
-                ),
-            }}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-            <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
-            <Button onClick={handleDelete} style={{ color: "red" }}>Delete</Button>
-        </DialogActions>
-    </Dialog>
-</DialogActions>
+                <DialogActions style={{justifyContent: "space-between"}}>
+                    <Button onClick={handleDeleteConfirmationOpen} style={{color: "red", backgroundColor: "#ffebee"}}>Delete
+                        User</Button>
+                    <div>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleChangeEmail}>Update Email</Button>
+                    </div>
+                    <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
+                        <DialogTitle>Delete User Account</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                If you are sure you want to delete your account, enter your password and click the
+                                Delete button.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="password"
+                                label="Password For Deletion"
+                                type={showPassword ? 'text' : 'password'}
+                                inputProps={{maxLength: 30}}
+                                onKeyDown={(e) => {
+                                    e.stopPropagation();
+                                }}
+                                variant="filled"
+                                fullWidth
+                                InputProps={{
+                                    endAdornment: (<InputAdornment position="end">
+                                            <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                            </IconButton>
+                                        </InputAdornment>),
+                                }}
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
+                            <Button onClick={handleDelete} style={{color: "red"}}>Delete</Button>
+                        </DialogActions>
+                    </Dialog>
+                </DialogActions>
             </Dialog>
-        </div>
-    );
+        </div>);
 }
 
 export default UserProfile;
