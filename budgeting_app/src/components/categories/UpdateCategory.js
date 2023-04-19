@@ -133,19 +133,20 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
                     </FormControl>
 
                     <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="category"
-                        label="Category name"
-                        fullWidth
-                        inputProps={{maxLength: 50}}
-                        value={Category}
-                        variant="filled"
-                        onChange={(event) => {
-                            setCategory(event.target.value);
-                        }}
-                    />
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="category"
+                    label="Category name"
+                    fullWidth
+                    inputProps={{ maxLength: 10 }}
+                    value={Category}
+                    variant="filled"
+                    onChange={(event) => {
+                    setCategory(event.target.value.slice(0, 1).toUpperCase() + event.target.value.slice(1).toLowerCase());
+                     }}
+/>
+
                 </DialogContent>
                 <DialogActions style={{justifyContent: "space-between"}}>
                     <Button onClick={handleDelete} className="delete-button" style={{ color: "red", backgroundColor: "#ffebee" }}>

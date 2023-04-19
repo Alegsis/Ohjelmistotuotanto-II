@@ -35,9 +35,13 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
   const [budgetGoal, setBudgetGoal] = useState('');
   const [budgetGoalType, setBudgetGoalType] = useState('1');
   const [budgetGoalDate, setBudgetGoalDate] = useState(new Date());
+  const [isDisabled, setIsDisabled] = useState(false);
+
+ 
 
   const handleClickOpen = () => {
     setOpen(true);
+    
   };
 
   const handleClose = () => {
@@ -78,6 +82,11 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
   }
 
   const handleAddSubCategory = async () => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 2000
+    )
     try {
       const userID = localStorage.getItem('UserID');
       let isFound = false;
@@ -302,10 +311,10 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                 </div>)}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} className="cancel-button">
+            <Button onClick={handleClose}  className="cancel-button">
               Cancel
             </Button>
-            <Button onClick={handleAddSubCategory} className="Save-button">
+            <Button onClick={handleAddSubCategory} disabled={isDisabled} className="Save-button">
               Save
             </Button>
           </DialogActions>
