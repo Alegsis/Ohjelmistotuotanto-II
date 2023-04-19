@@ -21,7 +21,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const handleClose = () => {
     setOpen(false);
     setCategory("");
-    setCategoryError('');
+    setCategoryError(false);
   };
 
   const [categoryError, setCategoryError] = useState(false);
@@ -39,6 +39,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
         setAddDashboardSuccess(true)
         setMessage('New category was added')
         setEffectOpen(true)
+        setCategoryError(false);
       }).catch(response => {
         alert(response.response.data)
       })
