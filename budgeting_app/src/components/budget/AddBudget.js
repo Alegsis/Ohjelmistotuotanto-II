@@ -19,14 +19,24 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
   const [toSubCategory, setToSubCategory] = useState('');
   const [subCategoryList, setSubCategoryList] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [fromSubEmptyError, setFromSubEmptyError] = useState(false);
+  const [toSubEmptyError, setToSubEmptyError] = useState(false);
+  const [amountEmptyError, setAmountEmptyError] = useState(false);
+
   const handleClickOpen = () => {
     setOpen(true);
+      setAmountEmptyError(false);
+      setToSubEmptyError(false);
+      setFromSubEmptyError(false);
   };
 
   const handleClose = () => {
     setOpen(false);
     setFromSubCategory('');
     setToSubCategory('');
+    setAmountEmptyError(false);
+    setToSubEmptyError(false);
+    setFromSubEmptyError(false);
   };
 
   const getUserSubcategories = () => {
@@ -59,30 +69,47 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
       setIsDisabled(false);
     }, 2000
     )
+      setFromSubEmptyError(false)
+      setToSubEmptyError(false)
     const userID = localStorage.getItem('UserID');
     const baseUrl = `http://localhost:3001/budget/new-budget`;
     const year = localStorage.getItem('Year')
     const month = localStorage.getItem('Month')
     const date = `${year}-${month}-01`
 
-    Axios.post(baseUrl,
-        {
-          Amount: amount,
-          BudgetDate: date,
-          FromSubCategory: fromSubCategory,
-          ToSubCategory: toSubCategory,
-          UserID: userID,
-        }).then(() => {
-        setOpen(false);
-        setFromSubCategory('');
-        setToSubCategory('');
-        setAmount(0.00);
-        setAddDashboardSuccess(true)
-        setMessage('Budget was made')
-        setEffectOpen(true)
-    }).catch(response => {
-      alert(response.response.data);
-    });
+      if(amount !== 0.00) {
+          Axios.post(baseUrl,
+              {
+                  Amount: amount,
+                  BudgetDate: date,
+                  FromSubCategory: fromSubCategory,
+                  ToSubCategory: toSubCategory,
+                  UserID: userID,
+              }).then(() => {
+              setOpen(false);
+              setFromSubCategory('');
+              setToSubCategory('');
+              setAmount(0.00);
+              setAddDashboardSuccess(true)
+              setMessage('Budget was made')
+              setEffectOpen(true)
+          }).catch(response => {
+              switch (response.response.data) {
+                  case "Something went wrong, please try again":
+                      setFromSubEmptyError(true);
+                      setToSubEmptyError(true);
+                      setAmountEmptyError(true);
+                      break;
+              }
+          });
+      } else {
+          if(toSubCategory == '') {
+              setToSubEmptyError(true)
+          } if (fromSubCategory == '') {
+              setFromSubEmptyError(true)
+          }
+          setAmountEmptyError(true)
+      }
   };
 
   return (
@@ -104,6 +131,7 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                     onChange={(event) => {
                       setFromSubCategory(event.target.value);
                     }}
+                    error={fromSubEmptyError}
                 >
                   {subCategoryList.filter(
                       subcategory => subcategory.name.toString() !==
@@ -126,6 +154,7 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                     onChange={(event) => {
                       setToSubCategory(event.target.value);
                     }}
+                    error={toSubEmptyError}
                 >
                   {subCategoryList.filter(
                       subcategory => subcategory.name.toString() !==
@@ -152,6 +181,12 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                 onChange={(event) => {
                   setAmount(parseFloat(event.target.value));
                 }}
+                error={amountEmptyError}
+                helperText={
+                    amountEmptyError
+                    ? "Amount can't be empty"
+                    : ""
+                }
             />
           </DialogContent>
           <DialogActions>
