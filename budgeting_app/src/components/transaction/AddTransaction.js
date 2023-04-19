@@ -6,7 +6,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import {Select, Switch, FormControlLabel,} from "@mui/material";
+import {Select, Switch, FormControlLabel} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Axios from "axios";
 import InputLabel from "@mui/material/InputLabel";
@@ -19,6 +19,7 @@ import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import {getPayeeList} from "./Payeelist";
 
 const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) => {
+  const [isDisabled, setIsDisabled] = useState(false);
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState(dayjs(Date.now()));
     const [transactionName, setTransactionName] = useState("");
@@ -96,7 +97,12 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
     };
 
     const addTransaction = () => {
-        const userID = localStorage.getItem("UserID");
+      setIsDisabled(true);
+      setTimeout(() => {
+            setIsDisabled(false);
+          }, 2000
+      )
+      const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
         setTransactionNameEmpty(false)
         setPayeeEmpty(false)
@@ -365,7 +371,7 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
                     <Button onClick={handleClose} className="cancel-button">
                         Cancel
                     </Button>
-                    <Button className="add-transaction" onClick={addTransaction}>
+                    <Button className="add-transaction" onClick={addTransaction} disabled={isDisabled}>
                         Add new Transaction
                     </Button>
                 </DialogActions>

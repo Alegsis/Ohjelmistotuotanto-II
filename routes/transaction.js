@@ -166,16 +166,23 @@ WHERE transaction.TransactionID = ${TransactionID};`
  */
 router.post('/delete-transaction', async (req, res) => {
   try {
-    const {TransactionID} = req.body;
+    const {TransactionID, SubCategoryName, AccountName, UserID, Amount} = req.body;
 
-    //const selectTransactionSQL = `SELECT transaction.`
+    const updateSubcategorySQL = `UPDATE subcategory SET subcategory.Balance = (subcategory.Balance + ${Amount}) 
+WHERE subcategory.SubCategoryName = '${SubCategoryName}' AND subcategory.categoryID IN 
+(SELECT category.categoryID FROM category WHERE category.UserID = '${UserID}')`
+    await pool.query(updateSubcategorySQL);
+
+    const updateAccountSQL = `UPDATE account SET account.Balance = (account.Balance + ${Amount}) 
+WHERE account.AccountName = '${AccountName}' AND account.UserID = '${UserID}'`
+    await pool.query(updateAccountSQL);
 
     const deleteTransactionSQL = `DELETE FROM transaction WHERE transaction.TransactionID = ${TransactionID}`
     await pool.query(deleteTransactionSQL);
 
     res.status(200).json('Transaction deleted successfully');
   } catch (error) {
-    res.status(400).send('Something went wrong, please try again');
+    res.status(400).send(error.message); //'Something went wrong, please try again'
   }
 });
 

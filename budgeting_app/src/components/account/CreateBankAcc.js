@@ -16,10 +16,11 @@ import {Box} from "@mui/material";
 import {useState} from "react";
 
 const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
-    const [open, setOpen] = useState(false);
-    const [accountType, setAccountType] = useState("");
-    const [accountName, setAccountName] = useState("");
-    const [accountBalance, setAccountBalance] = useState("");
+  const [open, setOpen] = useState(false);
+  const [accountType, setAccountType] = useState("");
+  const [accountName, setAccountName] = useState("");
+  const [accountBalance, setAccountBalance] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
     const [accountTypeEmpty, setAccountTypeEmpty] = useState(false);
 
     const handleClickOpen = () => {
@@ -36,6 +37,11 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
 
     const handleCreateAcc = () => {
         setAccountTypeEmpty(false)
+      setIsDisabled(true);
+      setTimeout(() => {
+            setIsDisabled(false);
+          }, 2000
+      )
         const baseUrl = "http://localhost:3001/account/new-account";
         //Pitää tarkastaa aikavyöhyke oikein
         const today = new Date().toISOString().slice(0, 10);
@@ -144,7 +150,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                     <Button onClick={handleClose} className="cancel-button">
                         Cancel
                     </Button>
-                    <Button onClick={handleCreateAcc} className="Save-button">
+                    <Button onClick={handleCreateAcc} disabled={isDisabled} className="Save-button">
                         Save
                     </Button>
                 </DialogActions>

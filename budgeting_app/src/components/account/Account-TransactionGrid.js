@@ -128,11 +128,11 @@ export const AccountTransactionGrid = ({AccountName, setEffectOpen, setMessage, 
         const UserID = localStorage.getItem('UserID')
         const AccountName = localStorage.getItem('AccountName')
         let Amount;
-        if(selectedData[0].Outflow > 0){
-            Amount = Math.abs(selectedData[0].Outflow) * -1
-        }
         if(selectedData[0].Inflow > 0){
-            Amount = selectedData[0].Inflow
+            Amount = Math.abs(selectedData[0].Inflow) * -1
+        }
+        if(selectedData[0].Outflow > 0){
+            Amount = selectedData[0].Outflow
         }
         console.log(Amount)
         if (window.confirm('Are you sure?')) {
