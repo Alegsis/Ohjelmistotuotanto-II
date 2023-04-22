@@ -252,26 +252,23 @@ export const getGridData = async () => {
 
                 //type 2 - Save by Date
                 case 2:
-                    const getBudgetedSumType2 = `http://localhost:3001/budget/user-${userID}/get-budgeted-sum-type-2/subcategory-${subCategoryName}`;
-                    const getBudgetedSumResultType2 = await Axios.get(getBudgetedSumType2);
-                    const BudgetedSumType2 = getBudgetedSumResultType2.data;
                     const currentDate = new Date().toISOString();
 
-                    if (BudgetedSumType2 >= goalAmount) {
+                    if (availableAmount >= goalAmount) {
                         //green
                         color = '#099300';
                         icon = <CheckCircleOutlineIcon style={{
                             fill: 'green', paddingBottom: "3px",
                             fontSize: "23px", marginLeft: "-2px", marginRight: "6px"
                         }}/>;
-                    } else if (goalDate >= currentDate && BudgetedSumType2 < goalAmount) {
+                    } else if (goalDate >= currentDate && availableAmount < goalAmount) {
                         //orange
                         color = '#fd8200';
                         icon = <ErrorOutlineIcon style={{
                             fill: 'orange', paddingBottom: "3px",
                             fontSize: "23px", marginLeft: "-2px", marginRight: "6px"
                         }}/>;
-                    } else if (goalDate < currentDate && BudgetedSumType2 < goalAmount) {
+                    } else if (goalDate < currentDate && availableAmount < goalAmount) {
                         //red
                         color = '#ca0000';
                         icon = <ErrorIcon style={{
