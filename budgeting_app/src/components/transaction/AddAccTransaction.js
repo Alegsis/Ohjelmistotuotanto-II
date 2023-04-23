@@ -80,10 +80,6 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
         setPayeeEmpty(false)
         setSubcategoryEmpty(false)
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
         if (transactionName !== "") {
@@ -108,10 +104,12 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
                         setAddAccTransactionSuccess(true)
                         setMessage('Transaction was made')
                         setEffectOpen(true)
+                        setIsDisabled(false);
                         setTransactionNameEmpty(false)
                         setPayeeEmpty(false)
                         setSubcategoryEmpty(false)
                     }).catch((response) => {
+                        setIsDisabled(false);
                         console.log({
                             TransactionName: transactionName,
                             Outflow: outflow,

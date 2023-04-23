@@ -20,6 +20,7 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
     const [balance, setBalance] = useState('');
     const [categoryList, setCategoryList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -52,6 +53,7 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
     };
 
     const handleEditCategory = () => {
+        setIsDisabled(true);
         const userID = localStorage.getItem('UserID');
         const postUrl = 'http://localhost:3001/category/update-category';
         Axios.post(postUrl, {
@@ -64,10 +66,12 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
             setCategory('');
             setBalance('');
             setSelectedCategory('');
-            setAddDashboardSuccess(true)
+            setAddDashboardSuccess(true);
+            setIsDisabled(false);
             setMessage('Category was edited')
             setEffectOpen(true)
         }).catch((response) => {
+            setIsDisabled(false);
             alert(response.response.data);
         });
     }
@@ -157,7 +161,7 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
                         <Button onClick={handleClose} className="cancel-button">
                             Cancel
                         </Button>
-                        <Button onClick={handleEditCategory}
+                        <Button onClick={handleEditCategory} disabled={isDisabled}
                                 className="Save-button">
                             Save changes
                         </Button>

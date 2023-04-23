@@ -30,7 +30,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     const [SubCategoryList, setSubCategoryList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
-
+    const [isDisabled, setIsDisabled] = useState(false);
     //budget goal variables
     const [showGoal, setShowGoal] = useState(false);
     const [budgetGoal, setBudgetGoal] = useState('0');
@@ -132,6 +132,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
     };
 
     const handleEditSubCategory = () => {
+        setIsDisabled(true);
         const userID = localStorage.getItem('UserID');
         const postUrl = 'http://localhost:3001/subcategory/update-subcategory';
         const getUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`;
@@ -156,10 +157,12 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                 setAddDashboardSuccess(true)
                 setMessage('Subcategory was edited')
                 setEffectOpen(true)
+                setIsDisabled(false);
                 setMessage('Edit subcategory was successful')
                 setEffectOpen(true)
             });
         }).catch((response) => {
+            setIsDisabled(false);
             alert(response.response.data);
         });
     };
@@ -426,7 +429,7 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
                         <Button onClick={handleClose} className="cancel-button">
                             Cancel
                         </Button>
-                        <Button onClick={handleEditSubCategory}
+                        <Button onClick={handleEditSubCategory} disabled={isDisabled}
                                 className="Save-button">
                             Save changes
                         </Button>

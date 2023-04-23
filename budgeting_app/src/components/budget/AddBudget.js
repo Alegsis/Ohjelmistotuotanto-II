@@ -65,10 +65,6 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
 
     const addBudget = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         setFromSubEmptyError(false)
         setToSubEmptyError(false)
         const userID = localStorage.getItem('UserID');
@@ -87,13 +83,15 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                     UserID: userID,
                 }).then(() => {
                 setOpen(false);
-                setFromSubCategory('');
+                    setFromSubCategory('');
+                    setIsDisabled(false);
                 setToSubCategory('');
                 setAmount(0.00);
                 setAddDashboardSuccess(true)
                 setMessage('Budget was made')
                 setEffectOpen(true)
-            }).catch(response => {
+                }).catch(response => {
+                    setIsDisabled(false);
                 switch (response.response.data) {
                     case "Something went wrong, please try again":
                         setFromSubEmptyError(true);

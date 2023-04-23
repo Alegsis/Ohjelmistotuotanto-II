@@ -13,7 +13,7 @@ import {useState} from "react";
 const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
     const [open, setOpen] = React.useState(false);
     const [category, setCategory] = React.useState("");
-
+    const [isDisabled, setIsDisabled] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -30,6 +30,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
     const [categoryAlreadyExistsError, setCategoryAlreadyExistsError] = useState(false);
 
     const handleAddCategory = () => {
+        setIsDisabled(true);
         const baseUrl = "http://localhost:3001/category/new-category";
         const userID = localStorage.getItem("UserID");
         if (category.length > 2) {
@@ -43,7 +44,9 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                 setMessage('New category was added')
                 setEffectOpen(true)
                 setCategoryError(false);
+                setIsDisabled(false);
             }).catch(response => {
+                setIsDisabled(false);
                 switch (response.response.data) {
                     case "Category already exists":
                         setCategoryError(false);
@@ -94,7 +97,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                     <Button onClick={handleClose} className="cancel-button">
                         Cancel
                     </Button>
-                    <Button type="submit" onClick={handleAddCategory} className="Save-button">
+                    <Button type="submit" onClick={handleAddCategory} disabled={isDisabled} className="Save-button">
                         Save
                     </Button>
                 </DialogActions>

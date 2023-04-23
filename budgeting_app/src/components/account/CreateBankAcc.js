@@ -38,9 +38,6 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
     const handleCreateAcc = () => {
         setAccountTypeEmpty(false)
         setIsDisabled(true);
-        setTimeout(() => {
-            setIsDisabled(false);
-        }, 2000)
         const baseUrl = "http://localhost:3001/account/new-account";
         //Pitää tarkastaa aikavyöhyke oikein
         const today = new Date().toISOString().slice(0, 10);
@@ -54,6 +51,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                 UserID: userID,
             }).then(() => {
                 setOpen(false);
+                setIsDisabled(true);
                 setAccountType("");
                 setAccountName("");
                 setAccountBalance("");
@@ -62,6 +60,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                 setEffectOpen(true)
                 setAccountTypeEmpty(false)
             }).catch(response => {
+              setIsDisabled(false);
                 alert(response.response.data)
             });
         } else {

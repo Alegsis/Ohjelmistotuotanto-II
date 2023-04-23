@@ -80,10 +80,6 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
 
     const handleAddSubCategory = async () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         try {
             const userID = localStorage.getItem('UserID');
             let isFound = false;
@@ -127,6 +123,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                     setOpen(false);
                     setShowGoal(false);
                     setSubCategory('');
+                    setIsDisabled(false);
                     setBalance(0);
                     setSelectedCategory('');
                     setAddDashboardSuccess(true)
@@ -139,6 +136,7 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                 alert('Category name and Sub Category name can not be the same');
             }
         } catch (response) {
+            setIsDisabled(false);
             alert(response.response.data);
         }
     };
