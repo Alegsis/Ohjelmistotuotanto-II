@@ -108,10 +108,12 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
                         setAddAccTransactionSuccess(true)
                         setMessage('Transaction was made')
                         setEffectOpen(true)
+                        setIsDisabled(false);
                         setTransactionNameEmpty(false)
                         setPayeeEmpty(false)
                         setSubcategoryEmpty(false)
                     }).catch((response) => {
+                        setIsDisabled(false);
                         console.log({
                             TransactionName: transactionName,
                             Outflow: outflow,

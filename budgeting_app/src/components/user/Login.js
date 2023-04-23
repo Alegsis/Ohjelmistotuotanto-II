@@ -27,6 +27,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
     const [userNotActiveError, setUserNotActiveError] = React.useState(false);
     const [passwordTouched, setPasswordTouched] = React.useState(false);
     const [passwordEmpty, setPasswordEmpty] = React.useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const handleClick = () => {
         setShowPassword(!showPassword);
@@ -62,6 +63,11 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
     * Tallentaa cacheen Username, UserID
     */
     const handleCloseAndLogin = () => {
+        setIsDisabled(true);
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
         const baseUrl = "http://localhost:3001/user/login"
         Axios.post(baseUrl, {
             username: username,
@@ -71,6 +77,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
             setUsername('');
             setPassword('');
             setLoggedIn(true)
+            setIsDisabled(false);
             setOpen(false);
             setUserNotFoundError(false);
             setUserNotActiveError(false);
@@ -82,6 +89,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
             setMessage(`Welcome ${username}`)
             setEffectOpen(true)
         })).catch((response) => {
+            setIsDisabled(false);
             switch (response.response.data) {
                 case "Wrong password":
                     setUserNotActiveError(false);
@@ -273,7 +281,7 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                 <DialogActions>
                     <Register setEffectOpen={setEffectOpen} setMessage={setMessage}></Register>
                     <Button onClick={handleClose} className="cancel-button">Cancel</Button>
-                    <Button onClick={handleCloseAndLogin} className="login-button">Log in</Button>
+                    <Button onClick={handleCloseAndLogin} disabled={isDisabled} className="login-button">Log in</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -21,7 +21,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [showPassword, setShowPassword] = useState(false);
     const [currentEmail, setCurrentEmail] = useState('');
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
-
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const [newEmail, setNewEmail] = useState("");
     const [emailError, setEmailError] = useState(false);
@@ -90,6 +90,11 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
 
 
     const handleChangePassword = () => {
+        setIsDisabled(true);
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
         const baseUrl = "http://localhost:3001/user/change-password";
         const userID = localStorage.getItem('UserID')
         if (password === rePassword && password !== oldPassword && 8 <= password.length) {
@@ -101,9 +106,11 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                 setRePassword('')
                 setOldPassword('')
                 setShowPassword(false)
+                setIsDisabled(false);
                 setMessage('Password change was successful')
                 setEffectOpen(true)
             }).catch(response => {
+                setIsDisabled(false);
                 alert(response.response.data)
             })
         } else {
@@ -113,6 +120,12 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
 
 
     const handleDelete = () => {
+        setIsDisabled(true);
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
+
         const baseUrl = "http://localhost:3001/user/delete-user";
         const userID = localStorage.getItem('UserID');
         const username = localStorage.getItem('Username');
@@ -124,17 +137,26 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                 userID: userID,
             }).then(() => {
                 handleLogout();
+                setIsDisabled(false);
                 alert("User Deleted");
                 setDeleteConfirmationOpen(false);
             }).catch((response) => {
+                setIsDisabled(false);
                 alert(response.response.data)
             })
         }).catch((response) => {
+            setIsDisabled(false);
             alert(response.response.data)
         })
     };
 
     const handleChangeEmail = () => {
+        setIsDisabled(true);
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
+
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
         if (validateEmail(newEmail)) {
@@ -144,9 +166,11 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                 setOpen(false)
                 setNewEmail('')
                 setShowPassword(false)
+                setIsDisabled(false);
                 setMessage('Email change was successful')
                 setEffectOpen(true)
             }).catch(response => {
+                setIsDisabled(false);
                 setEmailInUse(response.response.data)
             })
             //} else {
@@ -245,7 +269,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                             setRePassword(event.target.value)
                         }}
                     />
-                    <Button onClick={handleChangePassword} style={{float: "right"}}>Update Password</Button>
+                    <Button onClick={handleChangePassword} disabled={isDisabled} style={{float: "right"}}>Update Password</Button>
                     <hr style={{width: "100%", height: "2px"}}></hr>
                     <DialogContentText>
                         Here you can change your email
@@ -276,7 +300,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         variant="filled"
                         fullWidth
                         value={newEmail}
-                        onChange={handleEmailChange}
+                    onChange={handleEmailChange}
                         error={emailError || emailInUse}
                         helperText={emailError ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)" : emailInUse ? "Email already in use. Check your input." : ""}
                     />
@@ -286,7 +310,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         User</Button>
                     <div>
                         <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleChangeEmail}>Update Email</Button>
+                        <Button onClick={handleChangeEmail} disabled={isDisabled}>Update Email</Button>
                     </div>
                     <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
                         <DialogTitle>Delete User Account</DialogTitle>
@@ -320,7 +344,7 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
-                            <Button onClick={handleDelete} style={{color: "red"}}>Delete</Button>
+                            <Button onClick={handleDelete} disabled={isDisabled} style={{color: "red"}}>Delete</Button>
                         </DialogActions>
                     </Dialog>
                 </DialogActions>

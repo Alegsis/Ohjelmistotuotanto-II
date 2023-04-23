@@ -19,7 +19,8 @@ const Register = ({setEffectOpen, setMessage}) => {
     const [email, setEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [emailError, setEmailError] = useState(false);
-
+    const [isDisabled, setIsDisabled] = useState(false);
+    
     const handleChange = (event) => {
         const value = event.target.value;
         setEmail(value);
@@ -69,6 +70,11 @@ const Register = ({setEffectOpen, setMessage}) => {
     };
 
     const handleSignUp = () => {
+        setIsDisabled(true);
+        setTimeout(() => {
+                setIsDisabled(false);
+            }, 2000
+        )
         const baseUrl = "http://localhost:3001/user/register";
         if (validateEmail(email)) {
             if (password === rePassword && 8 <= password.length && 3 <= username.length) {
@@ -79,12 +85,14 @@ const Register = ({setEffectOpen, setMessage}) => {
                 }).then(() => {
                     setOpen(false);
                     setUsername('');
+                    setIsDisabled(false);
                     setPassword('');
                     setRePassword('');
                     setEmail('');
                     setMessage('Register was successful')
                     setEffectOpen(true)
                 }).catch(response => {
+                    setIsDisabled(false);
                     alert(response.response.data)
                 })
             } else {
@@ -191,7 +199,7 @@ const Register = ({setEffectOpen, setMessage}) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSignUp}>Sign up</Button>
+                    <Button onClick={handleSignUp} disabled={isDisabled}>Sign up</Button>
                 </DialogActions>
             </Dialog>
         </div>

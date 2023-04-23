@@ -54,6 +54,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                 UserID: userID,
             }).then(() => {
                 setOpen(false);
+                setIsDisabled(true);
                 setAccountType("");
                 setAccountName("");
                 setAccountBalance("");
@@ -62,6 +63,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                 setEffectOpen(true)
                 setAccountTypeEmpty(false)
             }).catch(response => {
+              setIsDisabled(false);
                 alert(response.response.data)
             });
         } else {

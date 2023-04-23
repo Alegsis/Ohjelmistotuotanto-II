@@ -136,7 +136,9 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
                             setPayeeEmpty(false)
                             setAccountEmpty(false)
                             setSubcategoryEmpty(false)
+                            setIsDisabled(false);
                         }).catch((response) => {
+                            setIsDisabled(false);
                             alert(response.response.data);
                             console.log({
                                 TransactionName: transactionName,
