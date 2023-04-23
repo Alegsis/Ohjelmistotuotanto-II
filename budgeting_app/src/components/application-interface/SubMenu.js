@@ -49,54 +49,54 @@ const DropdownLinkSubMenu = styled(Link)`
 `;
 
 const Submenu = ({item, createAccSuccess, addTransactionSuccess, addAccTransactionSuccess}) => {
-  const [subnav, setSubnav] = useState(false);
-  const showSubnav = () => setSubnav(!subnav);
+    const [subnav, setSubnav] = useState(false);
+    const showSubnav = () => setSubnav(!subnav);
 
     useEffect(() => {
         setSubnav(false)
-    },[createAccSuccess, addTransactionSuccess, addAccTransactionSuccess])
+    }, [createAccSuccess, addTransactionSuccess, addAccTransactionSuccess])
 
-  return (
-      <>
-        <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
-          <div>
-            {item.icon}
-            <SidebarLabel>{item.title}</SidebarLabel>
-          </div>
-          <div>
-            {item.subNavi && subnav
-                ? item.iconOpen
-                : item.subNavi
-                    ? item.iconClosed
-                    : null}
-          </div>
-        </SidebarLink>
-        {subnav &&
-        item.subNavi.map((subitem, index) => {
-          const isNegative = subitem.balance < 0;
-              return (
-                  <DropdownLinkSubMenu to={subitem.path} key={index}>
-                    <div className="sideBarAccountDetails">
-                      <div className="sideBarAccountName">
-                      {subitem.icon}
-                      <SidebarLabel>{subitem.title}</SidebarLabel>
-                    </div>
-                    <div className="sideBarAccountBalance">
-                      {subitem.balance && (
-                          <SidebarBalance negative={isNegative}>
-                            <div style={{display: 'flex'}}>
-                              {subitem.balance}
-                              <span style={{marginLeft: '5px'}}>€</span>
+    return (
+        <>
+            <SidebarLink to={item.path} onClick={item.subNavi && showSubnav}>
+                <div>
+                    {item.icon}
+                    <SidebarLabel>{item.title}</SidebarLabel>
+                </div>
+                <div>
+                    {item.subNavi && subnav
+                        ? item.iconOpen
+                        : item.subNavi
+                            ? item.iconClosed
+                            : null}
+                </div>
+            </SidebarLink>
+            {subnav &&
+                item.subNavi.map((subitem, index) => {
+                    const isNegative = subitem.balance < 0;
+                    return (
+                        <DropdownLinkSubMenu to={subitem.path} key={index}>
+                            <div className="sideBarAccountDetails">
+                                <div className="sideBarAccountName">
+                                    {subitem.icon}
+                                    <SidebarLabel>{subitem.title}</SidebarLabel>
+                                </div>
+                                <div className="sideBarAccountBalance">
+                                    {subitem.balance && (
+                                        <SidebarBalance negative={isNegative}>
+                                            <div style={{display: 'flex'}}>
+                                                {subitem.balance}
+                                                <span style={{marginLeft: '5px'}}>€</span>
+                                            </div>
+                                        </SidebarBalance>
+                                    )}
+                                </div>
                             </div>
-                          </SidebarBalance>
-                      )}
-                    </div>
-                    </div>
-                  </DropdownLinkSubMenu>
-              );
-            })}
-      </>
-  );
+                        </DropdownLinkSubMenu>
+                    );
+                })}
+        </>
+    );
 };
 
 export default Submenu;

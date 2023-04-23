@@ -126,12 +126,15 @@ const AddAccTransaction = ({setAddAccTransactionSuccess, setMessage, setEffectOp
                     });
                 } else {
                     setSubcategoryEmpty(true)
+                    setIsDisabled(false);
                 }
             } else {
                 setPayeeEmpty(true)
+                setIsDisabled(false);
             }
         } else {
             setTransactionNameEmpty(true)
+            setIsDisabled(false);
         }
     };
 

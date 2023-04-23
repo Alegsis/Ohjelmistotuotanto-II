@@ -55,6 +55,7 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                 }
             })
         } else {
+            setIsDisabled(false);
             setCategoryError(true)
         }
     };
