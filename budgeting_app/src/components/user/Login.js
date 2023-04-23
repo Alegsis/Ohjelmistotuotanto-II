@@ -11,7 +11,7 @@ import Axios from "axios";
 import {IconButton, InputAdornment, Select} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import MenuItem from "@mui/material/MenuItem";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import UserProfile from "./UserProfile";
 
 
@@ -21,7 +21,6 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
     const [password, setPassword] = React.useState('');
     const [show, setShow] = React.useState('Login');
     const [showPassword, setShowPassword] = React.useState(false);
-    const [noPassword, setNoPassword] = React.useState(false);
     const [userNotFoundError, setUserNotFoundError] = React.useState(false);
     const [passwordError, setPasswordError] = React.useState(false);
     const [userNotActiveError, setUserNotActiveError] = React.useState(false);
@@ -103,14 +102,6 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
                     setUserNotActiveError(true);
                     break;
             }
-            //if (alert(response.response.data) == "Wrong password") {
-            //    setPasswordError(true);
-            //} if (alert(response.response.data) == "User is not active") {
-            //    setUserNotActiveError(true);
-            //} if (alert(response.response.data) == "User not found, you must register first") {
-            //    setUserNotFoundError(true);
-            //}
-
         })
     };
 

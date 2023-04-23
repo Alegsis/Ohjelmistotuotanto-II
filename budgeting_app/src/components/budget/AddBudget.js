@@ -83,15 +83,15 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                     UserID: userID,
                 }).then(() => {
                 setOpen(false);
-                    setFromSubCategory('');
-                    setIsDisabled(false);
+                setFromSubCategory('');
+                setIsDisabled(false);
                 setToSubCategory('');
                 setAmount(0.00);
                 setAddDashboardSuccess(true)
                 setMessage('Budget was made')
                 setEffectOpen(true)
-                }).catch(response => {
-                    setIsDisabled(false);
+            }).catch(response => {
+                setIsDisabled(false);
                 switch (response.response.data) {
                     case "Something went wrong, please try again":
                         setFromSubEmptyError(true);
@@ -101,13 +101,16 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
                 }
             });
         } else {
-            if (toSubCategory == '') {
+            if (toSubCategory === '') {
                 setToSubEmptyError(true)
+                setIsDisabled(false);
             }
-            if (fromSubCategory == '') {
+            if (fromSubCategory === '') {
                 setFromSubEmptyError(true)
+                setIsDisabled(false);
             }
             setAmountEmptyError(true)
+            setIsDisabled(false);
         }
     };
 

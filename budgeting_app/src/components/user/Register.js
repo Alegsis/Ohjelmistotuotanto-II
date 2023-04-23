@@ -93,9 +93,11 @@ const Register = ({setEffectOpen, setMessage}) => {
                 })
             } else {
                 alert("Input of data doesn't meet requirements.")
+                setIsDisabled(false);
             }
         } else {
             alert('Email-address does not meet requirements.')
+            setIsDisabled(false);
         }
     };
 

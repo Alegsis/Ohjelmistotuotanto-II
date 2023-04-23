@@ -51,7 +51,7 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                 UserID: userID,
             }).then(() => {
                 setOpen(false);
-                setIsDisabled(true);
+                setIsDisabled(false);
                 setAccountType("");
                 setAccountName("");
                 setAccountBalance("");
@@ -60,95 +60,96 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
                 setEffectOpen(true)
                 setAccountTypeEmpty(false)
             }).catch(response => {
-              setIsDisabled(false);
+                setIsDisabled(false);
                 alert(response.response.data)
             });
         } else {
             setAccountTypeEmpty(true)
+            setIsDisabled(false);
         }
     };
 
     return (<div className="bank-button">
-            <Button id="bank-button-1" display="flex" justifycontent="space-between" onClick={handleClickOpen}>
-                <Box mr={1} sx={{paddingLeft: "0px", paddingRight: "1px"}}>
-                    <AddCircleOutline sx={{fontSize: "20px"}}/>
-                </Box>
-                <Box mr={1} sx={{fontSize: "17px", fontWeight: "400", textAlign: "right"}}>
-                    Add
-                </Box>
-                <Box mr={1} sx={{fontSize: "17px", fontWeight: "400", textAlign: "right"}}>
-                    Account
-                </Box>
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Create Bank Account</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To create a bank account you must add your account name, select the
-                        type of account you want to open and type in your balance for the
-                        account.
-                    </DialogContentText>
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="account-name"
-                        label="Account Name"
+        <Button id="bank-button-1" display="flex" justifycontent="space-between" onClick={handleClickOpen}>
+            <Box mr={1} sx={{paddingLeft: "0px", paddingRight: "1px"}}>
+                <AddCircleOutline sx={{fontSize: "20px"}}/>
+            </Box>
+            <Box mr={1} sx={{fontSize: "17px", fontWeight: "400", textAlign: "right"}}>
+                Add
+            </Box>
+            <Box mr={1} sx={{fontSize: "17px", fontWeight: "400", textAlign: "right"}}>
+                Account
+            </Box>
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Create Bank Account</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    To create a bank account you must add your account name, select the
+                    type of account you want to open and type in your balance for the
+                    account.
+                </DialogContentText>
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="account-name"
+                    label="Account Name"
+                    fullWidth
+                    inputProps={{maxLength: 20}}
+                    value={accountName}
+                    variant="filled"
+                    onChange={(event) => {
+                        setAccountName(event.target.value);
+                    }}
+                />
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="account-balance"
+                    label="Account Balance"
+                    type="number"
+                    fullWidth
+                    inputProps={{maxLength: 11}}
+                    value={accountBalance}
+                    variant="filled"
+                    onChange={(event) => {
+                        setAccountBalance(event.target.value);
+                    }}
+                />
+                <FormControl required margin="dense">
+                    <InputLabel id="account-type-label">Account Type</InputLabel>
+                    <Select
+                        style={{height: "50px", width: "200px"}}
+                        labelId="account-type-label"
+                        id="account-type"
                         fullWidth
-                        inputProps={{maxLength: 20}}
-                        value={accountName}
-                        variant="filled"
+                        value={accountType}
                         onChange={(event) => {
-                            setAccountName(event.target.value);
+                            setAccountType(event.target.value);
                         }}
-                    />
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="account-balance"
-                        label="Account Balance"
-                        type="number"
-                        fullWidth
-                        inputProps={{maxLength: 11}}
-                        value={accountBalance}
-                        variant="filled"
-                        onChange={(event) => {
-                            setAccountBalance(event.target.value);
-                        }}
-                    />
-                    <FormControl required margin="dense">
-                        <InputLabel id="account-type-label">Account Type</InputLabel>
-                        <Select
-                            style={{height: "50px", width: "200px"}}
-                            labelId="account-type-label"
-                            id="account-type"
-                            fullWidth
-                            value={accountType}
-                            onChange={(event) => {
-                                setAccountType(event.target.value);
-                            }}
-                            error={accountTypeEmpty}
-                            helperText={accountTypeEmpty ? "add AccountType" : ""}
-                        >
-                            <MenuItem value="Cash">Cash</MenuItem>
-                            <MenuItem value="Checking">Checking</MenuItem>
-                            <MenuItem value="Credit Card">Credit Card</MenuItem>
-                            <MenuItem value="Savings">Savings</MenuItem>
-                            <MenuItem value="Loan">Loan</MenuItem>
-                        </Select>
-                    </FormControl>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} className="cancel-button">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleCreateAcc} disabled={isDisabled} className="Save-button">
-                        Save
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>);
+                        error={accountTypeEmpty}
+                        helperText={accountTypeEmpty ? "add AccountType" : ""}
+                    >
+                        <MenuItem value="Cash">Cash</MenuItem>
+                        <MenuItem value="Checking">Checking</MenuItem>
+                        <MenuItem value="Credit Card">Credit Card</MenuItem>
+                        <MenuItem value="Savings">Savings</MenuItem>
+                        <MenuItem value="Loan">Loan</MenuItem>
+                    </Select>
+                </FormControl>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} className="cancel-button">
+                    Cancel
+                </Button>
+                <Button onClick={handleCreateAcc} disabled={isDisabled} className="Save-button">
+                    Save
+                </Button>
+            </DialogActions>
+        </Dialog>
+    </div>);
 }
 
 export default CreateBankAcc

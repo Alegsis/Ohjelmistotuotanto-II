@@ -151,15 +151,19 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
                         });
                     } else {
                         setSubcategoryEmpty(true)
+                        setIsDisabled(false);
                     }
                 } else {
                     setAccountEmpty(true)
+                    setIsDisabled(false);
                 }
             } else {
                 setPayeeEmpty(true)
+                setIsDisabled(false);
             }
         } else {
             setTransactionNameEmpty(true)
+            setIsDisabled(false);
         }
     };
 

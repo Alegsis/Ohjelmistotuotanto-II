@@ -11,8 +11,6 @@ import {IconButton, InputAdornment, MenuItem} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import Axios from "axios";
 
-
-
 const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [open, setOpen] = React.useState(false);
     const [oldPassword, setOldPassword] = useState('');
@@ -22,11 +20,9 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
     const [currentEmail, setCurrentEmail] = useState('');
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
-
     const [newEmail, setNewEmail] = useState("");
     const [emailError, setEmailError] = useState(false);
     const [emailInUse, setEmailInUse] = useState(false);
-
 
     const validateEmail = (email) => {
         // regular expression for email validation
@@ -88,7 +84,6 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         setDeleteConfirmationOpen(false);
     };
 
-
     const handleChangePassword = () => {
         setIsDisabled(true);
         const baseUrl = "http://localhost:3001/user/change-password";
@@ -114,14 +109,8 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
         }
     }
 
-
     const handleDelete = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
-
         const baseUrl = "http://localhost:3001/user/delete-user";
         const userID = localStorage.getItem('UserID');
         const username = localStorage.getItem('Username');
@@ -148,11 +137,6 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
 
     const handleChangeEmail = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
-
         const baseUrl = "http://localhost:3001/user/change-email";
         const userID = localStorage.getItem('UserID')
         if (validateEmail(newEmail)) {
@@ -185,167 +169,168 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
 
 
     return (<div className='secondary-button'>
-            <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>User Profile</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Here you can change your password
-                    </DialogContentText>
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="old-password"
-                        label="Old Password"
-                        type={showPassword ? 'text' : 'password'}
-                        inputProps={{maxLength: 30}}
-                        onKeyDown={(e) => {
-                            e.stopPropagation();
-                        }}
-                        variant="filled"
-                        fullWidth
-                        InputProps={{
-                            endAdornment: (<InputAdornment position="end">
-                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>),
-                        }}
-                        onChange={(event) => {
-                            setOldPassword(event.target.value)
-                        }}
-                    />
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="password-first"
-                        label="New Password"
-                        type={showPassword ? 'text' : 'password'}
-                        inputProps={{maxLength: 30}}
-                        onKeyDown={(e) => {
-                            e.stopPropagation();
-                        }}
-                        variant="filled"
-                        fullWidth
-                        InputProps={{
-                            endAdornment: (<InputAdornment position="end">
-                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>),
-                        }}
-                        onChange={(event) => {
-                            setPassword(event.target.value)
-                        }}
-                    />
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="password-again"
-                        label="New Password"
-                        type={showPassword ? 'text' : 'password'}
-                        inputProps={{maxLength: 30}}
-                        onKeyDown={(e) => {
-                            e.stopPropagation();
-                        }}
+        <MenuItem onClick={handleClickOpen}>Profile</MenuItem>
+        <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>User Profile</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Here you can change your password
+                </DialogContentText>
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="old-password"
+                    label="Old Password"
+                    type={showPassword ? 'text' : 'password'}
+                    inputProps={{maxLength: 30}}
+                    onKeyDown={(e) => {
+                        e.stopPropagation();
+                    }}
+                    variant="filled"
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (<InputAdornment position="end">
+                            <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                            </IconButton>
+                        </InputAdornment>),
+                    }}
+                    onChange={(event) => {
+                        setOldPassword(event.target.value)
+                    }}
+                />
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="password-first"
+                    label="New Password"
+                    type={showPassword ? 'text' : 'password'}
+                    inputProps={{maxLength: 30}}
+                    onKeyDown={(e) => {
+                        e.stopPropagation();
+                    }}
+                    variant="filled"
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (<InputAdornment position="end">
+                            <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                            </IconButton>
+                        </InputAdornment>),
+                    }}
+                    onChange={(event) => {
+                        setPassword(event.target.value)
+                    }}
+                />
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="password-again"
+                    label="New Password"
+                    type={showPassword ? 'text' : 'password'}
+                    inputProps={{maxLength: 30}}
+                    onKeyDown={(e) => {
+                        e.stopPropagation();
+                    }}
 
-                        variant="filled"
-                        fullWidth
-                        InputProps={{
-                            endAdornment: (<InputAdornment position="end">
+                    variant="filled"
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (<InputAdornment position="end">
+                            <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                            </IconButton>
+                        </InputAdornment>),
+                    }}
+                    onChange={(event) => {
+                        setRePassword(event.target.value)
+                    }}
+                />
+                <Button onClick={handleChangePassword} disabled={isDisabled} style={{float: "right"}}>Update
+                    Password</Button>
+                <hr style={{width: "100%", height: "2px"}}></hr>
+                <DialogContentText>
+                    Here you can change your email
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    disabled
+                    margin="dense"
+                    id="current-email"
+                    label={currentEmail}
+                    inputProps={{maxLength: 60}}
+                    onKeyDown={(e) => {
+                        e.stopPropagation();
+                    }}
+                    variant="filled"
+                    fullWidth
+                />
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="first-email"
+                    label="New email"
+                    inputProps={{maxLength: 60}}
+                    onKeyDown={(e) => {
+                        e.stopPropagation();
+                    }}
+                    variant="filled"
+                    fullWidth
+                    value={newEmail}
+                    onChange={handleEmailChange}
+                    error={emailError || emailInUse}
+                    helperText={emailError ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)" : emailInUse ? "Email already in use. Check your input." : ""}
+                />
+            </DialogContent>
+            <DialogActions style={{justifyContent: "space-between"}}>
+                <Button onClick={handleDeleteConfirmationOpen} style={{color: "red", backgroundColor: "#ffebee"}}>Delete
+                    User</Button>
+                <div>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleChangeEmail} disabled={isDisabled}>Update Email</Button>
+                </div>
+                <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
+                    <DialogTitle>Delete User Account</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            If you are sure you want to delete your account, enter your password and click the
+                            Delete button.
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="password"
+                            label="Password For Deletion"
+                            type={showPassword ? 'text' : 'password'}
+                            inputProps={{maxLength: 30}}
+                            onKeyDown={(e) => {
+                                e.stopPropagation();
+                            }}
+                            variant="filled"
+                            fullWidth
+                            InputProps={{
+                                endAdornment: (<InputAdornment position="end">
                                     <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
                                         {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>),
-                        }}
-                        onChange={(event) => {
-                            setRePassword(event.target.value)
-                        }}
-                    />
-                    <Button onClick={handleChangePassword} disabled={isDisabled} style={{float: "right"}}>Update Password</Button>
-                    <hr style={{width: "100%", height: "2px"}}></hr>
-                    <DialogContentText>
-                        Here you can change your email
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        disabled
-                        margin="dense"
-                        id="current-email"
-                        label={currentEmail}
-                        inputProps={{maxLength: 60}}
-                        onKeyDown={(e) => {
-                            e.stopPropagation();
-                        }}
-                        variant="filled"
-                        fullWidth
-                    />
-                    <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="first-email"
-                        label="New email"
-                        inputProps={{maxLength: 60}}
-                        onKeyDown={(e) => {
-                            e.stopPropagation();
-                        }}
-                        variant="filled"
-                        fullWidth
-                        value={newEmail}
-                    onChange={handleEmailChange}
-                        error={emailError || emailInUse}
-                        helperText={emailError ? "Please enter a valid email address with a valid top-level domain (e.g. .com, .org, .net)" : emailInUse ? "Email already in use. Check your input." : ""}
-                    />
-                </DialogContent>
-                <DialogActions style={{justifyContent: "space-between"}}>
-                    <Button onClick={handleDeleteConfirmationOpen} style={{color: "red", backgroundColor: "#ffebee"}}>Delete
-                        User</Button>
-                    <div>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleChangeEmail} disabled={isDisabled}>Update Email</Button>
-                    </div>
-                    <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
-                        <DialogTitle>Delete User Account</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                If you are sure you want to delete your account, enter your password and click the
-                                Delete button.
-                            </DialogContentText>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="password"
-                                label="Password For Deletion"
-                                type={showPassword ? 'text' : 'password'}
-                                inputProps={{maxLength: 30}}
-                                onKeyDown={(e) => {
-                                    e.stopPropagation();
-                                }}
-                                variant="filled"
-                                fullWidth
-                                InputProps={{
-                                    endAdornment: (<InputAdornment position="end">
-                                            <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
-                                                {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                            </IconButton>
-                                        </InputAdornment>),
-                                }}
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
-                            <Button onClick={handleDelete} disabled={isDisabled} style={{color: "red"}}>Delete</Button>
-                        </DialogActions>
-                    </Dialog>
-                </DialogActions>
-            </Dialog>
-        </div>);
+                            }}
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
+                        <Button onClick={handleDelete} disabled={isDisabled} style={{color: "red"}}>Delete</Button>
+                    </DialogActions>
+                </Dialog>
+            </DialogActions>
+        </Dialog>
+    </div>);
 }
 
 export default UserProfile;

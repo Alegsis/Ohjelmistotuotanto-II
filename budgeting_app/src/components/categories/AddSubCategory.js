@@ -131,9 +131,11 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
                     setEffectOpen(true)
                 } else {
                     alert('The subcategory name must be at least three characters long');
+                    setIsDisabled(false);
                 }
             } else {
                 alert('Category name and Sub Category name can not be the same');
+                setIsDisabled(false);
             }
         } catch (response) {
             setIsDisabled(false);

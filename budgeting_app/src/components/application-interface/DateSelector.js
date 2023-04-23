@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import {styled, TextFieldProps} from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -50,7 +50,7 @@ const CssTextField = styled(TextField)({
     },
 });
 
-const DateSelector = ({ setAddDashboardSuccess }) => {
+const DateSelector = ({setAddDashboardSuccess}) => {
     const [date, setDate] = useState(moment());
 
     useEffect(() => {
@@ -85,14 +85,14 @@ const DateSelector = ({ setAddDashboardSuccess }) => {
                 onChange={handleDateChange}
                 renderInput={(params: TextFieldProps) => (
                     <div className="dateSelector"
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            textColor: "white",
-                        }}
+                         style={{
+                             display: "flex",
+                             alignItems: "center",
+                             textColor: "white",
+                         }}
                     >
                         <IconButton size="medium" sx={{color: 'white'}} onClick={handlePrevMonthClick}>
-                            <KeyboardArrowLeftIcon />
+                            <KeyboardArrowLeftIcon/>
                         </IconButton>
                         <CssTextField
                             variant="outlined"
@@ -101,7 +101,7 @@ const DateSelector = ({ setAddDashboardSuccess }) => {
                             {...params}
                         />
                         <IconButton size="medium" sx={{color: 'white'}} onClick={handleNextMonthClick}>
-                            <KeyboardArrowRightIcon />
+                            <KeyboardArrowRightIcon/>
                         </IconButton>
                     </div>
                 )}

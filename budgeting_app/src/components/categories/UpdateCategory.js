@@ -17,7 +17,6 @@ import EditIcon from '@mui/icons-material/Edit';
 const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => {
     const [open, setOpen] = useState(false);
     const [Category, setCategory] = useState('');
-    const [balance, setBalance] = useState('');
     const [categoryList, setCategoryList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
@@ -29,7 +28,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
     const handleClose = () => {
         setOpen(false);
         setCategory('');
-        setBalance('');
         setSelectedCategory('');
     };
 
@@ -42,7 +40,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
         }).then(() => {
             setOpen(false);
             setCategory('');
-            setBalance('');
             setSelectedCategory('');
             setAddDashboardSuccess(true)
             setMessage('Category was deleted')
@@ -64,7 +61,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
             alert('Edit successful');
             setOpen(false);
             setCategory('');
-            setBalance('');
             setSelectedCategory('');
             setAddDashboardSuccess(true);
             setIsDisabled(false);
