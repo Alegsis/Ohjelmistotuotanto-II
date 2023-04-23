@@ -54,10 +54,6 @@ const UpdateCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) => 
 
     const handleEditCategory = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         const userID = localStorage.getItem('UserID');
         const postUrl = 'http://localhost:3001/category/update-category';
         Axios.post(postUrl, {

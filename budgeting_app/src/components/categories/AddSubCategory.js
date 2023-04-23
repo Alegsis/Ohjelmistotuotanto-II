@@ -80,10 +80,6 @@ const AddSubCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => 
 
     const handleAddSubCategory = async () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         try {
             const userID = localStorage.getItem('UserID');
             let isFound = false;

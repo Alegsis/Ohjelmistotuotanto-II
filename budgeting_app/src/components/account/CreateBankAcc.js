@@ -38,9 +38,6 @@ const CreateBankAcc = ({setCreateAccSuccess, setMessage, setEffectOpen}) => {
     const handleCreateAcc = () => {
         setAccountTypeEmpty(false)
         setIsDisabled(true);
-        setTimeout(() => {
-            setIsDisabled(false);
-        }, 2000)
         const baseUrl = "http://localhost:3001/account/new-account";
         //Pitää tarkastaa aikavyöhyke oikein
         const today = new Date().toISOString().slice(0, 10);

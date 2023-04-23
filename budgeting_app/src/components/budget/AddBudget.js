@@ -65,10 +65,6 @@ const AddBudget = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
 
     const addBudget = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         setFromSubEmptyError(false)
         setToSubEmptyError(false)
         const userID = localStorage.getItem('UserID');

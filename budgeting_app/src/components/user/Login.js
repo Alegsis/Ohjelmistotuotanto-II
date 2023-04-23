@@ -64,10 +64,6 @@ const Login = ({loggedIn, setLoggedIn, setIsSidebarOpen, setEffectOpen, setMessa
     */
     const handleCloseAndLogin = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         const baseUrl = "http://localhost:3001/user/login"
         Axios.post(baseUrl, {
             username: username,

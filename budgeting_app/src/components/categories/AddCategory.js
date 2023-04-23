@@ -31,10 +31,6 @@ const AddCategory = ({setAddDashboardSuccess, setEffectOpen, setMessage}) => {
 
     const handleAddCategory = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         const baseUrl = "http://localhost:3001/category/new-category";
         const userID = localStorage.getItem("UserID");
         if (category.length > 2) {

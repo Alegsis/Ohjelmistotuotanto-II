@@ -98,10 +98,6 @@ const AddTransaction = ({setaddTransactionSuccess, setMessage, setEffectOpen}) =
 
     const addTransaction = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         const userID = localStorage.getItem("UserID");
         const baseUrl = `http://localhost:3001/transaction/new-transaction`;
         setTransactionNameEmpty(false)

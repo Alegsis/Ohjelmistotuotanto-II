@@ -91,10 +91,6 @@ const UserProfile = ({setEffectOpen, setMessage, handleLogout}) => {
 
     const handleChangePassword = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
         const baseUrl = "http://localhost:3001/user/change-password";
         const userID = localStorage.getItem('UserID')
         if (password === rePassword && password !== oldPassword && 8 <= password.length) {

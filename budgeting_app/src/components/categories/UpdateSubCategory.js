@@ -133,11 +133,6 @@ const UpdateSubCategory = ({setAddDashboardSuccess, setMessage, setEffectOpen}) 
 
     const handleEditSubCategory = () => {
         setIsDisabled(true);
-        setTimeout(() => {
-                setIsDisabled(false);
-            }, 2000
-        )
-
         const userID = localStorage.getItem('UserID');
         const postUrl = 'http://localhost:3001/subcategory/update-subcategory';
         const getUrl = `http://localhost:3001/subcategory/user-${userID}/get-subcategory-details/subCategoryName-${selectedSubCategory}`;
