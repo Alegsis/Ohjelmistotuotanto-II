@@ -21,11 +21,7 @@ DB_NAME=budgetdatabase
 
 3. Luo tietokanta esim. HeidiSQL:ssä mukana tulevalla create database -skriptillä
 
-4. Täydennä database Fill Database -tiedoston skriptillä
-
-5. ala devata
-
-6. Jos haluat yhdistää frontin ja pyörittää sitä backin päällä:
+4. Jos haluat yhdistää frontin ja pyörittää sitä backin päällä:
     - mene budgeting_app -kansioon
     - suorita npm run build
     - kopioi build-kansio projektin pääkansioon
