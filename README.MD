@@ -1,3 +1,5 @@
+https://youtu.be/oXErNw9Gw3s
+
 ASENNUS:
 
 ESIVALMISTELUT:
