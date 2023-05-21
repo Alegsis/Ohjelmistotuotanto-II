@@ -1,3 +1,6 @@
+[![Budjetointisovellus demo](https://img.youtube.com/vi/taYCndNqTks/maxresdefault.jpg)](https://youtu.be/taYCndNqTks)
+link: https://youtu.be/taYCndNqTks
+
 ASENNUS:
 
 ESIVALMISTELUT:
